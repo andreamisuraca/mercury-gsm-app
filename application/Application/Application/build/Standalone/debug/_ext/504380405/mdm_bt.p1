@@ -7542,7 +7542,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;mdm_gsm_gprs.h: 117: RingStsType Mdm_IsRinging (void);
 [; ;mdm_gsm_gprs.h: 121: void Mdm_SetSmsFormat (UINT8 TextFormat);
 [; ;mdm_gsm_gprs.h: 123: void Mdm_RequestSmsData (void);
-[; ;mdm_gsm_gprs.h: 125: GetSmsStatusType Mdm_GetSmsData (UINT8 *MessageText);
+[; ;mdm_gsm_gprs.h: 125: GetSmsStatusType Mdm_GetSmsData (UINT8 *MessageText, UINT8 *MessageHeader);
 [; ;mdm_gsm_gprs.h: 127: void Mdm_SendSmsData (UINT8 *PhoneNmb, UINT8 PhoneNmbLen, UINT8 *MsgTxt, UINT8 MsgTxtLen);
 [; ;mdm_gsm_gprs.h: 129: SmsRxStsType Mdm_IsSmsReceived (void);
 [; ;usb_common.h: 133: typedef union

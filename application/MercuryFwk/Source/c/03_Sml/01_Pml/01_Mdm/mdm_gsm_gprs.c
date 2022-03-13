@@ -583,7 +583,7 @@ void GetSmsSm (void)
 
          case GetSms_SendAtCmd:
             /* Send SMS read AT cmd */
-            Uart_WriteConstString(1,"AT+CMGR=1\r");
+            Uart_WriteConstString(1,"AT+CMGR=1\r\n");
             /* Swithc state */
             GetSmsState = GetSms_StoreHeader;              
             break;
@@ -592,9 +592,10 @@ void GetSmsSm (void)
             /* If a new string is received on Mdm UART */
             if (ReceiveEvt(&NewStringReceived))
             {
-               if (RxBuffer[0] != 0)
+               if ((RxBuffer[0] == '+') && (RxBuffer[1] == 'C') && (RxBuffer[2] == 'M'))
                {
                   /* Copy Header */
+                  ClearBuffer(Mdm_SmsRx.HeaderBuffer, sizeof(Mdm_SmsRx.HeaderBuffer));
                   StringCopy(RxBuffer,Mdm_SmsRx.HeaderBuffer,RxLen);
                   /* Update Header Length */
                   Mdm_SmsRx.HeadLen = RxLen;
@@ -609,6 +610,7 @@ void GetSmsSm (void)
             if (ReceiveEvt(&NewStringReceived))
             {
                /* Copy Text */
+               ClearBuffer(Mdm_SmsRx.MessageBuffer, sizeof(Mdm_SmsRx.MessageBuffer));
                StringCopy(RxBuffer,Mdm_SmsRx.MessageBuffer,RxLen);
                /* Update Text Length */
                Mdm_SmsRx.TextLen = RxLen;               
@@ -862,14 +864,14 @@ void Mdm_RequestSmsData (void)
 
 /************************************************************************
 * Function:     Mdm_GetSmsData
-* Input:        UINT8 *MessageText
+* Input:        UINT8 *MessageText, UINT8 *MessageHeader
 * Output:       GetSmsStatusType 
 * Author:       F.Ficili
 * Description:  API to get the SMS data to the modem. The data must be 
 *               requested before using the Mdm_GetSmsData API.
 * Date:         25/09/16
 ************************************************************************/
-GetSmsStatusType Mdm_GetSmsData (UINT8 *MessageText)
+GetSmsStatusType Mdm_GetSmsData (UINT8 *MessageText, UINT8 *MessageHeader)
 {
    GetSmsStatusType GetSmsStatus = SmsDataNotReady;
    
@@ -877,7 +879,9 @@ GetSmsStatusType Mdm_GetSmsData (UINT8 *MessageText)
    if (ReceiveEvt(&SmsTxtReady))
    {
       /* ...Copy text data */
-      StringCopy(Mdm_SmsRx.MessageBuffer,MessageText,Mdm_SmsRx.TextLen);
+      StringCopy(Mdm_SmsRx.MessageBuffer,MessageText,Mdm_SmsRx.TextLen + 1);
+      StringCopy(Mdm_SmsRx.HeaderBuffer + 21, MessageHeader,14);
+      MessageHeader[13] = '\0';
       /* Update status */
       GetSmsStatus = SmsDataReady;
    }

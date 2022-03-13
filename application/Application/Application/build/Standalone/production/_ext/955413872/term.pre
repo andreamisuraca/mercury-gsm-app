@@ -10144,7 +10144,7 @@ void Mdm_SetSmsFormat (UINT8 TextFormat);
 
 void Mdm_RequestSmsData (void);
 
-GetSmsStatusType Mdm_GetSmsData (UINT8 *MessageText);
+GetSmsStatusType Mdm_GetSmsData (UINT8 *MessageText, UINT8 *MessageHeader);
 
 void Mdm_SendSmsData (UINT8 *PhoneNmb, UINT8 PhoneNmbLen, UINT8 *MsgTxt, UINT8 MsgTxtLen);
 
@@ -11666,7 +11666,7 @@ if((cdc_trf_state == 0))
 
 memset(Data,0,50);
 
-sprintf(Data,"Build Date: %s\r\n","Mar 12 2022");
+sprintf(Data,"Build Date: %s\r\n","Mar 13 2022");
 
 putUSBUSART((void*)Data,strlen(Data));
 

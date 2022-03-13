@@ -10144,7 +10144,7 @@ void Mdm_SetSmsFormat (UINT8 TextFormat);
 
 void Mdm_RequestSmsData (void);
 
-GetSmsStatusType Mdm_GetSmsData (UINT8 *MessageText);
+GetSmsStatusType Mdm_GetSmsData (UINT8 *MessageText, UINT8 *MessageHeader);
 
 void Mdm_SendSmsData (UINT8 *PhoneNmb, UINT8 PhoneNmbLen, UINT8 *MsgTxt, UINT8 MsgTxtLen);
 
@@ -11251,18 +11251,33 @@ return isExpired;
 bool initGprsModem()
 {
 static uint16_t modemCounter = 0;
-static bool isInitialized = 0u;
+static bool isInitialized = 0;
+static uint8_t initMdm = 0;
+
+switch(initMdm)
+{
+case 0:
 if (MdmStatus == ModemConfigured || MdmStatus == ModemOn)
 {
 if (secondsAppTimer(5, &modemCounter, 0))
 {
-
-
 Mdm_SetSmsFormat(1);
 Led_SetLedStatus(1u, LED_STS_ON);
+initMdm = 1;
+}
+}
+break;
+case 1:
+Uart_WriteConstString(1,"AT+CMGDA=DEL ALL\r\n");
+Led_SetLedStatus(1u, LED_STS_ON);
 isInitialized = 1;
+initMdm = 2;
+break;
+
+default:
+break;
 }
-}
+
 return isInitialized;
 }
 
@@ -11278,7 +11293,7 @@ Led_SetLedStatus(1u, LED_STS_BLINK);
 }
 }
 
-# 150
+# 165
 void MyApp_Task (UINT8 Options)
 {
 static uint8_t countRelay1 = 1;
@@ -11292,12 +11307,14 @@ uint8_t on[2] = {((UINT8)(0x50)), 0x1};
 
 UINT8 I2cTxBufferTest[] = {0x00, 0x00};
 static UINT8 I2cStsReady = 0u;
-UINT8 phone[] = {'3', '2', '0', '0', '2', '7', '6', '3', '1', '8'};
+UINT8 phone[] = {'+', '3', '9', '3', '2', '0', '0', '2', '7', '6', '3', '1', '8'};
 
 static uint16_t blickTicks = 0xFFFF;
 static uint8_t blinkSeconds = 0;
 
 uint8_t smsText[((UINT8)(50))];
+uint8_t smsNumber[14];
+uint8_t cmpString[] = {'c', 'a', 't'};
 
 switch (SystemState)
 {
@@ -11319,10 +11336,23 @@ blinkSeconds = 5;
 }
 if (Mdm_IsSmsReceived())
 {
+Mdm_RequestSmsData();
+}
+if (Mdm_GetSmsData(smsText, smsNumber) == SmsDataReady)
+{
 blickTicks = 0;
 blinkSeconds = 3;
-Mdm_RequestSmsData();
-Mdm_GetSmsData(smsText);
+Uart_WriteConstString(1,"AT+CMGD=1,0\r\n");
+
+if (StringCompare(smsNumber, phone, 14))
+{
+if (StringCompare(smsText, cmpString, sizeof(cmpString)))
+{
+blinkSeconds = 6;
+}
+}
+ClearBuffer(smsText, sizeof(smsText));
+ClearBuffer(smsNumber, 14);
 }
 blinkForSeconds(blinkSeconds, &blickTicks);
 }

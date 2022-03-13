@@ -109,15 +109,31 @@ bool secondsAppTimer(uint8_t seconds, uint16_t* counter, bool isCyclic)
 bool initGprsModem()
 {
     static uint16_t modemCounter = 0;
-    static bool isInitialized = STD_NOT_OK;
+    static bool isInitialized = false;
+    static uint8_t initMdm = 0;
+    
+    switch(initMdm)
+    {
+        case 0:
     if (MdmStatus == ModemConfigured || MdmStatus == ModemOn)
     {
         if (secondsAppTimer(5, &modemCounter, false))
         {
             Mdm_SetSmsFormat(1);
             Led_SetLedStatus(LED_1, LED_STS_ON);
+                    initMdm = 1;
+                }
+            }
+            break;
+        case 1:
+            Uart_WriteConstString(1,"AT+CMGDA=DEL ALL\r\n");
+            Led_SetLedStatus(LED_1, LED_STS_ON);
             isInitialized = true;
-        }
+            initMdm = 2;
+            break;
+            
+        default:
+            break;
     }
     return isInitialized;
 }
@@ -155,14 +171,16 @@ void MyApp_Task (UINT8 Options)
     uint8_t off[2] = {SB01_SET_RELAY_STS, 0x00};
     uint8_t on[2] = {SB01_SET_RELAY_STS, 0x1};
     
-
     UINT8 I2cTxBufferTest[] = {0x00, 0x00};
     static UINT8 I2cStsReady = STD_FALSE;
+    UINT8 phone[] = {'+', '3', '9', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '\0'};
 
     static uint16_t blickTicks = 0xFFFF;
     static uint8_t blinkSeconds = 0;
 
     uint8_t smsText[MESSAGE_BUFF_LEN];
+    uint8_t smsNumber[14];
+    uint8_t cmpString[] = {'c', 'a', 't'};
 
     switch (SystemState)
     {
@@ -184,10 +202,23 @@ void MyApp_Task (UINT8 Options)
              }
                 if (Mdm_IsSmsReceived())
                 {
+                    Mdm_RequestSmsData();
+                }
+                if (Mdm_GetSmsData(smsText, smsNumber) == SmsDataReady)
+                {
                     blickTicks = 0;
                     blinkSeconds = 3;
-                    Mdm_RequestSmsData();
-                    Mdm_GetSmsData(smsText);
+                    Uart_WriteConstString(1,"AT+CMGD=1,0\r\n");
+                    
+                    if (StringCompare(smsNumber, phone, 14))
+                    {
+                        if (StringCompare(smsText, cmpString, sizeof(cmpString)))
+                        {
+                            blinkSeconds = 6;
+                        }
+                    }
+                    ClearBuffer(smsText, sizeof(smsText));
+                    ClearBuffer(smsNumber, 14);
                 }
                 blinkForSeconds(blinkSeconds, &blickTicks);
             }

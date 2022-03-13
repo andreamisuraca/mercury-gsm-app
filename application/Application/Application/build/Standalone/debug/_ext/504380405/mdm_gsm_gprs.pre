@@ -11195,7 +11195,7 @@ void Mdm_SetSmsFormat (UINT8 TextFormat);
 
 void Mdm_RequestSmsData (void);
 
-GetSmsStatusType Mdm_GetSmsData (UINT8 *MessageText);
+GetSmsStatusType Mdm_GetSmsData (UINT8 *MessageText, UINT8 *MessageHeader);
 
 void Mdm_SendSmsData (UINT8 *PhoneNmb, UINT8 PhoneNmbLen, UINT8 *MsgTxt, UINT8 MsgTxtLen);
 
@@ -11643,7 +11643,7 @@ break;
 
 case GetSms_SendAtCmd:
 
-Uart_WriteConstString(1,"AT+CMGR=1\r");
+Uart_WriteConstString(1,"AT+CMGR=1\r\n");
 
 GetSmsState = GetSms_StoreHeader;
 break;
@@ -11652,9 +11652,10 @@ case GetSms_StoreHeader:
 
 if (ReceiveEvt(&NewStringReceived))
 {
-if (RxBuffer[0] != 0)
+if ((RxBuffer[0] == '+') && (RxBuffer[1] == 'C') && (RxBuffer[2] == 'M'))
 {
 
+ClearBuffer(Mdm_SmsRx.HeaderBuffer, sizeof(Mdm_SmsRx.HeaderBuffer));
 StringCopy(RxBuffer,Mdm_SmsRx.HeaderBuffer,RxLen);
 
 Mdm_SmsRx.HeadLen = RxLen;
@@ -11669,6 +11670,7 @@ case GetSms_StoreText:
 if (ReceiveEvt(&NewStringReceived))
 {
 
+ClearBuffer(Mdm_SmsRx.MessageBuffer, sizeof(Mdm_SmsRx.MessageBuffer));
 StringCopy(RxBuffer,Mdm_SmsRx.MessageBuffer,RxLen);
 
 Mdm_SmsRx.TextLen = RxLen;
@@ -11685,7 +11687,7 @@ break;
 }
 }
 
-# 636
+# 638
 void SendSmsSm (void)
 {
 static SendSms_StateType SendSms_State = SendSms_WaitEvt;
@@ -11772,7 +11774,7 @@ break;
 }
 }
 
-# 734
+# 736
 void Mdm_MainTask (UINT8 Options)
 {
 switch (SystemState)
@@ -11811,7 +11813,7 @@ break;
 }
 }
 
-# 780
+# 782
 void Mdm_PinUnlock (const UINT8 *PIN)
 {
 UINT8 UartMessage[((UINT8)(13))];
@@ -11841,7 +11843,7 @@ UartMessage[Index + 9] = (0);
 Uart_WriteString(1, UartMessage);
 }
 
-# 817
+# 819
 void Mdm_SetSmsFormat (UINT8 TextFormat)
 {
 UINT8 UartMessage[20];
@@ -11874,15 +11876,15 @@ UartMessage[10] = (0);
 Uart_WriteString(1, UartMessage);
 }
 
-# 857
+# 859
 void Mdm_RequestSmsData (void)
 {
 
 GenerateEvt(&GetSmsText);
 }
 
-# 872
-GetSmsStatusType Mdm_GetSmsData (UINT8 *MessageText)
+# 874
+GetSmsStatusType Mdm_GetSmsData (UINT8 *MessageText, UINT8 *MessageHeader)
 {
 GetSmsStatusType GetSmsStatus = SmsDataNotReady;
 
@@ -11890,7 +11892,9 @@ GetSmsStatusType GetSmsStatus = SmsDataNotReady;
 if (ReceiveEvt(&SmsTxtReady))
 {
 
-StringCopy(Mdm_SmsRx.MessageBuffer,MessageText,Mdm_SmsRx.TextLen);
+StringCopy(Mdm_SmsRx.MessageBuffer,MessageText,Mdm_SmsRx.TextLen + 1);
+StringCopy(Mdm_SmsRx.HeaderBuffer + 21, MessageHeader,14);
+MessageHeader[13] = '\0';
 
 GetSmsStatus = SmsDataReady;
 }
@@ -11899,7 +11903,7 @@ GetSmsStatus = SmsDataReady;
 return GetSmsStatus;
 }
 
-# 900
+# 904
 void Mdm_SendSmsData (UINT8 *PhoneNmb, UINT8 PhoneNmbLen, UINT8 *MsgTxt, UINT8 MsgTxtLen)
 {
 
@@ -11912,7 +11916,7 @@ SmsLen = MsgTxtLen;
 GenerateEvt(&SendSmsEvent);
 }
 
-# 920
+# 924
 SmsRxStsType Mdm_IsSmsReceived (void)
 {
 SmsRxStsType Ret = SmsNotReceived;
@@ -11926,7 +11930,7 @@ Ret = SmsReceived;
 return Ret;
 }
 
-# 942
+# 946
 void Mdm_MakePhoneCall (UINT8 *PhoneNumb, UINT8 PhoneNumbLen)
 {
 UINT8 UartMessage[((UINT8)(25))];
@@ -11952,21 +11956,21 @@ UartMessage[Index + 5] = (0);
 Uart_WriteString(1, UartMessage);
 }
 
-# 975
+# 979
 void Mdm_HangPhoneCall (void)
 {
 
 Uart_WriteConstString(1, "ATH\r");
 }
 
-# 989
+# 993
 void Mdm_GetPhoneCall (void)
 {
 
 Uart_WriteConstString(1, "ATA\r");
 }
 
-# 1003
+# 1007
 RingStsType Mdm_IsRinging (void)
 {
 RingStsType Ret = PhoneNotRinging;

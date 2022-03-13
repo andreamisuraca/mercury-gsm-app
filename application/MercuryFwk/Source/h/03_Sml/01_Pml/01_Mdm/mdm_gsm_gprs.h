@@ -122,7 +122,7 @@ void Mdm_SetSmsFormat (UINT8 TextFormat);
 /* API to request the SMS data to the modem */
 void Mdm_RequestSmsData (void);
 /* API to get the SMS data from the modem */
-GetSmsStatusType Mdm_GetSmsData (UINT8 *MessageText);
+GetSmsStatusType Mdm_GetSmsData (UINT8 *MessageText, UINT8 *MessageHeader);
 /* API to send an SMS */
 void Mdm_SendSmsData (UINT8 *PhoneNmb, UINT8 PhoneNmbLen, UINT8 *MsgTxt, UINT8 MsgTxtLen);
 /* API to check if an SMS has been received */

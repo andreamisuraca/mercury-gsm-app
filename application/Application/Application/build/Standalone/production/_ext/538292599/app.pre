@@ -11222,7 +11222,62 @@ res = I2cSlv_SendI2cMsg(txBuffer, realyId, 2);
 return res;
 }
 
-# 95
+
+
+bool secondsAppTimer(uint8_t seconds, uint16_t* counter, bool isCyclic)
+{
+bool isExpired = 1;
+uint16_t destinationTicks = (uint16_t) (seconds * 1000) / ((UINT16)(100));
+
+if (*counter < destinationTicks)
+{
+*counter += 1;
+isExpired = 0;
+}
+if (*counter == destinationTicks)
+{
+if (isCyclic)
+{
+*counter = 0;
+}
+else
+{
+*counter += 1;
+}
+}
+return isExpired;
+}
+
+bool initGprsModem()
+{
+static uint16_t modemCounter = 0;
+static bool isInitialized = 0u;
+if (MdmStatus == ModemConfigured || MdmStatus == ModemOn)
+{
+if (secondsAppTimer(5, &modemCounter, 0))
+{
+
+Uart_WriteConstString(1, "AT\r\n");
+Led_SetLedStatus(1u, LED_STS_ON);
+isInitialized = 1;
+}
+}
+return isInitialized;
+}
+
+void blinkForSeconds(uint8_t seconds, uint16_t* blickTicks)
+{
+if (secondsAppTimer(seconds, blickTicks, 0))
+{
+Led_SetLedStatus(1u, LED_STS_ON);
+}
+else
+{
+Led_SetLedStatus(1u, LED_STS_BLINK);
+}
+}
+
+# 149
 void MyApp_Task (UINT8 Options)
 {
 static uint8_t countRelay1 = 1;
@@ -11238,52 +11293,27 @@ UINT8 I2cTxBufferTest[] = {0x00, 0x00};
 static UINT8 I2cStsReady = 0u;
 UINT8 phone[] = {'3', '2', '0', '0', '2', '7', '6', '3', '1', '8'};
 
+static uint16_t blickTicks = 0xFFFF;
+
 switch (SystemState)
 {
 
 case InitializationState:
 
 Led_SetLedBlinkTime(1u,100,900);
-Led_SetLedStatus(1u, LED_STS_BLINK);
 break;
 
 
 case RunningState:
-
-
-if (I2cStsReady == 0)
+if (initGprsModem())
 {
 
-
-
-I2cStsReady = 1;
-
-
-}
-
-# 147
-else if (Mdm_IsRinging() == PhoneRinging)
+if (Mdm_IsRinging())
 {
-if (isRelay2On)
-{
-I2cSlv_SendI2cMsg(on, 2, 2);
-isRelay2On = 0;
+blickTicks = 0;
 }
-else
-{
-I2cSlv_SendI2cMsg(off, 2, 2);
-isRelay2On = 1;
+blinkForSeconds(5, &blickTicks);
 }
-}
-
-# 166
-if (Mdm_IsRinging() == PhoneRinging)
-{
-isRelay1On = !isRelay1On;
-triggerRelay(1, isRelay1On);
-}
-
-# 199
 break;
 
 

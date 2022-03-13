@@ -3,19 +3,26 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v F8056 `(v ~T0 @X0 0 tf ]
 "88 ../../MercuryFwk/Source/h/03_Sml/01_Pml/02_SlvI2c/i2c_slv.h
 [v _I2cSlv_SendI2cMsg `(uc ~T0 @X0 0 ef3`*uc`uc`uc ]
-"104 ../../MercuryFwk/Source/h/03_Sml/02_Ssl/led.h
-[v _Led_SetLedBlinkTime `(v ~T0 @X0 0 ef3`uc`us`us ]
-"116 ../Source/c/04_App/app.c
+"113 ../Source/c/04_App/app.c
+[c E8188 0 1 2 3 4 .. ]
+[n E8188 _MdmStatus ModemOff ModemOn ModemReady ModemConfigured ModemSleep  ]
+"88 ../../MercuryFwk/Source/h/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.h
+[v _MdmStatus `E8188 ~T0 @X0 0 e ]
+"216 ../../MercuryFwk/Source/h/01_Hal/02_Drv/uart_drv.h
+[v _Uart_WriteConstString `(v ~T0 @X0 0 ef2`uc`*Cuc ]
+"119 ../Source/c/04_App/app.c
 [c E8859 0 1 2 3 4 .. ]
 [n E8859 _LedStsType LED_STS_OFF LED_STS_ON LED_STS_TOGGLE LED_STS_BLINK LED_STS_PULSE  ]
 "102 ../../MercuryFwk/Source/h/03_Sml/02_Ssl/led.h
 [v _Led_SetLedStatus `(v ~T0 @X0 0 ef2`uc`E8859 ]
-"147 ../Source/c/04_App/app.c
+"104
+[v _Led_SetLedBlinkTime `(v ~T0 @X0 0 ef3`uc`us`us ]
+"179 ../Source/c/04_App/app.c
 [c E8199 0 1 .. ]
 [n E8199 _RingStsType PhoneNotRinging PhoneRinging  ]
 "117 ../../MercuryFwk/Source/h/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.h
 [v _Mdm_IsRinging `(E8199 ~T0 @X0 0 ef ]
-"110 ../Source/c/04_App/app.c
+"166 ../Source/c/04_App/app.c
 [c E8941 0 1 .. ]
 [n E8941 SystemStateEnum InitializationState RunningState  ]
 "79 ../../MercuryFwk/Source/h/02_Osl/os_sched.h
@@ -8318,89 +8325,269 @@ Version 3.2 HI-TECH Software Intermediate Code
 "81
 [e :UE 887 ]
 }
+"85
+[v _secondsAppTimer `(uc ~T0 @X0 1 ef3`uc`*ui`uc ]
+"86
+{
+[; ;app.c: 85: bool secondsAppTimer(uint8_t seconds, uint16_t* counter, bool isCyclic)
+[; ;app.c: 86: {
+[e :U _secondsAppTimer ]
+"85
+[v _seconds `uc ~T0 @X0 1 r1 ]
+[v _counter `*ui ~T0 @X0 1 r2 ]
+[v _isCyclic `uc ~T0 @X0 1 r3 ]
+"86
+[f ]
+"87
+[v _isExpired `uc ~T0 @X0 1 a ]
+[; ;app.c: 87: bool isExpired = 1;
+[e = _isExpired -> -> 1 `i `uc ]
+"88
+[v _destinationTicks `ui ~T0 @X0 1 a ]
+[; ;app.c: 88: uint16_t destinationTicks = (uint16_t) (seconds * 1000) / ((UINT16)(100));
+[e = _destinationTicks / -> * -> _seconds `i -> 1000 `i `ui -> -> -> 100 `i `us `ui ]
+[; ;app.c: 90: if (*counter < destinationTicks)
+"90
+[e $ ! < *U _counter _destinationTicks 890  ]
+[; ;app.c: 91: {
+"91
+{
+[; ;app.c: 92: *counter += 1;
+"92
+[e =+ *U _counter -> -> 1 `i `ui ]
+[; ;app.c: 93: isExpired = 0;
+"93
+[e = _isExpired -> -> 0 `i `uc ]
+"94
+}
+[e :U 890 ]
+[; ;app.c: 94: }
+[; ;app.c: 95: if (*counter == destinationTicks)
 "95
-[v _MyApp_Task `(v ~T0 @X0 1 ef1`uc ]
+[e $ ! == *U _counter _destinationTicks 891  ]
+[; ;app.c: 96: {
 "96
 {
-[; ;app.c: 95: void MyApp_Task (UINT8 Options)
-[; ;app.c: 96: {
-[e :U _MyApp_Task ]
-"95
-[v _Options `uc ~T0 @X0 1 r1 ]
-"96
-[f ]
+[; ;app.c: 97: if (isCyclic)
 "97
-[v F8970 `uc ~T0 @X0 1 s countRelay1 ]
-[i F8970
+[e $ ! != -> _isCyclic `i -> -> -> 0 `i `uc `i 892  ]
+[; ;app.c: 98: {
+"98
+{
+[; ;app.c: 99: *counter = 0;
+"99
+[e = *U _counter -> -> 0 `i `ui ]
+"100
+}
+[; ;app.c: 100: }
+[e $U 893  ]
+"101
+[e :U 892 ]
+[; ;app.c: 101: else
+[; ;app.c: 102: {
+"102
+{
+[; ;app.c: 103: *counter += 1;
+"103
+[e =+ *U _counter -> -> 1 `i `ui ]
+"104
+}
+[e :U 893 ]
+"105
+}
+[e :U 891 ]
+[; ;app.c: 104: }
+[; ;app.c: 105: }
+[; ;app.c: 106: return isExpired;
+"106
+[e ) _isExpired ]
+[e $UE 889  ]
+[; ;app.c: 107: }
+"107
+[e :UE 889 ]
+}
+"109
+[v _initGprsModem `(uc ~T0 @X0 1 ef ]
+"110
+{
+[; ;app.c: 109: bool initGprsModem()
+[; ;app.c: 110: {
+[e :U _initGprsModem ]
+[f ]
+"111
+[v F8978 `ui ~T0 @X0 1 s modemCounter ]
+[i F8978
+-> -> 0 `i `ui
+]
+"112
+[v F8979 `uc ~T0 @X0 1 s isInitialized ]
+[i F8979
+-> -> 0 `ui `uc
+]
+[; ;app.c: 111: static uint16_t modemCounter = 0;
+[; ;app.c: 112: static bool isInitialized = 0u;
+[; ;app.c: 113: if (MdmStatus == ModemConfigured || MdmStatus == ModemOn)
+"113
+[e $ ! || == -> _MdmStatus `i -> . `E8188 3 `i == -> _MdmStatus `i -> . `E8188 1 `i 895  ]
+[; ;app.c: 114: {
+"114
+{
+[; ;app.c: 115: if (secondsAppTimer(5, &modemCounter, 0))
+"115
+[e $ ! != -> ( _secondsAppTimer (3 , , -> -> 5 `i `uc &U F8978 -> -> 0 `i `uc `i -> -> -> 0 `i `uc `i 896  ]
+[; ;app.c: 116: {
+"116
+{
+[; ;app.c: 118: Uart_WriteConstString(1, "AT\r\n");
+"118
+[e ( _Uart_WriteConstString (2 , -> -> 1 `i `uc :s 1C ]
+[; ;app.c: 119: Led_SetLedStatus(1u, LED_STS_ON);
+"119
+[e ( _Led_SetLedStatus (2 , -> -> 1 `ui `uc . `E8859 1 ]
+[; ;app.c: 120: isInitialized = 1;
+"120
+[e = F8979 -> -> 1 `i `uc ]
+"121
+}
+[e :U 896 ]
+"122
+}
+[e :U 895 ]
+[; ;app.c: 121: }
+[; ;app.c: 122: }
+[; ;app.c: 123: return isInitialized;
+"123
+[e ) F8979 ]
+[e $UE 894  ]
+[; ;app.c: 124: }
+"124
+[e :UE 894 ]
+}
+"126
+[v _blinkForSeconds `(v ~T0 @X0 1 ef2`uc`*ui ]
+"127
+{
+[; ;app.c: 126: void blinkForSeconds(uint8_t seconds, uint16_t* blickTicks)
+[; ;app.c: 127: {
+[e :U _blinkForSeconds ]
+"126
+[v _seconds `uc ~T0 @X0 1 r1 ]
+[v _blickTicks `*ui ~T0 @X0 1 r2 ]
+"127
+[f ]
+[; ;app.c: 128: if (secondsAppTimer(seconds, blickTicks, 0))
+"128
+[e $ ! != -> ( _secondsAppTimer (3 , , _seconds _blickTicks -> -> 0 `i `uc `i -> -> -> 0 `i `uc `i 898  ]
+[; ;app.c: 129: {
+"129
+{
+[; ;app.c: 130: Led_SetLedStatus(1u, LED_STS_ON);
+"130
+[e ( _Led_SetLedStatus (2 , -> -> 1 `ui `uc . `E8859 1 ]
+"131
+}
+[; ;app.c: 131: }
+[e $U 899  ]
+"132
+[e :U 898 ]
+[; ;app.c: 132: else
+[; ;app.c: 133: {
+"133
+{
+[; ;app.c: 134: Led_SetLedStatus(1u, LED_STS_BLINK);
+"134
+[e ( _Led_SetLedStatus (2 , -> -> 1 `ui `uc . `E8859 3 ]
+"135
+}
+[e :U 899 ]
+[; ;app.c: 135: }
+[; ;app.c: 136: }
+"136
+[e :UE 897 ]
+}
+"149
+[v _MyApp_Task `(v ~T0 @X0 1 ef1`uc ]
+"150
+{
+[; ;app.c: 149: void MyApp_Task (UINT8 Options)
+[; ;app.c: 150: {
+[e :U _MyApp_Task ]
+"149
+[v _Options `uc ~T0 @X0 1 r1 ]
+"150
+[f ]
+"151
+[v F8984 `uc ~T0 @X0 1 s countRelay1 ]
+[i F8984
 -> -> 1 `i `uc
 ]
-"98
-[v F8971 `ui ~T0 @X0 1 s countRelay2 ]
-[i F8971
+"152
+[v F8985 `ui ~T0 @X0 1 s countRelay2 ]
+[i F8985
 -> -> 1 `i `ui
 ]
-"99
-[v F8972 `uc ~T0 @X0 1 s isRelay1On ]
-[i F8972
+"153
+[v F8986 `uc ~T0 @X0 1 s isRelay1On ]
+[i F8986
 -> -> 0 `i `uc
 ]
-"100
-[v F8973 `uc ~T0 @X0 1 s isRelay2On ]
-[i F8973
+"154
+[v F8987 `uc ~T0 @X0 1 s isRelay2On ]
+[i F8987
 -> -> 0 `i `uc
 ]
-"101
-[v F8974 `uc ~T0 @X0 1 s test ]
-[i F8974
+"155
+[v F8988 `uc ~T0 @X0 1 s test ]
+[i F8988
 -> -> 0 `i `uc
 ]
-[v F8976 `uc ~T0 @X0 -> 2 `i s ]
-[i F8976
+[v F8990 `uc ~T0 @X0 -> 2 `i s ]
+[i F8990
 :U ..
-"102
+"156
 -> -> 80 `i `uc
 -> -> 0 `i `uc
 ..
 ]
 [v _off `uc ~T0 @X0 -> 2 `i a ]
-[; ;app.c: 97: static uint8_t countRelay1 = 1;
-[; ;app.c: 98: static uint16_t countRelay2 = 1;
-[; ;app.c: 99: static bool isRelay1On = 0;
-[; ;app.c: 100: static bool isRelay2On = 0;
-[; ;app.c: 101: static uint8_t test = 0;
-[; ;app.c: 102: uint8_t off[2] = {((UINT8)(0x50)), 0x00};
-[e = _off F8976 ]
-[v F8979 `uc ~T0 @X0 -> 2 `i s ]
-[i F8979
+[; ;app.c: 151: static uint8_t countRelay1 = 1;
+[; ;app.c: 152: static uint16_t countRelay2 = 1;
+[; ;app.c: 153: static bool isRelay1On = 0;
+[; ;app.c: 154: static bool isRelay2On = 0;
+[; ;app.c: 155: static uint8_t test = 0;
+[; ;app.c: 156: uint8_t off[2] = {((UINT8)(0x50)), 0x00};
+[e = _off F8990 ]
+[v F8993 `uc ~T0 @X0 -> 2 `i s ]
+[i F8993
 :U ..
-"103
+"157
 -> -> 80 `i `uc
 -> -> 1 `i `uc
 ..
 ]
 [v _on `uc ~T0 @X0 -> 2 `i a ]
-[; ;app.c: 103: uint8_t on[2] = {((UINT8)(0x50)), 0x1};
-[e = _on F8979 ]
-[v F8982 `uc ~T0 @X0 -> 0 `x s ]
-[i F8982
+[; ;app.c: 157: uint8_t on[2] = {((UINT8)(0x50)), 0x1};
+[e = _on F8993 ]
+[v F8996 `uc ~T0 @X0 -> 0 `x s ]
+[i F8996
 :U ..
-"106
+"160
 -> -> 0 `i `uc
 -> -> 0 `i `uc
 ..
 ]
 [v _I2cTxBufferTest `uc ~T0 @X0 2  a ]
-[; ;app.c: 106: UINT8 I2cTxBufferTest[] = {0x00, 0x00};
-[e = _I2cTxBufferTest F8982 ]
-"107
-[v F8983 `uc ~T0 @X0 1 s I2cStsReady ]
-[i F8983
+[; ;app.c: 160: UINT8 I2cTxBufferTest[] = {0x00, 0x00};
+[e = _I2cTxBufferTest F8996 ]
+"161
+[v F8997 `uc ~T0 @X0 1 s I2cStsReady ]
+[i F8997
 -> -> 0 `ui `uc
 ]
-[v F8985 `uc ~T0 @X0 -> 0 `x s ]
-[i F8985
+[v F8999 `uc ~T0 @X0 -> 0 `x s ]
+[i F8999
 :U ..
-"108
+"162
 -> -> 51 `ui `uc
 -> -> 50 `ui `uc
 -> -> 48 `ui `uc
@@ -8414,124 +8601,82 @@ Version 3.2 HI-TECH Software Intermediate Code
 ..
 ]
 [v _phone `uc ~T0 @X0 10  a ]
-[; ;app.c: 107: static UINT8 I2cStsReady = 0u;
-[; ;app.c: 108: UINT8 phone[] = {'3', '2', '0', '0', '2', '7', '6', '3', '1', '8'};
-[e = _phone F8985 ]
-[; ;app.c: 110: switch (SystemState)
-"110
-[e $U 891  ]
-[; ;app.c: 111: {
-"111
-{
-[; ;app.c: 113: case InitializationState:
-"113
-[e :U 892 ]
-[; ;app.c: 115: Led_SetLedBlinkTime(1u,100,900);
-"115
-[e ( _Led_SetLedBlinkTime (3 , , -> -> 1 `ui `uc -> -> 100 `i `us -> -> 900 `i `us ]
-[; ;app.c: 116: Led_SetLedStatus(1u, LED_STS_BLINK);
-"116
-[e ( _Led_SetLedStatus (2 , -> -> 1 `ui `uc . `E8859 3 ]
-[; ;app.c: 117: break;
-"117
-[e $U 890  ]
-[; ;app.c: 120: case RunningState:
-"120
-[e :U 893 ]
-[; ;app.c: 123: if (I2cStsReady == 0)
-"123
-[e $ ! == -> F8983 `i -> 0 `i 894  ]
-[; ;app.c: 124: {
-"124
-{
-[; ;app.c: 128: I2cStsReady = 1;
-"128
-[e = F8983 -> -> 1 `i `uc ]
-"131
-}
-[; ;app.c: 131: }
-[e $U 895  ]
-"147
-[e :U 894 ]
-[; ;app.c: 147: else if (Mdm_IsRinging() == PhoneRinging)
-[e $ ! == -> ( _Mdm_IsRinging ..  `i -> . `E8199 1 `i 896  ]
-[; ;app.c: 148: {
-"148
-{
-[; ;app.c: 149: if (isRelay2On)
-"149
-[e $ ! != -> F8973 `i -> -> -> 0 `i `uc `i 897  ]
-[; ;app.c: 150: {
-"150
-{
-[; ;app.c: 151: I2cSlv_SendI2cMsg(on, 2, 2);
-"151
-[e ( _I2cSlv_SendI2cMsg (3 , , &U _on -> -> 2 `i `uc -> -> 2 `i `uc ]
-[; ;app.c: 152: isRelay2On = 0;
-"152
-[e = F8973 -> -> 0 `i `uc ]
-"153
-}
-[; ;app.c: 153: }
-[e $U 898  ]
-"154
-[e :U 897 ]
-[; ;app.c: 154: else
-[; ;app.c: 155: {
-"155
-{
-[; ;app.c: 156: I2cSlv_SendI2cMsg(off, 2, 2);
-"156
-[e ( _I2cSlv_SendI2cMsg (3 , , &U _off -> -> 2 `i `uc -> -> 2 `i `uc ]
-[; ;app.c: 157: isRelay2On = 1;
-"157
-[e = F8973 -> -> 1 `i `uc ]
-"158
-}
-[e :U 898 ]
-"159
-}
-[e :U 896 ]
+[; ;app.c: 161: static UINT8 I2cStsReady = 0u;
+[; ;app.c: 162: UINT8 phone[] = {'3', '2', '0', '0', '2', '7', '6', '3', '1', '8'};
+[e = _phone F8999 ]
+"164
+[v F9000 `ui ~T0 @X0 1 s blickTicks ]
+[i F9000
+-> 65535 `ui
+]
+[; ;app.c: 164: static uint16_t blickTicks = 0xFFFF;
+[; ;app.c: 166: switch (SystemState)
 "166
-[e :U 895 ]
-[; ;app.c: 158: }
-[; ;app.c: 159: }
-[; ;app.c: 166: if (Mdm_IsRinging() == PhoneRinging)
-[e $ ! == -> ( _Mdm_IsRinging ..  `i -> . `E8199 1 `i 899  ]
+[e $U 902  ]
 [; ;app.c: 167: {
 "167
 {
-[; ;app.c: 168: isRelay1On = !isRelay1On;
-"168
-[e = F8972 -> -> ! != -> F8972 `i -> -> -> 0 `i `uc `i `i `uc ]
-[; ;app.c: 169: triggerRelay(1, isRelay1On);
+[; ;app.c: 169: case InitializationState:
 "169
-[e ( _triggerRelay (2 , -> -> 1 `i `uc F8972 ]
-"170
+[e :U 903 ]
+[; ;app.c: 171: Led_SetLedBlinkTime(1u,100,900);
+"171
+[e ( _Led_SetLedBlinkTime (3 , , -> -> 1 `ui `uc -> -> 100 `i `us -> -> 900 `i `us ]
+[; ;app.c: 172: break;
+"172
+[e $U 901  ]
+[; ;app.c: 175: case RunningState:
+"175
+[e :U 904 ]
+[; ;app.c: 176: if (initGprsModem())
+"176
+[e $ ! != -> ( _initGprsModem ..  `i -> -> -> 0 `i `uc `i 905  ]
+[; ;app.c: 177: {
+"177
+{
+[; ;app.c: 179: if (Mdm_IsRinging())
+"179
+[e $ ! != -> ( _Mdm_IsRinging ..  `i -> -> -> 0 `i `E8199 `i 906  ]
+[; ;app.c: 180: {
+"180
+{
+[; ;app.c: 181: blickTicks = 0;
+"181
+[e = F9000 -> -> 0 `i `ui ]
+"182
 }
-[e :U 899 ]
-[; ;app.c: 170: }
-[; ;app.c: 199: break;
-"199
-[e $U 890  ]
-[; ;app.c: 202: default:
-"202
-[e :U 900 ]
-[; ;app.c: 203: break;
-"203
-[e $U 890  ]
-"204
+[e :U 906 ]
+[; ;app.c: 182: }
+[; ;app.c: 183: blinkForSeconds(5, &blickTicks);
+"183
+[e ( _blinkForSeconds (2 , -> -> 5 `i `uc &U F9000 ]
+"184
 }
-[; ;app.c: 204: }
-[e $U 890  ]
-"110
-[e :U 891 ]
-[e [\ _SystemState , $ . `E8941 0 892
- , $ . `E8941 1 893
- 900 ]
-"204
-[e :U 890 ]
-[; ;app.c: 205: }
-"205
-[e :UE 889 ]
+[e :U 905 ]
+[; ;app.c: 184: }
+[; ;app.c: 185: break;
+"185
+[e $U 901  ]
+[; ;app.c: 188: default:
+"188
+[e :U 907 ]
+[; ;app.c: 189: break;
+"189
+[e $U 901  ]
+"190
 }
+[; ;app.c: 190: }
+[e $U 901  ]
+"166
+[e :U 902 ]
+[e [\ _SystemState , $ . `E8941 0 903
+ , $ . `E8941 1 904
+ 907 ]
+"190
+[e :U 901 ]
+[; ;app.c: 191: }
+"191
+[e :UE 900 ]
+}
+[a 1C 65 84 13 10 0 ]
+

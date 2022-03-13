@@ -807,7 +807,15 @@ RunningState 1
 InitializationState 0
 RunningState 1
 ]
-"116 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app.c
+"113 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app.c
+[e E8188 _MdmStatus `uc
+ModemOff 0
+ModemOn 1
+ModemReady 2
+ModemConfigured 3
+ModemSleep 4
+]
+"119
 [e E8859 _LedStsType `uc
 LED_STS_OFF 0
 LED_STS_ON 1
@@ -815,12 +823,12 @@ LED_STS_TOGGLE 2
 LED_STS_BLINK 3
 LED_STS_PULSE 4
 ]
-"147
+"179
 [e E8199 _RingStsType `uc
 PhoneNotRinging 0
 PhoneRinging 1
 ]
-"110
+"166
 [e E8941 SystemStateEnum `uc
 InitializationState 0
 RunningState 1
@@ -1116,9 +1124,13 @@ RunningState 1
 [v _Term_MainTask Term_MainTask `(v  1 e 1 0 ]
 "73 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/02_Ssl/wdg.c
 [v _Wdg_MainTask Wdg_MainTask `(v  1 e 1 0 ]
-"71 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app.c
-[v _triggerRelay triggerRelay `(uc  1 e 1 0 ]
-"95
+"85 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app.c
+[v _secondsAppTimer secondsAppTimer `(uc  1 e 1 0 ]
+"109
+[v _initGprsModem initGprsModem `(uc  1 e 1 0 ]
+"126
+[v _blinkForSeconds blinkForSeconds `(v  1 e 1 0 ]
+"149
 [v _MyApp_Task MyApp_Task `(v  1 e 1 0 ]
 "5 /opt/microchip/xc8/v1.45/sources/common/atoi.c
 [v _atoi atoi `(i  1 e 2 0 ]
@@ -2425,31 +2437,28 @@ RunningState 1
 [v InitializeTasks@ActiveTaskIndex ActiveTaskIndex `uc  1 a 1 73 ]
 "89
 } 0
-"95 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app.c
+"149 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app.c
 [v _MyApp_Task MyApp_Task `(v  1 e 1 0 ]
 {
-"108
-[v MyApp_Task@phone phone `[10]uc  1 a 10 42 ]
-"103
-[v MyApp_Task@on on `[2]uc  1 a 2 56 ]
-"102
-[v MyApp_Task@off off `[2]uc  1 a 2 54 ]
-"106
-[v MyApp_Task@I2cTxBufferTest I2cTxBufferTest `[2]uc  1 a 2 52 ]
-"99
-[v MyApp_Task@isRelay1On isRelay1On `uc  1 s 1 isRelay1On ]
-"100
-[v MyApp_Task@isRelay2On isRelay2On `uc  1 s 1 isRelay2On ]
-"101
-[v MyApp_Task@F8976 F8976 `[2]uc  1 s 2 F8976 ]
-"102
-[v MyApp_Task@F8979 F8979 `[2]uc  1 s 2 F8979 ]
-"103
-[v MyApp_Task@F8982 F8982 `[2]uc  1 s 2 F8982 ]
-"107
-[v MyApp_Task@I2cStsReady I2cStsReady `uc  1 s 1 I2cStsReady ]
-[v MyApp_Task@F8985 F8985 `[10]uc  1 s 10 F8985 ]
-"205
+"162
+[v MyApp_Task@phone phone `[10]uc  1 a 10 54 ]
+"160
+[v MyApp_Task@I2cTxBufferTest I2cTxBufferTest `[2]uc  1 a 2 68 ]
+"157
+[v MyApp_Task@on on `[2]uc  1 a 2 66 ]
+"156
+[v MyApp_Task@off off `[2]uc  1 a 2 64 ]
+"155
+[v MyApp_Task@F8990 F8990 `[2]uc  1 s 2 F8990 ]
+"156
+[v MyApp_Task@F8993 F8993 `[2]uc  1 s 2 F8993 ]
+"157
+[v MyApp_Task@F8996 F8996 `[2]uc  1 s 2 F8996 ]
+"161
+[v MyApp_Task@F8999 F8999 `[10]uc  1 s 10 F8999 ]
+"164
+[v MyApp_Task@blickTicks blickTicks `ui  1 s 2 blickTicks ]
+"191
 } 0
 "845 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/02_Ssl/term.c
 [v _Term_MainTask Term_MainTask `(v  1 e 1 0 ]
@@ -2986,24 +2995,24 @@ RunningState 1
 [v _itoa itoa `(*.39uc  1 e 2 0 ]
 {
 "6
-[v itoa@cp cp `*.39uc  1 a 2 51 ]
+[v itoa@cp cp `*.39uc  1 a 2 57 ]
 "4
-[v itoa@buf buf `*.39uc  1 p 2 45 ]
-[v itoa@val val `i  1 p 2 47 ]
-[v itoa@base base `i  1 p 2 49 ]
+[v itoa@buf buf `*.39uc  1 p 2 51 ]
+[v itoa@val val `i  1 p 2 53 ]
+[v itoa@base base `i  1 p 2 55 ]
 "14
 } 0
 "17
 [v _utoa utoa `(*.39uc  1 e 2 0 ]
 {
 "19
-[v utoa@v v `ui  1 a 2 42 ]
+[v utoa@v v `ui  1 a 2 48 ]
 "20
-[v utoa@c c `uc  1 a 1 44 ]
+[v utoa@c c `uc  1 a 1 50 ]
 "17
-[v utoa@buf buf `*.39uc  1 p 2 36 ]
-[v utoa@val val `ui  1 p 2 38 ]
-[v utoa@base base `i  1 p 2 40 ]
+[v utoa@buf buf `*.39uc  1 p 2 42 ]
+[v utoa@val val `ui  1 p 2 44 ]
+[v utoa@base base `i  1 p 2 46 ]
 "37
 } 0
 "8 /opt/microchip/xc8/v1.45/sources/common/lwmod.c
@@ -3095,7 +3104,18 @@ RunningState 1
 [v OsTmr_Wait@DelayMs DelayMs `ul  1 p 4 61 ]
 "183
 } 0
-"289 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/01_Pml/02_SlvI2c/i2c_slv.c
+"252 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/01_Pml/02_SlvI2c/i2c_slv.c
+[v _I2cSlv_SendI2cMsg I2cSlv_SendI2cMsg `(uc  1 e 1 0 ]
+{
+"254
+[v I2cSlv_SendI2cMsg@TxSts TxSts `uc  1 a 1 36 ]
+"252
+[v I2cSlv_SendI2cMsg@TxBuffer TxBuffer `*.39uc  1 p 2 32 ]
+[v I2cSlv_SendI2cMsg@SlaveAddr SlaveAddr `uc  1 p 1 34 ]
+[v I2cSlv_SendI2cMsg@DataLenght DataLenght `uc  1 p 1 35 ]
+"276
+} 0
+"289
 [v _I2cSlv_ReceiveI2cMsg I2cSlv_ReceiveI2cMsg `(uc  1 e 1 0 ]
 {
 "291
@@ -3218,32 +3238,40 @@ RunningState 1
 [v Rtcc_AlarmConfig@AlarmConfig AlarmConfig `*.39S1323  1 p 2 29 ]
 "139
 } 0
-"71 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app.c
-[v _triggerRelay triggerRelay `(uc  1 e 1 0 ]
+"109 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app.c
+[v _initGprsModem initGprsModem `(uc  1 e 1 0 ]
 {
-[v triggerRelay@realyId realyId `uc  1 a 1 wreg ]
-"73
-[v triggerRelay@txBuffer txBuffer `[2]uc  1 a 2 40 ]
-"74
-[v triggerRelay@res res `uc  1 a 1 38 ]
-"71
-[v triggerRelay@realyId realyId `uc  1 a 1 wreg ]
-[v triggerRelay@isRelayOn isRelayOn `uc  1 p 1 37 ]
-"72
-[v triggerRelay@F8966 F8966 `[2]uc  1 s 2 F8966 ]
-[v triggerRelay@realyId realyId `uc  1 a 1 39 ]
-"81
+"111
+[v initGprsModem@modemCounter modemCounter `ui  1 s 2 modemCounter ]
+"112
+[v initGprsModem@isInitialized isInitialized `uc  1 s 1 isInitialized ]
+"124
 } 0
-"252 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/01_Pml/02_SlvI2c/i2c_slv.c
-[v _I2cSlv_SendI2cMsg I2cSlv_SendI2cMsg `(uc  1 e 1 0 ]
+"126
+[v _blinkForSeconds blinkForSeconds `(v  1 e 1 0 ]
 {
-"254
-[v I2cSlv_SendI2cMsg@TxSts TxSts `uc  1 a 1 36 ]
-"252
-[v I2cSlv_SendI2cMsg@TxBuffer TxBuffer `*.39uc  1 p 2 32 ]
-[v I2cSlv_SendI2cMsg@SlaveAddr SlaveAddr `uc  1 p 1 34 ]
-[v I2cSlv_SendI2cMsg@DataLenght DataLenght `uc  1 p 1 35 ]
-"276
+[v blinkForSeconds@seconds seconds `uc  1 a 1 wreg ]
+[v blinkForSeconds@seconds seconds `uc  1 a 1 wreg ]
+[v blinkForSeconds@blickTicks blickTicks `*.39ui  1 p 2 51 ]
+"128
+[v blinkForSeconds@seconds seconds `uc  1 a 1 53 ]
+"136
+} 0
+"85
+[v _secondsAppTimer secondsAppTimer `(uc  1 e 1 0 ]
+{
+[v secondsAppTimer@seconds seconds `uc  1 a 1 wreg ]
+"88
+[v secondsAppTimer@destinationTicks destinationTicks `ui  1 a 2 49 ]
+"87
+[v secondsAppTimer@isExpired isExpired `uc  1 a 1 48 ]
+"85
+[v secondsAppTimer@seconds seconds `uc  1 a 1 wreg ]
+[v secondsAppTimer@counter counter `*.39ui  1 p 2 42 ]
+[v secondsAppTimer@isCyclic isCyclic `uc  1 p 1 44 ]
+"87
+[v secondsAppTimer@seconds seconds `uc  1 a 1 47 ]
+"107
 } 0
 "1003 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.c
 [v _Mdm_IsRinging Mdm_IsRinging `(E8910  1 e 1 0 ]
@@ -3564,25 +3592,25 @@ RunningState 1
 {
 [v LedStateMachine@Led Led `uc  1 a 1 wreg ]
 "238
-[v LedStateMachine@LedOutSts LedOutSts `uc  1 a 1 50 ]
+[v LedStateMachine@LedOutSts LedOutSts `uc  1 a 1 56 ]
 "235
 [v LedStateMachine@Led Led `uc  1 a 1 wreg ]
-[v LedStateMachine@LedSts LedSts `*.39E8934  1 p 2 41 ]
-[v LedStateMachine@LedOut LedOut `*.39uc  1 p 2 43 ]
+[v LedStateMachine@LedSts LedSts `*.39E8934  1 p 2 47 ]
+[v LedStateMachine@LedOut LedOut `*.39uc  1 p 2 49 ]
 [s S5079 _LedBlinkType 9 `E8953 1 LedBlinkState 1 0 `E8962 1 LedOutState 1 1 `us 1 LedBlinkCounter 2 2 `us 1 LedOnTimeMs 2 4 `us 1 LedOffTimeMs 2 6 `E8962 1 LedInitStatus 1 8 ]
-[v LedStateMachine@LedBlink LedBlink `*.39S5079  1 p 2 45 ]
+[v LedStateMachine@LedBlink LedBlink `*.39S5079  1 p 2 51 ]
 [s S5071 _LedPulseType 6 `E8957 1 LedPulseState 1 0 `E8962 1 LedOutState 1 1 `us 1 LedPulseCounter 2 2 `us 1 LedPulseTimeMs 2 4 ]
-[v LedStateMachine@LedPulse LedPulse `*.39S5071  1 p 2 47 ]
+[v LedStateMachine@LedPulse LedPulse `*.39S5071  1 p 2 53 ]
 "238
-[v LedStateMachine@Led Led `uc  1 a 1 51 ]
+[v LedStateMachine@Led Led `uc  1 a 1 57 ]
 "284
 } 0
 "182
 [v _LedPulseStateMachine LedPulseStateMachine `(uc  1 e 1 0 ]
 {
 [s S5071 _LedPulseType 6 `E8957 1 LedPulseState 1 0 `E8962 1 LedOutState 1 1 `us 1 LedPulseCounter 2 2 `us 1 LedPulseTimeMs 2 4 ]
-[v LedPulseStateMachine@LedPulse LedPulse `*.39S5071  1 p 2 36 ]
-[v LedPulseStateMachine@Led Led `uc  1 p 1 38 ]
+[v LedPulseStateMachine@LedPulse LedPulse `*.39S5071  1 p 2 42 ]
+[v LedPulseStateMachine@Led Led `uc  1 p 1 44 ]
 "222
 } 0
 "338
@@ -3598,19 +3626,19 @@ RunningState 1
 [v _LedBlinkStateMachine LedBlinkStateMachine `(uc  1 e 1 0 ]
 {
 [s S5079 _LedBlinkType 9 `E8953 1 LedBlinkState 1 0 `E8962 1 LedOutState 1 1 `us 1 LedBlinkCounter 2 2 `us 1 LedOnTimeMs 2 4 `us 1 LedOffTimeMs 2 6 `E8962 1 LedInitStatus 1 8 ]
-[v LedBlinkStateMachine@LedBlink LedBlink `*.39S5079  1 p 2 36 ]
+[v LedBlinkStateMachine@LedBlink LedBlink `*.39S5079  1 p 2 42 ]
 "171
 } 0
 "8 /opt/microchip/xc8/v1.45/sources/common/lwdiv.c
 [v ___lwdiv __lwdiv `(ui  1 e 2 0 ]
 {
 "11
-[v ___lwdiv@quotient quotient `ui  1 a 2 34 ]
+[v ___lwdiv@quotient quotient `ui  1 a 2 40 ]
 "12
-[v ___lwdiv@counter counter `uc  1 a 1 33 ]
+[v ___lwdiv@counter counter `uc  1 a 1 39 ]
 "8
-[v ___lwdiv@dividend dividend `ui  1 p 2 29 ]
-[v ___lwdiv@divisor divisor `ui  1 p 2 31 ]
+[v ___lwdiv@dividend dividend `ui  1 p 2 35 ]
+[v ___lwdiv@divisor divisor `ui  1 p 2 37 ]
 "31
 } 0
 "77 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/02_Osl/os_alarms.c

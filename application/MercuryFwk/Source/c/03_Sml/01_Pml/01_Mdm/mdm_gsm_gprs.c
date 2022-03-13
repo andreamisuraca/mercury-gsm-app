@@ -300,7 +300,7 @@ void CheckModem (void)
       
       case MdmCh_SendATE1:
          /* Set echo mode off */
-         Uart_WriteConstString(1,"AT\r");
+         Uart_WriteConstString(1,"AT\r\n");
          /* Start timeout timer */
          OsTmr_StartTimer(&Timeout,MDM_IN_CHECK_DELAY_MS);         
          /* Switch state */
@@ -312,7 +312,7 @@ void CheckModem (void)
          if (ReceiveEvt(&NewStringReceived))
          {
             /* In case of positive resp. */
-            if ((RxBuffer[1] == 'O') && (RxBuffer[2] == 'K'))
+            if (((RxBuffer[0] == 'O') && (RxBuffer[1] == 'K')) || ((RxBuffer[1] == 'O') && (RxBuffer[2] == 'K')))
             {
                 MdmStatus = ModemReady;
                /* Generate modem on pulse request */
@@ -431,7 +431,7 @@ void ConfigureModem (void)
 
       case MdmCfg_ChangeBaud:
          /* Change module baud to 9600 */
-         Uart_WriteConstString(1,"AT+IPR=9600\r");    
+         Uart_WriteConstString(1,"AT+IPR=9600\r\n");    
          /* Align UART baud */
          UartSetConfigLow();
          /* Re-Init UART Interface */
@@ -445,7 +445,7 @@ void ConfigureModem (void)
          
       case MdmCfg_SetMdmEchoMode:        
          /* Set echo mode off */
-         Uart_WriteConstString(1,"ATE0\r");
+         Uart_WriteConstString(1,"ATE0\r\n");
          /* Set delay */
          DelayValueMs = MDM_CFG_STEP_DELAY_MS;
          /* Set next state and switch */

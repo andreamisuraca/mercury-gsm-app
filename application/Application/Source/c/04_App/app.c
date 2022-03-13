@@ -80,6 +80,60 @@ uint8_t triggerRelay(uint8_t realyId, bool isRelayOn)
     return res;
 }
 
+// max 255 seconds
+// counter variable should be static/globally defined
+bool secondsAppTimer(uint8_t seconds, uint16_t* counter, bool isCyclic)
+{
+    bool isExpired = true;
+    uint16_t destinationTicks = (uint16_t) (seconds * 1000) / MY_APP_TASK_PERIOD_MS;
+
+    if (*counter < destinationTicks)
+    {
+        *counter += 1;
+        isExpired = false;
+    }
+    if (*counter == destinationTicks)
+    {
+        if (isCyclic)
+        {
+            *counter = 0;
+        }
+        else
+        {
+            *counter = 0xFFFF;
+        }
+    }
+    return isExpired;
+}
+
+bool initGprsModem()
+{
+    static uint16_t modemCounter = 0;
+    static bool isInitialized = STD_NOT_OK;
+    if (MdmStatus == ModemConfigured || MdmStatus == ModemOn)
+    {
+        if (secondsAppTimer(5, &modemCounter, false))
+        {
+            // Theoretically a positive response should be checked
+            Uart_WriteConstString(1, "AT\r\n");
+            Led_SetLedStatus(LED_1, LED_STS_ON);
+            isInitialized = true;
+        }
+    }
+    return isInitialized;
+}
+
+void blinkForSeconds(uint8_t seconds, uint16_t* blickTicks)
+{
+    if (secondsAppTimer(seconds, blickTicks, false))
+    {
+        Led_SetLedStatus(LED_1, LED_STS_ON);
+    }
+    else
+    {
+       Led_SetLedStatus(LED_1, LED_STS_BLINK); 
+    }
+}
 /************************************************************************
 * GLOBAL Function Implementations
 ************************************************************************/
@@ -105,7 +159,8 @@ void MyApp_Task (UINT8 Options)
 
     UINT8 I2cTxBufferTest[] = {0x00, 0x00};
     static UINT8 I2cStsReady = STD_FALSE;
-    UINT8 phone[] = {'3', '3', '3', '3', '3', '3', '3', '3', '3', '3'};
+
+    static uint16_t blickTicks = 0xFFFF;
 
     switch (SystemState)
     {
@@ -113,89 +168,19 @@ void MyApp_Task (UINT8 Options)
         case InitializationState:
             /* Make app init. if necesary */ 
             Led_SetLedBlinkTime(LED_1,100,900);
-            Led_SetLedStatus(LED_1, LED_STS_BLINK);
             break;
 
         /* System Normal operation Phase */
         case RunningState:
-            /* App periodic calls */
-         /* Send intial message on I2C - this is done to solve sw bug 001 */
-         if (I2cStsReady == FALSE)
+            if (initGprsModem())
          {
-            /* Send message to slave one time */
-            //I2cSlv_SendI2cMsg(I2cTxBufferTest, 0x01, 2);
-            /* Now I2C is ready */
-            I2cStsReady = TRUE;         
-            
-            
-         }
-//         else if (++countRelay1 == 30)
-//         {
-//             if (isRelay1On)
-//             {
-//                 I2cSlv_SendI2cMsg(on, 1, 2);
-//                 isRelay1On = false;
-//             }
-//             else
-//             {
-//                 I2cSlv_SendI2cMsg(off, 1, 2);
-//                 isRelay1On = true;
-//             }
-//             
-//             countRelay1 = 0;
-//         }
-         else if (Mdm_IsRinging() == PhoneRinging)
+                /* If ring evt is received */
+                if (Mdm_IsRinging())
          {
-             if (isRelay2On)
-             {
-                 I2cSlv_SendI2cMsg(on, 2, 2);
-                 isRelay2On = false;
+                    blickTicks = 0;
              }
-             else
-             {
-                 I2cSlv_SendI2cMsg(off, 2, 2);
-                 isRelay2On = true;
-             }
-         }
-//         if (MdmStatus == ModemConfigured || MdmStatus == ModemOn)
-//         {
-//             Mdm_MakePhoneCall(phone, 10);
-//         }
-
-            /* If ring evt is received */
-            if (Mdm_IsRinging() == PhoneRinging)
-            {
-                isRelay1On = !isRelay1On;
-                triggerRelay(1, isRelay1On);
+                blinkForSeconds(5, &blickTicks);
             }
-//            if ((countRelay1 == 90) && (I2cSlv_GetI2cSts() == I2cTxRxComplete))
-//            {
-//                isRelay1On = !isRelay1On;
-//                UINT8 val = strcmp(PhoneNumber, "+396");
-//                if (triggerRelay(1, isRelay1On) && (val == 0))
-//                {
-//                    countRelay1++;
-//                }
-//            }
-//            else
-//            {
-//                countRelay1++;
-//            }
-//
-//            if ((countRelay2 == 91) && (I2cSlv_GetI2cSts() == I2cTxRxComplete))
-//            {
-//                isRelay2On = !isRelay2On;
-//                if (triggerRelay(2, isRelay2On))
-//                {
-//                    countRelay1 = 0;
-//                    countRelay2 = 0;
-//                }
-//            }
-//            else
-//            {
-//                countRelay2++;
-//            }
-//
             break;
 
         /* Default */

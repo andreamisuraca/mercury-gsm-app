@@ -5,7 +5,6 @@
                    displayName="Header Files"
                    projectFiles="true">
       <logicalFolder name="00_Cfg" displayName="00_Cfg" projectFiles="true">
-        <itemPath>../../MercuryFwk/Source/h/00_Cfg/mod_imp.h</itemPath>
         <itemPath>../Source/h/04_App/app.h</itemPath>
         <itemPath>../Source/h/04_App/sys_cfg.h</itemPath>
       </logicalFolder>
@@ -320,6 +319,7 @@
         <property key="debugoptions.debug-startup" value="Use system settings"/>
         <property key="debugoptions.reset-behaviour" value="Use system settings"/>
         <property key="debugoptions.useswbreakpoints" value="false"/>
+        <property key="firmware.download.all" value="false"/>
         <property key="hwtoolclock.frcindebug" value="false"/>
         <property key="memories.aux" value="false"/>
         <property key="memories.bootflash" value="true"/>

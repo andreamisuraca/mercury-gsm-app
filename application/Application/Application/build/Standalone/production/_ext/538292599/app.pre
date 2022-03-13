@@ -11242,7 +11242,7 @@ if (isCyclic)
 }
 else
 {
-*counter += 1;
+*counter = 0xFFFF;
 }
 }
 return isExpired;
@@ -11294,6 +11294,9 @@ static UINT8 I2cStsReady = 0u;
 UINT8 phone[] = {'3', '2', '0', '0', '2', '7', '6', '3', '1', '8'};
 
 static uint16_t blickTicks = 0xFFFF;
+static uint8_t blinkSeconds = 0;
+
+uint8_t smsText[((UINT8)(50))];
 
 switch (SystemState)
 {
@@ -11311,8 +11314,16 @@ if (initGprsModem())
 if (Mdm_IsRinging())
 {
 blickTicks = 0;
+blinkSeconds = 5;
 }
-blinkForSeconds(5, &blickTicks);
+if (Mdm_IsSmsReceived())
+{
+blickTicks = 0;
+blinkSeconds = 3;
+Mdm_RequestSmsData();
+Mdm_GetSmsData(smsText);
+}
+blinkForSeconds(blinkSeconds, &blickTicks);
 }
 break;
 

@@ -823,12 +823,22 @@ LED_STS_TOGGLE 2
 LED_STS_BLINK 3
 LED_STS_PULSE 4
 ]
-"179
+"182
 [e E8199 _RingStsType `uc
 PhoneNotRinging 0
 PhoneRinging 1
 ]
-"166
+"187
+[e E8203 _SmsRxStsType `uc
+SmsNotReceived 0
+SmsReceived 1
+]
+"192
+[e E8195 _GetSmsStatus `uc
+SmsDataNotReady 0
+SmsDataReady 1
+]
+"169
 [e E8941 SystemStateEnum `uc
 InitializationState 0
 RunningState 1
@@ -1007,6 +1017,12 @@ RunningState 1
 [v _SendSmsSm SendSmsSm `(v  1 e 1 0 ]
 "734
 [v _Mdm_MainTask Mdm_MainTask `(v  1 e 1 0 ]
+"857
+[v _Mdm_RequestSmsData Mdm_RequestSmsData `(v  1 e 1 0 ]
+"872
+[v _Mdm_GetSmsData Mdm_GetSmsData `(E8906  1 e 1 0 ]
+"920
+[v _Mdm_IsSmsReceived Mdm_IsSmsReceived `(E8914  1 e 1 0 ]
 "1003
 [v _Mdm_IsRinging Mdm_IsRinging `(E8910  1 e 1 0 ]
 "124 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs_http.c
@@ -2440,14 +2456,16 @@ RunningState 1
 "149 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app.c
 [v _MyApp_Task MyApp_Task `(v  1 e 1 0 ]
 {
+"167
+[v MyApp_Task@smsText smsText `[50]uc  1 a 50 0 ]
 "162
-[v MyApp_Task@phone phone `[10]uc  1 a 10 54 ]
+[v MyApp_Task@phone phone `[10]uc  1 a 10 50 ]
 "160
-[v MyApp_Task@I2cTxBufferTest I2cTxBufferTest `[2]uc  1 a 2 68 ]
+[v MyApp_Task@I2cTxBufferTest I2cTxBufferTest `[2]uc  1 a 2 64 ]
 "157
-[v MyApp_Task@on on `[2]uc  1 a 2 66 ]
+[v MyApp_Task@on on `[2]uc  1 a 2 62 ]
 "156
-[v MyApp_Task@off off `[2]uc  1 a 2 64 ]
+[v MyApp_Task@off off `[2]uc  1 a 2 60 ]
 "155
 [v MyApp_Task@F8990 F8990 `[2]uc  1 s 2 F8990 ]
 "156
@@ -2458,7 +2476,9 @@ RunningState 1
 [v MyApp_Task@F8999 F8999 `[10]uc  1 s 10 F8999 ]
 "164
 [v MyApp_Task@blickTicks blickTicks `ui  1 s 2 blickTicks ]
-"191
+"165
+[v MyApp_Task@blinkSeconds blinkSeconds `uc  1 s 1 blinkSeconds ]
+"202
 } 0
 "845 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/02_Ssl/term.c
 [v _Term_MainTask Term_MainTask `(v  1 e 1 0 ]
@@ -3273,12 +3293,33 @@ RunningState 1
 [v secondsAppTimer@seconds seconds `uc  1 a 1 47 ]
 "107
 } 0
-"1003 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.c
+"857 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.c
+[v _Mdm_RequestSmsData Mdm_RequestSmsData `(v  1 e 1 0 ]
+{
+"861
+} 0
+"920
+[v _Mdm_IsSmsReceived Mdm_IsSmsReceived `(E8914  1 e 1 0 ]
+{
+"922
+[v Mdm_IsSmsReceived@Ret Ret `E8914  1 a 1 33 ]
+"931
+} 0
+"1003
 [v _Mdm_IsRinging Mdm_IsRinging `(E8910  1 e 1 0 ]
 {
 "1005
 [v Mdm_IsRinging@Ret Ret `E8910  1 a 1 33 ]
 "1014
+} 0
+"872
+[v _Mdm_GetSmsData Mdm_GetSmsData `(E8906  1 e 1 0 ]
+{
+"874
+[v Mdm_GetSmsData@GetSmsStatus GetSmsStatus `E8906  1 a 1 41 ]
+"873
+[v Mdm_GetSmsData@MessageText MessageText `*.39uc  1 p 2 39 ]
+"887
 } 0
 "371 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/02_Ssl/led.c
 [v _Led_SetLedBlinkTime Led_SetLedBlinkTime `(v  1 e 1 0 ]

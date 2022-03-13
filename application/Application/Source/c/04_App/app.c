@@ -114,8 +114,7 @@ bool initGprsModem()
     {
         if (secondsAppTimer(5, &modemCounter, false))
         {
-            // Theoretically a positive response should be checked
-            Uart_WriteConstString(1, "AT\r\n");
+            Mdm_SetSmsFormat(1);
             Led_SetLedStatus(LED_1, LED_STS_ON);
             isInitialized = true;
         }
@@ -161,6 +160,9 @@ void MyApp_Task (UINT8 Options)
     static UINT8 I2cStsReady = STD_FALSE;
 
     static uint16_t blickTicks = 0xFFFF;
+    static uint8_t blinkSeconds = 0;
+
+    uint8_t smsText[MESSAGE_BUFF_LEN];
 
     switch (SystemState)
     {
@@ -178,8 +180,16 @@ void MyApp_Task (UINT8 Options)
                 if (Mdm_IsRinging())
          {
                     blickTicks = 0;
+                    blinkSeconds = 5;
              }
-                blinkForSeconds(5, &blickTicks);
+                if (Mdm_IsSmsReceived())
+                {
+                    blickTicks = 0;
+                    blinkSeconds = 3;
+                    Mdm_RequestSmsData();
+                    Mdm_GetSmsData(smsText);
+                }
+                blinkForSeconds(blinkSeconds, &blickTicks);
             }
             break;
 

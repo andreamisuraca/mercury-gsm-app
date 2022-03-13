@@ -11226,23 +11226,23 @@ return res;
 
 bool secondsAppTimer(uint8_t seconds, uint16_t* counter, bool isCyclic)
 {
-bool isExpired = 0;
-uint16_t destinationTicks = (seconds * 1000) / ((UINT16)(100));
+bool isExpired = 1;
+uint16_t destinationTicks = (uint16_t) (seconds * 1000) / ((UINT16)(100));
 
 if (*counter < destinationTicks)
 {
 *counter += 1;
+isExpired = 0;
 }
 if (*counter == destinationTicks)
 {
-isExpired = 1;
 if (isCyclic)
 {
 *counter = 0;
 }
 else
 {
-*counter += 1;
+*counter = 0xFFFF;
 }
 }
 return isExpired;
@@ -11251,12 +11251,14 @@ return isExpired;
 bool initGprsModem()
 {
 static uint16_t modemCounter = 0;
-bool isInitialized = 0u;
+static bool isInitialized = 0u;
 if (MdmStatus == ModemConfigured || MdmStatus == ModemOn)
 {
 if (secondsAppTimer(5, &modemCounter, 0))
 {
-Uart_WriteConstString(1, "AT\r\n");
+
+
+Mdm_SetSmsFormat(1);
 Led_SetLedStatus(1u, LED_STS_ON);
 isInitialized = 1;
 }
@@ -11264,7 +11266,19 @@ isInitialized = 1;
 return isInitialized;
 }
 
-# 137
+void blinkForSeconds(uint8_t seconds, uint16_t* blickTicks)
+{
+if (secondsAppTimer(seconds, blickTicks, 0))
+{
+Led_SetLedStatus(1u, LED_STS_ON);
+}
+else
+{
+Led_SetLedStatus(1u, LED_STS_BLINK);
+}
+}
+
+# 150
 void MyApp_Task (UINT8 Options)
 {
 static uint8_t countRelay1 = 1;
@@ -11280,6 +11294,11 @@ UINT8 I2cTxBufferTest[] = {0x00, 0x00};
 static UINT8 I2cStsReady = 0u;
 UINT8 phone[] = {'3', '2', '0', '0', '2', '7', '6', '3', '1', '8'};
 
+static uint16_t blickTicks = 0xFFFF;
+static uint8_t blinkSeconds = 0;
+
+uint8_t smsText[((UINT8)(50))];
+
 switch (SystemState)
 {
 
@@ -11293,10 +11312,19 @@ case RunningState:
 if (initGprsModem())
 {
 
-if (ReceiveEvt(&RingEvent))
+if (Mdm_IsRinging())
 {
-Led_SetLedStatus(1u, LED_STS_BLINK);
+blickTicks = 0;
+blinkSeconds = 5;
 }
+if (Mdm_IsSmsReceived())
+{
+blickTicks = 0;
+blinkSeconds = 3;
+Mdm_RequestSmsData();
+Mdm_GetSmsData(smsText);
+}
+blinkForSeconds(blinkSeconds, &blickTicks);
 }
 break;
 

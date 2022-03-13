@@ -17,12 +17,24 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _Led_SetLedStatus `(v ~T0 @X0 0 ef2`uc`E8859 ]
 "104
 [v _Led_SetLedBlinkTime `(v ~T0 @X0 0 ef3`uc`us`us ]
-"179 ../Source/c/04_App/app.c
+"182 ../Source/c/04_App/app.c
 [c E8199 0 1 .. ]
 [n E8199 _RingStsType PhoneNotRinging PhoneRinging  ]
 "117 ../../MercuryFwk/Source/h/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.h
 [v _Mdm_IsRinging `(E8199 ~T0 @X0 0 ef ]
-"166 ../Source/c/04_App/app.c
+"187 ../Source/c/04_App/app.c
+[c E8203 0 1 .. ]
+[n E8203 _SmsRxStsType SmsNotReceived SmsReceived  ]
+"129 ../../MercuryFwk/Source/h/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.h
+[v _Mdm_IsSmsReceived `(E8203 ~T0 @X0 0 ef ]
+"123
+[v _Mdm_RequestSmsData `(v ~T0 @X0 0 ef ]
+"192 ../Source/c/04_App/app.c
+[c E8195 0 1 .. ]
+[n E8195 _GetSmsStatus SmsDataNotReady SmsDataReady  ]
+"125 ../../MercuryFwk/Source/h/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.h
+[v _Mdm_GetSmsData `(E8195 ~T0 @X0 0 ef1`*uc ]
+"169 ../Source/c/04_App/app.c
 [c E8941 0 1 .. ]
 [n E8941 SystemStateEnum InitializationState RunningState  ]
 "79 ../../MercuryFwk/Source/h/02_Osl/os_sched.h
@@ -8387,9 +8399,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;app.c: 102: {
 "102
 {
-[; ;app.c: 103: *counter += 1;
+[; ;app.c: 103: *counter = 0xFFFF;
 "103
-[e =+ *U _counter -> -> 1 `i `ui ]
+[e = *U _counter -> 65535 `ui ]
 "104
 }
 [e :U 893 ]
@@ -8609,73 +8621,107 @@ Version 3.2 HI-TECH Software Intermediate Code
 [i F9000
 -> 65535 `ui
 ]
-[; ;app.c: 164: static uint16_t blickTicks = 0xFFFF;
-[; ;app.c: 166: switch (SystemState)
-"166
-[e $U 902  ]
-[; ;app.c: 167: {
+"165
+[v F9001 `uc ~T0 @X0 1 s blinkSeconds ]
+[i F9001
+-> -> 0 `i `uc
+]
 "167
-{
-[; ;app.c: 169: case InitializationState:
+[v _smsText `uc ~T0 @X0 -> -> -> 50 `i `uc `ux a ]
+[; ;app.c: 164: static uint16_t blickTicks = 0xFFFF;
+[; ;app.c: 165: static uint8_t blinkSeconds = 0;
+[; ;app.c: 167: uint8_t smsText[((UINT8)(50))];
+[; ;app.c: 169: switch (SystemState)
 "169
-[e :U 903 ]
-[; ;app.c: 171: Led_SetLedBlinkTime(1u,100,900);
-"171
-[e ( _Led_SetLedBlinkTime (3 , , -> -> 1 `ui `uc -> -> 100 `i `us -> -> 900 `i `us ]
-[; ;app.c: 172: break;
-"172
-[e $U 901  ]
-[; ;app.c: 175: case RunningState:
-"175
-[e :U 904 ]
-[; ;app.c: 176: if (initGprsModem())
-"176
-[e $ ! != -> ( _initGprsModem ..  `i -> -> -> 0 `i `uc `i 905  ]
-[; ;app.c: 177: {
-"177
+[e $U 902  ]
+[; ;app.c: 170: {
+"170
 {
-[; ;app.c: 179: if (Mdm_IsRinging())
+[; ;app.c: 172: case InitializationState:
+"172
+[e :U 903 ]
+[; ;app.c: 174: Led_SetLedBlinkTime(1u,100,900);
+"174
+[e ( _Led_SetLedBlinkTime (3 , , -> -> 1 `ui `uc -> -> 100 `i `us -> -> 900 `i `us ]
+[; ;app.c: 175: break;
+"175
+[e $U 901  ]
+[; ;app.c: 178: case RunningState:
+"178
+[e :U 904 ]
+[; ;app.c: 179: if (initGprsModem())
 "179
-[e $ ! != -> ( _Mdm_IsRinging ..  `i -> -> -> 0 `i `E8199 `i 906  ]
+[e $ ! != -> ( _initGprsModem ..  `i -> -> -> 0 `i `uc `i 905  ]
 [; ;app.c: 180: {
 "180
 {
-[; ;app.c: 181: blickTicks = 0;
-"181
-[e = F9000 -> -> 0 `i `ui ]
+[; ;app.c: 182: if (Mdm_IsRinging())
 "182
+[e $ ! != -> ( _Mdm_IsRinging ..  `i -> -> -> 0 `i `E8199 `i 906  ]
+[; ;app.c: 183: {
+"183
+{
+[; ;app.c: 184: blickTicks = 0;
+"184
+[e = F9000 -> -> 0 `i `ui ]
+[; ;app.c: 185: blinkSeconds = 5;
+"185
+[e = F9001 -> -> 5 `i `uc ]
+"186
 }
 [e :U 906 ]
-[; ;app.c: 182: }
-[; ;app.c: 183: blinkForSeconds(5, &blickTicks);
-"183
-[e ( _blinkForSeconds (2 , -> -> 5 `i `uc &U F9000 ]
-"184
+[; ;app.c: 186: }
+[; ;app.c: 187: if (Mdm_IsSmsReceived())
+"187
+[e $ ! != -> ( _Mdm_IsSmsReceived ..  `i -> -> -> 0 `i `E8203 `i 907  ]
+[; ;app.c: 188: {
+"188
+{
+[; ;app.c: 189: blickTicks = 0;
+"189
+[e = F9000 -> -> 0 `i `ui ]
+[; ;app.c: 190: blinkSeconds = 3;
+"190
+[e = F9001 -> -> 3 `i `uc ]
+[; ;app.c: 191: Mdm_RequestSmsData();
+"191
+[e ( _Mdm_RequestSmsData ..  ]
+[; ;app.c: 192: Mdm_GetSmsData(smsText);
+"192
+[e ( _Mdm_GetSmsData (1 &U _smsText ]
+"193
+}
+[e :U 907 ]
+[; ;app.c: 193: }
+[; ;app.c: 194: blinkForSeconds(blinkSeconds, &blickTicks);
+"194
+[e ( _blinkForSeconds (2 , F9001 &U F9000 ]
+"195
 }
 [e :U 905 ]
-[; ;app.c: 184: }
-[; ;app.c: 185: break;
-"185
+[; ;app.c: 195: }
+[; ;app.c: 196: break;
+"196
 [e $U 901  ]
-[; ;app.c: 188: default:
-"188
-[e :U 907 ]
-[; ;app.c: 189: break;
-"189
+[; ;app.c: 199: default:
+"199
+[e :U 908 ]
+[; ;app.c: 200: break;
+"200
 [e $U 901  ]
-"190
+"201
 }
-[; ;app.c: 190: }
+[; ;app.c: 201: }
 [e $U 901  ]
-"166
+"169
 [e :U 902 ]
 [e [\ _SystemState , $ . `E8941 0 903
  , $ . `E8941 1 904
- 907 ]
-"190
+ 908 ]
+"201
 [e :U 901 ]
-[; ;app.c: 191: }
-"191
+[; ;app.c: 202: }
+"202
 [e :UE 900 ]
 }
 [a 1C 65 84 13 10 0 ]

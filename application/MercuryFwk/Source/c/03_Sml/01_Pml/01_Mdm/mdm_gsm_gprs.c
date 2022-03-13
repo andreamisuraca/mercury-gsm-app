@@ -866,7 +866,7 @@ void Mdm_RequestSmsData (void)
 * Output:       GetSmsStatusType 
 * Author:       F.Ficili
 * Description:  API to get the SMS data to the modem. The data must be 
-*               requested before using the Mdm_RequestSmsData API.
+*               requested before using the Mdm_GetSmsData API.
 * Date:         25/09/16
 ************************************************************************/
 GetSmsStatusType Mdm_GetSmsData (UINT8 *MessageText)

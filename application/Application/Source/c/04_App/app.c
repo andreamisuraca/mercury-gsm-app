@@ -115,23 +115,26 @@ bool initGprsModem()
     switch(initMdm)
     {
         case 0:
-    if (MdmStatus == ModemConfigured || MdmStatus == ModemOn)
-    {
-        if (secondsAppTimer(5, &modemCounter, false))
-        {
-            Mdm_SetSmsFormat(1);
-            Led_SetLedStatus(LED_1, LED_STS_ON);
+            if (MdmStatus == ModemConfigured || MdmStatus == ModemOn)
+            {
+                if (secondsAppTimer(5, &modemCounter, false))
+                {
+                    Mdm_SetSmsFormat(1);
+                    Led_SetLedStatus(LED_1, LED_STS_ON);
                     initMdm = 1;
                 }
             }
             break;
         case 1:
             Uart_WriteConstString(1,"AT+CMGDA=DEL ALL\r\n");
-            Led_SetLedStatus(LED_1, LED_STS_ON);
-            isInitialized = true;
             initMdm = 2;
             break;
-            
+        case 2:
+            Uart_WriteConstString(1,"AT+CLIP=1\r\n");
+            initMdm = 3;
+            Led_SetLedStatus(LED_1, LED_STS_ON);
+            isInitialized = true;
+            break;
         default:
             break;
     }
@@ -162,18 +165,8 @@ void blinkForSeconds(uint8_t seconds, uint16_t* blickTicks)
 * Date:         09/10/16
 ************************************************************************/
 void MyApp_Task (UINT8 Options)
-{     
-    static uint8_t countRelay1 = 1;
-    static uint16_t countRelay2 = 1;
-    static bool isRelay1On = false;
-    static bool isRelay2On = false;
-    static uint8_t test = 0;
-    uint8_t off[2] = {SB01_SET_RELAY_STS, 0x00};
-    uint8_t on[2] = {SB01_SET_RELAY_STS, 0x1};
-    
-    UINT8 I2cTxBufferTest[] = {0x00, 0x00};
-    static UINT8 I2cStsReady = STD_FALSE;
-    UINT8 phone[] = {'+', '3', '9', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '\0'};
+{
+    UINT8 phone[] = {'+', '3', '9', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '\0'}
 
     static uint16_t blickTicks = 0xFFFF;
     static uint8_t blinkSeconds = 0;
@@ -193,13 +186,17 @@ void MyApp_Task (UINT8 Options)
         /* System Normal operation Phase */
         case RunningState:
             if (initGprsModem())
-         {
+            {
                 /* If ring evt is received */
                 if (Mdm_IsRinging())
-         {
+                {
                     blickTicks = 0;
-                    blinkSeconds = 5;
-             }
+                    if (StringCompare(phone, GetCallerNumber(), 14))
+                    {
+                        blinkSeconds = 5;
+                    }
+                    Mdm_HangPhoneCall();
+                }
                 if (Mdm_IsSmsReceived())
                 {
                     Mdm_RequestSmsData();

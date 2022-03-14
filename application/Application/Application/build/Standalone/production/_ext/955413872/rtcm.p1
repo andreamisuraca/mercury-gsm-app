@@ -80,10 +80,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 "84
 [v _Rtcm_GetRtccDate `(S885 ~T0 @X0 0 ef ]
 "101 ../../MercuryFwk/Source/c/03_Sml/02_Ssl/rtcm.c
-[c E8912 0 1 .. ]
-[n E8912 SystemStateEnum InitializationState RunningState  ]
+[c E8914 0 1 .. ]
+[n E8914 SystemStateEnum InitializationState RunningState  ]
 "79 ../../MercuryFwk/Source/h/02_Osl/os_sched.h
-[v _SystemState `E8912 ~T0 @X0 0 e ]
+[v _SystemState `E8914 ~T0 @X0 0 e ]
 "182 ../../MercuryFwk/Source/c/03_Sml/02_Ssl/rtcm.c
 [c E8026 0 1 2 3 4 5 6 .. ]
 [n E8026 _RtccValPointerType ValPtrYear ValPtrMonth ValPtrDay ValPtrWeekday ValPtrHours ValPtrMinutes ValPtrSeconds  ]
@@ -7644,6 +7644,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;mdm_gsm_gprs.h: 125: GetSmsStatusType Mdm_GetSmsData (UINT8 *MessageText, UINT8 *MessageHeader);
 [; ;mdm_gsm_gprs.h: 127: void Mdm_SendSmsData (UINT8 *PhoneNmb, UINT8 PhoneNmbLen, UINT8 *MsgTxt, UINT8 MsgTxtLen);
 [; ;mdm_gsm_gprs.h: 129: SmsRxStsType Mdm_IsSmsReceived (void);
+[; ;mdm_gsm_gprs.h: 131: UINT8* GetCallerNumber (void);
 [; ;usb_common.h: 133: typedef union
 [; ;usb_common.h: 134: {
 [; ;usb_common.h: 135: uint8_t bitmap;
@@ -8467,8 +8468,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $U 889  ]
 "101
 [e :U 890 ]
-[e [\ _SystemState , $ . `E8912 0 891
- , $ . `E8912 1 892
+[e [\ _SystemState , $ . `E8914 0 891
+ , $ . `E8914 1 892
  893 ]
 "165
 [e :U 889 ]

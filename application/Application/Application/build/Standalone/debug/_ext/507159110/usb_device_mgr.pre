@@ -10150,6 +10150,8 @@ void Mdm_SendSmsData (UINT8 *PhoneNmb, UINT8 PhoneNmbLen, UINT8 *MsgTxt, UINT8 M
 
 SmsRxStsType Mdm_IsSmsReceived (void);
 
+UINT8* GetCallerNumber (void);
+
 # 82 "../../MercuryFwk/Source/h/03_Sml/02_Ssl/led.h"
 typedef enum _LedStsType
 {

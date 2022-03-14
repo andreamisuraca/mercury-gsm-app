@@ -10150,6 +10150,8 @@ void Mdm_SendSmsData (UINT8 *PhoneNmb, UINT8 PhoneNmbLen, UINT8 *MsgTxt, UINT8 M
 
 SmsRxStsType Mdm_IsSmsReceived (void);
 
+UINT8* GetCallerNumber (void);
+
 # 133 "../../MercuryFwk/Source/h/03_Sml/01_Pml/04_Usb/usb_common.h"
 typedef union
 {
@@ -11269,15 +11271,17 @@ initMdm = 1;
 break;
 case 1:
 Uart_WriteConstString(1,"AT+CMGDA=DEL ALL\r\n");
-Led_SetLedStatus(1u, LED_STS_ON);
-isInitialized = 1;
 initMdm = 2;
 break;
-
+case 2:
+Uart_WriteConstString(1,"AT+CLIP=1\r\n");
+initMdm = 3;
+Led_SetLedStatus(1u, LED_STS_ON);
+isInitialized = 1;
+break;
 default:
 break;
 }
-
 return isInitialized;
 }
 
@@ -11293,20 +11297,9 @@ Led_SetLedStatus(1u, LED_STS_BLINK);
 }
 }
 
-# 165
+# 167
 void MyApp_Task (UINT8 Options)
 {
-static uint8_t countRelay1 = 1;
-static uint16_t countRelay2 = 1;
-static bool isRelay1On = 0;
-static bool isRelay2On = 0;
-static uint8_t test = 0;
-uint8_t off[2] = {((UINT8)(0x50)), 0x00};
-uint8_t on[2] = {((UINT8)(0x50)), 0x1};
-
-
-UINT8 I2cTxBufferTest[] = {0x00, 0x00};
-static UINT8 I2cStsReady = 0u;
 UINT8 phone[] = {'+', '3', '9', '3', '2', '0', '0', '2', '7', '6', '3', '1', '8', '\0'};
 
 static uint16_t blickTicks = 0xFFFF;
@@ -11332,7 +11325,11 @@ if (initGprsModem())
 if (Mdm_IsRinging())
 {
 blickTicks = 0;
+if (StringCompare(phone, GetCallerNumber(), 14))
+{
 blinkSeconds = 5;
+}
+Mdm_HangPhoneCall();
 }
 if (Mdm_IsSmsReceived())
 {

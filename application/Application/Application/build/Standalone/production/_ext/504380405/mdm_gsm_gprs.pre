@@ -11201,7 +11201,9 @@ void Mdm_SendSmsData (UINT8 *PhoneNmb, UINT8 PhoneNmbLen, UINT8 *MsgTxt, UINT8 M
 
 SmsRxStsType Mdm_IsSmsReceived (void);
 
-# 74 "../../MercuryFwk/Source/c/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.c"
+UINT8* GetCallerNumber (void);
+
+# 75 "../../MercuryFwk/Source/c/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.c"
 typedef enum _TurnOnMdmState
 {
 TurnOnDelay,
@@ -11259,7 +11261,7 @@ UINT8 HeadLen;
 UINT8 TextLen;
 } SmsRxType;
 
-# 135
+# 136
 static UartConfigType UartConfig;
 
 static SmsRxType Mdm_SmsRx;
@@ -11271,13 +11273,16 @@ static UINT8 PhoneNumbLen;
 static UINT8 PhoneNumber[20];
 static UINT8 MessageText[50];
 
+static UINT8 callerNumber[14];
+
 
 EventStructureType SendSmsEvent = {EventIdle};
 
-# 153
+# 156
 MdmStatusType MdmStatus = ModemOff;
 
 EventStructureType RingEvent = {EventIdle};
+EventStructureType ClipEvent = {EventIdle};
 EventStructureType SmsEvent = {EventIdle};
 EventStructureType GetSmsText = {EventIdle};
 EventStructureType SmsTxtReady = {EventIdle};
@@ -11286,7 +11291,7 @@ EventStructureType NewStringReceived = {EventIdle};
 EventStructureType NewMdmEvtParserRequest = {EventIdle};
 EventStructureType NewStringMdmTerminal = {EventIdle};
 
-# 167
+# 171
 void TurnOnModem (void);
 void ConfigureModem (void);
 void UartSetConfig (void);
@@ -11294,7 +11299,7 @@ void GetSmsSm (void);
 void SendSmsSm (void);
 void ModemEvtParser (void);
 
-# 185
+# 189
 void UartSetConfig (void)
 {
 UartConfig.UartEnable = ((UINT8)(1));
@@ -11302,10 +11307,10 @@ UartConfig.UartMode = ((UINT8)(0));
 
 UartConfig.BaudRateMode = ((UINT8)(0));
 
-# 195
+# 199
 UartConfig.HighBaudMode = ((UINT8)(0));
 
-# 199
+# 203
 UartConfig.Tx9bitMode = ((UINT8)(0));
 UartConfig.Rx9bitMode = ((UINT8)(0));
 UartConfig.TxEnable = ((UINT8)(1));
@@ -11319,10 +11324,10 @@ UartConfig.McuBusClock = ((UINT32)(48000000));
 
 UartConfig.DesiredBaudRate = ((UINT32)(9600));
 
-# 214
+# 218
 }
 
-# 224
+# 228
 void UartSetConfigLow (void)
 {
 UartConfig.UartEnable = ((UINT8)(1));
@@ -11342,7 +11347,7 @@ UartConfig.McuBusClock = ((UINT32)(48000000));
 UartConfig.DesiredBaudRate = ((UINT32)(9600));
 }
 
-# 251
+# 255
 void UartSetConfigHigh (void)
 {
 UartConfig.UartEnable = ((UINT8)(1));
@@ -11362,7 +11367,7 @@ UartConfig.McuBusClock = ((UINT32)(48000000));
 UartConfig.DesiredBaudRate = ((UINT32)(115200));
 }
 
-# 278
+# 282
 void CheckModem (void)
 {
 static CheckMdmStsType CheckMdmSts = MdmCh_SetInitialDelay;
@@ -11448,7 +11453,7 @@ break;
 }
 }
 
-# 371
+# 375
 void TurnOnModem (void)
 {
 static TurnOnMdmStateType TurnOnMdmState = TurnOnDelay;
@@ -11484,7 +11489,7 @@ break;
 }
 }
 
-# 414
+# 418
 void ConfigureModem (void)
 {
 static MdmConfigStateType MdmConfigState = MdmCfg_Init;
@@ -11557,10 +11562,11 @@ break;
 }
 }
 
-# 494
+# 498
 void ModemEvtParser (void)
 {
 UINT8 RingString[] = {'R','I','N','G'};
+UINT8 ClipString[] = {'+','C','L','I', 'P'};
 UINT8 SmsString[] = {'+','C','M','T','I'};
 UINT8 CallReadyString[] = {'C','a','l','l',' ','R','e','a','d','y'};
 UINT8 CompareIdx = 0;
@@ -11569,7 +11575,7 @@ UINT8 Match = 0;
 
 if (ReceiveEvt(&NewMdmEvtParserRequest))
 {
-for (CompareIdx = 0; CompareIdx < ((UINT8)(3)); CompareIdx++)
+for (CompareIdx = 0; CompareIdx < ((UINT8)(4)); CompareIdx++)
 {
 switch (CompareIdx)
 {
@@ -11579,6 +11585,19 @@ if (StringCompare(RingString, RxBuffer, sizeof(RingString)))
 {
 
 GenerateEvt(&RingEvent);
+
+Match = 1;
+}
+break;
+
+case ((UINT8)(3)):
+
+if (StringCompare(ClipString, RxBuffer, sizeof(ClipString)))
+{
+StringCopy(RxBuffer + 8, callerNumber, 13);
+callerNumber[13] = '\0';
+
+GenerateEvt(&ClipEvent);
 
 Match = 1;
 }
@@ -11622,7 +11641,7 @@ Uart_ClearRxBuffer();
 }
 }
 
-# 566
+# 584
 void GetSmsSm (void)
 {
 static GetSmsStateType GetSmsState = GetSms_CheckReq;
@@ -11687,7 +11706,7 @@ break;
 }
 }
 
-# 638
+# 656
 void SendSmsSm (void)
 {
 static SendSms_StateType SendSms_State = SendSms_WaitEvt;
@@ -11774,7 +11793,7 @@ break;
 }
 }
 
-# 736
+# 754
 void Mdm_MainTask (UINT8 Options)
 {
 switch (SystemState)
@@ -11813,7 +11832,7 @@ break;
 }
 }
 
-# 782
+# 800
 void Mdm_PinUnlock (const UINT8 *PIN)
 {
 UINT8 UartMessage[((UINT8)(13))];
@@ -11843,7 +11862,7 @@ UartMessage[Index + 9] = (0);
 Uart_WriteString(1, UartMessage);
 }
 
-# 819
+# 837
 void Mdm_SetSmsFormat (UINT8 TextFormat)
 {
 UINT8 UartMessage[20];
@@ -11876,14 +11895,14 @@ UartMessage[10] = (0);
 Uart_WriteString(1, UartMessage);
 }
 
-# 859
+# 877
 void Mdm_RequestSmsData (void)
 {
 
 GenerateEvt(&GetSmsText);
 }
 
-# 874
+# 892
 GetSmsStatusType Mdm_GetSmsData (UINT8 *MessageText, UINT8 *MessageHeader)
 {
 GetSmsStatusType GetSmsStatus = SmsDataNotReady;
@@ -11903,7 +11922,7 @@ GetSmsStatus = SmsDataReady;
 return GetSmsStatus;
 }
 
-# 904
+# 922
 void Mdm_SendSmsData (UINT8 *PhoneNmb, UINT8 PhoneNmbLen, UINT8 *MsgTxt, UINT8 MsgTxtLen)
 {
 
@@ -11916,7 +11935,7 @@ SmsLen = MsgTxtLen;
 GenerateEvt(&SendSmsEvent);
 }
 
-# 924
+# 942
 SmsRxStsType Mdm_IsSmsReceived (void)
 {
 SmsRxStsType Ret = SmsNotReceived;
@@ -11930,7 +11949,7 @@ Ret = SmsReceived;
 return Ret;
 }
 
-# 946
+# 964
 void Mdm_MakePhoneCall (UINT8 *PhoneNumb, UINT8 PhoneNumbLen)
 {
 UINT8 UartMessage[((UINT8)(25))];
@@ -11956,21 +11975,21 @@ UartMessage[Index + 5] = (0);
 Uart_WriteString(1, UartMessage);
 }
 
-# 979
+# 997
 void Mdm_HangPhoneCall (void)
 {
 
 Uart_WriteConstString(1, "ATH\r");
 }
 
-# 993
+# 1011
 void Mdm_GetPhoneCall (void)
 {
 
 Uart_WriteConstString(1, "ATA\r");
 }
 
-# 1007
+# 1025
 RingStsType Mdm_IsRinging (void)
 {
 RingStsType Ret = PhoneNotRinging;
@@ -11982,5 +12001,14 @@ Ret = PhoneRinging;
 }
 
 return Ret;
+}
+
+UINT8* GetCallerNumber (void)
+{
+if (!ReceiveEvt(&ClipEvent))
+{
+ClearBuffer(callerNumber, 14);
+}
+return callerNumber;
 }
 

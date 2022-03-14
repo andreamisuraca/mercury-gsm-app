@@ -51,10 +51,11 @@
 #define MDM_FINAL_DELAY_MS                               1000u
 
 /* Modem Events */
-#define EVENTS_NUM                                       ((UINT8)(3))
+#define EVENTS_NUM                                       ((UINT8)(4))
 #define RING_STRING_IDX                                  ((UINT8)(0))
 #define SMS_STRING_IDX                                   ((UINT8)(1))
 #define CALL_READY_STRING_IDX                            ((UINT8)(2))
+#define CLIP_STRING_IDX                                  ((UINT8)(3))
 
 /* Modem constants */
 #define PHONE_CALL_UART_MSG_LEN                          ((UINT8)(25))
@@ -143,6 +144,8 @@ static UINT8 PhoneNumbLen;
 static UINT8 PhoneNumber[20];
 static UINT8 MessageText[50];
 
+static UINT8 callerNumber[14];
+
 /* Local Events */
 EventStructureType SendSmsEvent = {EventIdle};
 
@@ -153,6 +156,7 @@ EventStructureType SendSmsEvent = {EventIdle};
 MdmStatusType MdmStatus = ModemOff;
 /* Events */
 EventStructureType RingEvent = {EventIdle};
+EventStructureType ClipEvent = {EventIdle};
 EventStructureType SmsEvent = {EventIdle};
 EventStructureType GetSmsText = {EventIdle};
 EventStructureType SmsTxtReady = {EventIdle};
@@ -494,6 +498,7 @@ void ConfigureModem (void)
 void ModemEvtParser (void)
 {
    UINT8 RingString[] = {'R','I','N','G'}; 
+   UINT8 ClipString[] = {'+','C','L','I', 'P'};
    UINT8 SmsString[] = {'+','C','M','T','I'};
    UINT8 CallReadyString[] = {'C','a','l','l',' ','R','e','a','d','y'};   
    UINT8 CompareIdx = 0;
@@ -514,6 +519,19 @@ void ModemEvtParser (void)
                   GenerateEvt(&RingEvent);
                   /* Update match */
                   Match = TRUE;                  
+               }
+               break;
+
+            case CLIP_STRING_IDX:
+               /* Check string */
+               if (StringCompare(ClipString, RxBuffer, sizeof(ClipString)))
+               {
+                  StringCopy(RxBuffer + 8, callerNumber, 13);
+                  callerNumber[13] = '\0';
+                  /* String match */
+                  GenerateEvt(&ClipEvent);
+                  /* Update match */
+                  Match = TRUE;
                }
                break;
 
@@ -584,7 +602,7 @@ void GetSmsSm (void)
          case GetSms_SendAtCmd:
             /* Send SMS read AT cmd */
             Uart_WriteConstString(1,"AT+CMGR=1\r\n");
-            /* Swithc state */
+           /* Swithc state */
             GetSmsState = GetSms_StoreHeader;              
             break;
 
@@ -1015,6 +1033,15 @@ RingStsType Mdm_IsRinging (void)
    }
    
    return Ret;
+}
+
+UINT8* GetCallerNumber (void)
+{
+   if (!ReceiveEvt(&ClipEvent))
+   {
+      ClearBuffer(callerNumber, 14);
+   }
+   return callerNumber;
 }
 
 #endif /* MODEM_USED == GSM_GPRS_MDM */

@@ -172,19 +172,19 @@ StartTmrNotReq 0
 StartTmrReq 1
 ]
 "224 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/01_Hal/02_Drv/uart_drv.c
-[e E9018 _TxBufferStatus `uc
+[e E9020 _TxBufferStatus `uc
 TxBufferNotFull 0
 TxBufferFull 1
 TxBufferEmpty 2
 ]
 "272
-[e E9023 _RxBufferStatus `uc
+[e E9025 _RxBufferStatus `uc
 RxBufferNotFull 0
 RxBufferIdle 1
 RxBufferNoData 2
 ]
 "379
-[e E9028 _RxState `uc
+[e E9030 _RxState `uc
 ReadData 0
 CheckTermSeq1 1
 CheckTermSeq2 2
@@ -197,12 +197,12 @@ EventSent 2
 EventNotSent 3
 ]
 "53 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/02_Osl/os_sched.c
-[e E8940 MainSystemTimebaseEnum `uc
+[e E8942 MainSystemTimebaseEnum `uc
 CallTaskPhase 0
 WaitTriggerPhase 1
 ]
 "55
-[e E8944 SystemStateEnum `uc
+[e E8946 SystemStateEnum `uc
 InitializationState 0
 RunningState 1
 ]
@@ -242,14 +242,14 @@ WtWait 1
 DelayNotExpired 0
 DelayExpired 1
 ]
-"147 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.c
+"150 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.c
 [e E7699 EventStatusEnum `uc
 EventIdle 0
 EventReceived 1
 EventSent 2
 EventNotSent 3
 ]
-"153
+"156
 [e E8899 _MdmStatus `uc
 ModemOff 0
 ModemOn 1
@@ -257,8 +257,8 @@ ModemReady 2
 ModemConfigured 3
 ModemSleep 4
 ]
-"280
-[e E8974 _CheckMdmStsType `uc
+"284
+[e E8976 _CheckMdmStsType `uc
 MdmCh_SetInitialDelay 0
 MdmCh_InitialDelay 1
 MdmCh_SendATE1 2
@@ -266,7 +266,7 @@ MdmCh_WaitEcho 3
 MdmCh_Delay 4
 MdmCh_Done 5
 ]
-"281
+"285
 [e E7757 _SwTimerStatusType `uc
 SwTmrNotExpired 0
 SwTimerExpired 1
@@ -280,14 +280,14 @@ WtWait 1
 DelayNotExpired 0
 DelayExpired 1
 ]
-"373
-[e E8954 _TurnOnMdmState `uc
+"377
+[e E8956 _TurnOnMdmState `uc
 TurnOnDelay 0
 TurnOnModuleReq 1
 Stop 2
 ]
-"416
-[e E8965 _MdmConfigState `uc
+"420
+[e E8967 _MdmConfigState `uc
 MdmCfg_Init 0
 MdmCfg_ChangeBaud 1
 MdmCfg_SetMdmEchoMode 2
@@ -296,15 +296,15 @@ MdmCfg_Delay 4
 MdmCfg_UpdateMdmSts 5
 MdmCfg_Stop 6
 ]
-"568
-[e E8959 _GetSmsState `uc
+"586
+[e E8961 _GetSmsState `uc
 GetSms_CheckReq 0
 GetSms_SendAtCmd 1
 GetSms_StoreHeader 2
 GetSms_StoreText 3
 ]
-"640
-[e E8982 _SendSms_StateType `uc
+"658
+[e E8984 _SendSms_StateType `uc
 SendSms_WaitEvt 0
 SendSms_CmgsCmd 1
 SendSms_EnterCmd 2
@@ -312,22 +312,22 @@ SendSms_WaitConf 3
 SendSms_SendSmsText 4
 SendSms_Delay 5
 ]
-"738
+"756
 [e E8889 SystemStateEnum `uc
 InitializationState 0
 RunningState 1
 ]
-"875
+"893
 [e E8906 _GetSmsStatus `uc
 SmsDataNotReady 0
 SmsDataReady 1
 ]
-"925
+"943
 [e E8914 _SmsRxStsType `uc
 SmsNotReceived 0
 SmsReceived 1
 ]
-"1008
+"1026
 [e E8910 _RingStsType `uc
 PhoneNotRinging 0
 PhoneRinging 1
@@ -347,14 +347,14 @@ DelayNotExpired 0
 DelayExpired 1
 ]
 "96
-[e E8906 _GprsOutStsType `uc
+[e E8908 _GprsOutStsType `uc
 GprsSts_NotInit 0
 GprsSts_InProg 1
 GprsSts_Completed 2
 GprsSts_Failed 3
 ]
 "98
-[e E8912 _GetMethodStsType `uc
+[e E8914 _GetMethodStsType `uc
 GetMOut_Idle 0
 GetMOut_InProg 1
 GetMOut_Completed 2
@@ -368,7 +368,7 @@ EventSent 2
 EventNotSent 3
 ]
 "126
-[e E8954 _GprsNetInitType `uc
+[e E8956 _GprsNetInitType `uc
 GprsIn_Idle 0
 GprsIn_SetConType 1
 GprsIn_SetApn 2
@@ -380,7 +380,7 @@ GprsIn_WaitMdmResp 7
 GprsIn_WaitGetIp 8
 ]
 "273
-[e E8965 _GetMethodType `uc
+[e E8967 _GetMethodType `uc
 GetM_Idle 0
 GetM_HttpInit 1
 GetM_HttpSsl 2
@@ -407,7 +407,7 @@ ModemConfigured 3
 ModemSleep 4
 ]
 "559
-[e E8896 SystemStateEnum `uc
+[e E8898 SystemStateEnum `uc
 InitializationState 0
 RunningState 1
 ]
@@ -419,18 +419,18 @@ EventSent 2
 EventNotSent 3
 ]
 "76
-[e E8961 _I2cComSts `uc
+[e E8963 _I2cComSts `uc
 TxRxIdle 0
 TxInProgress 1
 RxInProgress 2
 ]
 "81
-[e E8920 _I2cBusStatusType `uc
+[e E8922 _I2cBusStatusType `uc
 I2cBusNotReady 0
 I2cBusReady 1
 ]
 "120
-[e E8954 _I2cComState `uc
+[e E8956 _I2cComState `uc
 I2cComIdle 0
 I2cComWriteData 1
 I2cComReadData 2
@@ -450,28 +450,28 @@ I2cReadNotOk 1
 I2cReadOk 2
 ]
 "217
-[e E8906 SystemStateEnum `uc
+[e E8908 SystemStateEnum `uc
 InitializationState 0
 RunningState 1
 ]
 "325
-[e E8916 _I2cReadMsgSts `uc
+[e E8918 _I2cReadMsgSts `uc
 MessageNotReceived 0
 MessageReceived 1
 ]
 "352
-[e E8924 _I2cCommSts `uc
+[e E8926 _I2cCommSts `uc
 I2cTxRxInProgress 0
 I2cTxRxComplete 1
 ]
 "382
-[e E8928 . `uc
+[e E8930 . `uc
 OP_IN_PROGRESS 0
 OP_COMPLETE 1
 OP_TIMEOUT 2
 ]
 "383
-[e E8966 . `uc
+[e E8968 . `uc
 ASK_DATA 0
 REQ_DATA 1
 GET_DATA 2
@@ -596,12 +596,12 @@ EVENT_ATTACH 4
 EVENT_TRANSFER_TERMINATED 5
 ]
 "74 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/01_Pml/04_Usb/usb_device_mgr.c
-[e E8327 SystemStateEnum `uc
+[e E8329 SystemStateEnum `uc
 InitializationState 0
 RunningState 1
 ]
 "105
-[e E8347 . `ui
+[e E8349 . `ui
 EVENT_NONE 0
 EVENT_DEVICE_STACK_BASE 1
 EVENT_HOST_STACK_BASE 100
@@ -640,7 +640,7 @@ EVENT_USER_BASE 10000
 EVENT_BUS_ERROR 32767
 ]
 "106
-[e E8415 . `uc
+[e E8417 . `uc
 EVENT_CONFIGURED 1
 EVENT_SET_DESCRIPTOR 2
 EVENT_EP0_REQUEST 3
@@ -648,7 +648,7 @@ EVENT_ATTACH 4
 EVENT_TRANSFER_TERMINATED 5
 ]
 "86 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/02_Ssl/led.c
-[e E8935 _LedStsType `uc
+[e E8937 _LedStsType `uc
 LED_STS_OFF 0
 LED_STS_ON 1
 LED_STS_TOGGLE 2
@@ -656,22 +656,22 @@ LED_STS_BLINK 3
 LED_STS_PULSE 4
 ]
 "88
-[e E8958 _LedPulseStateType `uc
+[e E8960 _LedPulseStateType `uc
 LedPulseOn 0
 LedPulseDelay 1
 LedPulseOff 2
 ]
-[e E8963 _LedOutStateType `uc
+[e E8965 _LedOutStateType `uc
 OffState 0
 OnState 1
 ]
 "89
-[e E8954 _LedBlinkStateType `uc
+[e E8956 _LedBlinkStateType `uc
 LedBlinkInit 0
 LedBlinkRunning 1
 ]
 "300
-[e E8925 SystemStateEnum `uc
+[e E8927 SystemStateEnum `uc
 InitializationState 0
 RunningState 1
 ]
@@ -710,7 +710,7 @@ EventSent 2
 EventNotSent 3
 ]
 "101
-[e E8912 SystemStateEnum `uc
+[e E8914 SystemStateEnum `uc
 InitializationState 0
 RunningState 1
 ]
@@ -742,7 +742,7 @@ DeepSleepMode 3
 UltraLowPowerWakeUpMode 4
 ]
 "330 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/02_Ssl/term.c
-[e E8312 . `uc
+[e E8314 . `uc
 DETACHED_STATE 0
 ATTACHED_STATE 1
 POWERED_STATE 2
@@ -759,7 +759,7 @@ EventSent 2
 EventNotSent 3
 ]
 "430
-[e E8965 _TermStateType `uc
+[e E8967 _TermStateType `uc
 Term_GetData 0
 Term_PrepSlvI2cResp 1
 Term_ReadSlvI2cData 2
@@ -786,7 +786,7 @@ DelayNotExpired 0
 DelayExpired 1
 ]
 "709
-[e E8954 _TermMainSmStateType `uc
+[e E8956 _TermMainSmStateType `uc
 Term_StartTmr 0
 Term_InitDelay 1
 Term_InitState 2
@@ -798,12 +798,12 @@ Term_SysInitState 7
 Term_FinalState 8
 ]
 "847
-[e E8940 SystemStateEnum `uc
+[e E8942 SystemStateEnum `uc
 InitializationState 0
 RunningState 1
 ]
 "75 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/02_Ssl/wdg.c
-[e E8942 SystemStateEnum `uc
+[e E8944 SystemStateEnum `uc
 InitializationState 0
 RunningState 1
 ]
@@ -816,30 +816,30 @@ ModemConfigured 3
 ModemSleep 4
 ]
 "123
-[e E8860 _LedStsType `uc
+[e E8862 _LedStsType `uc
 LED_STS_OFF 0
 LED_STS_ON 1
 LED_STS_TOGGLE 2
 LED_STS_BLINK 3
 LED_STS_PULSE 4
 ]
-"200
+"191
 [e E8199 _RingStsType `uc
 PhoneNotRinging 0
 PhoneRinging 1
 ]
-"205
+"200
 [e E8203 _SmsRxStsType `uc
 SmsNotReceived 0
 SmsReceived 1
 ]
-"209
+"204
 [e E8195 _GetSmsStatus `uc
 SmsDataNotReady 0
 SmsDataReady 1
 ]
-"187
-[e E8942 SystemStateEnum `uc
+"178
+[e E8944 SystemStateEnum `uc
 InitializationState 0
 RunningState 1
 ]
@@ -950,7 +950,7 @@ RunningState 1
 "173
 [v _UartWriteByte UartWriteByte `(v  1 e 1 0 ]
 "223
-[v _UartTxBufferStatus UartTxBufferStatus `(E9018  1 e 1 0 ]
+[v _UartTxBufferStatus UartTxBufferStatus `(E9020  1 e 1 0 ]
 "288
 [v _Uart_InitUartModule Uart_InitUartModule `(v  1 e 1 0 ]
 "376
@@ -999,38 +999,42 @@ RunningState 1
 [v _OsTmr_Wait OsTmr_Wait `(E7749  1 e 1 0 ]
 "193
 [v _OsTmr_GetTimerStatus OsTmr_GetTimerStatus `(E7740  1 e 1 0 ]
-"185 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.c
+"189 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.c
 [v _UartSetConfig UartSetConfig `(v  1 e 1 0 ]
-"224
+"228
 [v _UartSetConfigLow UartSetConfigLow `(v  1 e 1 0 ]
-"278
+"282
 [v _CheckModem CheckModem `(v  1 e 1 0 ]
-"371
+"375
 [v _TurnOnModem TurnOnModem `(v  1 e 1 0 ]
-"414
+"418
 [v _ConfigureModem ConfigureModem `(v  1 e 1 0 ]
-"494
+"498
 [v _ModemEvtParser ModemEvtParser `(v  1 e 1 0 ]
-"566
+"584
 [v _GetSmsSm GetSmsSm `(v  1 e 1 0 ]
-"638
+"656
 [v _SendSmsSm SendSmsSm `(v  1 e 1 0 ]
-"736
+"754
 [v _Mdm_MainTask Mdm_MainTask `(v  1 e 1 0 ]
-"819
+"837
 [v _Mdm_SetSmsFormat Mdm_SetSmsFormat `(v  1 e 1 0 ]
-"859
+"877
 [v _Mdm_RequestSmsData Mdm_RequestSmsData `(v  1 e 1 0 ]
-"874
+"892
 [v _Mdm_GetSmsData Mdm_GetSmsData `(E8906  1 e 1 0 ]
-"924
+"942
 [v _Mdm_IsSmsReceived Mdm_IsSmsReceived `(E8914  1 e 1 0 ]
-"1007
+"997
+[v _Mdm_HangPhoneCall Mdm_HangPhoneCall `(v  1 e 1 0 ]
+"1025
 [v _Mdm_IsRinging Mdm_IsRinging `(E8910  1 e 1 0 ]
+"1038
+[v _GetCallerNumber GetCallerNumber `(*.39uc  1 e 2 0 ]
 "124 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs_http.c
-[v _InitGprsNetwork InitGprsNetwork `(E8906  1 e 1 0 ]
+[v _InitGprsNetwork InitGprsNetwork `(E8908  1 e 1 0 ]
 "271
-[v _HttpGetMethod HttpGetMethod `(E8906  1 e 1 0 ]
+[v _HttpGetMethod HttpGetMethod `(E8908  1 e 1 0 ]
 "557
 [v _MdmHttp_MainTask MdmHttp_MainTask `(v  1 e 1 0 ]
 "101 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/01_Pml/02_SlvI2c/i2c_slv.c
@@ -1047,7 +1051,7 @@ RunningState 1
 "289
 [v _I2cSlv_ReceiveI2cMsg I2cSlv_ReceiveI2cMsg `(uc  1 e 1 0 ]
 "324
-[v _I2cSlv_I2cReadMsgSts I2cSlv_I2cReadMsgSts `(E8916  1 e 1 0 ]
+[v _I2cSlv_I2cReadMsgSts I2cSlv_I2cReadMsgSts `(E8918  1 e 1 0 ]
 "295 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/01_Pml/04_Usb/usb_device.c
 [v _USBDeviceInit USBDeviceInit `(v  1 e 1 0 ]
 "495
@@ -1125,9 +1129,9 @@ RunningState 1
 "176
 [v _Rtcm_SetRtccDate Rtcm_SetRtccDate `(v  1 e 1 0 ]
 "44 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/h/03_Sml/02_Ssl/rtcm.h
-[s S5299 _RtccDateType 8 `us 1 Year 2 0 `uc 1 Month 1 2 `uc 1 Day 1 3 `uc 1 Weekday 1 4 `uc 1 Hour 1 5 `uc 1 Minute 1 6 `uc 1 Second 1 7 ]
+[s S5308 _RtccDateType 8 `us 1 Year 2 0 `uc 1 Month 1 2 `uc 1 Day 1 3 `uc 1 Weekday 1 4 `uc 1 Hour 1 5 `uc 1 Minute 1 6 `uc 1 Second 1 7 ]
 "202 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/02_Ssl/rtcm.c
-[v _Rtcm_GetRtccDate Rtcm_GetRtccDate `(S5299  1 e 8 0 ]
+[v _Rtcm_GetRtccDate Rtcm_GetRtccDate `(S5308  1 e 8 0 ]
 "75 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/02_Ssl/sf.c
 [v _StringCompare StringCompare `(uc  1 e 1 0 ]
 "104
@@ -1146,9 +1150,9 @@ RunningState 1
 [v _secondsAppTimer secondsAppTimer `(uc  1 e 1 0 ]
 "109
 [v _initGprsModem initGprsModem `(uc  1 e 1 0 ]
-"142
+"144
 [v _blinkForSeconds blinkForSeconds `(v  1 e 1 0 ]
-"165
+"167
 [v _MyApp_Task MyApp_Task `(v  1 e 1 0 ]
 "5 /opt/microchip/xc8/v1.45/sources/common/atoi.c
 [v _atoi atoi `(i  1 e 2 0 ]
@@ -1246,9 +1250,9 @@ RunningState 1
 "45 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/02_Osl/os_alarms.c
 [v _OsAlarms OsAlarms `[20]S2014  1 e 220 0 ]
 "53 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/02_Osl/os_sched.c
-[v _MainSystemTimebaseFlag MainSystemTimebaseFlag `E8940  1 e 1 0 ]
+[v _MainSystemTimebaseFlag MainSystemTimebaseFlag `E8942  1 e 1 0 ]
 "55
-[v _SystemState SystemState `E8944  1 e 1 0 ]
+[v _SystemState SystemState `E8946  1 e 1 0 ]
 [s S2049 _SchedTblType 8 `*.37(v 1 Task 2 0 `E7740 1 State 1 2 `us 1 Counter 2 3 `Cus 1 TimeoutMs 2 5 `uc 1 Options 1 7 ]
 "45 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/02_Osl/os_sched_tbl.c
 [v _TaskTable TaskTable `[10]S2049  1 e 80 0 ]
@@ -1257,55 +1261,59 @@ RunningState 1
 "51 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/02_Osl/os_timers.c
 [v _OsTmr_OsTickCounter OsTmr_OsTickCounter `ul  1 e 4 0 ]
 [s S1797 _UartConfig 21 `uc 1 UartEnable 1 0 `uc 1 UartMode 1 1 `uc 1 BaudRateMode 1 2 `uc 1 HighBaudMode 1 3 `uc 1 Tx9bitMode 1 4 `uc 1 Rx9bitMode 1 5 `uc 1 TxEnable 1 6 `uc 1 RxEnable 1 7 `uc 1 SendBreakEnable 1 8 `uc 1 AutobaudEnable 1 9 `uc 1 WakeUpEnable 1 10 `uc 1 TxInterruptEnable 1 11 `uc 1 RxInterruptEnable 1 12 `ul 1 McuBusClock 4 13 `ul 1 DesiredBaudRate 4 17 ]
-"135 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.c
+"136 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.c
 [v _UartConfig UartConfig `S1797  1 s 21 UartConfig ]
 [s S2276 _Sms 132 `[80]uc 1 HeaderBuffer 80 0 `[50]uc 1 MessageBuffer 50 80 `uc 1 HeadLen 1 130 `uc 1 TextLen 1 131 ]
-"137
+"138
 [v _Mdm_SmsRx Mdm_SmsRx `S2276  1 s 132 Mdm_SmsRx ]
-"139
+"140
 [v _ComChecCompleted ComChecCompleted `uc  1 s 1 ComChecCompleted ]
-"141
-[v _SmsLen SmsLen `uc  1 s 1 SmsLen ]
 "142
+[v _SmsLen SmsLen `uc  1 s 1 SmsLen ]
+"143
 [v _PhoneNumbLen PhoneNumbLen `uc  1 s 1 PhoneNumbLen ]
-"144
+"145
 [v _MessageText MessageText `[50]uc  1 s 50 MessageText ]
 "147
+[v _callerNumber callerNumber `[14]uc  1 s 14 callerNumber ]
+"150
 [v _SendSmsEvent SendSmsEvent `S564  1 e 1 0 ]
-"153
-[v _MdmStatus MdmStatus `E8899  1 e 1 0 ]
-"155
-[v _RingEvent RingEvent `S564  1 e 1 0 ]
 "156
-[v _SmsEvent SmsEvent `S564  1 e 1 0 ]
-"157
-[v _GetSmsText GetSmsText `S564  1 e 1 0 ]
+[v _MdmStatus MdmStatus `E8899  1 e 1 0 ]
 "158
-[v _SmsTxtReady SmsTxtReady `S564  1 e 1 0 ]
+[v _RingEvent RingEvent `S564  1 e 1 0 ]
 "159
-[v _MdmStsReady MdmStsReady `S564  1 e 1 0 ]
+[v _ClipEvent ClipEvent `S564  1 e 1 0 ]
 "160
-[v _NewStringReceived NewStringReceived `S564  1 e 1 0 ]
+[v _SmsEvent SmsEvent `S564  1 e 1 0 ]
 "161
-[v _NewMdmEvtParserRequest NewMdmEvtParserRequest `S564  1 e 1 0 ]
+[v _GetSmsText GetSmsText `S564  1 e 1 0 ]
 "162
+[v _SmsTxtReady SmsTxtReady `S564  1 e 1 0 ]
+"163
+[v _MdmStsReady MdmStsReady `S564  1 e 1 0 ]
+"164
+[v _NewStringReceived NewStringReceived `S564  1 e 1 0 ]
+"165
+[v _NewMdmEvtParserRequest NewMdmEvtParserRequest `S564  1 e 1 0 ]
+"166
 [v _NewStringMdmTerminal NewStringMdmTerminal `S564  1 e 1 0 ]
 "82 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs_http.c
 [v _ApnLocal ApnLocal `*.2uc  1 e 2 0 ]
 "83
 [v _ApnLenLocal ApnLenLocal `uc  1 e 1 0 ]
-[s S2524 _HttpGetDataType 5 `*.2uc 1 Url 2 0 `uc 1 UrlLen 1 2 `*.2uc 1 RespBuffer 2 3 ]
+[s S2533 _HttpGetDataType 5 `*.2uc 1 Url 2 0 `uc 1 UrlLen 1 2 `*.2uc 1 RespBuffer 2 3 ]
 "86
-[v _HttpGetDataLocal HttpGetDataLocal `S2524  1 e 5 0 ]
+[v _HttpGetDataLocal HttpGetDataLocal `S2533  1 e 5 0 ]
 [s S2177 _SwTimerType 11 `uc 1 Enabled 1 0 `E7740 1 Status 1 1 `ul 1 StartTime 4 2 `ul 1 TargetTime 4 6 `E7745 1 WaitState 1 10 ]
 "89
 [v _ConnTimeout ConnTimeout `S2177  1 e 11 0 ]
 "90
 [v _ConnWait ConnWait `S2177  1 e 11 0 ]
 "96
-[v _GprsNetworkSts GprsNetworkSts `E8906  1 e 1 0 ]
+[v _GprsNetworkSts GprsNetworkSts `E8908  1 e 1 0 ]
 "98
-[v _HttpGetMethodSts HttpGetMethodSts `E8912  1 e 1 0 ]
+[v _HttpGetMethodSts HttpGetMethodSts `E8914  1 e 1 0 ]
 "101
 [v _InitNetwork InitNetwork `S564  1 e 1 0 ]
 "102
@@ -1320,27 +1328,27 @@ RunningState 1
 [s S566 _I2cReadPacket 6 `uc 1 SlaveAddress 1 0 `uc 1 ReadWrite 1 1 `*.39uc 1 Buffer 2 2 `uc 1 Lenght 1 4 `S564 1 ReadCompleteEvt 1 5 ]
 [v _I2cRxPacket I2cRxPacket `S566  1 s 6 I2cRxPacket ]
 "76
-[v _I2cComSts I2cComSts `E8961  1 s 1 I2cComSts ]
+[v _I2cComSts I2cComSts `E8963  1 s 1 I2cComSts ]
 "81
-[v _I2cBusStatus I2cBusStatus `E8920  1 e 1 0 ]
+[v _I2cBusStatus I2cBusStatus `E8922  1 e 1 0 ]
 "82
 [v _I2cWriteDataEvt I2cWriteDataEvt `S564  1 e 1 0 ]
 "83
 [v _I2cReadDataEvt I2cReadDataEvt `S564  1 e 1 0 ]
-[s S2891 _USB_DEVICE_DESCRIPTOR 18 `uc 1 bLength 1 0 `uc 1 bDescriptorType 1 1 `ui 1 bcdUSB 2 2 `uc 1 bDeviceClass 1 4 `uc 1 bDeviceSubClass 1 5 `uc 1 bDeviceProtocol 1 6 `uc 1 bMaxPacketSize0 1 7 `ui 1 idVendor 2 8 `ui 1 idProduct 2 10 `ui 1 bcdDevice 2 12 `uc 1 iManufacturer 1 14 `uc 1 iProduct 1 15 `uc 1 iSerialNumber 1 16 `uc 1 bNumConfigurations 1 17 ]
+[s S2900 _USB_DEVICE_DESCRIPTOR 18 `uc 1 bLength 1 0 `uc 1 bDescriptorType 1 1 `ui 1 bcdUSB 2 2 `uc 1 bDeviceClass 1 4 `uc 1 bDeviceSubClass 1 5 `uc 1 bDeviceProtocol 1 6 `uc 1 bMaxPacketSize0 1 7 `ui 1 idVendor 2 8 `ui 1 idProduct 2 10 `ui 1 bcdDevice 2 12 `uc 1 iManufacturer 1 14 `uc 1 iProduct 1 15 `uc 1 iSerialNumber 1 16 `uc 1 bNumConfigurations 1 17 ]
 "173 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/01_Pml/04_Usb/usb_descriptors.c
-[v _device_dsc device_dsc `CS2891  1 e 18 0 ]
+[v _device_dsc device_dsc `CS2900  1 e 18 0 ]
 "192
 [v _configDescriptor1 configDescriptor1 `C[67]uc  1 e 67 0 ]
-[s S2928 . 4 `uc 1 bLength 1 0 `uc 1 bDscType 1 1 `[1]ui 1 string 2 2 ]
+[s S2937 . 4 `uc 1 bLength 1 0 `uc 1 bDscType 1 1 `[1]ui 1 string 2 2 ]
 "278
-[v _sd000 sd000 `CS2928  1 e 4 0 ]
-[s S2932 . 30 `uc 1 bLength 1 0 `uc 1 bDscType 1 1 `[14]ui 1 string 28 2 ]
+[v _sd000 sd000 `CS2937  1 e 4 0 ]
+[s S2941 . 30 `uc 1 bLength 1 0 `uc 1 bDscType 1 1 `[14]ui 1 string 28 2 ]
 "282
-[v _sd001 sd001 `CS2932  1 e 30 0 ]
-[s S2936 . 38 `uc 1 bLength 1 0 `uc 1 bDscType 1 1 `[18]ui 1 string 36 2 ]
+[v _sd001 sd001 `CS2941  1 e 30 0 ]
+[s S2945 . 38 `uc 1 bLength 1 0 `uc 1 bDscType 1 1 `[18]ui 1 string 36 2 ]
 "287
-[v _sd002 sd002 `CS2936  1 e 38 0 ]
+[v _sd002 sd002 `CS2945  1 e 38 0 ]
 "292
 [v _USB_CD_Ptr USB_CD_Ptr `C[1]*.25Cuc  1 e 2 0 ]
 "297
@@ -1351,7 +1359,7 @@ RunningState 1
 [v _USBActiveConfiguration USBActiveConfiguration `uc  1 e 1 0 ]
 "133
 [v _USBAlternateInterface USBAlternateInterface `[2]uc  1 e 2 0 ]
-[s S2984 . 1 `uc 1 BC8 1 0 :1:0 
+[s S2993 . 1 `uc 1 BC8 1 0 :1:0 
 `uc 1 BC9 1 0 :1:1 
 `uc 1 BSTALL 1 0 :1:2 
 `uc 1 DTSEN 1 0 :1:3 
@@ -1361,80 +1369,80 @@ RunningState 1
 `uc 1 UOWN 1 0 :1:7 
 ]
 "134
-[s S2993 . 1 `uc 1 . 1 0 :2:0 
+[s S3002 . 1 `uc 1 . 1 0 :2:0 
 `uc 1 PID0 1 0 :1:2 
 `uc 1 PID1 1 0 :1:3 
 `uc 1 PID2 1 0 :1:4 
 `uc 1 PID3 1 0 :1:5 
 `uc 1 . 1 0 :1:6 
 ]
-[s S3000 . 1 `uc 1 . 1 0 :2:0 
+[s S3009 . 1 `uc 1 . 1 0 :2:0 
 `uc 1 PID 1 0 :4:2 
 `uc 1 . 1 0 :2:6 
 ]
-[u S3004 _BD_STAT 1 `uc 1 Val 1 0 `S2984 1 . 1 0 `S2993 1 . 1 0 `S3000 1 . 1 0 ]
-[s S3009 . 4 `S3004 1 STAT 1 0 `uc 1 CNT 1 1 `uc 1 ADRL 1 2 `uc 1 ADRH 1 3 ]
-[s S3014 . 4 `uc 1 . 1 0 :8:0 
+[u S3013 _BD_STAT 1 `uc 1 Val 1 0 `S2993 1 . 1 0 `S3002 1 . 1 0 `S3009 1 . 1 0 ]
+[s S3018 . 4 `S3013 1 STAT 1 0 `uc 1 CNT 1 1 `uc 1 ADRL 1 2 `uc 1 ADRH 1 3 ]
+[s S3023 . 4 `uc 1 . 1 0 :8:0 
 `uc 1 . 1 1 :8:0 
 `ui 1 ADR 2 2 ]
-[u S3018 __BDT 4 `S3009 1 . 4 0 `S3014 1 . 4 0 `ul 1 Val 4 0 `[4]uc 1 v 4 0 ]
-[v _pBDTEntryEP0OutCurrent pBDTEntryEP0OutCurrent `*.39VES3018  1 e 2 0 ]
+[u S3027 __BDT 4 `S3018 1 . 4 0 `S3023 1 . 4 0 `ul 1 Val 4 0 `[4]uc 1 v 4 0 ]
+[v _pBDTEntryEP0OutCurrent pBDTEntryEP0OutCurrent `*.39VES3027  1 e 2 0 ]
 "135
-[v _pBDTEntryEP0OutNext pBDTEntryEP0OutNext `*.39VES3018  1 e 2 0 ]
+[v _pBDTEntryEP0OutNext pBDTEntryEP0OutNext `*.39VES3027  1 e 2 0 ]
 "136
-[v _pBDTEntryOut pBDTEntryOut `[3]*.39VES3018  1 e 6 0 ]
+[v _pBDTEntryOut pBDTEntryOut `[3]*.39VES3027  1 e 6 0 ]
 "137
-[v _pBDTEntryIn pBDTEntryIn `[3]*.39VES3018  1 e 6 0 ]
+[v _pBDTEntryIn pBDTEntryIn `[3]*.39VES3027  1 e 6 0 ]
 "138
 [v _shortPacketStatus shortPacketStatus `uc  1 e 1 0 ]
 "139
 [v _controlTransferState controlTransferState `uc  1 e 1 0 ]
-[u S3023 . 3 `*.2uc 1 bRam 3 0 `*.2Cuc 1 bRom 3 0 `*.2ui 1 wRam 3 0 `*.2Cui 1 wRom 3 0 ]
+[u S3032 . 3 `*.2uc 1 bRam 3 0 `*.2Cuc 1 bRom 3 0 `*.2ui 1 wRam 3 0 `*.2Cui 1 wRom 3 0 ]
 "140
-[s S3028 . 1 `uc 1 ctrl_trf_mem 1 0 :1:0 
+[s S3037 . 1 `uc 1 ctrl_trf_mem 1 0 :1:0 
 `uc 1 reserved 1 0 :5:1 
 `uc 1 includeZero 1 0 :1:6 
 `uc 1 busy 1 0 :1:7 
 ]
-[u S3033 . 1 `S3028 1 bits 1 0 `uc 1 Val 1 0 ]
-[s S3036 . 2 `uc 1 LB 1 0 `uc 1 HB 1 1 ]
-[u S3039 . 2 `ui 1 Val 2 0 `[2]uc 1 v 2 0 `S3036 1 byte 2 0 ]
-[s S3043 . 6 `S3023 1 pSrc 3 0 `S3033 1 info 1 3 `S3039 1 wCount 2 4 ]
-[v _inPipes inPipes `[1]S3043  1 e 6 0 ]
-[u S3047 . 3 `*.2uc 1 bRam 3 0 `*.2ui 1 wRam 3 0 ]
+[u S3042 . 1 `S3037 1 bits 1 0 `uc 1 Val 1 0 ]
+[s S3045 . 2 `uc 1 LB 1 0 `uc 1 HB 1 1 ]
+[u S3048 . 2 `ui 1 Val 2 0 `[2]uc 1 v 2 0 `S3045 1 byte 2 0 ]
+[s S3052 . 6 `S3032 1 pSrc 3 0 `S3042 1 info 1 3 `S3048 1 wCount 2 4 ]
+[v _inPipes inPipes `[1]S3052  1 e 6 0 ]
+[u S3056 . 3 `*.2uc 1 bRam 3 0 `*.2ui 1 wRam 3 0 ]
 "141
-[s S3050 . 1 `uc 1 reserved 1 0 :7:0 
+[s S3059 . 1 `uc 1 reserved 1 0 :7:0 
 `uc 1 busy 1 0 :1:7 
 ]
-[u S3053 . 1 `S3050 1 bits 1 0 `uc 1 Val 1 0 ]
-[s S3057 . 8 `S3047 1 pDst 3 0 `S3053 1 info 1 3 `S3039 1 wCount 2 4 `*.37(v 1 pFunc 2 6 ]
-[v _outPipes outPipes `[1]S3057  1 e 8 0 ]
+[u S3062 . 1 `S3059 1 bits 1 0 `uc 1 Val 1 0 ]
+[s S3066 . 8 `S3056 1 pDst 3 0 `S3062 1 info 1 3 `S3048 1 wCount 2 4 `*.37(v 1 pFunc 2 6 ]
+[v _outPipes outPipes `[1]S3066  1 e 8 0 ]
 "142
 [v _pDst pDst `*.39uc  1 e 2 0 ]
 "143
 [v _RemoteWakeup RemoteWakeup `uc  1 e 1 0 ]
 "144
 [v _USBBusIsSuspended USBBusIsSuspended `uc  1 e 1 0 ]
-[s S3062 . 1 `uc 1 filler1 1 0 :1:0 
+[s S3071 . 1 `uc 1 filler1 1 0 :1:0 
 `uc 1 ping_pong 1 0 :1:1 
 `uc 1 direction 1 0 :1:2 
 `uc 1 endpoint_number 1 0 :4:3 
 ]
 "145
-[u S3067 __USTAT 1 `S3062 1 . 1 0 `uc 1 Val 1 0 ]
-[v _USTATcopy USTATcopy `S3067  1 e 1 0 ]
+[u S3076 __USTAT 1 `S3071 1 . 1 0 `uc 1 Val 1 0 ]
+[v _USTATcopy USTATcopy `S3076  1 e 1 0 ]
 "146
 [v _endpoint_number endpoint_number `uc  1 e 1 0 ]
 "147
 [v _BothEP0OutUOWNsSet BothEP0OutUOWNsSet `uc  1 e 1 0 ]
-[s S3070 . 1 `uc 1 ping_pong_state 1 0 :1:0 
+[s S3079 . 1 `uc 1 ping_pong_state 1 0 :1:0 
 `uc 1 transfer_terminated 1 0 :1:1 
 ]
 "148
-[u S3073 . 1 `S3070 1 bits 1 0 `uc 1 Val 1 0 ]
-[v _ep_data_in ep_data_in `[3]S3073  1 e 3 0 ]
+[u S3082 . 1 `S3079 1 bits 1 0 `uc 1 Val 1 0 ]
+[v _ep_data_in ep_data_in `[3]S3082  1 e 3 0 ]
 "149
-[v _ep_data_out ep_data_out `[3]S3073  1 e 3 0 ]
+[v _ep_data_out ep_data_out `[3]S3082  1 e 3 0 ]
 "150
 [v _USBStatusStageTimeoutCounter USBStatusStageTimeoutCounter `uc  1 e 1 0 ]
 "151
@@ -1452,13 +1460,13 @@ RunningState 1
 "157
 [v _USBTicksSinceSuspendEnd USBTicksSinceSuspendEnd `uc  1 e 1 0 ]
 "164
-[v _BDT BDT `VE[12]S3018  1 e 48 @1024 ]
-[s S3076 . 8 `uc 1 bmRequestType 1 0 `uc 1 bRequest 1 1 `ui 1 wValue 2 2 `ui 1 wIndex 2 4 `ui 1 wLength 2 6 ]
+[v _BDT BDT `VE[12]S3027  1 e 48 @1024 ]
+[s S3085 . 8 `uc 1 bmRequestType 1 0 `uc 1 bRequest 1 1 `ui 1 wValue 2 2 `ui 1 wIndex 2 4 `ui 1 wLength 2 6 ]
 "169
-[s S3103 . 8 `uc 1 . 1 0 :8:0 
+[s S3112 . 8 `uc 1 . 1 0 :8:0 
 `uc 1 . 1 1 :8:0 
-`S3039 1 W_Value 2 2 `S3039 1 W_Index 2 4 `S3039 1 W_Length 2 6 ]
-[s S3109 . 8 `uc 1 Recipient 1 0 :5:0 
+`S3048 1 W_Value 2 2 `S3048 1 W_Index 2 4 `S3048 1 W_Length 2 6 ]
+[s S3118 . 8 `uc 1 Recipient 1 0 :5:0 
 `uc 1 RequestType 1 0 :2:5 
 `uc 1 DataDir 1 0 :1:7 
 `uc 1 . 1 1 :8:0 
@@ -1468,44 +1476,44 @@ RunningState 1
 `uc 1 . 1 6 :8:0 
 `uc 1 . 1 7 :8:0 
 ]
-[s S3120 . 1 `uc 1 recipient 1 0 :5:0 
+[s S3129 . 1 `uc 1 recipient 1 0 :5:0 
 `uc 1 type 1 0 :2:5 
 `uc 1 direction 1 0 :1:7 
 ]
-[u S3124 . 1 `uc 1 bmRequestType 1 0 `S3120 1 . 1 0 ]
-[s S3127 . 1 `S3124 1 requestInfo 1 0 ]
-[s S3129 . 8 `uc 1 . 1 0 :8:0 
+[u S3133 . 1 `uc 1 bmRequestType 1 0 `S3129 1 . 1 0 ]
+[s S3136 . 1 `S3133 1 requestInfo 1 0 ]
+[s S3138 . 8 `uc 1 . 1 0 :8:0 
 `uc 1 . 1 1 :8:0 
 `uc 1 bDscIndex 1 2 `uc 1 bDescriptorType 1 3 `ui 1 wLangID 2 4 `uc 1 . 1 6 :8:0 
 `uc 1 . 1 7 :8:0 
 ]
-[s S3137 . 8 `uc 1 . 1 0 :8:0 
+[s S3146 . 8 `uc 1 . 1 0 :8:0 
 `uc 1 . 1 1 :8:0 
 `uc 1 bDevADR 1 2 `uc 1 bDevADRH 1 3 `uc 1 . 1 4 :8:0 
 `uc 1 . 1 5 :8:0 
 `uc 1 . 1 6 :8:0 
 `uc 1 . 1 7 :8:0 
 ]
-[s S3146 . 8 `uc 1 . 1 0 :8:0 
+[s S3155 . 8 `uc 1 . 1 0 :8:0 
 `uc 1 . 1 1 :8:0 
 `uc 1 bConfigurationValue 1 2 `uc 1 bCfgRSD 1 3 `uc 1 . 1 4 :8:0 
 `uc 1 . 1 5 :8:0 
 `uc 1 . 1 6 :8:0 
 `uc 1 . 1 7 :8:0 
 ]
-[s S3155 . 8 `uc 1 . 1 0 :8:0 
+[s S3164 . 8 `uc 1 . 1 0 :8:0 
 `uc 1 . 1 1 :8:0 
 `uc 1 bAltID 1 2 `uc 1 bAltID_H 1 3 `uc 1 bIntfID 1 4 `uc 1 bIntfID_H 1 5 `uc 1 . 1 6 :8:0 
 `uc 1 . 1 7 :8:0 
 ]
-[s S3164 . 8 `uc 1 . 1 0 :8:0 
+[s S3173 . 8 `uc 1 . 1 0 :8:0 
 `uc 1 . 1 1 :8:0 
 `uc 1 . 1 2 :8:0 
 `uc 1 . 1 3 :8:0 
 `uc 1 bEPID 1 4 `uc 1 bEPID_H 1 5 `uc 1 . 1 6 :8:0 
 `uc 1 . 1 7 :8:0 
 ]
-[s S3173 . 8 `uc 1 . 1 0 :8:0 
+[s S3182 . 8 `uc 1 . 1 0 :8:0 
 `uc 1 . 1 1 :8:0 
 `uc 1 . 1 2 :8:0 
 `uc 1 . 1 3 :8:0 
@@ -1516,29 +1524,29 @@ RunningState 1
 `uc 1 . 1 6 :8:0 
 `uc 1 . 1 7 :8:0 
 ]
-[u S3184 . 8 `S3076 1 . 8 0 `S3103 1 . 8 0 `S3109 1 . 8 0 `S3127 1 . 1 0 `S3129 1 . 8 0 `S3137 1 . 8 0 `S3146 1 . 8 0 `S3155 1 . 8 0 `S3164 1 . 8 0 `S3173 1 . 8 0 ]
-[v _SetupPkt SetupPkt `VES3184  1 e 8 @1072 ]
+[u S3193 . 8 `S3085 1 . 8 0 `S3112 1 . 8 0 `S3118 1 . 8 0 `S3136 1 . 1 0 `S3138 1 . 8 0 `S3146 1 . 8 0 `S3155 1 . 8 0 `S3164 1 . 8 0 `S3173 1 . 8 0 `S3182 1 . 8 0 ]
+[v _SetupPkt SetupPkt `VES3193  1 e 8 @1072 ]
 "170
 [v _CtrlTrfData CtrlTrfData `VE[8]uc  1 e 8 @1080 ]
 "68 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/01_Pml/04_Usb/usb_device_cdc.c
 [v _cdc_data_tx cdc_data_tx `VE[64]uc  1 e 64 0 ]
 "69
 [v _cdc_data_rx cdc_data_rx `VE[64]uc  1 e 64 0 ]
-[s S4587 . 7 `[7]uc 1 _byte 7 0 ]
+[s S4596 . 7 `[7]uc 1 _byte 7 0 ]
 "79
-[s S4589 . 7 `ul 1 dwDTERate 4 0 `uc 1 bCharFormat 1 4 `uc 1 bParityType 1 5 `uc 1 bDataBits 1 6 ]
-[u S4594 _LINE_CODING 7 `S4587 1 . 7 0 `S4589 1 . 7 0 ]
-[v _line_coding line_coding `S4594  1 e 7 0 ]
+[s S4598 . 7 `ul 1 dwDTERate 4 0 `uc 1 bCharFormat 1 4 `uc 1 bParityType 1 5 `uc 1 bDataBits 1 6 ]
+[u S4603 _LINE_CODING 7 `S4596 1 . 7 0 `S4598 1 . 7 0 ]
+[v _line_coding line_coding `S4603  1 e 7 0 ]
 "86
 [v _cdc_rx_len cdc_rx_len `uc  1 e 1 0 ]
 "87
 [v _cdc_trf_state cdc_trf_state `uc  1 e 1 0 ]
-[s S4601 . 2 `uc 1 bLow 1 0 `uc 1 bHigh 1 1 ]
+[s S4610 . 2 `uc 1 bLow 1 0 `uc 1 bHigh 1 1 ]
 "88
-[u S4604 . 3 `S4601 1 . 2 0 `ui 1 _word 2 0 `*.2uc 1 bRam 3 0 `*.2ui 1 wRam 3 0 `*.2Cuc 1 bRom 3 0 `*.2Cui 1 wRom 3 0 ]
-[v _pCDCSrc pCDCSrc `S4604  1 e 3 0 ]
+[u S4613 . 3 `S4610 1 . 2 0 `ui 1 _word 2 0 `*.2uc 1 bRam 3 0 `*.2ui 1 wRam 3 0 `*.2Cuc 1 bRom 3 0 `*.2Cui 1 wRom 3 0 ]
+[v _pCDCSrc pCDCSrc `S4613  1 e 3 0 ]
 "89
-[v _pCDCDst pCDCDst `S4604  1 e 3 0 ]
+[v _pCDCDst pCDCDst `S4613  1 e 3 0 ]
 "90
 [v _cdc_tx_len cdc_tx_len `uc  1 e 1 0 ]
 "91
@@ -1547,49 +1555,49 @@ RunningState 1
 [v _CDCDataOutHandle CDCDataOutHandle `*.39v  1 e 2 0 ]
 "94
 [v _CDCDataInHandle CDCDataInHandle `*.39v  1 e 2 0 ]
-[s S4611 . 1 `uc 1 DTE_PRESENT 1 0 :1:0 
+[s S4620 . 1 `uc 1 DTE_PRESENT 1 0 :1:0 
 `uc 1 CARRIER_CONTROL 1 0 :1:1 
 ]
 "97
-[u S4614 _CONTROL_SIGNAL_BITMAP 1 `uc 1 _byte 1 0 `S4611 1 . 1 0 ]
-[v _control_signal_bitmap control_signal_bitmap `S4614  1 e 1 0 ]
+[u S4623 _CONTROL_SIGNAL_BITMAP 1 `uc 1 _byte 1 0 `S4620 1 . 1 0 ]
+[v _control_signal_bitmap control_signal_bitmap `S4623  1 e 1 0 ]
 "113
 [v _dummy_encapsulated_cmd_response dummy_encapsulated_cmd_response `[8]uc  1 e 8 0 ]
 "86 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/02_Ssl/led.c
-[v _Led1Sts Led1Sts `E8935  1 s 1 Led1Sts ]
+[v _Led1Sts Led1Sts `E8937  1 s 1 Led1Sts ]
 "87
 [v _Led1OutSts Led1OutSts `uc  1 s 1 Led1OutSts ]
-[s S5073 _LedPulseType 6 `E8958 1 LedPulseState 1 0 `E8963 1 LedOutState 1 1 `us 1 LedPulseCounter 2 2 `us 1 LedPulseTimeMs 2 4 ]
+[s S5082 _LedPulseType 6 `E8960 1 LedPulseState 1 0 `E8965 1 LedOutState 1 1 `us 1 LedPulseCounter 2 2 `us 1 LedPulseTimeMs 2 4 ]
 "88
-[v _Led1Pulse Led1Pulse `S5073  1 s 6 Led1Pulse ]
-[s S5081 _LedBlinkType 9 `E8954 1 LedBlinkState 1 0 `E8963 1 LedOutState 1 1 `us 1 LedBlinkCounter 2 2 `us 1 LedOnTimeMs 2 4 `us 1 LedOffTimeMs 2 6 `E8963 1 LedInitStatus 1 8 ]
+[v _Led1Pulse Led1Pulse `S5082  1 s 6 Led1Pulse ]
+[s S5090 _LedBlinkType 9 `E8956 1 LedBlinkState 1 0 `E8965 1 LedOutState 1 1 `us 1 LedBlinkCounter 2 2 `us 1 LedOnTimeMs 2 4 `us 1 LedOffTimeMs 2 6 `E8965 1 LedInitStatus 1 8 ]
 "89
-[v _Led1Blink Led1Blink `S5081  1 s 9 Led1Blink ]
+[v _Led1Blink Led1Blink `S5090  1 s 9 Led1Blink ]
 "91
-[v _Led2Sts Led2Sts `E8935  1 s 1 Led2Sts ]
+[v _Led2Sts Led2Sts `E8937  1 s 1 Led2Sts ]
 "92
 [v _Led2OutSts Led2OutSts `uc  1 s 1 Led2OutSts ]
 "93
-[v _Led2Pulse Led2Pulse `S5073  1 s 6 Led2Pulse ]
+[v _Led2Pulse Led2Pulse `S5082  1 s 6 Led2Pulse ]
 "94
-[v _Led2Blink Led2Blink `S5081  1 s 9 Led2Blink ]
+[v _Led2Blink Led2Blink `S5090  1 s 9 Led2Blink ]
 "96
-[v _Led3Sts Led3Sts `E8935  1 s 1 Led3Sts ]
+[v _Led3Sts Led3Sts `E8937  1 s 1 Led3Sts ]
 "97
 [v _Led3OutSts Led3OutSts `uc  1 s 1 Led3OutSts ]
 "98
-[v _Led3Pulse Led3Pulse `S5073  1 s 6 Led3Pulse ]
+[v _Led3Pulse Led3Pulse `S5082  1 s 6 Led3Pulse ]
 "99
-[v _Led3Blink Led3Blink `S5081  1 s 9 Led3Blink ]
+[v _Led3Blink Led3Blink `S5090  1 s 9 Led3Blink ]
 [s S1275 _RtccConfigType 4 `uc 1 RtcOutPinEnable 1 0 `E7740 1 RtcOutputSelectBit 1 1 `E7712 1 IntEnable 1 2 `E7716 1 IntPriority 1 3 ]
 "48 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/02_Ssl/rtcm.c
 [v _RtcConfig RtcConfig `S1275  1 e 4 0 ]
 [s S1323 _RtccAlarmConfigType 4 `uc 1 RtcAlarmEnable 1 0 `uc 1 RtcChimeEnable 1 1 `E7745 1 AlarmMask 1 2 `uc 1 AlarmRepeat 1 3 ]
 "50
 [v _AlCfg AlCfg `S1323  1 e 4 0 ]
-[s S5299 _RtccDateType 8 `us 1 Year 2 0 `uc 1 Month 1 2 `uc 1 Day 1 3 `uc 1 Weekday 1 4 `uc 1 Hour 1 5 `uc 1 Minute 1 6 `uc 1 Second 1 7 ]
+[s S5308 _RtccDateType 8 `us 1 Year 2 0 `uc 1 Month 1 2 `uc 1 Day 1 3 `uc 1 Weekday 1 4 `uc 1 Hour 1 5 `uc 1 Minute 1 6 `uc 1 Second 1 7 ]
 "57
-[v _Rtcm_SystemDate Rtcm_SystemDate `S5299  1 e 8 0 ]
+[v _Rtcm_SystemDate Rtcm_SystemDate `S5308  1 e 8 0 ]
 "61
 [v _AlarmEvent AlarmEvent `S564  1 e 1 0 ]
 "102 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/02_Ssl/term.c
@@ -1612,32 +1620,32 @@ RunningState 1
 [v _RPINR1 RPINR1 `VEuc  1 e 1 @3815 ]
 "329
 [v _UEP0 UEP0 `VEuc  1 e 1 @3878 ]
-[s S3455 . 1 `uc 1 EPSTALL 1 0 :1:0 
+[s S3464 . 1 `uc 1 EPSTALL 1 0 :1:0 
 `uc 1 EPINEN 1 0 :1:1 
 `uc 1 EPOUTEN 1 0 :1:2 
 `uc 1 EPCONDIS 1 0 :1:3 
 `uc 1 EPHSHK 1 0 :1:4 
 ]
 "357
-[s S3461 . 1 `uc 1 EP0STALL 1 0 :1:0 
+[s S3470 . 1 `uc 1 EP0STALL 1 0 :1:0 
 `uc 1 EP0INEN 1 0 :1:1 
 `uc 1 EP0OUTEN 1 0 :1:2 
 `uc 1 EP0CONDIS 1 0 :1:3 
 `uc 1 EP0HSHK 1 0 :1:4 
 ]
-[s S3467 . 1 `uc 1 EPSTALL0 1 0 :1:0 
+[s S3476 . 1 `uc 1 EPSTALL0 1 0 :1:0 
 `uc 1 EPINEN0 1 0 :1:1 
 `uc 1 EPOUTEN0 1 0 :1:2 
 `uc 1 EPCONDIS0 1 0 :1:3 
 `uc 1 EPHSHK0 1 0 :1:4 
 ]
-[u S3473 . 1 `S3455 1 . 1 0 `S3461 1 . 1 0 `S3467 1 . 1 0 ]
-[v _UEP0bits UEP0bits `VES3473  1 e 1 @3878 ]
+[u S3482 . 1 `S3464 1 . 1 0 `S3470 1 . 1 0 `S3476 1 . 1 0 ]
+[v _UEP0bits UEP0bits `VES3482  1 e 1 @3878 ]
 "437
 [v _UEP1 UEP1 `VEuc  1 e 1 @3879 ]
 "1801
 [v _UIE UIE `VEuc  1 e 1 @3894 ]
-[s S3319 . 1 `uc 1 URSTIE 1 0 :1:0 
+[s S3328 . 1 `uc 1 URSTIE 1 0 :1:0 
 `uc 1 UERRIE 1 0 :1:1 
 `uc 1 ACTVIE 1 0 :1:2 
 `uc 1 TRNIE 1 0 :1:3 
@@ -1646,8 +1654,8 @@ RunningState 1
 `uc 1 SOFIE 1 0 :1:6 
 ]
 "1817
-[u S3327 . 1 `S3319 1 . 1 0 ]
-[v _UIEbits UIEbits `VES3327  1 e 1 @3894 ]
+[u S3336 . 1 `S3328 1 . 1 0 ]
+[v _UIEbits UIEbits `VES3336  1 e 1 @3894 ]
 "1857
 [v _UEIE UEIE `VEuc  1 e 1 @3895 ]
 "1908
@@ -1712,7 +1720,7 @@ RunningState 1
 [v _DSGPR1 DSGPR1 `VEuc  1 e 1 @3919 ]
 "3478
 [v _UIR UIR `VEuc  1 e 1 @3938 ]
-[s S3264 . 1 `uc 1 URSTIF 1 0 :1:0 
+[s S3273 . 1 `uc 1 URSTIF 1 0 :1:0 
 `uc 1 UERRIF 1 0 :1:1 
 `uc 1 ACTVIF 1 0 :1:2 
 `uc 1 TRNIF 1 0 :1:3 
@@ -1721,15 +1729,15 @@ RunningState 1
 `uc 1 SOFIF 1 0 :1:6 
 ]
 "3494
-[u S3272 . 1 `S3264 1 . 1 0 ]
-[v _UIRbits UIRbits `VES3272  1 e 1 @3938 ]
+[u S3281 . 1 `S3273 1 . 1 0 ]
+[v _UIRbits UIRbits `VES3281  1 e 1 @3938 ]
 "3534
 [v _UEIR UEIR `VEuc  1 e 1 @3939 ]
 "3585
 [v _USTAT USTAT `VEuc  1 e 1 @3940 ]
 "3645
 [v _UCON UCON `VEuc  1 e 1 @3941 ]
-[s S3244 . 1 `uc 1 . 1 0 :1:0 
+[s S3253 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 SUSPND 1 0 :1:1 
 `uc 1 RESUME 1 0 :1:2 
 `uc 1 USBEN 1 0 :1:3 
@@ -1738,8 +1746,8 @@ RunningState 1
 `uc 1 PPBRST 1 0 :1:6 
 ]
 "3661
-[u S3252 . 1 `S3244 1 . 1 0 ]
-[v _UCONbits UCONbits `VES3252  1 e 1 @3941 ]
+[u S3261 . 1 `S3253 1 . 1 0 ]
+[v _UCONbits UCONbits `VES3261  1 e 1 @3941 ]
 "3987
 [v _SSP2CON2 SSP2CON2 `VEuc  1 e 1 @3953 ]
 [s S441 . 1 `uc 1 SEN 1 0 :1:0 
@@ -1810,7 +1818,7 @@ RunningState 1
 [v _BAUDCON1 BAUDCON1 `VEuc  1 e 1 @3966 ]
 "5755
 [v _SPBRGH1 SPBRGH1 `VEuc  1 e 1 @3967 ]
-[s S5106 . 1 `uc 1 RD0 1 0 :1:0 
+[s S5115 . 1 `uc 1 RD0 1 0 :1:0 
 `uc 1 RD1 1 0 :1:1 
 `uc 1 RD2 1 0 :1:2 
 `uc 1 RD3 1 0 :1:3 
@@ -1820,7 +1828,7 @@ RunningState 1
 `uc 1 RD7 1 0 :1:7 
 ]
 "6614
-[s S5115 . 1 `uc 1 PMD0 1 0 :1:0 
+[s S5124 . 1 `uc 1 PMD0 1 0 :1:0 
 `uc 1 PMD1 1 0 :1:1 
 `uc 1 PMD2 1 0 :1:2 
 `uc 1 PMD3 1 0 :1:3 
@@ -1829,7 +1837,7 @@ RunningState 1
 `uc 1 PMD6 1 0 :1:6 
 `uc 1 PMD7 1 0 :1:7 
 ]
-[s S5124 . 1 `uc 1 SCL2 1 0 :1:0 
+[s S5133 . 1 `uc 1 SCL2 1 0 :1:0 
 `uc 1 SDA2 1 0 :1:1 
 `uc 1 RP19 1 0 :1:2 
 `uc 1 RP20 1 0 :1:3 
@@ -1838,11 +1846,11 @@ RunningState 1
 `uc 1 RP23 1 0 :1:6 
 `uc 1 RP24 1 0 :1:7 
 ]
-[s S5133 . 1 `uc 1 . 1 0 :7:0 
+[s S5142 . 1 `uc 1 . 1 0 :7:0 
 `uc 1 SS2 1 0 :1:7 
 ]
-[u S5136 . 1 `S5106 1 . 1 0 `S5115 1 . 1 0 `S5124 1 . 1 0 `S5133 1 . 1 0 ]
-[v _PORTDbits PORTDbits `VES5136  1 e 1 @3971 ]
+[u S5145 . 1 `S5115 1 . 1 0 `S5124 1 . 1 0 `S5133 1 . 1 0 `S5142 1 . 1 0 ]
+[v _PORTDbits PORTDbits `VES5145  1 e 1 @3971 ]
 [s S950 . 1 `uc 1 RE0 1 0 :1:0 
 `uc 1 RE1 1 0 :1:1 
 `uc 1 RE2 1 0 :1:2 
@@ -2037,7 +2045,7 @@ RunningState 1
 ]
 [u S1579 . 1 `S1562 1 . 1 0 `S1571 1 . 1 0 `S1576 1 . 1 0 ]
 [v _IPR1bits IPR1bits `VES1579  1 e 1 @3999 ]
-[s S3195 . 1 `uc 1 CCP2IE 1 0 :1:0 
+[s S3204 . 1 `uc 1 CCP2IE 1 0 :1:0 
 `uc 1 TMR3IE 1 0 :1:1 
 `uc 1 LVDIE 1 0 :1:2 
 `uc 1 BCL1IE 1 0 :1:3 
@@ -2047,15 +2055,15 @@ RunningState 1
 `uc 1 OSCFIE 1 0 :1:7 
 ]
 "8818
-[s S3204 . 1 `uc 1 . 1 0 :3:0 
+[s S3213 . 1 `uc 1 . 1 0 :3:0 
 `uc 1 BCLIE 1 0 :1:3 
 ]
-[s S3207 . 1 `uc 1 . 1 0 :6:0 
+[s S3216 . 1 `uc 1 . 1 0 :6:0 
 `uc 1 CMIE 1 0 :1:6 
 ]
-[u S3210 . 1 `S3195 1 . 1 0 `S3204 1 . 1 0 `S3207 1 . 1 0 ]
-[v _PIE2bits PIE2bits `VES3210  1 e 1 @4000 ]
-[s S3284 . 1 `uc 1 CCP2IF 1 0 :1:0 
+[u S3219 . 1 `S3204 1 . 1 0 `S3213 1 . 1 0 `S3216 1 . 1 0 ]
+[v _PIE2bits PIE2bits `VES3219  1 e 1 @4000 ]
+[s S3293 . 1 `uc 1 CCP2IF 1 0 :1:0 
 `uc 1 TMR3IF 1 0 :1:1 
 `uc 1 LVDIF 1 0 :1:2 
 `uc 1 BCL1IF 1 0 :1:3 
@@ -2065,14 +2073,14 @@ RunningState 1
 `uc 1 OSCFIF 1 0 :1:7 
 ]
 "8898
-[s S3293 . 1 `uc 1 . 1 0 :3:0 
+[s S3302 . 1 `uc 1 . 1 0 :3:0 
 `uc 1 BCLIF 1 0 :1:3 
 ]
-[s S3296 . 1 `uc 1 . 1 0 :6:0 
+[s S3305 . 1 `uc 1 . 1 0 :6:0 
 `uc 1 CMIF 1 0 :1:6 
 ]
-[u S3299 . 1 `S3284 1 . 1 0 `S3293 1 . 1 0 `S3296 1 . 1 0 ]
-[v _PIR2bits PIR2bits `VES3299  1 e 1 @4001 ]
+[u S3308 . 1 `S3293 1 . 1 0 `S3302 1 . 1 0 `S3305 1 . 1 0 ]
+[v _PIR2bits PIR2bits `VES3308  1 e 1 @4001 ]
 [s S1223 . 1 `uc 1 RTCCIE 1 0 :1:0 
 `uc 1 TMR3GIE 1 0 :1:1 
 `uc 1 CTMUIE 1 0 :1:2 
@@ -2179,7 +2187,7 @@ RunningState 1
 [v _T2CONbits T2CONbits `VES1493  1 e 1 @4042 ]
 "14101
 [v _PR2 PR2 `VEuc  1 e 1 @4043 ]
-[s S5358 . 1 `uc 1 TMR1ON 1 0 :1:0 
+[s S5367 . 1 `uc 1 TMR1ON 1 0 :1:0 
 `uc 1 RD16 1 0 :1:1 
 `uc 1 T1SYNC 1 0 :1:2 
 `uc 1 T1OSCEN 1 0 :1:3 
@@ -2187,13 +2195,13 @@ RunningState 1
 `uc 1 TMR1CS 1 0 :2:6 
 ]
 "14285
-[s S5365 . 1 `uc 1 . 1 0 :4:0 
+[s S5374 . 1 `uc 1 . 1 0 :4:0 
 `uc 1 T1CKPS0 1 0 :1:4 
 `uc 1 T1CKPS1 1 0 :1:5 
 `uc 1 TMR1CS0 1 0 :1:6 
 `uc 1 TMR1CS1 1 0 :1:7 
 ]
-[s S5371 . 1 `uc 1 . 1 0 :1:0 
+[s S5380 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 RD161 1 0 :1:1 
 `uc 1 T1SYNC1 1 0 :1:2 
 `uc 1 T1OSCEN1 1 0 :1:3 
@@ -2202,13 +2210,13 @@ RunningState 1
 `uc 1 TMR1CS01 1 0 :1:6 
 `uc 1 TMR1CS11 1 0 :1:7 
 ]
-[s S5380 . 1 `uc 1 . 1 0 :3:0 
+[s S5389 . 1 `uc 1 . 1 0 :3:0 
 `uc 1 SOSCEN 1 0 :1:3 
 `uc 1 . 1 0 :3:4 
 `uc 1 T1RD16 1 0 :1:7 
 ]
-[u S5385 . 1 `S5358 1 . 1 0 `S5365 1 . 1 0 `S5371 1 . 1 0 `S5380 1 . 1 0 ]
-[v _T1CONbits T1CONbits `VES5385  1 e 1 @4045 ]
+[u S5394 . 1 `S5367 1 . 1 0 `S5374 1 . 1 0 `S5380 1 . 1 0 `S5389 1 . 1 0 ]
+[v _T1CONbits T1CONbits `VES5394  1 e 1 @4045 ]
 [s S48 . 1 `uc 1 NOT_BOR 1 0 :1:0 
 ]
 "14480
@@ -2445,48 +2453,36 @@ RunningState 1
 [v _ScheduleTasks ScheduleTasks `(v  1 e 1 0 ]
 {
 "102
-[v ScheduleTasks@ActiveTaskIndex ActiveTaskIndex `uc  1 a 1 87 ]
+[v ScheduleTasks@ActiveTaskIndex ActiveTaskIndex `uc  1 a 1 83 ]
 "122
 } 0
 "79
 [v _InitializeTasks InitializeTasks `(v  1 e 1 0 ]
 {
 "82
-[v InitializeTasks@ActiveTaskIndex ActiveTaskIndex `uc  1 a 1 85 ]
+[v InitializeTasks@ActiveTaskIndex ActiveTaskIndex `uc  1 a 1 200 ]
 "89
 } 0
-"165 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app.c
+"167 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app.c
 [v _MyApp_Task MyApp_Task `(v  1 e 1 0 ]
 {
-"183
+"174
 [v MyApp_Task@smsText smsText `[50]uc  1 a 50 0 ]
-"184
-[v MyApp_Task@smsNumber smsNumber `[14]uc  1 a 14 70 ]
-"178
+"175
+[v MyApp_Task@smsNumber smsNumber `[14]uc  1 a 14 64 ]
+"169
 [v MyApp_Task@phone phone `[14]uc  1 a 14 50 ]
-"185
-[v MyApp_Task@cmpString cmpString `[3]uc  1 a 3 84 ]
 "176
-[v MyApp_Task@I2cTxBufferTest I2cTxBufferTest `[2]uc  1 a 2 68 ]
-"173
-[v MyApp_Task@on on `[2]uc  1 a 2 66 ]
-"172
-[v MyApp_Task@off off `[2]uc  1 a 2 64 ]
+[v MyApp_Task@cmpString cmpString `[3]uc  1 a 3 78 ]
+"168
+[v MyApp_Task@F8989 F8989 `[14]uc  1 s 14 F8989 ]
 "171
-[v MyApp_Task@F8992 F8992 `[2]uc  1 s 2 F8992 ]
-"172
-[v MyApp_Task@F8995 F8995 `[2]uc  1 s 2 F8995 ]
-"173
-[v MyApp_Task@F8998 F8998 `[2]uc  1 s 2 F8998 ]
-"177
-[v MyApp_Task@F9001 F9001 `[14]uc  1 s 14 F9001 ]
-"180
 [v MyApp_Task@blickTicks blickTicks `ui  1 s 2 blickTicks ]
-"181
+"172
 [v MyApp_Task@blinkSeconds blinkSeconds `uc  1 s 1 blinkSeconds ]
-"184
-[v MyApp_Task@F9008 F9008 `[3]uc  1 s 3 F9008 ]
-"233
+"175
+[v MyApp_Task@F8996 F8996 `[3]uc  1 s 3 F8996 ]
+"228
 } 0
 "845 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/02_Ssl/term.c
 [v _Term_MainTask Term_MainTask `(v  1 e 1 0 ]
@@ -2513,10 +2509,10 @@ RunningState 1
 {
 "582
 } 0
-"736 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.c
+"754 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.c
 [v _Mdm_MainTask Mdm_MainTask `(v  1 e 1 0 ]
 {
-"772
+"790
 } 0
 "215 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/01_Pml/02_SlvI2c/i2c_slv.c
 [v _I2cSlv_MainTask I2cSlv_MainTask `(v  1 e 1 0 ]
@@ -2590,11 +2586,11 @@ RunningState 1
 [v _memcpy memcpy `(*.39v  1 e 2 0 ]
 {
 "31
-[v memcpy@s s `*.39Cuc  1 a 2 37 ]
+[v memcpy@s s `*.39Cuc  1 a 2 38 ]
 "30
-[v memcpy@d d `*.39uc  1 a 2 35 ]
+[v memcpy@d d `*.39uc  1 a 2 36 ]
 "32
-[v memcpy@tmp tmp `uc  1 a 1 39 ]
+[v memcpy@tmp tmp `uc  1 a 1 35 ]
 "27
 [v memcpy@d1 d1 `*.39v  1 p 2 29 ]
 [v memcpy@s1 s1 `*.39Cv  1 p 2 31 ]
@@ -2631,7 +2627,7 @@ RunningState 1
 "2147
 [v _USBStdGetStatusHandler USBStdGetStatusHandler `(v  1 s 1 USBStdGetStatusHandler ]
 {
-[s S2984 . 1 `uc 1 BC8 1 0 :1:0 
+[s S2993 . 1 `uc 1 BC8 1 0 :1:0 
 `uc 1 BC9 1 0 :1:1 
 `uc 1 BSTALL 1 0 :1:2 
 `uc 1 DTSEN 1 0 :1:3 
@@ -2641,24 +2637,24 @@ RunningState 1
 `uc 1 UOWN 1 0 :1:7 
 ]
 "2179
-[s S2993 . 1 `uc 1 . 1 0 :2:0 
+[s S3002 . 1 `uc 1 . 1 0 :2:0 
 `uc 1 PID0 1 0 :1:2 
 `uc 1 PID1 1 0 :1:3 
 `uc 1 PID2 1 0 :1:4 
 `uc 1 PID3 1 0 :1:5 
 `uc 1 . 1 0 :1:6 
 ]
-[s S3000 . 1 `uc 1 . 1 0 :2:0 
+[s S3009 . 1 `uc 1 . 1 0 :2:0 
 `uc 1 PID 1 0 :4:2 
 `uc 1 . 1 0 :2:6 
 ]
-[u S3004 _BD_STAT 1 `uc 1 Val 1 0 `S2984 1 . 1 0 `S2993 1 . 1 0 `S3000 1 . 1 0 ]
-[s S3009 . 4 `S3004 1 STAT 1 0 `uc 1 CNT 1 1 `uc 1 ADRL 1 2 `uc 1 ADRH 1 3 ]
-[s S3014 . 4 `uc 1 . 1 0 :8:0 
+[u S3013 _BD_STAT 1 `uc 1 Val 1 0 `S2993 1 . 1 0 `S3002 1 . 1 0 `S3009 1 . 1 0 ]
+[s S3018 . 4 `S3013 1 STAT 1 0 `uc 1 CNT 1 1 `uc 1 ADRL 1 2 `uc 1 ADRH 1 3 ]
+[s S3023 . 4 `uc 1 . 1 0 :8:0 
 `uc 1 . 1 1 :8:0 
 `ui 1 ADR 2 2 ]
-[u S3018 __BDT 4 `S3009 1 . 4 0 `S3014 1 . 4 0 `ul 1 Val 4 0 `[4]uc 1 v 4 0 ]
-[v USBStdGetStatusHandler@p p `*.39S3018  1 a 2 30 ]
+[u S3027 __BDT 4 `S3018 1 . 4 0 `S3023 1 . 4 0 `ul 1 Val 4 0 `[4]uc 1 v 4 0 ]
+[v USBStdGetStatusHandler@p p `*.39S3027  1 a 2 30 ]
 "2202
 } 0
 "2061
@@ -2669,7 +2665,7 @@ RunningState 1
 "2771
 [v _USBStdFeatureReqHandler USBStdFeatureReqHandler `(v  1 s 1 USBStdFeatureReqHandler ]
 {
-[s S2984 . 1 `uc 1 BC8 1 0 :1:0 
+[s S2993 . 1 `uc 1 BC8 1 0 :1:0 
 `uc 1 BC9 1 0 :1:1 
 `uc 1 BSTALL 1 0 :1:2 
 `uc 1 DTSEN 1 0 :1:3 
@@ -2679,38 +2675,38 @@ RunningState 1
 `uc 1 UOWN 1 0 :1:7 
 ]
 "2773
-[s S2993 . 1 `uc 1 . 1 0 :2:0 
+[s S3002 . 1 `uc 1 . 1 0 :2:0 
 `uc 1 PID0 1 0 :1:2 
 `uc 1 PID1 1 0 :1:3 
 `uc 1 PID2 1 0 :1:4 
 `uc 1 PID3 1 0 :1:5 
 `uc 1 . 1 0 :1:6 
 ]
-[s S3000 . 1 `uc 1 . 1 0 :2:0 
+[s S3009 . 1 `uc 1 . 1 0 :2:0 
 `uc 1 PID 1 0 :4:2 
 `uc 1 . 1 0 :2:6 
 ]
-[u S3004 _BD_STAT 1 `uc 1 Val 1 0 `S2984 1 . 1 0 `S2993 1 . 1 0 `S3000 1 . 1 0 ]
-[s S3009 . 4 `S3004 1 STAT 1 0 `uc 1 CNT 1 1 `uc 1 ADRL 1 2 `uc 1 ADRH 1 3 ]
-[s S3014 . 4 `uc 1 . 1 0 :8:0 
+[u S3013 _BD_STAT 1 `uc 1 Val 1 0 `S2993 1 . 1 0 `S3002 1 . 1 0 `S3009 1 . 1 0 ]
+[s S3018 . 4 `S3013 1 STAT 1 0 `uc 1 CNT 1 1 `uc 1 ADRL 1 2 `uc 1 ADRH 1 3 ]
+[s S3023 . 4 `uc 1 . 1 0 :8:0 
 `uc 1 . 1 1 :8:0 
 `ui 1 ADR 2 2 ]
-[u S3018 __BDT 4 `S3009 1 . 4 0 `S3014 1 . 4 0 `ul 1 Val 4 0 `[4]uc 1 v 4 0 ]
-[v USBStdFeatureReqHandler@p p `*.39S3018  1 a 2 53 ]
+[u S3027 __BDT 4 `S3018 1 . 4 0 `S3023 1 . 4 0 `ul 1 Val 4 0 `[4]uc 1 v 4 0 ]
+[v USBStdFeatureReqHandler@p p `*.39S3027  1 a 2 53 ]
 "2778
 [v USBStdFeatureReqHandler@pUEP pUEP `*.39uc  1 a 2 50 ]
-[s S3070 . 1 `uc 1 ping_pong_state 1 0 :1:0 
+[s S3079 . 1 `uc 1 ping_pong_state 1 0 :1:0 
 `uc 1 transfer_terminated 1 0 :1:1 
 ]
 "2774
-[u S3073 . 1 `S3070 1 bits 1 0 `uc 1 Val 1 0 ]
-[v USBStdFeatureReqHandler@current_ep_data current_ep_data `S3073  1 a 1 52 ]
+[u S3082 . 1 `S3079 1 bits 1 0 `uc 1 Val 1 0 ]
+[v USBStdFeatureReqHandler@current_ep_data current_ep_data `S3082  1 a 1 52 ]
 "2997
 } 0
 "104 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/01_Pml/04_Usb/usb_device_mgr.c
 [v _USER_USB_CALLBACK_EVENT_HANDLER USER_USB_CALLBACK_EVENT_HANDLER `(uc  1 e 1 0 ]
 {
-[v USER_USB_CALLBACK_EVENT_HANDLER@event event `E8347  1 p 2 41 ]
+[v USER_USB_CALLBACK_EVENT_HANDLER@event event `E8349  1 p 2 41 ]
 [v USER_USB_CALLBACK_EVENT_HANDLER@pdata pdata `*.39v  1 p 2 43 ]
 [v USER_USB_CALLBACK_EVENT_HANDLER@size size `ui  1 p 2 45 ]
 "165
@@ -2742,7 +2738,7 @@ RunningState 1
 [v _USBConfigureEndpoint USBConfigureEndpoint `(v  1 s 1 USBConfigureEndpoint ]
 {
 [v USBConfigureEndpoint@EPNum EPNum `uc  1 a 1 wreg ]
-[s S2984 . 1 `uc 1 BC8 1 0 :1:0 
+[s S2993 . 1 `uc 1 BC8 1 0 :1:0 
 `uc 1 BC9 1 0 :1:1 
 `uc 1 BSTALL 1 0 :1:2 
 `uc 1 DTSEN 1 0 :1:3 
@@ -2752,24 +2748,24 @@ RunningState 1
 `uc 1 UOWN 1 0 :1:7 
 ]
 "1563
-[s S2993 . 1 `uc 1 . 1 0 :2:0 
+[s S3002 . 1 `uc 1 . 1 0 :2:0 
 `uc 1 PID0 1 0 :1:2 
 `uc 1 PID1 1 0 :1:3 
 `uc 1 PID2 1 0 :1:4 
 `uc 1 PID3 1 0 :1:5 
 `uc 1 . 1 0 :1:6 
 ]
-[s S3000 . 1 `uc 1 . 1 0 :2:0 
+[s S3009 . 1 `uc 1 . 1 0 :2:0 
 `uc 1 PID 1 0 :4:2 
 `uc 1 . 1 0 :2:6 
 ]
-[u S3004 _BD_STAT 1 `uc 1 Val 1 0 `S2984 1 . 1 0 `S2993 1 . 1 0 `S3000 1 . 1 0 ]
-[s S3009 . 4 `S3004 1 STAT 1 0 `uc 1 CNT 1 1 `uc 1 ADRL 1 2 `uc 1 ADRH 1 3 ]
-[s S3014 . 4 `uc 1 . 1 0 :8:0 
+[u S3013 _BD_STAT 1 `uc 1 Val 1 0 `S2993 1 . 1 0 `S3002 1 . 1 0 `S3009 1 . 1 0 ]
+[s S3018 . 4 `S3013 1 STAT 1 0 `uc 1 CNT 1 1 `uc 1 ADRL 1 2 `uc 1 ADRH 1 3 ]
+[s S3023 . 4 `uc 1 . 1 0 :8:0 
 `uc 1 . 1 1 :8:0 
 `ui 1 ADR 2 2 ]
-[u S3018 __BDT 4 `S3009 1 . 4 0 `S3014 1 . 4 0 `ul 1 Val 4 0 `[4]uc 1 v 4 0 ]
-[v USBConfigureEndpoint@handle handle `*.39VES3018  1 a 2 35 ]
+[u S3027 __BDT 4 `S3018 1 . 4 0 `S3023 1 . 4 0 `ul 1 Val 4 0 `[4]uc 1 v 4 0 ]
+[v USBConfigureEndpoint@handle handle `*.39VES3027  1 a 2 35 ]
 "1561
 [v USBConfigureEndpoint@EPNum EPNum `uc  1 a 1 wreg ]
 [v USBConfigureEndpoint@direction direction `uc  1 p 1 29 ]
@@ -2829,7 +2825,7 @@ RunningState 1
 "712
 [v Term_MainSm@FwkMajorStr FwkMajorStr `[4]uc  1 a 4 71 ]
 "709
-[v Term_MainSm@TermMainSmState TermMainSmState `E8954  1 s 1 TermMainSmState ]
+[v Term_MainSm@TermMainSmState TermMainSmState `E8956  1 s 1 TermMainSmState ]
 [s S2177 _SwTimerType 11 `uc 1 Enabled 1 0 `E7740 1 Status 1 1 `ul 1 StartTime 4 2 `ul 1 TargetTime 4 6 `E7745 1 WaitState 1 10 ]
 "710
 [v Term_MainSm@TermDelay TermDelay `S2177  1 s 11 TermDelay ]
@@ -2899,7 +2895,7 @@ RunningState 1
 "441
 [v Terminal@ReceivedBytes ReceivedBytes `uc  1 a 1 69 ]
 "430
-[v Terminal@TermState TermState `E8965  1 s 1 TermState ]
+[v Terminal@TermState TermState `E8967  1 s 1 TermState ]
 "434
 [v Terminal@TermRxBuffer TermRxBuffer `[50]uc  1 s 50 TermRxBuffer ]
 "436
@@ -2910,9 +2906,9 @@ RunningState 1
 [v Terminal@Addr Addr `[4]uc  1 s 4 Addr ]
 "439
 [v Terminal@SlaveAddr SlaveAddr `uc  1 s 1 SlaveAddr ]
-[s S5620 _PayloadType 4 `[4]uc 1 Byte 4 0 ]
+[s S5629 _PayloadType 4 `[4]uc 1 Byte 4 0 ]
 "440
-[v Terminal@Payload Payload `[20]S5620  1 s 80 Payload ]
+[v Terminal@Payload Payload `[20]S5629  1 s 80 Payload ]
 "443
 [v Terminal@FormatOption FormatOption `uc  1 s 1 FormatOption ]
 "444
@@ -3064,7 +3060,7 @@ RunningState 1
 [v _USBTransferOnePacket USBTransferOnePacket `(*.39v  1 e 2 0 ]
 {
 [v USBTransferOnePacket@ep ep `uc  1 a 1 wreg ]
-[s S2984 . 1 `uc 1 BC8 1 0 :1:0 
+[s S2993 . 1 `uc 1 BC8 1 0 :1:0 
 `uc 1 BC9 1 0 :1:1 
 `uc 1 BSTALL 1 0 :1:2 
 `uc 1 DTSEN 1 0 :1:3 
@@ -3074,24 +3070,24 @@ RunningState 1
 `uc 1 UOWN 1 0 :1:7 
 ]
 "1015
-[s S2993 . 1 `uc 1 . 1 0 :2:0 
+[s S3002 . 1 `uc 1 . 1 0 :2:0 
 `uc 1 PID0 1 0 :1:2 
 `uc 1 PID1 1 0 :1:3 
 `uc 1 PID2 1 0 :1:4 
 `uc 1 PID3 1 0 :1:5 
 `uc 1 . 1 0 :1:6 
 ]
-[s S3000 . 1 `uc 1 . 1 0 :2:0 
+[s S3009 . 1 `uc 1 . 1 0 :2:0 
 `uc 1 PID 1 0 :4:2 
 `uc 1 . 1 0 :2:6 
 ]
-[u S3004 _BD_STAT 1 `uc 1 Val 1 0 `S2984 1 . 1 0 `S2993 1 . 1 0 `S3000 1 . 1 0 ]
-[s S3009 . 4 `S3004 1 STAT 1 0 `uc 1 CNT 1 1 `uc 1 ADRL 1 2 `uc 1 ADRH 1 3 ]
-[s S3014 . 4 `uc 1 . 1 0 :8:0 
+[u S3013 _BD_STAT 1 `uc 1 Val 1 0 `S2993 1 . 1 0 `S3002 1 . 1 0 `S3009 1 . 1 0 ]
+[s S3018 . 4 `S3013 1 STAT 1 0 `uc 1 CNT 1 1 `uc 1 ADRL 1 2 `uc 1 ADRH 1 3 ]
+[s S3023 . 4 `uc 1 . 1 0 :8:0 
 `uc 1 . 1 1 :8:0 
 `ui 1 ADR 2 2 ]
-[u S3018 __BDT 4 `S3009 1 . 4 0 `S3014 1 . 4 0 `ul 1 Val 4 0 `[4]uc 1 v 4 0 ]
-[v USBTransferOnePacket@handle handle `*.39VES3018  1 a 2 34 ]
+[u S3027 __BDT 4 `S3018 1 . 4 0 `S3023 1 . 4 0 `ul 1 Val 4 0 `[4]uc 1 v 4 0 ]
+[v USBTransferOnePacket@handle handle `*.39VES3027  1 a 2 34 ]
 "1013
 [v USBTransferOnePacket@ep ep `uc  1 a 1 wreg ]
 [v USBTransferOnePacket@dir dir `uc  1 p 1 29 ]
@@ -3156,17 +3152,17 @@ RunningState 1
 "313
 } 0
 "324
-[v _I2cSlv_I2cReadMsgSts I2cSlv_I2cReadMsgSts `(E8916  1 e 1 0 ]
+[v _I2cSlv_I2cReadMsgSts I2cSlv_I2cReadMsgSts `(E8918  1 e 1 0 ]
 {
 "327
-[v I2cSlv_I2cReadMsgSts@Result Result `E8916  1 a 1 33 ]
+[v I2cSlv_I2cReadMsgSts@Result Result `E8918  1 a 1 33 ]
 "340
 } 0
 "176 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/02_Ssl/rtcm.c
 [v _Rtcm_SetRtccDate Rtcm_SetRtccDate `(v  1 e 1 0 ]
 {
-[s S5299 _RtccDateType 8 `us 1 Year 2 0 `uc 1 Month 1 2 `uc 1 Day 1 3 `uc 1 Weekday 1 4 `uc 1 Hour 1 5 `uc 1 Minute 1 6 `uc 1 Second 1 7 ]
-[v Rtcm_SetRtccDate@Date Date `S5299  1 p 8 41 ]
+[s S5308 _RtccDateType 8 `us 1 Year 2 0 `uc 1 Month 1 2 `uc 1 Day 1 3 `uc 1 Weekday 1 4 `uc 1 Hour 1 5 `uc 1 Minute 1 6 `uc 1 Second 1 7 ]
+[v Rtcm_SetRtccDate@Date Date `S5308  1 p 8 41 ]
 "192
 } 0
 "163 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/01_Hal/02_Drv/rtcc_drv.c
@@ -3213,12 +3209,12 @@ RunningState 1
 "193
 } 0
 "44 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/h/03_Sml/02_Ssl/rtcm.h
-[s S5299 _RtccDateType 8 `us 1 Year 2 0 `uc 1 Month 1 2 `uc 1 Day 1 3 `uc 1 Weekday 1 4 `uc 1 Hour 1 5 `uc 1 Minute 1 6 `uc 1 Second 1 7 ]
+[s S5308 _RtccDateType 8 `us 1 Year 2 0 `uc 1 Month 1 2 `uc 1 Day 1 3 `uc 1 Weekday 1 4 `uc 1 Hour 1 5 `uc 1 Minute 1 6 `uc 1 Second 1 7 ]
 "202 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/02_Ssl/rtcm.c
-[v _Rtcm_GetRtccDate Rtcm_GetRtccDate `(S5299  1 e 8 0 ]
+[v _Rtcm_GetRtccDate Rtcm_GetRtccDate `(S5308  1 e 8 0 ]
 {
 "204
-[v Rtcm_GetRtccDate@LocalDate LocalDate `S5299  1 a 8 42 ]
+[v Rtcm_GetRtccDate@LocalDate LocalDate `S5308  1 a 8 42 ]
 "217
 } 0
 "205 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/01_Hal/02_Drv/rtcc_drv.c
@@ -3275,31 +3271,31 @@ RunningState 1
 [v initGprsModem@isInitialized isInitialized `uc  1 s 1 isInitialized ]
 "113
 [v initGprsModem@initMdm initMdm `uc  1 s 1 initMdm ]
-"140
+"142
 } 0
-"819 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.c
+"837 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.c
 [v _Mdm_SetSmsFormat Mdm_SetSmsFormat `(v  1 e 1 0 ]
 {
 [v Mdm_SetSmsFormat@TextFormat TextFormat `uc  1 a 1 wreg ]
-"821
+"839
 [v Mdm_SetSmsFormat@UartMessage UartMessage `[20]uc  1 a 20 36 ]
-"822
+"840
 [v Mdm_SetSmsFormat@Index Index `uc  1 a 1 35 ]
-"819
+"837
 [v Mdm_SetSmsFormat@TextFormat TextFormat `uc  1 a 1 wreg ]
-"822
+"840
 [v Mdm_SetSmsFormat@TextFormat TextFormat `uc  1 a 1 56 ]
-"849
+"867
 } 0
-"142 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app.c
+"144 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app.c
 [v _blinkForSeconds blinkForSeconds `(v  1 e 1 0 ]
 {
 [v blinkForSeconds@seconds seconds `uc  1 a 1 wreg ]
 [v blinkForSeconds@seconds seconds `uc  1 a 1 wreg ]
 [v blinkForSeconds@blickTicks blickTicks `*.39ui  1 p 2 51 ]
-"144
+"146
 [v blinkForSeconds@seconds seconds `uc  1 a 1 53 ]
-"152
+"154
 } 0
 "85
 [v _secondsAppTimer secondsAppTimer `(uc  1 e 1 0 ]
@@ -3317,35 +3313,40 @@ RunningState 1
 [v secondsAppTimer@seconds seconds `uc  1 a 1 47 ]
 "107
 } 0
-"859 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.c
+"877 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.c
 [v _Mdm_RequestSmsData Mdm_RequestSmsData `(v  1 e 1 0 ]
 {
-"863
+"881
 } 0
-"924
+"942
 [v _Mdm_IsSmsReceived Mdm_IsSmsReceived `(E8914  1 e 1 0 ]
 {
-"926
+"944
 [v Mdm_IsSmsReceived@Ret Ret `E8914  1 a 1 33 ]
-"935
+"953
 } 0
-"1007
+"1025
 [v _Mdm_IsRinging Mdm_IsRinging `(E8910  1 e 1 0 ]
 {
-"1009
+"1027
 [v Mdm_IsRinging@Ret Ret `E8910  1 a 1 33 ]
-"1018
+"1036
 } 0
-"874
+"997
+[v _Mdm_HangPhoneCall Mdm_HangPhoneCall `(v  1 e 1 0 ]
+{
+"1001
+} 0
+"892
 [v _Mdm_GetSmsData Mdm_GetSmsData `(E8906  1 e 1 0 ]
 {
-"876
+"894
 [v Mdm_GetSmsData@GetSmsStatus GetSmsStatus `E8906  1 a 1 43 ]
-"875
+"893
 [v Mdm_GetSmsData@MessageText MessageText `*.39uc  1 p 2 39 ]
-"874
+"892
 [v Mdm_GetSmsData@MessageHeader MessageHeader `*.39uc  1 p 2 41 ]
-"891
+"909
 } 0
 "371 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/02_Ssl/led.c
 [v _Led_SetLedBlinkTime Led_SetLedBlinkTime `(v  1 e 1 0 ]
@@ -3357,33 +3358,38 @@ RunningState 1
 [v Led_SetLedBlinkTime@Led Led `uc  1 a 1 33 ]
 "394
 } 0
-"185 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.c
+"1038 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.c
+[v _GetCallerNumber GetCallerNumber `(*.39uc  1 e 2 0 ]
+{
+"1045
+} 0
+"189
 [v _UartSetConfig UartSetConfig `(v  1 e 1 0 ]
 {
-"214
+"218
 } 0
-"371
+"375
 [v _TurnOnModem TurnOnModem `(v  1 e 1 0 ]
 {
-"373
-[v TurnOnModem@TurnOnMdmState TurnOnMdmState `E8954  1 s 1 TurnOnMdmState ]
-"374
+"377
+[v TurnOnModem@TurnOnMdmState TurnOnMdmState `E8956  1 s 1 TurnOnMdmState ]
+"378
 [v TurnOnModem@Counter Counter `us  1 s 2 Counter ]
-"404
+"408
 } 0
-"638
+"656
 [v _SendSmsSm SendSmsSm `(v  1 e 1 0 ]
 {
-"643
+"661
 [v SendSmsSm@UartMessage UartMessage `[50]uc  1 a 50 0 ]
-"640
-[v SendSmsSm@SendSms_State SendSms_State `E8982  1 s 1 SendSms_State ]
-"641
-[v SendSmsSm@SendSms_NextState SendSms_NextState `E8982  1 s 1 SendSms_NextState ]
+"658
+[v SendSmsSm@SendSms_State SendSms_State `E8984  1 s 1 SendSms_State ]
+"659
+[v SendSmsSm@SendSms_NextState SendSms_NextState `E8984  1 s 1 SendSms_NextState ]
 [s S2177 _SwTimerType 11 `uc 1 Enabled 1 0 `E7740 1 Status 1 1 `ul 1 StartTime 4 2 `ul 1 TargetTime 4 6 `E7745 1 WaitState 1 10 ]
-"642
+"660
 [v SendSmsSm@SwTimer SwTimer `S2177  1 s 11 SwTimer ]
-"722
+"740
 } 0
 "542 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/01_Hal/02_Drv/uart_drv.c
 [v _Uart_WriteStringLen Uart_WriteStringLen `(v  1 e 1 0 ]
@@ -3399,26 +3405,30 @@ RunningState 1
 [v Uart_WriteStringLen@Module Module `uc  1 a 1 36 ]
 "555
 } 0
-"494 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.c
+"498 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.c
 [v _ModemEvtParser ModemEvtParser `(v  1 e 1 0 ]
 {
-"498
-[v ModemEvtParser@CallReadyString CallReadyString `[10]uc  1 a 10 40 ]
-"497
-[v ModemEvtParser@SmsString SmsString `[5]uc  1 a 5 50 ]
-"496
-[v ModemEvtParser@RingString RingString `[4]uc  1 a 4 55 ]
-"499
-[v ModemEvtParser@CompareIdx CompareIdx `uc  1 a 1 60 ]
+"503
+[v ModemEvtParser@CallReadyString CallReadyString `[10]uc  1 a 10 48 ]
+"502
+[v ModemEvtParser@SmsString SmsString `[5]uc  1 a 5 63 ]
+"501
+[v ModemEvtParser@ClipString ClipString `[5]uc  1 a 5 58 ]
 "500
-[v ModemEvtParser@Match Match `uc  1 a 1 59 ]
-"495
-[v ModemEvtParser@F9087 F9087 `[4]uc  1 s 4 F9087 ]
-"496
-[v ModemEvtParser@F9089 F9089 `[5]uc  1 s 5 F9089 ]
-"497
-[v ModemEvtParser@F9091 F9091 `[10]uc  1 s 10 F9091 ]
-"556
+[v ModemEvtParser@RingString RingString `[4]uc  1 a 4 68 ]
+"504
+[v ModemEvtParser@CompareIdx CompareIdx `uc  1 a 1 73 ]
+"505
+[v ModemEvtParser@Match Match `uc  1 a 1 72 ]
+"499
+[v ModemEvtParser@F9091 F9091 `[4]uc  1 s 4 F9091 ]
+"500
+[v ModemEvtParser@F9093 F9093 `[5]uc  1 s 5 F9093 ]
+"501
+[v ModemEvtParser@F9095 F9095 `[5]uc  1 s 5 F9095 ]
+"502
+[v ModemEvtParser@F9097 F9097 `[10]uc  1 s 10 F9097 ]
+"574
 } 0
 "565 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/01_Hal/02_Drv/uart_drv.c
 [v _Uart_ClearRxBuffer Uart_ClearRxBuffer `(v  1 e 1 0 ]
@@ -3431,34 +3441,34 @@ RunningState 1
 [v _StringCompare StringCompare `(uc  1 e 1 0 ]
 {
 "77
-[v StringCompare@Index Index `us  1 a 2 38 ]
+[v StringCompare@Index Index `us  1 a 2 46 ]
 "78
-[v StringCompare@Result Result `uc  1 a 1 37 ]
+[v StringCompare@Result Result `uc  1 a 1 45 ]
 "75
-[v StringCompare@String1 String1 `*.39uc  1 p 2 29 ]
-[v StringCompare@String2 String2 `*.39uc  1 p 2 31 ]
-[v StringCompare@Len Len `us  1 p 2 33 ]
+[v StringCompare@String1 String1 `*.39uc  1 p 2 37 ]
+[v StringCompare@String2 String2 `*.39uc  1 p 2 39 ]
+[v StringCompare@Len Len `us  1 p 2 41 ]
 "92
 } 0
-"566 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.c
+"584 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.c
 [v _GetSmsSm GetSmsSm `(v  1 e 1 0 ]
 {
-"568
-[v GetSmsSm@GetSmsState GetSmsState `E8959  1 s 1 GetSmsState ]
-"628
+"586
+[v GetSmsSm@GetSmsState GetSmsState `E8961  1 s 1 GetSmsState ]
+"646
 } 0
-"414
+"418
 [v _ConfigureModem ConfigureModem `(v  1 e 1 0 ]
 {
-"416
-[v ConfigureModem@MdmConfigState MdmConfigState `E8965  1 s 1 MdmConfigState ]
-"417
-[v ConfigureModem@NextState NextState `E8965  1 s 1 NextState ]
-"418
+"420
+[v ConfigureModem@MdmConfigState MdmConfigState `E8967  1 s 1 MdmConfigState ]
+"421
+[v ConfigureModem@NextState NextState `E8967  1 s 1 NextState ]
+"422
 [v ConfigureModem@DelayValueMs DelayValueMs `us  1 s 2 DelayValueMs ]
-"419
+"423
 [v ConfigureModem@DelayCounter DelayCounter `us  1 s 2 DelayCounter ]
-"484
+"488
 } 0
 "288 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/01_Hal/02_Drv/uart_drv.c
 [v _Uart_InitUartModule Uart_InitUartModule `(v  1 e 1 0 ]
@@ -3497,20 +3507,20 @@ RunningState 1
 [v ___lmul@multiplicand multiplicand `ul  1 p 4 33 ]
 "129
 } 0
-"224 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.c
+"228 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.c
 [v _UartSetConfigLow UartSetConfigLow `(v  1 e 1 0 ]
 {
-"241
+"245
 } 0
-"278
+"282
 [v _CheckModem CheckModem `(v  1 e 1 0 ]
 {
-"280
-[v CheckModem@CheckMdmSts CheckMdmSts `E8974  1 s 1 CheckMdmSts ]
+"284
+[v CheckModem@CheckMdmSts CheckMdmSts `E8976  1 s 1 CheckMdmSts ]
 [s S2177 _SwTimerType 11 `uc 1 Enabled 1 0 `E7740 1 Status 1 1 `ul 1 StartTime 4 2 `ul 1 TargetTime 4 6 `E7745 1 WaitState 1 10 ]
-"281
+"285
 [v CheckModem@Timeout Timeout `S2177  1 s 11 Timeout ]
-"361
+"365
 } 0
 "199 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/01_Hal/02_Drv/mdm_drv.c
 [v _MdmCntSm MdmCntSm `(v  1 e 1 0 ]
@@ -3527,7 +3537,7 @@ RunningState 1
 "108
 } 0
 "124 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs_http.c
-[v _InitGprsNetwork InitGprsNetwork `(E8906  1 e 1 0 ]
+[v _InitGprsNetwork InitGprsNetwork `(E8908  1 e 1 0 ]
 {
 "129
 [v InitGprsNetwork@UartMessage UartMessage `[50]uc  1 a 50 0 ]
@@ -3537,29 +3547,29 @@ RunningState 1
 [v InitGprsNetwork@Apn Apn `*.2uc  1 p 2 59 ]
 [v InitGprsNetwork@ApnLen ApnLen `uc  1 p 1 61 ]
 "126
-[v InitGprsNetwork@GprsNetInitState GprsNetInitState `E8954  1 s 1 GprsNetInitState ]
+[v InitGprsNetwork@GprsNetInitState GprsNetInitState `E8956  1 s 1 GprsNetInitState ]
 "127
-[v InitGprsNetwork@GprsNetInitNextState GprsNetInitNextState `E8954  1 s 1 GprsNetInitNextState ]
+[v InitGprsNetwork@GprsNetInitNextState GprsNetInitNextState `E8956  1 s 1 GprsNetInitNextState ]
 "128
-[v InitGprsNetwork@GprsInitSts GprsInitSts `E8906  1 s 1 GprsInitSts ]
+[v InitGprsNetwork@GprsInitSts GprsInitSts `E8908  1 s 1 GprsInitSts ]
 "261
 } 0
 "271
-[v _HttpGetMethod HttpGetMethod `(E8906  1 e 1 0 ]
+[v _HttpGetMethod HttpGetMethod `(E8908  1 e 1 0 ]
 {
 "276
 [v HttpGetMethod@UartMessage UartMessage `[200]uc  1 a 200 0 ]
 "277
 [v HttpGetMethod@Index Index `uc  1 a 1 200 ]
-[s S2524 _HttpGetDataType 5 `*.2uc 1 Url 2 0 `uc 1 UrlLen 1 2 `*.2uc 1 RespBuffer 2 3 ]
+[s S2533 _HttpGetDataType 5 `*.2uc 1 Url 2 0 `uc 1 UrlLen 1 2 `*.2uc 1 RespBuffer 2 3 ]
 "271
-[v HttpGetMethod@GetData GetData `*.39S2524  1 p 2 59 ]
+[v HttpGetMethod@GetData GetData `*.39S2533  1 p 2 59 ]
 "273
-[v HttpGetMethod@GetMethodState GetMethodState `E8965  1 s 1 GetMethodState ]
+[v HttpGetMethod@GetMethodState GetMethodState `E8967  1 s 1 GetMethodState ]
 "274
-[v HttpGetMethod@GetMethodNextState GetMethodNextState `E8965  1 s 1 GetMethodNextState ]
+[v HttpGetMethod@GetMethodNextState GetMethodNextState `E8967  1 s 1 GetMethodNextState ]
 "275
-[v HttpGetMethod@GetMOutSts GetMOutSts `E8912  1 s 1 GetMOutSts ]
+[v HttpGetMethod@GetMOutSts GetMOutSts `E8914  1 s 1 GetMOutSts ]
 "497
 } 0
 "518 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/01_Hal/02_Drv/uart_drv.c
@@ -3591,11 +3601,11 @@ RunningState 1
 "185
 } 0
 "223
-[v _UartTxBufferStatus UartTxBufferStatus `(E9018  1 e 1 0 ]
+[v _UartTxBufferStatus UartTxBufferStatus `(E9020  1 e 1 0 ]
 {
 [v UartTxBufferStatus@Module Module `uc  1 a 1 wreg ]
 "225
-[v UartTxBufferStatus@TxBufferStatus TxBufferStatus `E9018  1 a 1 31 ]
+[v UartTxBufferStatus@TxBufferStatus TxBufferStatus `E9020  1 a 1 31 ]
 "223
 [v UartTxBufferStatus@Module Module `uc  1 a 1 wreg ]
 "225
@@ -3662,12 +3672,12 @@ RunningState 1
 [v LedStateMachine@LedOutSts LedOutSts `uc  1 a 1 56 ]
 "235
 [v LedStateMachine@Led Led `uc  1 a 1 wreg ]
-[v LedStateMachine@LedSts LedSts `*.39E8935  1 p 2 47 ]
+[v LedStateMachine@LedSts LedSts `*.39E8937  1 p 2 47 ]
 [v LedStateMachine@LedOut LedOut `*.39uc  1 p 2 49 ]
-[s S5081 _LedBlinkType 9 `E8954 1 LedBlinkState 1 0 `E8963 1 LedOutState 1 1 `us 1 LedBlinkCounter 2 2 `us 1 LedOnTimeMs 2 4 `us 1 LedOffTimeMs 2 6 `E8963 1 LedInitStatus 1 8 ]
-[v LedStateMachine@LedBlink LedBlink `*.39S5081  1 p 2 51 ]
-[s S5073 _LedPulseType 6 `E8958 1 LedPulseState 1 0 `E8963 1 LedOutState 1 1 `us 1 LedPulseCounter 2 2 `us 1 LedPulseTimeMs 2 4 ]
-[v LedStateMachine@LedPulse LedPulse `*.39S5073  1 p 2 53 ]
+[s S5090 _LedBlinkType 9 `E8956 1 LedBlinkState 1 0 `E8965 1 LedOutState 1 1 `us 1 LedBlinkCounter 2 2 `us 1 LedOnTimeMs 2 4 `us 1 LedOffTimeMs 2 6 `E8965 1 LedInitStatus 1 8 ]
+[v LedStateMachine@LedBlink LedBlink `*.39S5090  1 p 2 51 ]
+[s S5082 _LedPulseType 6 `E8960 1 LedPulseState 1 0 `E8965 1 LedOutState 1 1 `us 1 LedPulseCounter 2 2 `us 1 LedPulseTimeMs 2 4 ]
+[v LedStateMachine@LedPulse LedPulse `*.39S5082  1 p 2 53 ]
 "238
 [v LedStateMachine@Led Led `uc  1 a 1 57 ]
 "284
@@ -3675,8 +3685,8 @@ RunningState 1
 "182
 [v _LedPulseStateMachine LedPulseStateMachine `(uc  1 e 1 0 ]
 {
-[s S5073 _LedPulseType 6 `E8958 1 LedPulseState 1 0 `E8963 1 LedOutState 1 1 `us 1 LedPulseCounter 2 2 `us 1 LedPulseTimeMs 2 4 ]
-[v LedPulseStateMachine@LedPulse LedPulse `*.39S5073  1 p 2 42 ]
+[s S5082 _LedPulseType 6 `E8960 1 LedPulseState 1 0 `E8965 1 LedOutState 1 1 `us 1 LedPulseCounter 2 2 `us 1 LedPulseTimeMs 2 4 ]
+[v LedPulseStateMachine@LedPulse LedPulse `*.39S5082  1 p 2 42 ]
 [v LedPulseStateMachine@Led Led `uc  1 p 1 44 ]
 "222
 } 0
@@ -3685,15 +3695,15 @@ RunningState 1
 {
 [v Led_SetLedStatus@Led Led `uc  1 a 1 wreg ]
 [v Led_SetLedStatus@Led Led `uc  1 a 1 wreg ]
-[v Led_SetLedStatus@LedSts LedSts `E8935  1 p 1 29 ]
+[v Led_SetLedStatus@LedSts LedSts `E8937  1 p 1 29 ]
 [v Led_SetLedStatus@Led Led `uc  1 a 1 30 ]
 "358
 } 0
 "125
 [v _LedBlinkStateMachine LedBlinkStateMachine `(uc  1 e 1 0 ]
 {
-[s S5081 _LedBlinkType 9 `E8954 1 LedBlinkState 1 0 `E8963 1 LedOutState 1 1 `us 1 LedBlinkCounter 2 2 `us 1 LedOnTimeMs 2 4 `us 1 LedOffTimeMs 2 6 `E8963 1 LedInitStatus 1 8 ]
-[v LedBlinkStateMachine@LedBlink LedBlink `*.39S5081  1 p 2 42 ]
+[s S5090 _LedBlinkType 9 `E8956 1 LedBlinkState 1 0 `E8965 1 LedOutState 1 1 `us 1 LedBlinkCounter 2 2 `us 1 LedOnTimeMs 2 4 `us 1 LedOffTimeMs 2 6 `E8965 1 LedInitStatus 1 8 ]
+[v LedBlinkStateMachine@LedBlink LedBlink `*.39S5090  1 p 2 42 ]
 "171
 } 0
 "8 /opt/microchip/xc8/v1.45/sources/common/lwdiv.c
@@ -3761,7 +3771,7 @@ RunningState 1
 [v _I2cSendMsgSm I2cSendMsgSm `(v  1 e 1 0 ]
 {
 "120
-[v I2cSendMsgSm@I2cComState I2cComState `E8954  1 s 1 I2cComState ]
+[v I2cSendMsgSm@I2cComState I2cComState `E8956  1 s 1 I2cComState ]
 "183
 } 0
 "99 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/02_Osl/os_ser.c
@@ -3962,7 +3972,7 @@ RunningState 1
 "378
 [v Uart_MdmGsmGprsReadService@RxCounter RxCounter `us  1 s 2 RxCounter ]
 "379
-[v Uart_MdmGsmGprsReadService@RxState RxState `E9028  1 s 1 RxState ]
+[v Uart_MdmGsmGprsReadService@RxState RxState `E9030  1 s 1 RxState ]
 "380
 [v Uart_MdmGsmGprsReadService@LocalRxBuffer LocalRxBuffer `[400]uc  1 s 400 LocalRxBuffer ]
 "437

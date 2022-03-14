@@ -128,6 +128,8 @@ void Mdm_SendSmsData (UINT8 *PhoneNmb, UINT8 PhoneNmbLen, UINT8 *MsgTxt, UINT8 M
 /* API to check if an SMS has been received */
 SmsRxStsType Mdm_IsSmsReceived (void);
 
+UINT8* GetCallerNumber (void);
+
 #endif /* MODEM_USED == GSM_GPRS_MDM */
 
 #endif	/* MDM_GSM_GPRS_H */

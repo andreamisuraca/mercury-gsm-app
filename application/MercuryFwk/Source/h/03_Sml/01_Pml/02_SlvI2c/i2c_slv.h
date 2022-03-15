@@ -67,7 +67,7 @@ typedef enum _I2cCommSts
    I2cTxRxComplete,
 } I2cCommStsType;
 
-typedef enum
+typedef enum _I2cOpSts
 {
    OP_IN_PROGRESS = 0,
    OP_COMPLETE,

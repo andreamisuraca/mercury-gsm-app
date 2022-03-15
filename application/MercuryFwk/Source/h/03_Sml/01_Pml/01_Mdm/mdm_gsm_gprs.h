@@ -41,7 +41,7 @@
 
 /* Get SMS constants */
 #define HEADER_BUFF_LEN                                  ((UINT8)(80))
-#define MESSAGE_BUFF_LEN                                 ((UINT8)(50))
+#define MESSAGE_BUFF_LEN                                 ((UINT8)(20))
 
 /* SMS text mode */
 #define SMS_MODE_TEXT_OFF                                ((UINT8)(0))

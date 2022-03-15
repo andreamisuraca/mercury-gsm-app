@@ -66,6 +66,7 @@
 #include "mdm_wifi_cmd.h"
 #include "mdm_wifi_http.h"
 #endif
+#include "eeprom_if.h"
 #include "usb_device_mgr.h"
 
 /* SML - System Services */

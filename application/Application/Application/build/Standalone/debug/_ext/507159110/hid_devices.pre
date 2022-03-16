@@ -10806,7 +10806,7 @@ I2cTxRxInProgress,
 I2cTxRxComplete,
 } I2cCommStsType;
 
-typedef enum
+typedef enum _I2cOpSts
 {
 OP_IN_PROGRESS = 0,
 OP_COMPLETE,
@@ -10968,6 +10968,20 @@ void Mdm_SendSmsData (UINT8 *PhoneNmb, UINT8 PhoneNmbLen, UINT8 *MsgTxt, UINT8 M
 SmsRxStsType Mdm_IsSmsReceived (void);
 
 UINT8* GetCallerNumber (void);
+
+# 43 "../../MercuryFwk/Source/h/03_Sml/01_Pml/05_Eeprom/eeprom_if.h"
+typedef enum _EepromSts
+{
+OP_SUCCESS = 0,
+OP_FAILED,
+OP_PENDING
+} EepromStsType;
+
+# 58
+UINT8 Eeprom_Write (UINT8 MemoryAddress, UINT8* WriteBuffer, UINT8 DataLength);
+
+
+EepromStsType Eeprom_Read (UINT8 MemoryAddress, UINT8* ReadBuffer, UINT8 DataLength);
 
 # 536 "../../MercuryFwk/Source/h/03_Sml/01_Pml/04_Usb/usb_device_cdc.h"
 void CDCInitEP(void);

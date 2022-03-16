@@ -9989,7 +9989,7 @@ I2cTxRxInProgress,
 I2cTxRxComplete,
 } I2cCommStsType;
 
-typedef enum
+typedef enum _I2cOpSts
 {
 OP_IN_PROGRESS = 0,
 OP_COMPLETE,
@@ -10151,6 +10151,20 @@ void Mdm_SendSmsData (UINT8 *PhoneNmb, UINT8 PhoneNmbLen, UINT8 *MsgTxt, UINT8 M
 SmsRxStsType Mdm_IsSmsReceived (void);
 
 UINT8* GetCallerNumber (void);
+
+# 43 "../../MercuryFwk/Source/h/03_Sml/01_Pml/05_Eeprom/eeprom_if.h"
+typedef enum _EepromSts
+{
+OP_SUCCESS = 0,
+OP_FAILED,
+OP_PENDING
+} EepromStsType;
+
+# 58
+UINT8 Eeprom_Write (UINT8 MemoryAddress, UINT8* WriteBuffer, UINT8 DataLength);
+
+
+EepromStsType Eeprom_Read (UINT8 MemoryAddress, UINT8* ReadBuffer, UINT8 DataLength);
 
 # 133 "../../MercuryFwk/Source/h/03_Sml/01_Pml/04_Usb/usb_common.h"
 typedef union
@@ -11285,9 +11299,9 @@ break;
 return isInitialized;
 }
 
-void blinkForSeconds(uint8_t seconds, uint16_t* blickTicks)
+void blinkForSeconds(uint8_t seconds, uint16_t* blinkTicks)
 {
-if (secondsAppTimer(seconds, blickTicks, 0))
+if (secondsAppTimer(seconds, blinkTicks, 0))
 {
 Led_SetLedStatus(1u, LED_STS_ON);
 }
@@ -11300,14 +11314,16 @@ Led_SetLedStatus(1u, LED_STS_BLINK);
 # 167
 void MyApp_Task (UINT8 Options)
 {
-UINT8 phone[] = {'+', '3', '9', '3', '2', '0', '0', '2', '7', '6', '3', '1', '8', '\0'};
+static UINT8 phone[] = {'+', '3', '9', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '\0'};
 
-static uint16_t blickTicks = 0xFFFF;
+static uint16_t blinkTicks = 0xFFFF;
 static uint8_t blinkSeconds = 0;
 
-uint8_t smsText[((UINT8)(50))];
-uint8_t smsNumber[14];
+uint8_t smsText[((UINT8)(20))];
 uint8_t cmpString[] = {'c', 'a', 't'};
+
+static uint8_t memoryFlag = 1;
+I2cOpStsType memoryResult = OP_COMPLETE;
 
 switch (SystemState)
 {
@@ -11324,33 +11340,44 @@ if (initGprsModem())
 
 if (Mdm_IsRinging())
 {
-blickTicks = 0;
+blinkTicks = 0;
 if (StringCompare(phone, GetCallerNumber(), 14))
 {
 blinkSeconds = 5;
 }
+blinkSeconds = 3;
+Mdm_HangPhoneCall();
+memoryFlag = 1;
 }
 if (Mdm_IsSmsReceived())
 {
 Mdm_RequestSmsData();
 }
-if (Mdm_GetSmsData(smsText, smsNumber) == SmsDataReady)
-{
-blickTicks = 0;
-blinkSeconds = 3;
-Uart_WriteConstString(1,"AT+CMGD=1,0\r\n");
 
-if (StringCompare(smsNumber, phone, 14))
+# 224
+blinkForSeconds(blinkSeconds, &blinkTicks);
+
+if (memoryFlag == 1)
 {
-if (StringCompare(smsText, cmpString, sizeof(cmpString)))
+
+ClearBuffer(phone, 14);
+memoryFlag++;
+}
+else if (memoryFlag >= 2 && memoryFlag <= 250)
 {
-blinkSeconds = 6;
+if (memoryFlag == 100)
+{
+memoryResult = Eeprom_Read(0, phone, 13);
+if (memoryResult != OP_PENDING)
+{
+memoryFlag++;
 }
 }
-ClearBuffer(smsText, sizeof(smsText));
-ClearBuffer(smsNumber, 14);
+else
+{
+memoryFlag++;
 }
-blinkForSeconds(blinkSeconds, &blickTicks);
+}
 }
 break;
 

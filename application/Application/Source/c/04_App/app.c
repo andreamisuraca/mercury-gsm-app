@@ -141,9 +141,9 @@ bool initGprsModem()
     return isInitialized;
 }
 
-void blinkForSeconds(uint8_t seconds, uint16_t* blickTicks)
+void blinkForSeconds(uint8_t seconds, uint16_t* blinkTicks)
 {
-    if (secondsAppTimer(seconds, blickTicks, false))
+    if (secondsAppTimer(seconds, blinkTicks, false))
     {
         Led_SetLedStatus(LED_1, LED_STS_ON);
     }
@@ -166,14 +166,16 @@ void blinkForSeconds(uint8_t seconds, uint16_t* blickTicks)
 ************************************************************************/
 void MyApp_Task (UINT8 Options)
 {
-    UINT8 phone[] = {'+', '3', '9', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '\0'}
+    static UINT8 phone[] = {'+', '3', '9', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '\0'};
 
-    static uint16_t blickTicks = 0xFFFF;
+    static uint16_t blinkTicks = 0xFFFF;
     static uint8_t blinkSeconds = 0;
 
     uint8_t smsText[MESSAGE_BUFF_LEN];
-    uint8_t smsNumber[14];
     uint8_t cmpString[] = {'c', 'a', 't'};
+
+    static uint8_t memoryFlag = 0;
+    I2cOpStsType memoryResult = OP_COMPLETE;
 
     switch (SystemState)
     {
@@ -190,34 +192,58 @@ void MyApp_Task (UINT8 Options)
                 /* If ring evt is received */
                 if (Mdm_IsRinging())
                 {
-                    blickTicks = 0;
+                    blinkTicks = 0;
                     if (StringCompare(phone, GetCallerNumber(), 14))
                     {
                         blinkSeconds = 5;
                     }
+                    blinkSeconds = 3;
                     Mdm_HangPhoneCall();
+                    memoryFlag = 1;
                 }
                 if (Mdm_IsSmsReceived())
                 {
                     Mdm_RequestSmsData();
                 }
-                if (Mdm_GetSmsData(smsText, smsNumber) == SmsDataReady)
+//                if (Mdm_GetSmsData(smsText, phone) == SmsDataReady)
+//                {
+//                    blinkTicks = 0;
+//                    blinkSeconds = 3;
+//                    Uart_WriteConstString(1,"AT+CMGD=1,0\r\n");
+//                    
+//                    if (StringCompare(phone, phone, 14))
+//                    {
+//                        if (StringCompare(smsText, cmpString, sizeof(cmpString)))
+//                        {
+//                            blinkSeconds = 6;
+//                        }
+//                    }
+//                    ClearBuffer(smsText, sizeof(smsText));
+//                    ClearBuffer(phone, 14);
+//                }
+                blinkForSeconds(blinkSeconds, &blinkTicks);
+
+                if (memoryFlag == 1)
                 {
-                    blickTicks = 0;
-                    blinkSeconds = 3;
-                    Uart_WriteConstString(1,"AT+CMGD=1,0\r\n");
-                    
-                    if (StringCompare(smsNumber, phone, 14))
+                    //Eeprom_Write(0, phone, 14);
+                    ClearBuffer(phone, 14);
+                    memoryFlag++;
+                }
+                else if (memoryFlag >= 2 && memoryFlag <= 250)
+                {
+                    if (memoryFlag == 100)
                     {
-                        if (StringCompare(smsText, cmpString, sizeof(cmpString)))
+                        memoryResult = Eeprom_Read(0, phone, 13);
+                        if (memoryResult != OP_PENDING)
                         {
-                            blinkSeconds = 6;
+                            memoryFlag++;
                         }
                     }
-                    ClearBuffer(smsText, sizeof(smsText));
-                    ClearBuffer(smsNumber, 14);
+                    else
+                    {
+                        memoryFlag++;
+                    }
                 }
-                blinkForSeconds(blinkSeconds, &blickTicks);
             }
             break;
 

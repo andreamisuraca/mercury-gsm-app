@@ -72,6 +72,9 @@
             <itemPath>../../MercuryFwk/Source/h/03_Sml/01_Pml/04_Usb/usb_pic18_local.h</itemPath>
             <itemPath>../../MercuryFwk/Source/h/03_Sml/01_Pml/04_Usb/usb_struct_queue.h</itemPath>
           </logicalFolder>
+          <logicalFolder name="05_Eeprom" displayName="05_Eeprom" projectFiles="true">
+            <itemPath>../../MercuryFwk/Source/h/03_Sml/01_Pml/05_Eeprom/eeprom_if.h</itemPath>
+          </logicalFolder>
         </logicalFolder>
         <logicalFolder name="02_Ssl" displayName="02_Ssl" projectFiles="true">
           <itemPath>../../MercuryFwk/Source/h/03_Sml/02_Ssl/ext_int.h</itemPath>
@@ -144,6 +147,9 @@
             <itemPath>../../MercuryFwk/Source/c/03_Sml/01_Pml/04_Usb/usb_device_cdc.c</itemPath>
             <itemPath>../../MercuryFwk/Source/c/03_Sml/01_Pml/04_Usb/usb_device_hid.c</itemPath>
             <itemPath>../../MercuryFwk/Source/c/03_Sml/01_Pml/04_Usb/usb_device_mgr.c</itemPath>
+          </logicalFolder>
+          <logicalFolder name="05_Eeprom" displayName="05_Eeprom" projectFiles="true">
+            <itemPath>../../MercuryFwk/Source/c/03_Sml/01_Pml/05_Eeprom/eeprom_if.c</itemPath>
           </logicalFolder>
         </logicalFolder>
         <logicalFolder name="02_Ssl" displayName="02_Ssl" projectFiles="true">
@@ -237,7 +243,7 @@
         <property key="define-macros" value=""/>
         <property key="disable-optimizations" value="false"/>
         <property key="extra-include-directories"
-                  value="..\Source\h\04_App;..\..\MercuryFwk\Source\h\01_Hal\01_Sys;..\..\MercuryFwk\Source\h\01_Hal\02_Drv;..\..\MercuryFwk\Source\h\02_Osl;..\..\MercuryFwk\Source\h\03_Sml\01_Pml\01_Mdm;..\..\MercuryFwk\Source\h\03_Sml\01_Pml\02_SlvI2c;..\..\MercuryFwk\Source\h\03_Sml\01_Pml\03_SlvSer;..\..\MercuryFwk\Source\h\03_Sml\01_Pml\04_Usb;..\..\MercuryFwk\Source\h\03_Sml\02_Ssl"/>
+                  value="..\Source\h\04_App;..\..\MercuryFwk\Source\h\01_Hal\01_Sys;..\..\MercuryFwk\Source\h\01_Hal\02_Drv;..\..\MercuryFwk\Source\h\02_Osl;..\..\MercuryFwk\Source\h\03_Sml\01_Pml\01_Mdm;..\..\MercuryFwk\Source\h\03_Sml\01_Pml\02_SlvI2c;..\..\MercuryFwk\Source\h\03_Sml\01_Pml\03_SlvSer;..\..\MercuryFwk\Source\h\03_Sml\01_Pml\04_Usb;..\..\MercuryFwk\Source\h\03_Sml\01_Pml\05_Eeprom;..\..\MercuryFwk\Source\h\03_Sml\02_Ssl"/>
         <property key="favor-optimization-for" value="-speed,+space"/>
         <property key="garbage-collect-data" value="true"/>
         <property key="garbage-collect-functions" value="true"/>
@@ -319,7 +325,6 @@
         <property key="debugoptions.debug-startup" value="Use system settings"/>
         <property key="debugoptions.reset-behaviour" value="Use system settings"/>
         <property key="debugoptions.useswbreakpoints" value="false"/>
-        <property key="firmware.download.all" value="false"/>
         <property key="hwtoolclock.frcindebug" value="false"/>
         <property key="memories.aux" value="false"/>
         <property key="memories.bootflash" value="true"/>

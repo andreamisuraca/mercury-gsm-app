@@ -1,5 +1,5 @@
 
-# 1 "../../MercuryFwk/Source/c/03_Sml/02_Ssl/term.c"
+# 1 "../../MercuryFwk/Source/c/03_Sml/01_Pml/05_Eeprom/eeprom_if.c"
 
 
 # 30 "../../MercuryFwk/Source/h/01_Hal/01_Sys/hal.h"
@@ -9968,50 +9968,6 @@ void Pm_RestoreDsData(UINT8 *Data0, UINT8 *Data1);
 
 void Pm_DsReleasePinControl(void);
 
-# 50 "../../MercuryFwk/Source/h/03_Sml/01_Pml/02_SlvI2c/i2c_slv.h"
-typedef enum _I2cReadMsgSts
-{
-MessageNotReceived,
-MessageReceived,
-} I2cReadMsgStsType;
-
-
-typedef enum _I2cBusStatusType
-{
-I2cBusNotReady,
-I2cBusReady,
-} I2cBusStatusType;
-
-
-typedef enum _I2cCommSts
-{
-I2cTxRxInProgress,
-I2cTxRxComplete,
-} I2cCommStsType;
-
-typedef enum _I2cOpSts
-{
-OP_IN_PROGRESS = 0,
-OP_COMPLETE,
-OP_TIMEOUT
-} I2cOpStsType;
-
-# 80
-extern I2cBusStatusType I2cBusStatus;
-
-# 86
-void I2cSlv_MainTask (UINT8 Options);
-
-UINT8 I2cSlv_SendI2cMsg (UINT8* TxBuffer, UINT8 SlaveAddr, UINT8 DataLenght);
-
-UINT8 I2cSlv_ReceiveI2cMsg (UINT8* RxBuffer, UINT8 SlaveAddr, UINT8 DataLenght);
-
-I2cReadMsgStsType I2cSlv_I2cReadMsgSts (void);
-
-I2cCommStsType I2cSlv_GetI2cSts(void);
-
-I2cOpStsType I2cSlv_QueryI2cData (UINT8* TxBuffer, UINT8 TxLen, UINT8* RxBuffer, UINT8 RxLen, UINT8 SlaveAddr);
-
 # 43 "../../MercuryFwk/Source/h/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs_http.h"
 typedef enum _GprsOutStsType
 {
@@ -10151,20 +10107,6 @@ void Mdm_SendSmsData (UINT8 *PhoneNmb, UINT8 PhoneNmbLen, UINT8 *MsgTxt, UINT8 M
 SmsRxStsType Mdm_IsSmsReceived (void);
 
 UINT8* GetCallerNumber (void);
-
-# 43 "../../MercuryFwk/Source/h/03_Sml/01_Pml/05_Eeprom/eeprom_if.h"
-typedef enum _EepromSts
-{
-OP_SUCCESS = 0,
-OP_FAILED,
-OP_PENDING
-} EepromStsType;
-
-# 58
-UINT8 Eeprom_Write (UINT8 MemoryAddress, UINT8* WriteBuffer, UINT8 DataLength);
-
-
-EepromStsType Eeprom_Read (UINT8 MemoryAddress, UINT8* ReadBuffer, UINT8 DataLength);
 
 # 133 "../../MercuryFwk/Source/h/03_Sml/01_Pml/04_Usb/usb_common.h"
 typedef union
@@ -11175,6 +11117,14 @@ UINT8 StringCompare (UINT8 *String1, UINT8 *String2, UINT16 Len);
 void StringCopy (UINT8 *SourceStr, UINT8 *DestStr, UINT16 Len);
 void ClearBuffer (UINT8 *Buffer, UINT16 Len);
 
+# 50 "../../MercuryFwk/Source/h/03_Sml/02_Ssl/term.h"
+extern UINT16 PhoneNumberLen;
+
+extern char PhoneNumber[20];
+
+# 57
+void Term_MainTask (UINT8 Options);
+
 # 52 "../../MercuryFwk/Source/h/03_Sml/02_Ssl/ext_int.h"
 void ExtInt_SetInt0Action (ExtInt_CallbackType Callback);
 void ExtInt_SetInt1Action (ExtInt_CallbackType Callback);
@@ -11209,529 +11159,99 @@ void Sch_MainScheduler (void);
 
 void Sch_SchmIntService (void);
 
-# 50 "../../MercuryFwk/Source/h/03_Sml/02_Ssl/term.h"
-extern UINT16 PhoneNumberLen;
-
-extern char PhoneNumber[20];
-
-# 57
-void Term_MainTask (UINT8 Options);
-
-# 71 "../../MercuryFwk/Source/c/03_Sml/02_Ssl/term.c"
-typedef enum _TermMainSmStateType
+# 50 "../../MercuryFwk/Source/h/03_Sml/01_Pml/02_SlvI2c/i2c_slv.h"
+typedef enum _I2cReadMsgSts
 {
-Term_StartTmr,
-Term_InitDelay,
-Term_InitState,
-Term_WelcomeState,
-Term_InstDescState,
-Term_FwkVerState,
-Term_FwkBuildDateState,
-Term_SysInitState,
-Term_FinalState
-} TermMainSmStateType;
+MessageNotReceived,
+MessageReceived,
+} I2cReadMsgStsType;
 
 
-typedef enum _TermStateType
+typedef enum _I2cBusStatusType
 {
-Term_GetData,
-Term_PrepSlvI2cResp,
-Term_ReadSlvI2cData,
-Term_ReadSlvUartData,
-} TermStateType;
+I2cBusNotReady,
+I2cBusReady,
+} I2cBusStatusType;
 
 
-typedef struct _PayloadType
+typedef enum _I2cCommSts
 {
-UINT8 Byte[4];
-} PayloadType;
+I2cTxRxInProgress,
+I2cTxRxComplete,
+} I2cCommStsType;
 
-# 102
-static const UINT8 Welcome[] = {
-"*************************************************\r\n"
-"                  MERCURY SYSTEM\r\n"
-"*************************************************\r\n"
-};
-
-static const UINT8 MsgFormat[] = {
-"Host message format: \r\n"
-"[op_type]:[op]:[len]:[addr]:[payload]\r\n"
-"\r\n"
-"[op_type] = SO,SB\r\n"
-"[op] = R: read,W: write\r\n"
-"[len] = 2 byte ASCII\r\n"
-"[addr] = 2 byte ASCII\r\n"
-"[payload] = max 20 byte ASCII\r\n"
-"\r\n"
-
-
-"Terminal Mode: COMMAND MODE\r\n"
-
-# 128
-"Modem Type: GSM/GPRS\r\n"
-
-# 134
-"\r\n"
-};
-
-static const UINT8 MsgReady[] = {
-"\r\nSystem Ready... \r\n\r\n"
-};
-
-# 144
-UINT16 PhoneNumberLen;
-UINT8 PhoneNumber[20];
-
-# 319
-void GsmGprsTerminal (void)
+typedef enum _I2cOpSts
 {
-static UINT8 UsbBuffer[200u];
-static UINT8 UartBuffer[200u];
-static UINT8 FirstRecFlag = 0;
-static UINT8 SMS = 0;
-UINT8 UartIndex = 0;
-UINT8 ReceivedBytes = 0;
-UINT8 Index;
+OP_IN_PROGRESS = 0,
+OP_COMPLETE,
+OP_TIMEOUT
+} I2cOpStsType;
 
+# 80
+extern I2cBusStatusType I2cBusStatus;
 
-if((USBDeviceState < CONFIGURED_STATE)||(UCONbits.SUSPND == 1))
+# 86
+void I2cSlv_MainTask (UINT8 Options);
+
+UINT8 I2cSlv_SendI2cMsg (UINT8* TxBuffer, UINT8 SlaveAddr, UINT8 DataLenght);
+
+UINT8 I2cSlv_ReceiveI2cMsg (UINT8* RxBuffer, UINT8 SlaveAddr, UINT8 DataLenght);
+
+I2cReadMsgStsType I2cSlv_I2cReadMsgSts (void);
+
+I2cCommStsType I2cSlv_GetI2cSts(void);
+
+I2cOpStsType I2cSlv_QueryI2cData (UINT8* TxBuffer, UINT8 TxLen, UINT8* RxBuffer, UINT8 RxLen, UINT8 SlaveAddr);
+
+# 43 "../../MercuryFwk/Source/h/03_Sml/01_Pml/05_Eeprom/eeprom_if.h"
+typedef enum _EepromSts
 {
-return;
+OP_SUCCESS = 0,
+OP_FAILED,
+OP_PENDING
+} EepromStsType;
+
+# 58
+UINT8 Eeprom_Write (UINT8 MemoryAddress, UINT8* WriteBuffer, UINT8 DataLength);
+
+
+EepromStsType Eeprom_Read (UINT8 MemoryAddress, UINT8* ReadBuffer, UINT8 DataLength);
+
+# 44 "../../MercuryFwk/Source/c/03_Sml/01_Pml/05_Eeprom/eeprom_if.c"
+static UINT8 EepromBuffer[15];
+static UINT8 ReadAddress[1];
+
+# 72
+UINT8 Eeprom_Write (UINT8 MemoryAddress, UINT8* WriteBuffer, UINT8 DataLength)
+{
+UINT8 WriteSts = 0u;
+UINT8 SlaveAddress = 0x50;
+const UINT8 CommandLength = DataLength + 1;
+
+EepromBuffer[0] = MemoryAddress;
+StringCopy(WriteBuffer, EepromBuffer + 1, DataLength);
+
+WriteSts = I2cSlv_SendI2cMsg(EepromBuffer, SlaveAddress, CommandLength);
+return WriteSts;
 }
 
-
-ReceivedBytes = getsUSBUSART(UsbBuffer,200u);
-
-if (ReceivedBytes > 0)
+# 95
+EepromStsType Eeprom_Read (UINT8 MemoryAddress, UINT8* ReadBuffer, UINT8 DataLength)
 {
+I2cOpStsType QuerySts = OP_IN_PROGRESS;
+EepromStsType ReadSts = OP_PENDING;
+UINT8 SlaveAddress = 0x50;
+ReadAddress[0] = MemoryAddress;
 
-if (UsbBuffer[0] == '#')
+QuerySts = I2cSlv_QueryI2cData(ReadAddress, 1, ReadBuffer, DataLength, SlaveAddress);
+
+if (QuerySts == OP_COMPLETE)
 {
-if (UsbBuffer[1] == 'S')
+ReadSts = OP_SUCCESS;
+}
+else if (QuerySts == OP_TIMEOUT)
 {
-SMS = 1;
+ReadSts = OP_FAILED;
 }
+return ReadSts;
 }
-else
-{
-
-for (Index = 0; Index < ReceivedBytes; Index++)
-{
-UartBuffer[UartIndex] = UsbBuffer[UartIndex];
-UartIndex++;
-}
-
-if (SMS == 1)
-{
-SMS = 0;
-UartBuffer[UartIndex - 1] = 0x1A;
-}
-Uart_WriteStringLen(((UINT8)(1)),UartBuffer,UartIndex);
-ClearBuffer(UartBuffer, sizeof(UartBuffer));
-}
-}
-
-
-if (ReceiveEvt(&NewStringMdmTerminal))
-{
-
-RxBuffer[RxLen] = '\r';
-RxBuffer[RxLen + 1] = '\n';
-
-if((cdc_trf_state == 0))
-{
-putUSBUSART(RxBuffer,(RxLen + 2));
-}
-}
-}
-
-# 428
-void Terminal (void)
-{
-static TermStateType TermState = Term_GetData;
-UINT8 UsbRxBuffer[200u];
-UINT8 UsbTxBuffer[200u];
-UINT8 TermTxBuffer[50u];
-static UINT8 TermRxBuffer[50u];
-UINT8 Index;
-static UINT8 Len[4];
-static UINT8 PackageLen;
-static UINT8 Addr[4];
-static UINT8 SlaveAddr;
-static PayloadType Payload[20u];
-UINT8 ReceivedBytes = 0;
-
-static UINT8 FormatOption = 0u;
-static UINT8 EchoOption = 1u;
-static SwTimerType SwTimer;
-
-
-if((USBDeviceState < CONFIGURED_STATE)||(UCONbits.SUSPND==1)) return;
-
-
-switch (TermState)
-{
-case Term_GetData:
-
-ReceivedBytes = getsUSBUSART(UsbRxBuffer,200u);
-
-
-if (ReceivedBytes > 0)
-{
-
-if (EchoOption == 1u)
-{
-
-if((cdc_trf_state == 0))
-{
-UsbRxBuffer[ReceivedBytes] = '\r';
-UsbRxBuffer[ReceivedBytes + 1] = '\n';
-putUSBUSART(UsbRxBuffer,ReceivedBytes + 2);
-}
-}
-
-
-if ((UsbRxBuffer[0u] == 'S') &&
-(UsbRxBuffer[0u + 1u] == 'O') &&
-(UsbRxBuffer[0u + 1u + 1u] == ':'))
-{
-
-if ((UsbRxBuffer[0u + 1u + 1u + 1u] == 'G') && (UsbRxBuffer[0u + 1u + 1u + 1u + 1] == ':'))
-{
-
-if ((UsbRxBuffer[0u + 1u + 1u + 1u + 2u] == 'D') && (UsbRxBuffer[0u + 1u + 1u + 1u + 2u + 1] == 'F'))
-{
-if (UsbRxBuffer[0u + 1u + 1u + 1u + 2u + 3u] == 'A')
-{
-FormatOption = 1u;
-}
-else if (UsbRxBuffer[0u + 1u + 1u + 1u + 2u + 3u] == 'B')
-{
-FormatOption = 0u;
-}
-}
-
-else if ((UsbRxBuffer[0u + 1u + 1u + 1u + 2u] == 'E') && (UsbRxBuffer[0u + 1u + 1u + 1u + 2u + 1] == 'M'))
-{
-if (UsbRxBuffer[0u + 1u + 1u + 1u + 2u + 3u] == '1')
-{
-EchoOption = 1u;
-}
-else if (UsbRxBuffer[0u + 1u + 1u + 1u + 2u + 3u] == '0')
-{
-EchoOption = 0u;
-}
-}
-else
-{
-
-}
-}
-}
-else if ((UsbRxBuffer[0u] == 'S') &&
-(UsbRxBuffer[0u + 1u] == 'B') &&
-(UsbRxBuffer[0u + 1u + 1u] == ':'))
-{
-if ((UsbRxBuffer[0u + 1u + 1u + 1u] == 'W') && (UsbRxBuffer[0u + 1u + 1u + 1u + 1] == ':'))
-{
-
-Len[0] = UsbRxBuffer[0u + 1u + 1u + 1u + 2u];
-Len[1] = UsbRxBuffer[0u + 1u + 1u + 1u + 2u + 1];
-
-Addr[0] = UsbRxBuffer[0u + 1u + 1u + 1u + 2u + 3u];
-Addr[1] = UsbRxBuffer[0u + 1u + 1u + 1u + 2u + 3u + 1];
-
-PackageLen = atoi((void*)Len);
-SlaveAddr = xtoi((void*)Addr);
-
-for (Index = 0; Index <= PackageLen; Index++)
-{
-Payload[Index].Byte[0] = UsbRxBuffer[2*Index + 0u + 1u + 1u + 1u + 2u + 3u + 3u];
-Payload[Index].Byte[1] = UsbRxBuffer[2*Index + 0u + 1u + 1u + 1u + 2u + 3u + 3u + 1];
-}
-
-for (Index = 0; Index <= PackageLen; Index++)
-{
-
-
-
-TermTxBuffer[Index] = strtol((void*)&(Payload[Index]), (0), 16);
-
-}
-
-
-I2cSlv_SendI2cMsg(TermTxBuffer, SlaveAddr, PackageLen);
-}
-else if ((UsbRxBuffer[0u + 1u + 1u + 1u] == 'R') && (UsbRxBuffer[0u + 1u + 1u + 1u + 1] == ':'))
-{
-
-Len[0] = UsbRxBuffer[0u + 1u + 1u + 1u + 2u];
-Len[1] = UsbRxBuffer[0u + 1u + 1u + 1u + 2u + 1];
-
-Addr[0] = UsbRxBuffer[0u + 1u + 1u + 1u + 2u + 3u];
-Addr[1] = UsbRxBuffer[0u + 1u + 1u + 1u + 2u + 3u + 1];
-
-PackageLen = atoi((void*)Len);
-SlaveAddr = xtoi((void*)Addr);
-
-
-I2cSlv_ReceiveI2cMsg(TermRxBuffer, SlaveAddr, PackageLen);
-
-
-TermState = Term_PrepSlvI2cResp;
-}
-}
-else if ((UsbRxBuffer[0u] == 'T') &&
-(UsbRxBuffer[0u + 1u] == 'E') &&
-(UsbRxBuffer[0u + 1u + 1u] == 'L'))
-{
-
-Len[0] = UsbRxBuffer[0u + 1u + 1u + 1u];
-Len[1] = UsbRxBuffer[0u + 1u + 1u + 1u + 1];
-PhoneNumberLen = atoi(Len);
-
-for (UINT8 i = 0; i < PhoneNumberLen; i++)
-{
-PhoneNumber[i] = UsbRxBuffer[0u + 1u + 1u + 1u + 2u + i];
-}
-}
-else if ((UsbRxBuffer[0u] == 'M') &&
-(UsbRxBuffer[0u + 1u] == 'B') &&
-(UsbRxBuffer[0u + 1u + 1u] == ':'))
-{
-
-}
-
-# 614
-}
-break;
-
-case Term_PrepSlvI2cResp:
-
-if((cdc_trf_state == 0))
-{
-UsbTxBuffer[0] = 'S';
-UsbTxBuffer[1] = 'B';
-UsbTxBuffer[2] = '[';
-UsbTxBuffer[3] = Addr[0];
-UsbTxBuffer[4] = Addr[1];
-UsbTxBuffer[5] = ']';
-UsbTxBuffer[6] = ':';
-putUSBUSART(UsbTxBuffer,7);
-
-
-TermState = Term_ReadSlvI2cData;
-}
-break;
-
-case Term_ReadSlvI2cData:
-
-if (I2cSlv_I2cReadMsgSts() == MessageReceived)
-{
-
-if (FormatOption == 1u)
-{
-
-for (Index = 0; Index <= PackageLen; Index++)
-{
-itoa(((void*)&(Payload[Index])),TermRxBuffer[Index],10);
-}
-}
-
-
-if((cdc_trf_state == 0))
-{
-
-if (FormatOption == 1u)
-{
-Payload[(2*PackageLen)].Byte[3] = '\r';
-Payload[(2*PackageLen)].Byte[2] = '\n';
-
-putUSBUSART((void*)Payload,(2*PackageLen) + 4);
-}
-else
-{
-TermRxBuffer[PackageLen] = '\r';
-TermRxBuffer[PackageLen + 1] = '\n';
-
-putUSBUSART(TermRxBuffer,PackageLen + 2);
-}
-
-TermState = Term_GetData;
-}
-}
-else
-{
-
-if (OsTmr_Wait(&SwTimer,3000u) == DelayExpired)
-{
-
-if((cdc_trf_state == 0))
-{
-strcpy(UsbTxBuffer," Lazy device...you've been timed-out!!!\r\n");
-putUSBUSART(UsbTxBuffer,sizeof(" Lazy device...you've been timed-out!!!\r\n")-1);
-
-TermState = Term_GetData;
-}
-}
-}
-break;
-
-case Term_ReadSlvUartData:
-break;
-
-default:
-break;
-}
-}
-
-# 707
-void Term_MainSm (void)
-{
-static TermMainSmStateType TermMainSmState = Term_StartTmr;
-static SwTimerType TermDelay = { 1u, SwTimerExpired, 0, 0, DelayNotExpired, };
-static UINT8 Data[50];
-UINT8 FwkMajorStr[4];
-UINT8 FwkMinorStr[4];
-UINT8 FwkBuildStr[4];
-UINT8 FwkBuildDayStr[4];
-UINT8 FwkBuildMonthStr[4];
-UINT8 FwkBuildYearStr[4];
-
-switch (TermMainSmState)
-{
-case Term_StartTmr:
-
-OsTmr_StartTimer(&TermDelay,2000);
-
-TermMainSmState = Term_InitDelay;
-break;
-
-case Term_InitDelay:
-
-if (OsTmr_GetTimerStatus(&TermDelay) == SwTimerExpired)
-{
-
-TermMainSmState = Term_InitState;
-}
-break;
-
-case Term_InitState:
-
-if((USBDeviceState < CONFIGURED_STATE)||(UCONbits.SUSPND == 1))
-{
-
-}
-else
-{
-
-TermMainSmState = Term_WelcomeState;
-}
-break;
-
-case Term_WelcomeState:
-
-if((cdc_trf_state == 0))
-{
-
-putUSBUSART((void*)Welcome,(sizeof(Welcome) - 1));
-
-TermMainSmState = Term_InstDescState;
-}
-break;
-
-case Term_InstDescState:
-
-if((cdc_trf_state == 0))
-{
-
-putUSBUSART((void*)MsgFormat,(sizeof(MsgFormat) - 1));
-
-TermMainSmState = Term_FwkVerState;
-}
-break;
-
-case Term_FwkVerState:
-
-if((cdc_trf_state == 0))
-{
-
-memset(Data,0,50);
-
-utoa(FwkMajorStr,1,10);
-utoa(FwkMinorStr,2,10);
-utoa(FwkBuildStr,0,10);
-strcpy(Data,"Framework Version: ");
-strcat(Data,FwkMajorStr);
-strcat(Data,".");
-strcat(Data,FwkMinorStr);
-strcat(Data,".");
-strcat(Data,FwkBuildStr);
-strcat(Data,"\r\n");
-
-putUSBUSART((void*)Data,strlen(Data));
-
-TermMainSmState = Term_FwkBuildDateState;
-}
-break;
-
-case Term_FwkBuildDateState:
-
-if((cdc_trf_state == 0))
-{
-
-memset(Data,0,50);
-
-sprintf(Data,"Build Date: %s\r\n","Mar 19 2022");
-
-putUSBUSART((void*)Data,strlen(Data));
-
-TermMainSmState = Term_SysInitState;
-}
-break;
-
-case Term_SysInitState:
-
-if((cdc_trf_state == 0))
-{
-
-putUSBUSART((void*)MsgReady,(sizeof(MsgReady) - 1));
-
-TermMainSmState = Term_FinalState;
-}
-break;
-
-case Term_FinalState:
-
-Terminal();
-break;
-
-default:
-break;
-}
-}
-
-# 845
-void Term_MainTask (UINT8 Options)
-{
-switch (SystemState)
-{
-
-case InitializationState:
-
-break;
-
-
-case RunningState:
-
-
-Term_MainSm();
-
-break;
-
-
-default:
-break;
-}
-}
-

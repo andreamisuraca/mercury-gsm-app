@@ -6,10 +6,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 "71
 [v _Mcu_ClearWdg `(v ~T0 @X0 0 ef ]
 "75 ../../MercuryFwk/Source/c/03_Sml/02_Ssl/wdg.c
-[c E8944 0 1 .. ]
-[n E8944 SystemStateEnum InitializationState RunningState  ]
+[c E8957 0 1 .. ]
+[n E8957 SystemStateEnum InitializationState RunningState  ]
 "79 ../../MercuryFwk/Source/h/02_Osl/os_sched.h
-[v _SystemState `E8944 ~T0 @X0 0 e ]
+[v _SystemState `E8957 ~T0 @X0 0 e ]
 "30 ../../MercuryFwk/Source/h/01_Hal/01_Sys/hal.h
 [p n 1510 ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
@@ -7452,7 +7452,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;i2c_slv.h: 66: I2cTxRxInProgress,
 [; ;i2c_slv.h: 67: I2cTxRxComplete,
 [; ;i2c_slv.h: 68: } I2cCommStsType;
-[; ;i2c_slv.h: 70: typedef enum
+[; ;i2c_slv.h: 70: typedef enum _I2cOpSts
 [; ;i2c_slv.h: 71: {
 [; ;i2c_slv.h: 72: OP_IN_PROGRESS = 0,
 [; ;i2c_slv.h: 73: OP_COMPLETE,
@@ -7555,6 +7555,14 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;mdm_gsm_gprs.h: 127: void Mdm_SendSmsData (UINT8 *PhoneNmb, UINT8 PhoneNmbLen, UINT8 *MsgTxt, UINT8 MsgTxtLen);
 [; ;mdm_gsm_gprs.h: 129: SmsRxStsType Mdm_IsSmsReceived (void);
 [; ;mdm_gsm_gprs.h: 131: UINT8* GetCallerNumber (void);
+[; ;eeprom_if.h: 43: typedef enum _EepromSts
+[; ;eeprom_if.h: 44: {
+[; ;eeprom_if.h: 45: OP_SUCCESS = 0,
+[; ;eeprom_if.h: 46: OP_FAILED,
+[; ;eeprom_if.h: 47: OP_PENDING
+[; ;eeprom_if.h: 48: } EepromStsType;
+[; ;eeprom_if.h: 58: UINT8 Eeprom_Write (UINT8 MemoryAddress, UINT8* WriteBuffer, UINT8 DataLength);
+[; ;eeprom_if.h: 61: EepromStsType Eeprom_Read (UINT8 MemoryAddress, UINT8* ReadBuffer, UINT8 DataLength);
 [; ;usb_common.h: 133: typedef union
 [; ;usb_common.h: 134: {
 [; ;usb_common.h: 135: uint8_t bitmap;
@@ -8271,8 +8279,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $U 888  ]
 "75
 [e :U 889 ]
-[e [\ _SystemState , $ . `E8944 0 890
- , $ . `E8944 1 891
+[e [\ _SystemState , $ . `E8957 0 890
+ , $ . `E8957 1 891
  892 ]
 "92
 [e :U 888 ]

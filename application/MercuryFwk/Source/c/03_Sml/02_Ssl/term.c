@@ -141,8 +141,8 @@ static const UINT8 MsgReady[] =  {
 /************************************************************************
 * GLOBAL Variables
 ************************************************************************/
-UINT16 PhoneNumberLen;
-UINT8 PhoneNumber[20];
+UINT16 UsbMasterPhoneNumberLen;
+UINT8 UsbMasterPhoneNumber[PHONE_NUMBER_LEN];
 
 /************************************************************************
 * LOCAL Function Prototypes
@@ -567,11 +567,11 @@ void Terminal (void)
                   /* Get Lenght */
                   Len[0] = UsbRxBuffer[OP_OFF_BYTE];
                   Len[1] = UsbRxBuffer[OP_OFF_BYTE + 1];
-                  PhoneNumberLen = atoi(Len);
+                  UsbMasterPhoneNumberLen = atoi(Len);
                   /* Get Phone Number */
-                  for (UINT8 i = 0; i < PhoneNumberLen; i++)
+                  for (UINT8 i = 0; i < UsbMasterPhoneNumberLen; i++)
                   {
-                     PhoneNumber[i] = UsbRxBuffer[OP_OFF_BYTE + 2u + i];
+                     UsbMasterPhoneNumber[i] = UsbRxBuffer[OP_OFF_BYTE + 2u + i];
                   }
             }
             else if ((UsbRxBuffer[OP_TYPE_OFF_BYTE_0] == 'M')  && 

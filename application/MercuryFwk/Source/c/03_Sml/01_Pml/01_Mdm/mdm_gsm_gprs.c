@@ -144,7 +144,8 @@ static UINT8 PhoneNumbLen;
 static UINT8 PhoneNumber[20];
 static UINT8 MessageText[50];
 
-static UINT8 callerNumber[14];
+/* Number of the last received phone call. */
+static UINT8 callerNumber[PHONE_NUMBER_LEN];
 
 /* Local Events */
 EventStructureType SendSmsEvent = {EventIdle};
@@ -526,8 +527,7 @@ void ModemEvtParser (void)
                /* Check string */
                if (StringCompare(ClipString, RxBuffer, sizeof(ClipString)))
                {
-                  StringCopy(RxBuffer + 8, callerNumber, 13);
-                  callerNumber[13] = '\0';
+                  StringCopy(RxBuffer + 8, callerNumber, PHONE_NUMBER_LEN);
                   /* String match */
                   GenerateEvt(&ClipEvent);
                   /* Update match */
@@ -897,9 +897,8 @@ GetSmsStatusType Mdm_GetSmsData (UINT8 *MessageText, UINT8 *MessageHeader)
    if (ReceiveEvt(&SmsTxtReady))
    {
       /* ...Copy text data */
-      StringCopy(Mdm_SmsRx.MessageBuffer,MessageText,Mdm_SmsRx.TextLen + 1);
-      StringCopy(Mdm_SmsRx.HeaderBuffer + 21, MessageHeader,14);
-      MessageHeader[13] = '\0';
+      StringCopy(Mdm_SmsRx.MessageBuffer, MessageText, Mdm_SmsRx.TextLen + 1);
+      StringCopy(Mdm_SmsRx.HeaderBuffer + 21, MessageHeader, PHONE_NUMBER_LEN);
       /* Update status */
       GetSmsStatus = SmsDataReady;
    }
@@ -1039,7 +1038,7 @@ UINT8* GetCallerNumber (void)
 {
    if (!ReceiveEvt(&ClipEvent))
    {
-      ClearBuffer(callerNumber, 14);
+      ClearBuffer(callerNumber, PHONE_NUMBER_LEN);
    }
    return callerNumber;
 }

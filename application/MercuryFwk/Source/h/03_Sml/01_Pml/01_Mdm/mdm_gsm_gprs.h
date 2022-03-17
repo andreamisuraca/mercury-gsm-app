@@ -47,6 +47,9 @@
 #define SMS_MODE_TEXT_OFF                                ((UINT8)(0))
 #define SMS_MODE_TEXT_ON                                 ((UINT8)(1))
 
+/* Phone Number Length (13 should be ok for italian phone numbers). */
+#define PHONE_NUMBER_LEN                                 ((UINT8)(13))
+
 /************************************************************************
 * EXPORTED Typedef
 ************************************************************************/

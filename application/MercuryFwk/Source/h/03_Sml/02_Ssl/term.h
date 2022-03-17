@@ -47,9 +47,9 @@
 * EXPORTED Variables
 ************************************************************************/
 /* Global phone number length */
-extern UINT16 PhoneNumberLen;
+extern UINT16 UsbMasterPhoneNumberLen;
 /* Global phone number sent via USB */
-extern char PhoneNumber[20];
+extern char UsbMasterPhoneNumber[PHONE_NUMBER_LEN];
 
 /************************************************************************
 * EXPORTED Functions

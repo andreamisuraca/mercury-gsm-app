@@ -36,7 +36,8 @@
 /************************************************************************
 * EXPORTED Defines
 ************************************************************************/
-#define TERM_TASK_PERIOD_MS                                 ((UINT16)(1))
+#define TERM_TASK_PERIOD_MS                                ((UINT16)(1))
+#define USB_PHONE_NUMBER_LEN                               ((UINT16)(15))
 
 /************************************************************************
 * EXPORTED Typedef
@@ -49,7 +50,7 @@
 /* Global phone number length */
 extern UINT16 UsbMasterPhoneNumberLen;
 /* Global phone number sent via USB */
-extern char UsbMasterPhoneNumber[PHONE_NUMBER_LEN];
+extern char UsbMasterPhoneNumber[USB_PHONE_NUMBER_LEN];
 
 /************************************************************************
 * EXPORTED Functions

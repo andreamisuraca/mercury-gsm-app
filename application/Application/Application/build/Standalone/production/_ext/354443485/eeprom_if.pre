@@ -10034,7 +10034,7 @@ void MdmHttp_GetMethod (HttpGetDataType *GetData);
 
 void MdmHttp_PostMethod (HttpPostDataType *PostData);
 
-# 54 "../../MercuryFwk/Source/h/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.h"
+# 57 "../../MercuryFwk/Source/h/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.h"
 typedef enum _MdmStatus
 {
 ModemOff,
@@ -10065,7 +10065,7 @@ SmsNotReceived = 0,
 SmsReceived
 } SmsRxStsType;
 
-# 88
+# 91
 extern MdmStatusType MdmStatus;
 
 extern EventStructureType RingEvent;
@@ -10077,7 +10077,7 @@ extern EventStructureType NewStringReceived;
 extern EventStructureType NewMdmEvtParserRequest;
 extern EventStructureType NewStringMdmTerminal;
 
-# 103
+# 106
 void Mdm_MainTask (UINT8 Options);
 
 
@@ -11117,12 +11117,12 @@ UINT8 StringCompare (UINT8 *String1, UINT8 *String2, UINT16 Len);
 void StringCopy (UINT8 *SourceStr, UINT8 *DestStr, UINT16 Len);
 void ClearBuffer (UINT8 *Buffer, UINT16 Len);
 
-# 50 "../../MercuryFwk/Source/h/03_Sml/02_Ssl/term.h"
-extern UINT16 PhoneNumberLen;
+# 51 "../../MercuryFwk/Source/h/03_Sml/02_Ssl/term.h"
+extern UINT16 UsbMasterPhoneNumberLen;
 
-extern char PhoneNumber[20];
+extern char UsbMasterPhoneNumber[((UINT16)(15))];
 
-# 57
+# 58
 void Term_MainTask (UINT8 Options);
 
 # 52 "../../MercuryFwk/Source/h/03_Sml/02_Ssl/ext_int.h"
@@ -11203,7 +11203,7 @@ I2cCommStsType I2cSlv_GetI2cSts(void);
 
 I2cOpStsType I2cSlv_QueryI2cData (UINT8* TxBuffer, UINT8 TxLen, UINT8* RxBuffer, UINT8 RxLen, UINT8 SlaveAddr);
 
-# 43 "../../MercuryFwk/Source/h/03_Sml/01_Pml/05_Eeprom/eeprom_if.h"
+# 41 "../../MercuryFwk/Source/h/03_Sml/01_Pml/05_Eeprom/eeprom_if.h"
 typedef enum _EepromSts
 {
 OP_SUCCESS = 0,
@@ -11211,36 +11211,41 @@ OP_FAILED,
 OP_PENDING
 } EepromStsType;
 
-# 58
+# 57
 UINT8 Eeprom_Write (UINT8 MemoryAddress, UINT8* WriteBuffer, UINT8 DataLength);
 
 
 EepromStsType Eeprom_Read (UINT8 MemoryAddress, UINT8* ReadBuffer, UINT8 DataLength);
 
-# 44 "../../MercuryFwk/Source/c/03_Sml/01_Pml/05_Eeprom/eeprom_if.c"
+# 47 "../../MercuryFwk/Source/c/03_Sml/01_Pml/05_Eeprom/eeprom_if.c"
 static UINT8 EepromBuffer[15];
+
+
 static UINT8 ReadAddress[1];
 
-# 72
+# 78
 UINT8 Eeprom_Write (UINT8 MemoryAddress, UINT8* WriteBuffer, UINT8 DataLength)
 {
-UINT8 WriteSts = 0u;
-UINT8 SlaveAddress = 0x50;
+const UINT8 SlaveAddress = 0x50;
 const UINT8 CommandLength = DataLength + 1;
+UINT8 WriteSts = 0u;
 
+if (DataLength <= 15)
+{
 EepromBuffer[0] = MemoryAddress;
 StringCopy(WriteBuffer, EepromBuffer + 1, DataLength);
 
 WriteSts = I2cSlv_SendI2cMsg(EepromBuffer, SlaveAddress, CommandLength);
+}
 return WriteSts;
 }
 
-# 95
+# 104
 EepromStsType Eeprom_Read (UINT8 MemoryAddress, UINT8* ReadBuffer, UINT8 DataLength)
 {
+const UINT8 SlaveAddress = 0x50;
 I2cOpStsType QuerySts = OP_IN_PROGRESS;
 EepromStsType ReadSts = OP_PENDING;
-UINT8 SlaveAddress = 0x50;
 ReadAddress[0] = MemoryAddress;
 
 QuerySts = I2cSlv_QueryI2cData(ReadAddress, 1, ReadBuffer, DataLength, SlaveAddress);

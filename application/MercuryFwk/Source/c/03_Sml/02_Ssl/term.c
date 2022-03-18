@@ -142,7 +142,7 @@ static const UINT8 MsgReady[] =  {
 * GLOBAL Variables
 ************************************************************************/
 UINT16 UsbMasterPhoneNumberLen;
-UINT8 UsbMasterPhoneNumber[PHONE_NUMBER_LEN];
+UINT8 UsbMasterPhoneNumber[USB_PHONE_NUMBER_LEN];
 
 /************************************************************************
 * LOCAL Function Prototypes

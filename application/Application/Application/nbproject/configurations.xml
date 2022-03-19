@@ -87,6 +87,7 @@
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="04_App" displayName="04_App" projectFiles="true">
+        <itemPath>../Source/h/04_App/app_init.h</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
@@ -164,6 +165,7 @@
       </logicalFolder>
       <logicalFolder name="04_App" displayName="04_App" projectFiles="true">
         <itemPath>../Source/c/04_App/app.c</itemPath>
+        <itemPath>../Source/c/04_App/app_init.c</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"

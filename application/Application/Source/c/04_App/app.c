@@ -27,7 +27,7 @@
 * Includes
 ************************************************************************/
 #include "app.h"
-#include "os_sched.h"
+#include "app_init.h"
 
 /************************************************************************
 * Defines
@@ -106,40 +106,40 @@ bool secondsAppTimer(uint8_t seconds, uint16_t* counter, bool isCyclic)
     return isExpired;
 }
 
-bool initGprsModem()
-{
-    static uint16_t modemCounter = 0;
-    static bool isInitialized = false;
-    static uint8_t initMdm = 0;
-    
-    switch(initMdm)
-    {
-        case 0:
-            if (MdmStatus == ModemConfigured || MdmStatus == ModemOn)
-            {
-                if (secondsAppTimer(5, &modemCounter, false))
-                {
-                    Mdm_SetSmsFormat(1);
-                    Led_SetLedStatus(LED_1, LED_STS_ON);
-                    initMdm = 1;
-                }
-            }
-            break;
-        case 1:
-            Uart_WriteConstString(1,"AT+CMGDA=DEL ALL\r\n");
-            initMdm = 2;
-            break;
-        case 2:
-            Uart_WriteConstString(1,"AT+CLIP=1\r\n");
-            initMdm = 3;
-            Led_SetLedStatus(LED_1, LED_STS_ON);
-            isInitialized = true;
-            break;
-        default:
-            break;
-    }
-    return isInitialized;
-}
+//bool initGprsModem()
+//{
+//    static uint16_t modemCounter = 0;
+//    static bool isInitialized = false;
+//    static uint8_t initMdm = 0;
+//    
+//    switch(initMdm)
+//    {
+//        case 0:
+//            if (MdmStatus == ModemConfigured || MdmStatus == ModemOn)
+//            {
+//                if (secondsAppTimer(5, &modemCounter, false))
+//                {
+//                    Mdm_SetSmsFormat(1);
+//                    Led_SetLedStatus(LED_1, LED_STS_ON);
+//                    initMdm = 1;
+//                }
+//            }
+//            break;
+//        case 1:
+//            Uart_WriteConstString(1,"AT+CMGDA=DEL ALL\r\n");
+//            initMdm = 2;
+//            break;
+//        case 2:
+//            Uart_WriteConstString(1,"AT+CLIP=1\r\n");
+//            initMdm = 3;
+//            Led_SetLedStatus(LED_1, LED_STS_ON);
+//            isInitialized = true;
+//            break;
+//        default:
+//            break;
+//    }
+//    return isInitialized;
+//}
 
 void blinkForSeconds(uint8_t seconds, uint16_t* blinkTicks)
 {
@@ -187,7 +187,7 @@ void MyApp_Task (UINT8 Options)
 
         /* System Normal operation Phase */
         case RunningState:
-            if (initGprsModem())
+            if (initFsm())
             {
                 /* If ring evt is received */
                 if (Mdm_IsRinging())

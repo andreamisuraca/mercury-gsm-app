@@ -807,15 +807,7 @@ RunningState 1
 InitializationState 0
 RunningState 1
 ]
-"118 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app.c
-[e E8188 _MdmStatus `uc
-ModemOff 0
-ModemOn 1
-ModemReady 2
-ModemConfigured 3
-ModemSleep 4
-]
-"123
+"148 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app.c
 [e E8875 _LedStsType `uc
 LED_STS_OFF 0
 LED_STS_ON 1
@@ -861,6 +853,47 @@ OP_PENDING 2
 OP_IN_PROGRESS 0
 OP_COMPLETE 1
 OP_TIMEOUT 2
+]
+"112 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app_init.c
+[e E8973 _modemStates `uc
+MODEM_INIT 0
+MODEM_DELETE_SMS 1
+MODEM_SET_CALLER_ID 2
+MODEM_INIT_COMPLETE 3
+]
+"118
+[e E8188 _MdmStatus `uc
+ModemOff 0
+ModemOn 1
+ModemReady 2
+ModemConfigured 3
+ModemSleep 4
+]
+"155
+[e E8979 _eepromStates `uc
+EEPROM_INIT 0
+EEPROM_EMPTY 1
+EEPROM_NOT_EMPTY 2
+]
+"156
+[e E8245 _EepromSts `uc
+OP_SUCCESS 0
+OP_FAILED 1
+OP_PENDING 2
+]
+"181
+[e E8875 _LedStsType `uc
+LED_STS_OFF 0
+LED_STS_ON 1
+LED_STS_TOGGLE 2
+LED_STS_BLINK 3
+LED_STS_PULSE 4
+]
+"205
+[e E8984 _initFsmStates `uc
+INIT_FSM_MODEM 0
+INIT_FSM_EEPROM 1
+INIT_FSM_COMPLETE 2
 ]
 "58 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/00_Main/main.c
 [v _main main `(s  1 e 2 0 ]
@@ -1169,12 +1202,18 @@ OP_TIMEOUT 2
 [v _Wdg_MainTask Wdg_MainTask `(v  1 e 1 0 ]
 "85 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app.c
 [v _secondsAppTimer secondsAppTimer `(uc  1 e 1 0 ]
-"109
-[v _initGprsModem initGprsModem `(uc  1 e 1 0 ]
 "144
 [v _blinkForSeconds blinkForSeconds `(v  1 e 1 0 ]
 "167
 [v _MyApp_Task MyApp_Task `(v  1 e 1 0 ]
+"82 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app_init.c
+[v _secondsAppTimer2 secondsAppTimer2 `(uc  1 e 1 0 ]
+"109
+[v _initGprsModem initGprsModem `(uc  1 e 1 0 ]
+"152
+[v _initEeprom initEeprom `(uc  1 e 1 0 ]
+"203
+[v _initFsm initFsm `(uc  1 e 1 0 ]
 "5 /opt/microchip/xc8/v1.45/sources/common/atoi.c
 [v _atoi atoi `(i  1 e 2 0 ]
 "8 /opt/microchip/xc8/v1.45/sources/common/awdiv.c
@@ -1643,6 +1682,10 @@ OP_TIMEOUT 2
 [v _Tmr2IsrCallback Tmr2IsrCallback `*.37(v  1 e 2 0 ]
 "73
 [v _Tmr4IsrCallback Tmr4IsrCallback `*.37(v  1 e 2 0 ]
+"66 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app_init.c
+[v _memoryPreamble memoryPreamble `[4]uc  1 s 4 memoryPreamble ]
+"71
+[v _isMemoryEmpty isMemoryEmpty `uc  1 e 1 0 ]
 "204 /opt/microchip/xc8/v1.45/include/pic18f46j50.h
 [v _RPINR1 RPINR1 `VEuc  1 e 1 @3815 ]
 "329
@@ -2480,23 +2523,23 @@ OP_TIMEOUT 2
 [v _ScheduleTasks ScheduleTasks `(v  1 e 1 0 ]
 {
 "102
-[v ScheduleTasks@ActiveTaskIndex ActiveTaskIndex `uc  1 a 1 4 ]
+[v ScheduleTasks@ActiveTaskIndex ActiveTaskIndex `uc  1 a 1 0 ]
 "122
 } 0
 "79
 [v _InitializeTasks InitializeTasks `(v  1 e 1 0 ]
 {
 "82
-[v InitializeTasks@ActiveTaskIndex ActiveTaskIndex `uc  1 a 1 2 ]
+[v InitializeTasks@ActiveTaskIndex ActiveTaskIndex `uc  1 a 1 0 ]
 "89
 } 0
 "167 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app.c
 [v _MyApp_Task MyApp_Task `(v  1 e 1 0 ]
 {
 "175
-[v MyApp_Task@cmpString cmpString `[3]uc  1 a 3 0 ]
+[v MyApp_Task@cmpString cmpString `[3]uc  1 a 3 4 ]
 "178
-[v MyApp_Task@memoryResult memoryResult `E8114  1 a 1 3 ]
+[v MyApp_Task@memoryResult memoryResult `E8114  1 a 1 7 ]
 "169
 [v MyApp_Task@phone phone `[14]uc  1 s 14 phone ]
 "171
@@ -2504,7 +2547,7 @@ OP_TIMEOUT 2
 "172
 [v MyApp_Task@blinkSeconds blinkSeconds `uc  1 s 1 blinkSeconds ]
 "174
-[v MyApp_Task@F9008 F9008 `[3]uc  1 s 3 F9008 ]
+[v MyApp_Task@F9007 F9007 `[3]uc  1 s 3 F9007 ]
 "177
 [v MyApp_Task@memoryFlag memoryFlag `uc  1 s 1 memoryFlag ]
 "254
@@ -3246,16 +3289,41 @@ OP_TIMEOUT 2
 [v Rtcc_AlarmConfig@AlarmConfig AlarmConfig `*.39S1323  1 p 2 29 ]
 "139
 } 0
-"109 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app.c
+"203 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app_init.c
+[v _initFsm initFsm `(uc  1 e 1 0 ]
+{
+"206
+[v initFsm@isInitialized isInitialized `uc  1 a 1 3 ]
+"205
+[v initFsm@currentState currentState `E8984  1 s 1 currentState ]
+"232
+} 0
+"109
 [v _initGprsModem initGprsModem `(uc  1 e 1 0 ]
 {
+"113
+[v initGprsModem@isInitialized isInitialized `uc  1 a 1 57 ]
 "111
 [v initGprsModem@modemCounter modemCounter `ui  1 s 2 modemCounter ]
 "112
-[v initGprsModem@isInitialized isInitialized `uc  1 s 1 isInitialized ]
-"113
-[v initGprsModem@initMdm initMdm `uc  1 s 1 initMdm ]
-"142
+[v initGprsModem@currentState currentState `E8973  1 s 1 currentState ]
+"146
+} 0
+"82
+[v _secondsAppTimer2 secondsAppTimer2 `(uc  1 e 1 0 ]
+{
+[v secondsAppTimer2@seconds seconds `uc  1 a 1 wreg ]
+"85
+[v secondsAppTimer2@destinationTicks destinationTicks `ui  1 a 2 49 ]
+"84
+[v secondsAppTimer2@isExpired isExpired `uc  1 a 1 48 ]
+"82
+[v secondsAppTimer2@seconds seconds `uc  1 a 1 wreg ]
+[v secondsAppTimer2@counter counter `*.39ui  1 p 2 42 ]
+[v secondsAppTimer2@isCyclic isCyclic `uc  1 p 1 44 ]
+"84
+[v secondsAppTimer2@seconds seconds `uc  1 a 1 47 ]
+"104
 } 0
 "837 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.c
 [v _Mdm_SetSmsFormat Mdm_SetSmsFormat `(v  1 e 1 0 ]
@@ -3271,70 +3339,18 @@ OP_TIMEOUT 2
 [v Mdm_SetSmsFormat@TextFormat TextFormat `uc  1 a 1 56 ]
 "867
 } 0
-"144 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app.c
-[v _blinkForSeconds blinkForSeconds `(v  1 e 1 0 ]
+"152 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app_init.c
+[v _initEeprom initEeprom `(uc  1 e 1 0 ]
 {
-[v blinkForSeconds@seconds seconds `uc  1 a 1 wreg ]
-[v blinkForSeconds@seconds seconds `uc  1 a 1 wreg ]
-[v blinkForSeconds@blinkTicks blinkTicks `*.39ui  1 p 2 51 ]
-"146
-[v blinkForSeconds@seconds seconds `uc  1 a 1 53 ]
+"157
+[v initEeprom@isInitialized isInitialized `uc  1 a 1 2 ]
+"156
+[v initEeprom@memoryOpResult memoryOpResult `E8245  1 a 1 1 ]
 "154
-} 0
-"85
-[v _secondsAppTimer secondsAppTimer `(uc  1 e 1 0 ]
-{
-[v secondsAppTimer@seconds seconds `uc  1 a 1 wreg ]
-"88
-[v secondsAppTimer@destinationTicks destinationTicks `ui  1 a 2 49 ]
-"87
-[v secondsAppTimer@isExpired isExpired `uc  1 a 1 48 ]
-"85
-[v secondsAppTimer@seconds seconds `uc  1 a 1 wreg ]
-[v secondsAppTimer@counter counter `*.39ui  1 p 2 42 ]
-[v secondsAppTimer@isCyclic isCyclic `uc  1 p 1 44 ]
-"87
-[v secondsAppTimer@seconds seconds `uc  1 a 1 47 ]
-"107
-} 0
-"877 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.c
-[v _Mdm_RequestSmsData Mdm_RequestSmsData `(v  1 e 1 0 ]
-{
-"881
-} 0
-"941
-[v _Mdm_IsSmsReceived Mdm_IsSmsReceived `(E8928  1 e 1 0 ]
-{
-"943
-[v Mdm_IsSmsReceived@Ret Ret `E8928  1 a 1 33 ]
-"952
-} 0
-"1024
-[v _Mdm_IsRinging Mdm_IsRinging `(E8924  1 e 1 0 ]
-{
-"1026
-[v Mdm_IsRinging@Ret Ret `E8924  1 a 1 33 ]
-"1035
-} 0
-"996
-[v _Mdm_HangPhoneCall Mdm_HangPhoneCall `(v  1 e 1 0 ]
-{
-"1000
-} 0
-"371 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/02_Ssl/led.c
-[v _Led_SetLedBlinkTime Led_SetLedBlinkTime `(v  1 e 1 0 ]
-{
-[v Led_SetLedBlinkTime@Led Led `uc  1 a 1 wreg ]
-[v Led_SetLedBlinkTime@Led Led `uc  1 a 1 wreg ]
-[v Led_SetLedBlinkTime@OnTimeMs OnTimeMs `us  1 p 2 29 ]
-[v Led_SetLedBlinkTime@OffTimeMs OffTimeMs `us  1 p 2 31 ]
-[v Led_SetLedBlinkTime@Led Led `uc  1 a 1 33 ]
-"394
-} 0
-"1037 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.c
-[v _GetCallerNumber GetCallerNumber `(*.39uc  1 e 2 0 ]
-{
-"1044
+[v initEeprom@addressToRead addressToRead `Cuc  1 a 1 0 ]
+"155
+[v initEeprom@currentState currentState `E8979  1 s 1 currentState ]
+"194
 } 0
 "104 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/01_Pml/05_Eeprom/eeprom_if.c
 [v _Eeprom_Read Eeprom_Read `(E8245  1 e 1 0 ]
@@ -3414,7 +3430,72 @@ OP_TIMEOUT 2
 [v I2cSlv_I2cReadMsgSts@Result Result `E8932  1 a 1 33 ]
 "340
 } 0
-"190 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.c
+"144 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app.c
+[v _blinkForSeconds blinkForSeconds `(v  1 e 1 0 ]
+{
+[v blinkForSeconds@seconds seconds `uc  1 a 1 wreg ]
+[v blinkForSeconds@seconds seconds `uc  1 a 1 wreg ]
+[v blinkForSeconds@blinkTicks blinkTicks `*.39ui  1 p 2 51 ]
+"146
+[v blinkForSeconds@seconds seconds `uc  1 a 1 53 ]
+"154
+} 0
+"85
+[v _secondsAppTimer secondsAppTimer `(uc  1 e 1 0 ]
+{
+[v secondsAppTimer@seconds seconds `uc  1 a 1 wreg ]
+"88
+[v secondsAppTimer@destinationTicks destinationTicks `ui  1 a 2 49 ]
+"87
+[v secondsAppTimer@isExpired isExpired `uc  1 a 1 48 ]
+"85
+[v secondsAppTimer@seconds seconds `uc  1 a 1 wreg ]
+[v secondsAppTimer@counter counter `*.39ui  1 p 2 42 ]
+[v secondsAppTimer@isCyclic isCyclic `uc  1 p 1 44 ]
+"87
+[v secondsAppTimer@seconds seconds `uc  1 a 1 47 ]
+"107
+} 0
+"877 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.c
+[v _Mdm_RequestSmsData Mdm_RequestSmsData `(v  1 e 1 0 ]
+{
+"881
+} 0
+"941
+[v _Mdm_IsSmsReceived Mdm_IsSmsReceived `(E8928  1 e 1 0 ]
+{
+"943
+[v Mdm_IsSmsReceived@Ret Ret `E8928  1 a 1 33 ]
+"952
+} 0
+"1024
+[v _Mdm_IsRinging Mdm_IsRinging `(E8924  1 e 1 0 ]
+{
+"1026
+[v Mdm_IsRinging@Ret Ret `E8924  1 a 1 33 ]
+"1035
+} 0
+"996
+[v _Mdm_HangPhoneCall Mdm_HangPhoneCall `(v  1 e 1 0 ]
+{
+"1000
+} 0
+"371 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/02_Ssl/led.c
+[v _Led_SetLedBlinkTime Led_SetLedBlinkTime `(v  1 e 1 0 ]
+{
+[v Led_SetLedBlinkTime@Led Led `uc  1 a 1 wreg ]
+[v Led_SetLedBlinkTime@Led Led `uc  1 a 1 wreg ]
+[v Led_SetLedBlinkTime@OnTimeMs OnTimeMs `us  1 p 2 29 ]
+[v Led_SetLedBlinkTime@OffTimeMs OffTimeMs `us  1 p 2 31 ]
+[v Led_SetLedBlinkTime@Led Led `uc  1 a 1 33 ]
+"394
+} 0
+"1037 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.c
+[v _GetCallerNumber GetCallerNumber `(*.39uc  1 e 2 0 ]
+{
+"1044
+} 0
+"190
 [v _UartSetConfig UartSetConfig `(v  1 e 1 0 ]
 {
 "219

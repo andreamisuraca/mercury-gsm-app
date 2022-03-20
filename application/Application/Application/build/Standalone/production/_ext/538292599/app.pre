@@ -11217,6 +11217,12 @@ void Sch_SchmIntService (void);
 # 53 "../Source/h/04_App/app.h"
 void MyApp_Task (UINT8 Options);
 
+# 45 "../Source/h/04_App/app_init.h"
+extern bool isMemoryEmpty;
+
+# 50
+bool initFsm(void);
+
 # 51 "../Source/c/04_App/app.c"
 static UINT8 I2cTxBuffer[10u];
 
@@ -11264,41 +11270,7 @@ else
 return isExpired;
 }
 
-bool initGprsModem()
-{
-static uint16_t modemCounter = 0;
-static bool isInitialized = 0;
-static uint8_t initMdm = 0;
-
-switch(initMdm)
-{
-case 0:
-if (MdmStatus == ModemConfigured || MdmStatus == ModemOn)
-{
-if (secondsAppTimer(5, &modemCounter, 0))
-{
-Mdm_SetSmsFormat(1);
-Led_SetLedStatus(1u, LED_STS_ON);
-initMdm = 1;
-}
-}
-break;
-case 1:
-Uart_WriteConstString(1,"AT+CMGDA=DEL ALL\r\n");
-initMdm = 2;
-break;
-case 2:
-Uart_WriteConstString(1,"AT+CLIP=1\r\n");
-initMdm = 3;
-Led_SetLedStatus(1u, LED_STS_ON);
-isInitialized = 1;
-break;
-default:
-break;
-}
-return isInitialized;
-}
-
+# 144
 void blinkForSeconds(uint8_t seconds, uint16_t* blinkTicks)
 {
 if (secondsAppTimer(seconds, blinkTicks, 0))
@@ -11335,7 +11307,7 @@ break;
 
 
 case RunningState:
-if (initGprsModem())
+if (initFsm())
 {
 
 if (Mdm_IsRinging())

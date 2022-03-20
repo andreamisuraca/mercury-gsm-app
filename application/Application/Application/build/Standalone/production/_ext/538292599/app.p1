@@ -3,25 +3,18 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v F8056 `(v ~T0 @X0 0 tf ]
 "88 ../../MercuryFwk/Source/h/03_Sml/01_Pml/02_SlvI2c/i2c_slv.h
 [v _I2cSlv_SendI2cMsg `(uc ~T0 @X0 0 ef3`*uc`uc`uc ]
-"118 ../Source/c/04_App/app.c
-[c E8188 0 1 2 3 4 .. ]
-[n E8188 _MdmStatus ModemOff ModemOn ModemReady ModemConfigured ModemSleep  ]
-"91 ../../MercuryFwk/Source/h/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.h
-[v _MdmStatus `E8188 ~T0 @X0 0 e ]
-"124
-[v _Mdm_SetSmsFormat `(v ~T0 @X0 0 ef1`uc ]
-"123 ../Source/c/04_App/app.c
+"148 ../Source/c/04_App/app.c
 [c E8875 0 1 2 3 4 .. ]
 [n E8875 _LedStsType LED_STS_OFF LED_STS_ON LED_STS_TOGGLE LED_STS_BLINK LED_STS_PULSE  ]
 "102 ../../MercuryFwk/Source/h/03_Sml/02_Ssl/led.h
 [v _Led_SetLedStatus `(v ~T0 @X0 0 ef2`uc`E8875 ]
-"216 ../../MercuryFwk/Source/h/01_Hal/02_Drv/uart_drv.h
-[v _Uart_WriteConstString `(v ~T0 @X0 0 ef2`uc`*Cuc ]
 "178 ../Source/c/04_App/app.c
 [c E8114 0 1 2 .. ]
 [n E8114 _I2cOpSts OP_IN_PROGRESS OP_COMPLETE OP_TIMEOUT  ]
 "104 ../../MercuryFwk/Source/h/03_Sml/02_Ssl/led.h
 [v _Led_SetLedBlinkTime `(v ~T0 @X0 0 ef3`uc`us`us ]
+"50 ../Source/h/04_App/app_init.h
+[v _initFsm `(uc ~T0 @X0 0 ef ]
 "193 ../Source/c/04_App/app.c
 [c E8199 0 1 .. ]
 [n E8199 _RingStsType PhoneNotRinging PhoneRinging  ]
@@ -8274,6 +8267,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;os_sched.h: 86: void Sch_MainScheduler (void);
 [; ;os_sched.h: 88: void Sch_SchmIntService (void);
 [; ;app.h: 53: void MyApp_Task (UINT8 Options);
+[; ;app_init.h: 45: extern bool isMemoryEmpty;
+[; ;app_init.h: 50: bool initFsm(void);
 "51 ../Source/c/04_App/app.c
 [v _I2cTxBuffer `uc ~T0 @X0 -> 10 `ui s ]
 [; ;app.c: 51: static UINT8 I2cTxBuffer[10u];
@@ -8320,8 +8315,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _isRelayOn `uc ~T0 @X0 1 r2 ]
 "72
 [f ]
-[v F8983 `uc ~T0 @X0 -> 2 `i s ]
-[i F8983
+[v F8986 `uc ~T0 @X0 -> 2 `i s ]
+[i F8986
 :U ..
 "73
 -> -> 80 `i `uc
@@ -8330,7 +8325,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 ]
 [v _txBuffer `uc ~T0 @X0 -> 2 `i a ]
 [; ;app.c: 73: uint8_t txBuffer[2] = {((UINT8)(0x50)), 0x00};
-[e = _txBuffer F8983 ]
+[e = _txBuffer F8986 ]
 "74
 [v _res `uc ~T0 @X0 1 a ]
 [; ;app.c: 74: uint8_t res = 0u;
@@ -8440,129 +8435,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 "107
 [e :UE 889 ]
 }
-"109
-[v _initGprsModem `(uc ~T0 @X0 1 ef ]
-"110
-{
-[; ;app.c: 109: bool initGprsModem()
-[; ;app.c: 110: {
-[e :U _initGprsModem ]
-[f ]
-"111
-[v F8995 `ui ~T0 @X0 1 s modemCounter ]
-[i F8995
--> -> 0 `i `ui
-]
-"112
-[v F8996 `uc ~T0 @X0 1 s isInitialized ]
-[i F8996
--> -> 0 `i `uc
-]
-"113
-[v F8997 `uc ~T0 @X0 1 s initMdm ]
-[i F8997
--> -> 0 `i `uc
-]
-[; ;app.c: 111: static uint16_t modemCounter = 0;
-[; ;app.c: 112: static bool isInitialized = 0;
-[; ;app.c: 113: static uint8_t initMdm = 0;
-[; ;app.c: 115: switch(initMdm)
-"115
-[e $U 896  ]
-[; ;app.c: 116: {
-"116
-{
-[; ;app.c: 117: case 0:
-"117
-[e :U 897 ]
-[; ;app.c: 118: if (MdmStatus == ModemConfigured || MdmStatus == ModemOn)
-"118
-[e $ ! || == -> _MdmStatus `i -> . `E8188 3 `i == -> _MdmStatus `i -> . `E8188 1 `i 898  ]
-[; ;app.c: 119: {
-"119
-{
-[; ;app.c: 120: if (secondsAppTimer(5, &modemCounter, 0))
-"120
-[e $ ! != -> ( _secondsAppTimer (3 , , -> -> 5 `i `uc &U F8995 -> -> 0 `i `uc `i -> -> -> 0 `i `uc `i 899  ]
-[; ;app.c: 121: {
-"121
-{
-[; ;app.c: 122: Mdm_SetSmsFormat(1);
-"122
-[e ( _Mdm_SetSmsFormat (1 -> -> 1 `i `uc ]
-[; ;app.c: 123: Led_SetLedStatus(1u, LED_STS_ON);
-"123
-[e ( _Led_SetLedStatus (2 , -> -> 1 `ui `uc . `E8875 1 ]
-[; ;app.c: 124: initMdm = 1;
-"124
-[e = F8997 -> -> 1 `i `uc ]
-"125
-}
-[e :U 899 ]
-"126
-}
-[e :U 898 ]
-[; ;app.c: 125: }
-[; ;app.c: 126: }
-[; ;app.c: 127: break;
-"127
-[e $U 895  ]
-[; ;app.c: 128: case 1:
-"128
-[e :U 900 ]
-[; ;app.c: 129: Uart_WriteConstString(1,"AT+CMGDA=DEL ALL\r\n");
-"129
-[e ( _Uart_WriteConstString (2 , -> -> 1 `i `uc :s 1C ]
-[; ;app.c: 130: initMdm = 2;
-"130
-[e = F8997 -> -> 2 `i `uc ]
-[; ;app.c: 131: break;
-"131
-[e $U 895  ]
-[; ;app.c: 132: case 2:
-"132
-[e :U 901 ]
-[; ;app.c: 133: Uart_WriteConstString(1,"AT+CLIP=1\r\n");
-"133
-[e ( _Uart_WriteConstString (2 , -> -> 1 `i `uc :s 2C ]
-[; ;app.c: 134: initMdm = 3;
-"134
-[e = F8997 -> -> 3 `i `uc ]
-[; ;app.c: 135: Led_SetLedStatus(1u, LED_STS_ON);
-"135
-[e ( _Led_SetLedStatus (2 , -> -> 1 `ui `uc . `E8875 1 ]
-[; ;app.c: 136: isInitialized = 1;
-"136
-[e = F8996 -> -> 1 `i `uc ]
-[; ;app.c: 137: break;
-"137
-[e $U 895  ]
-[; ;app.c: 138: default:
-"138
-[e :U 902 ]
-[; ;app.c: 139: break;
-"139
-[e $U 895  ]
-"140
-}
-[; ;app.c: 140: }
-[e $U 895  ]
-"115
-[e :U 896 ]
-[e [\ F8997 , $ -> -> 0 `i `uc 897
- , $ -> -> 1 `i `uc 900
- , $ -> -> 2 `i `uc 901
- 902 ]
-"140
-[e :U 895 ]
-[; ;app.c: 141: return isInitialized;
-"141
-[e ) F8996 ]
-[e $UE 894  ]
-[; ;app.c: 142: }
-"142
-[e :UE 894 ]
-}
 "144
 [v _blinkForSeconds `(v ~T0 @X0 1 ef2`uc`*ui ]
 "145
@@ -8577,7 +8449,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [f ]
 [; ;app.c: 146: if (secondsAppTimer(seconds, blinkTicks, 0))
 "146
-[e $ ! != -> ( _secondsAppTimer (3 , , _seconds _blinkTicks -> -> 0 `i `uc `i -> -> -> 0 `i `uc `i 904  ]
+[e $ ! != -> ( _secondsAppTimer (3 , , _seconds _blinkTicks -> -> 0 `i `uc `i -> -> -> 0 `i `uc `i 895  ]
 [; ;app.c: 147: {
 "147
 {
@@ -8587,9 +8459,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "149
 }
 [; ;app.c: 149: }
-[e $U 905  ]
+[e $U 896  ]
 "150
-[e :U 904 ]
+[e :U 895 ]
 [; ;app.c: 150: else
 [; ;app.c: 151: {
 "151
@@ -8599,11 +8471,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _Led_SetLedStatus (2 , -> -> 1 `ui `uc . `E8875 3 ]
 "153
 }
-[e :U 905 ]
+[e :U 896 ]
 [; ;app.c: 153: }
 [; ;app.c: 154: }
 "154
-[e :UE 903 ]
+[e :UE 894 ]
 }
 "167
 [v _MyApp_Task `(v ~T0 @X0 1 ef1`uc ]
@@ -8617,8 +8489,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 "168
 [f ]
 "169
-[v F9002 `uc ~T0 @X0 -> 0 `x s phone ]
-[i F9002
+[v F9001 `uc ~T0 @X0 -> 0 `x s phone ]
+[i F9001
 :U ..
 -> -> 43 `ui `uc
 -> -> 51 `ui `uc
@@ -8637,19 +8509,19 @@ Version 3.2 HI-TECH Software Intermediate Code
 ..
 ]
 "171
-[v F9003 `ui ~T0 @X0 1 s blinkTicks ]
-[i F9003
+[v F9002 `ui ~T0 @X0 1 s blinkTicks ]
+[i F9002
 -> 65535 `ui
 ]
 "172
-[v F9004 `uc ~T0 @X0 1 s blinkSeconds ]
-[i F9004
+[v F9003 `uc ~T0 @X0 1 s blinkSeconds ]
+[i F9003
 -> -> 0 `i `uc
 ]
 "174
 [v _smsText `uc ~T0 @X0 -> -> -> 20 `i `uc `ux a ]
-[v F9008 `uc ~T0 @X0 -> 0 `x s ]
-[i F9008
+[v F9007 `uc ~T0 @X0 -> 0 `x s ]
+[i F9007
 :U ..
 "175
 -> -> 99 `ui `uc
@@ -8663,10 +8535,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;app.c: 172: static uint8_t blinkSeconds = 0;
 [; ;app.c: 174: uint8_t smsText[((UINT8)(20))];
 [; ;app.c: 175: uint8_t cmpString[] = {'c', 'a', 't'};
-[e = _cmpString F9008 ]
+[e = _cmpString F9007 ]
 "177
-[v F9009 `uc ~T0 @X0 1 s memoryFlag ]
-[i F9009
+[v F9008 `uc ~T0 @X0 1 s memoryFlag ]
+[i F9008
 -> -> 0 `i `uc
 ]
 "178
@@ -8676,66 +8548,66 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _memoryResult . `E8114 1 ]
 [; ;app.c: 180: switch (SystemState)
 "180
-[e $U 908  ]
+[e $U 899  ]
 [; ;app.c: 181: {
 "181
 {
 [; ;app.c: 183: case InitializationState:
 "183
-[e :U 909 ]
+[e :U 900 ]
 [; ;app.c: 185: Led_SetLedBlinkTime(1u,100,900);
 "185
 [e ( _Led_SetLedBlinkTime (3 , , -> -> 1 `ui `uc -> -> 100 `i `us -> -> 900 `i `us ]
 [; ;app.c: 186: break;
 "186
-[e $U 907  ]
+[e $U 898  ]
 [; ;app.c: 189: case RunningState:
 "189
-[e :U 910 ]
-[; ;app.c: 190: if (initGprsModem())
+[e :U 901 ]
+[; ;app.c: 190: if (initFsm())
 "190
-[e $ ! != -> ( _initGprsModem ..  `i -> -> -> 0 `i `uc `i 911  ]
+[e $ ! != -> ( _initFsm ..  `i -> -> -> 0 `i `uc `i 902  ]
 [; ;app.c: 191: {
 "191
 {
 [; ;app.c: 193: if (Mdm_IsRinging())
 "193
-[e $ ! != -> ( _Mdm_IsRinging ..  `i -> -> -> 0 `i `E8199 `i 912  ]
+[e $ ! != -> ( _Mdm_IsRinging ..  `i -> -> -> 0 `i `E8199 `i 903  ]
 [; ;app.c: 194: {
 "194
 {
 [; ;app.c: 195: blinkTicks = 0;
 "195
-[e = F9003 -> -> 0 `i `ui ]
+[e = F9002 -> -> 0 `i `ui ]
 [; ;app.c: 196: if (StringCompare(phone, GetCallerNumber(), 14))
 "196
-[e $ ! != -> ( _StringCompare (3 , , &U F9002 ( _GetCallerNumber ..  -> -> 14 `i `us `i -> -> -> 0 `i `uc `i 913  ]
+[e $ ! != -> ( _StringCompare (3 , , &U F9001 ( _GetCallerNumber ..  -> -> 14 `i `us `i -> -> -> 0 `i `uc `i 904  ]
 [; ;app.c: 197: {
 "197
 {
 [; ;app.c: 198: blinkSeconds = 5;
 "198
-[e = F9004 -> -> 5 `i `uc ]
+[e = F9003 -> -> 5 `i `uc ]
 "199
 }
-[e :U 913 ]
+[e :U 904 ]
 [; ;app.c: 199: }
 [; ;app.c: 200: blinkSeconds = 3;
 "200
-[e = F9004 -> -> 3 `i `uc ]
+[e = F9003 -> -> 3 `i `uc ]
 [; ;app.c: 201: Mdm_HangPhoneCall();
 "201
 [e ( _Mdm_HangPhoneCall ..  ]
 [; ;app.c: 202: memoryFlag = 1;
 "202
-[e = F9009 -> -> 1 `i `uc ]
+[e = F9008 -> -> 1 `i `uc ]
 "203
 }
-[e :U 912 ]
+[e :U 903 ]
 [; ;app.c: 203: }
 [; ;app.c: 204: if (Mdm_IsSmsReceived())
 "204
-[e $ ! != -> ( _Mdm_IsSmsReceived ..  `i -> -> -> 0 `i `E8203 `i 914  ]
+[e $ ! != -> ( _Mdm_IsSmsReceived ..  `i -> -> -> 0 `i `E8203 `i 905  ]
 [; ;app.c: 205: {
 "205
 {
@@ -8744,105 +8616,103 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _Mdm_RequestSmsData ..  ]
 "207
 }
-[e :U 914 ]
+[e :U 905 ]
 [; ;app.c: 207: }
 [; ;app.c: 224: blinkForSeconds(blinkSeconds, &blinkTicks);
 "224
-[e ( _blinkForSeconds (2 , F9004 &U F9003 ]
+[e ( _blinkForSeconds (2 , F9003 &U F9002 ]
 [; ;app.c: 226: if (memoryFlag == 1)
 "226
-[e $ ! == -> F9009 `i -> 1 `i 915  ]
+[e $ ! == -> F9008 `i -> 1 `i 906  ]
 [; ;app.c: 227: {
 "227
 {
 [; ;app.c: 229: ClearBuffer(phone, 14);
 "229
-[e ( _ClearBuffer (2 , &U F9002 -> -> 14 `i `us ]
+[e ( _ClearBuffer (2 , &U F9001 -> -> 14 `i `us ]
 [; ;app.c: 230: memoryFlag++;
 "230
-[e ++ F9009 -> -> 1 `i `uc ]
+[e ++ F9008 -> -> 1 `i `uc ]
 "231
 }
 [; ;app.c: 231: }
-[e $U 916  ]
+[e $U 907  ]
 "232
-[e :U 915 ]
+[e :U 906 ]
 [; ;app.c: 232: else if (memoryFlag >= 2 && memoryFlag <= 250)
-[e $ ! && >= -> F9009 `i -> 2 `i <= -> F9009 `i -> 250 `i 917  ]
+[e $ ! && >= -> F9008 `i -> 2 `i <= -> F9008 `i -> 250 `i 908  ]
 [; ;app.c: 233: {
 "233
 {
 [; ;app.c: 234: if (memoryFlag == 100)
 "234
-[e $ ! == -> F9009 `i -> 100 `i 918  ]
+[e $ ! == -> F9008 `i -> 100 `i 909  ]
 [; ;app.c: 235: {
 "235
 {
 [; ;app.c: 236: memoryResult = Eeprom_Read(0, phone, 13);
 "236
-[e = _memoryResult ( _Eeprom_Read (3 , , -> -> 0 `i `uc &U F9002 -> -> 13 `i `uc ]
+[e = _memoryResult ( _Eeprom_Read (3 , , -> -> 0 `i `uc &U F9001 -> -> 13 `i `uc ]
 [; ;app.c: 237: if (memoryResult != OP_PENDING)
 "237
-[e $ ! != -> _memoryResult `i -> . `E8245 2 `i 919  ]
+[e $ ! != -> _memoryResult `i -> . `E8245 2 `i 910  ]
 [; ;app.c: 238: {
 "238
 {
 [; ;app.c: 239: memoryFlag++;
 "239
-[e ++ F9009 -> -> 1 `i `uc ]
+[e ++ F9008 -> -> 1 `i `uc ]
 "240
 }
-[e :U 919 ]
+[e :U 910 ]
 "241
 }
 [; ;app.c: 240: }
 [; ;app.c: 241: }
-[e $U 920  ]
+[e $U 911  ]
 "242
-[e :U 918 ]
+[e :U 909 ]
 [; ;app.c: 242: else
 [; ;app.c: 243: {
 "243
 {
 [; ;app.c: 244: memoryFlag++;
 "244
-[e ++ F9009 -> -> 1 `i `uc ]
+[e ++ F9008 -> -> 1 `i `uc ]
 "245
 }
-[e :U 920 ]
+[e :U 911 ]
 "246
 }
-[e :U 917 ]
+[e :U 908 ]
 "247
-[e :U 916 ]
+[e :U 907 ]
 }
-[e :U 911 ]
+[e :U 902 ]
 [; ;app.c: 245: }
 [; ;app.c: 246: }
 [; ;app.c: 247: }
 [; ;app.c: 248: break;
 "248
-[e $U 907  ]
+[e $U 898  ]
 [; ;app.c: 251: default:
 "251
-[e :U 921 ]
+[e :U 912 ]
 [; ;app.c: 252: break;
 "252
-[e $U 907  ]
+[e $U 898  ]
 "253
 }
 [; ;app.c: 253: }
-[e $U 907  ]
+[e $U 898  ]
 "180
-[e :U 908 ]
-[e [\ _SystemState , $ . `E8958 0 909
- , $ . `E8958 1 910
- 921 ]
+[e :U 899 ]
+[e [\ _SystemState , $ . `E8958 0 900
+ , $ . `E8958 1 901
+ 912 ]
 "253
-[e :U 907 ]
+[e :U 898 ]
 [; ;app.c: 254: }
 "254
-[e :UE 906 ]
+[e :UE 897 ]
 }
-[a 1C 65 84 43 67 77 71 68 65 61 68 69 76 32 65 76 76 13 10 0 ]
-[a 2C 65 84 43 67 76 73 80 61 49 13 10 0 ]

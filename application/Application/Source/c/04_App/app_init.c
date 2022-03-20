@@ -28,6 +28,7 @@
 ************************************************************************/
 #include "app.h"
 #include "app_init.h"
+#include "app_utils.h"
 
 /************************************************************************
 * Defines
@@ -76,33 +77,6 @@ bool isMemoryEmpty = true;
 /************************************************************************
 * LOCAL Function Implementations
 ************************************************************************/
-
-// max 255 seconds
-// counter variable should be static/globally defined
-bool secondsAppTimer2(uint8_t seconds, uint16_t* counter, bool isCyclic)
-{
-    bool isExpired = true;
-    uint16_t destinationTicks = (uint16_t) (seconds * 1000) / MY_APP_TASK_PERIOD_MS;
-
-    if (*counter < destinationTicks)
-    {
-        *counter += 1;
-        isExpired = false;
-    }
-    if (*counter == destinationTicks)
-    {
-        if (isCyclic)
-        {
-            *counter = 0;
-        }
-        else
-        {
-            *counter = 0xFFFF;
-        }
-    }
-    return isExpired;
-}
-
 /**
  * 
  */
@@ -117,7 +91,7 @@ bool initGprsModem(void)
         case MODEM_INIT:
             if (MdmStatus == ModemConfigured || MdmStatus == ModemOn)
             {
-                if (secondsAppTimer2(4, &modemCounter, false))
+                if (secondsAppTimer(4, &modemCounter, false))
                 {
                     Mdm_SetSmsFormat(1);
                     currentState = MODEM_DELETE_SMS;

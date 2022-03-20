@@ -1,5 +1,5 @@
 
-# 1 "../Source/c/04_App/app.c"
+# 1 "../Source/c/04_App/app_utils.c"
 
 
 # 30 "../../MercuryFwk/Source/h/01_Hal/01_Sys/hal.h"
@@ -11217,110 +11217,45 @@ void Sch_SchmIntService (void);
 # 53 "../Source/h/04_App/app.h"
 void MyApp_Task (UINT8 Options);
 
-# 45 "../Source/h/04_App/app_init.h"
-extern bool isMemoryEmpty;
-
-# 50
-bool initFsm(void);
-
 # 49 "../Source/h/04_App/app_utils.h"
 bool secondsAppTimer(uint8_t seconds, uint16_t* counter, bool isCyclic);
 
 void blinkForSeconds(uint8_t seconds, uint16_t* blinkTicks);
 
-# 52 "../Source/c/04_App/app.c"
-static UINT8 I2cTxBuffer[10u];
-
-static UINT8 RelayB1, RelayB2 = 0;
-static UINT8 Relay1, Relay2, Relay3, Relay4 = 0;
-static UINT8 TxBuffer[] = {0x00, 0x00};
-static UINT8 I2cReady = 0;
-
-# 72
-uint8_t triggerRelay(uint8_t realyId, bool isRelayOn)
+# 66 "../Source/c/04_App/app_utils.c"
+bool secondsAppTimer(uint8_t seconds, uint16_t* counter, bool isCyclic)
 {
-uint8_t txBuffer[2] = {((UINT8)(0x50)), 0x00};
-uint8_t res = 0u;
-if (isRelayOn)
+bool isExpired = 1;
+uint16_t destinationTicks = (uint16_t) (seconds * 1000) / ((UINT16)(100));
+
+if (*counter < destinationTicks)
 {
-txBuffer[1] = 0x01;
+*counter += 1;
+isExpired = 0;
 }
-res = I2cSlv_SendI2cMsg(txBuffer, realyId, 2);
-return res;
-}
-
-# 133
-void MyApp_Task (UINT8 Options)
+if (*counter == destinationTicks)
 {
-static UINT8 phone[] = {'+', '3', '9', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '\0'};
-
-static uint16_t blinkTicks = 0xFFFF;
-static uint8_t blinkSeconds = 0;
-
-uint8_t smsText[((UINT8)(20))];
-uint8_t cmpString[] = {'c', 'a', 't'};
-
-static uint8_t memoryFlag = 0;
-I2cOpStsType memoryResult = OP_COMPLETE;
-
-switch (SystemState)
+if (isCyclic)
 {
-
-case InitializationState:
-
-Led_SetLedBlinkTime(1u,100,900);
-break;
-
-
-case RunningState:
-if (initFsm())
-{
-
-if (Mdm_IsRinging())
-{
-blinkTicks = 0;
-if (StringCompare(phone, GetCallerNumber(), 14))
-{
-blinkSeconds = 5;
-}
-blinkSeconds = 3;
-Mdm_HangPhoneCall();
-memoryFlag = 1;
-}
-if (Mdm_IsSmsReceived())
-{
-Mdm_RequestSmsData();
-}
-
-# 190
-blinkForSeconds(blinkSeconds, &blinkTicks);
-
-if (memoryFlag == 1)
-{
-
-ClearBuffer(phone, 14);
-memoryFlag++;
-}
-else if (memoryFlag >= 2 && memoryFlag <= 250)
-{
-if (memoryFlag == 100)
-{
-memoryResult = Eeprom_Read(0, phone, 13);
-if (memoryResult != OP_PENDING)
-{
-memoryFlag++;
-}
+*counter = 0;
 }
 else
 {
-memoryFlag++;
+*counter = 0xFFFF;
 }
 }
+return isExpired;
 }
-break;
 
-
-default:
-break;
+# 96
+void blinkForSeconds(uint8_t seconds, uint16_t* blinkTicks)
+{
+if (secondsAppTimer(seconds, blinkTicks, 0))
+{
+Led_SetLedStatus(1u, LED_STS_ON);
+}
+else
+{
+Led_SetLedStatus(1u, LED_STS_BLINK);
 }
 }

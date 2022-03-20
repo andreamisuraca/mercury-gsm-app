@@ -3,19 +3,14 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v F8056 `(v ~T0 @X0 0 tf ]
 "88 ../../MercuryFwk/Source/h/03_Sml/01_Pml/02_SlvI2c/i2c_slv.h
 [v _I2cSlv_SendI2cMsg `(uc ~T0 @X0 0 ef3`*uc`uc`uc ]
-"148 ../Source/c/04_App/app.c
-[c E8875 0 1 2 3 4 .. ]
-[n E8875 _LedStsType LED_STS_OFF LED_STS_ON LED_STS_TOGGLE LED_STS_BLINK LED_STS_PULSE  ]
-"102 ../../MercuryFwk/Source/h/03_Sml/02_Ssl/led.h
-[v _Led_SetLedStatus `(v ~T0 @X0 0 ef2`uc`E8875 ]
-"178 ../Source/c/04_App/app.c
+"144 ../Source/c/04_App/app.c
 [c E8114 0 1 2 .. ]
 [n E8114 _I2cOpSts OP_IN_PROGRESS OP_COMPLETE OP_TIMEOUT  ]
 "104 ../../MercuryFwk/Source/h/03_Sml/02_Ssl/led.h
 [v _Led_SetLedBlinkTime `(v ~T0 @X0 0 ef3`uc`us`us ]
 "50 ../Source/h/04_App/app_init.h
 [v _initFsm `(uc ~T0 @X0 0 ef ]
-"193 ../Source/c/04_App/app.c
+"159 ../Source/c/04_App/app.c
 [c E8199 0 1 .. ]
 [n E8199 _RingStsType PhoneNotRinging PhoneRinging  ]
 "120 ../../MercuryFwk/Source/h/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.h
@@ -26,21 +21,23 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _GetCallerNumber `(*uc ~T0 @X0 0 ef ]
 "116
 [v _Mdm_HangPhoneCall `(v ~T0 @X0 0 ef ]
-"204 ../Source/c/04_App/app.c
+"170 ../Source/c/04_App/app.c
 [c E8203 0 1 .. ]
 [n E8203 _SmsRxStsType SmsNotReceived SmsReceived  ]
 "132 ../../MercuryFwk/Source/h/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.h
 [v _Mdm_IsSmsReceived `(E8203 ~T0 @X0 0 ef ]
 "126
 [v _Mdm_RequestSmsData `(v ~T0 @X0 0 ef ]
+"51 ../Source/h/04_App/app_utils.h
+[v _blinkForSeconds `(v ~T0 @X0 0 ef2`uc`*ui ]
 "55 ../../MercuryFwk/Source/h/03_Sml/02_Ssl/sf.h
 [v _ClearBuffer `(v ~T0 @X0 0 ef2`*uc`us ]
-"236 ../Source/c/04_App/app.c
+"202 ../Source/c/04_App/app.c
 [c E8245 0 1 2 .. ]
 [n E8245 _EepromSts OP_SUCCESS OP_FAILED OP_PENDING  ]
 "60 ../../MercuryFwk/Source/h/03_Sml/01_Pml/05_Eeprom/eeprom_if.h
 [v _Eeprom_Read `(E8245 ~T0 @X0 0 ef3`uc`*uc`uc ]
-"180 ../Source/c/04_App/app.c
+"146 ../Source/c/04_App/app.c
 [c E8958 0 1 .. ]
 [n E8958 SystemStateEnum InitializationState RunningState  ]
 "79 ../../MercuryFwk/Source/h/02_Osl/os_sched.h
@@ -8269,17 +8266,19 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;app.h: 53: void MyApp_Task (UINT8 Options);
 [; ;app_init.h: 45: extern bool isMemoryEmpty;
 [; ;app_init.h: 50: bool initFsm(void);
-"51 ../Source/c/04_App/app.c
+[; ;app_utils.h: 49: bool secondsAppTimer(uint8_t seconds, uint16_t* counter, bool isCyclic);
+[; ;app_utils.h: 51: void blinkForSeconds(uint8_t seconds, uint16_t* blinkTicks);
+"52 ../Source/c/04_App/app.c
 [v _I2cTxBuffer `uc ~T0 @X0 -> 10 `ui s ]
-[; ;app.c: 51: static UINT8 I2cTxBuffer[10u];
-"53
+[; ;app.c: 52: static UINT8 I2cTxBuffer[10u];
+"54
 [v _RelayB1 `uc ~T0 @X0 1 s ]
 [v _RelayB2 `uc ~T0 @X0 1 s ]
 [i _RelayB2
 -> -> 0 `i `uc
 ]
-[; ;app.c: 53: static UINT8 RelayB1, RelayB2 = 0;
-"54
+[; ;app.c: 54: static UINT8 RelayB1, RelayB2 = 0;
+"55
 [v _Relay1 `uc ~T0 @X0 1 s ]
 [v _Relay2 `uc ~T0 @X0 1 s ]
 [v _Relay3 `uc ~T0 @X0 1 s ]
@@ -8287,8 +8286,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [i _Relay4
 -> -> 0 `i `uc
 ]
-[; ;app.c: 54: static UINT8 Relay1, Relay2, Relay3, Relay4 = 0;
-"55
+[; ;app.c: 55: static UINT8 Relay1, Relay2, Relay3, Relay4 = 0;
+"56
 [v _TxBuffer `uc ~T0 @X0 -> 0 `x s ]
 [i _TxBuffer
 :U ..
@@ -8296,201 +8295,78 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;app.c: 55: static UINT8 TxBuffer[] = {0x00, 0x00};
-"56
+[; ;app.c: 56: static UINT8 TxBuffer[] = {0x00, 0x00};
+"57
 [v _I2cReady `uc ~T0 @X0 1 s ]
 [i _I2cReady
 -> -> 0 `i `uc
 ]
-[; ;app.c: 56: static UINT8 I2cReady = 0;
-"71
-[v _triggerRelay `(uc ~T0 @X0 1 ef2`uc`uc ]
+[; ;app.c: 57: static UINT8 I2cReady = 0;
 "72
+[v _triggerRelay `(uc ~T0 @X0 1 ef2`uc`uc ]
+"73
 {
-[; ;app.c: 71: uint8_t triggerRelay(uint8_t realyId, bool isRelayOn)
-[; ;app.c: 72: {
+[; ;app.c: 72: uint8_t triggerRelay(uint8_t realyId, bool isRelayOn)
+[; ;app.c: 73: {
 [e :U _triggerRelay ]
-"71
+"72
 [v _realyId `uc ~T0 @X0 1 r1 ]
 [v _isRelayOn `uc ~T0 @X0 1 r2 ]
-"72
-[f ]
-[v F8986 `uc ~T0 @X0 -> 2 `i s ]
-[i F8986
-:U ..
 "73
+[f ]
+[v F8993 `uc ~T0 @X0 -> 2 `i s ]
+[i F8993
+:U ..
+"74
 -> -> 80 `i `uc
 -> -> 0 `i `uc
 ..
 ]
 [v _txBuffer `uc ~T0 @X0 -> 2 `i a ]
-[; ;app.c: 73: uint8_t txBuffer[2] = {((UINT8)(0x50)), 0x00};
-[e = _txBuffer F8986 ]
-"74
-[v _res `uc ~T0 @X0 1 a ]
-[; ;app.c: 74: uint8_t res = 0u;
-[e = _res -> -> 0 `ui `uc ]
-[; ;app.c: 75: if (isRelayOn)
+[; ;app.c: 74: uint8_t txBuffer[2] = {((UINT8)(0x50)), 0x00};
+[e = _txBuffer F8993 ]
 "75
-[e $ ! != -> _isRelayOn `i -> -> -> 0 `i `uc `i 888  ]
-[; ;app.c: 76: {
+[v _res `uc ~T0 @X0 1 a ]
+[; ;app.c: 75: uint8_t res = 0u;
+[e = _res -> -> 0 `ui `uc ]
+[; ;app.c: 76: if (isRelayOn)
 "76
-{
-[; ;app.c: 77: txBuffer[1] = 0x01;
+[e $ ! != -> _isRelayOn `i -> -> -> 0 `i `uc `i 888  ]
+[; ;app.c: 77: {
 "77
-[e = *U + &U _txBuffer * -> -> -> 1 `i `ui `ux -> -> # *U &U _txBuffer `ui `ux -> -> 1 `i `uc ]
+{
+[; ;app.c: 78: txBuffer[1] = 0x01;
 "78
+[e = *U + &U _txBuffer * -> -> -> 1 `i `ui `ux -> -> # *U &U _txBuffer `ui `ux -> -> 1 `i `uc ]
+"79
 }
 [e :U 888 ]
-[; ;app.c: 78: }
-[; ;app.c: 79: res = I2cSlv_SendI2cMsg(txBuffer, realyId, 2);
-"79
-[e = _res ( _I2cSlv_SendI2cMsg (3 , , &U _txBuffer _realyId -> -> 2 `i `uc ]
-[; ;app.c: 80: return res;
+[; ;app.c: 79: }
+[; ;app.c: 80: res = I2cSlv_SendI2cMsg(txBuffer, realyId, 2);
 "80
+[e = _res ( _I2cSlv_SendI2cMsg (3 , , &U _txBuffer _realyId -> -> 2 `i `uc ]
+[; ;app.c: 81: return res;
+"81
 [e ) _res ]
 [e $UE 887  ]
-[; ;app.c: 81: }
-"81
+[; ;app.c: 82: }
+"82
 [e :UE 887 ]
 }
-"85
-[v _secondsAppTimer `(uc ~T0 @X0 1 ef3`uc`*ui`uc ]
-"86
-{
-[; ;app.c: 85: bool secondsAppTimer(uint8_t seconds, uint16_t* counter, bool isCyclic)
-[; ;app.c: 86: {
-[e :U _secondsAppTimer ]
-"85
-[v _seconds `uc ~T0 @X0 1 r1 ]
-[v _counter `*ui ~T0 @X0 1 r2 ]
-[v _isCyclic `uc ~T0 @X0 1 r3 ]
-"86
-[f ]
-"87
-[v _isExpired `uc ~T0 @X0 1 a ]
-[; ;app.c: 87: bool isExpired = 1;
-[e = _isExpired -> -> 1 `i `uc ]
-"88
-[v _destinationTicks `ui ~T0 @X0 1 a ]
-[; ;app.c: 88: uint16_t destinationTicks = (uint16_t) (seconds * 1000) / ((UINT16)(100));
-[e = _destinationTicks / -> * -> _seconds `i -> 1000 `i `ui -> -> -> 100 `i `us `ui ]
-[; ;app.c: 90: if (*counter < destinationTicks)
-"90
-[e $ ! < *U _counter _destinationTicks 890  ]
-[; ;app.c: 91: {
-"91
-{
-[; ;app.c: 92: *counter += 1;
-"92
-[e =+ *U _counter -> -> 1 `i `ui ]
-[; ;app.c: 93: isExpired = 0;
-"93
-[e = _isExpired -> -> 0 `i `uc ]
-"94
-}
-[e :U 890 ]
-[; ;app.c: 94: }
-[; ;app.c: 95: if (*counter == destinationTicks)
-"95
-[e $ ! == *U _counter _destinationTicks 891  ]
-[; ;app.c: 96: {
-"96
-{
-[; ;app.c: 97: if (isCyclic)
-"97
-[e $ ! != -> _isCyclic `i -> -> -> 0 `i `uc `i 892  ]
-[; ;app.c: 98: {
-"98
-{
-[; ;app.c: 99: *counter = 0;
-"99
-[e = *U _counter -> -> 0 `i `ui ]
-"100
-}
-[; ;app.c: 100: }
-[e $U 893  ]
-"101
-[e :U 892 ]
-[; ;app.c: 101: else
-[; ;app.c: 102: {
-"102
-{
-[; ;app.c: 103: *counter = 0xFFFF;
-"103
-[e = *U _counter -> 65535 `ui ]
-"104
-}
-[e :U 893 ]
-"105
-}
-[e :U 891 ]
-[; ;app.c: 104: }
-[; ;app.c: 105: }
-[; ;app.c: 106: return isExpired;
-"106
-[e ) _isExpired ]
-[e $UE 889  ]
-[; ;app.c: 107: }
-"107
-[e :UE 889 ]
-}
-"144
-[v _blinkForSeconds `(v ~T0 @X0 1 ef2`uc`*ui ]
-"145
-{
-[; ;app.c: 144: void blinkForSeconds(uint8_t seconds, uint16_t* blinkTicks)
-[; ;app.c: 145: {
-[e :U _blinkForSeconds ]
-"144
-[v _seconds `uc ~T0 @X0 1 r1 ]
-[v _blinkTicks `*ui ~T0 @X0 1 r2 ]
-"145
-[f ]
-[; ;app.c: 146: if (secondsAppTimer(seconds, blinkTicks, 0))
-"146
-[e $ ! != -> ( _secondsAppTimer (3 , , _seconds _blinkTicks -> -> 0 `i `uc `i -> -> -> 0 `i `uc `i 895  ]
-[; ;app.c: 147: {
-"147
-{
-[; ;app.c: 148: Led_SetLedStatus(1u, LED_STS_ON);
-"148
-[e ( _Led_SetLedStatus (2 , -> -> 1 `ui `uc . `E8875 1 ]
-"149
-}
-[; ;app.c: 149: }
-[e $U 896  ]
-"150
-[e :U 895 ]
-[; ;app.c: 150: else
-[; ;app.c: 151: {
-"151
-{
-[; ;app.c: 152: Led_SetLedStatus(1u, LED_STS_BLINK);
-"152
-[e ( _Led_SetLedStatus (2 , -> -> 1 `ui `uc . `E8875 3 ]
-"153
-}
-[e :U 896 ]
-[; ;app.c: 153: }
-[; ;app.c: 154: }
-"154
-[e :UE 894 ]
-}
-"167
+"133
 [v _MyApp_Task `(v ~T0 @X0 1 ef1`uc ]
-"168
+"134
 {
-[; ;app.c: 167: void MyApp_Task (UINT8 Options)
-[; ;app.c: 168: {
+[; ;app.c: 133: void MyApp_Task (UINT8 Options)
+[; ;app.c: 134: {
 [e :U _MyApp_Task ]
-"167
+"133
 [v _Options `uc ~T0 @X0 1 r1 ]
-"168
+"134
 [f ]
-"169
-[v F9001 `uc ~T0 @X0 -> 0 `x s phone ]
-[i F9001
+"135
+[v F8997 `uc ~T0 @X0 -> 0 `x s phone ]
+[i F8997
 :U ..
 -> -> 43 `ui `uc
 -> -> 51 `ui `uc
@@ -8508,211 +8384,211 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `ui `uc
 ..
 ]
-"171
-[v F9002 `ui ~T0 @X0 1 s blinkTicks ]
-[i F9002
+"137
+[v F8998 `ui ~T0 @X0 1 s blinkTicks ]
+[i F8998
 -> 65535 `ui
 ]
-"172
-[v F9003 `uc ~T0 @X0 1 s blinkSeconds ]
-[i F9003
+"138
+[v F8999 `uc ~T0 @X0 1 s blinkSeconds ]
+[i F8999
 -> -> 0 `i `uc
 ]
-"174
+"140
 [v _smsText `uc ~T0 @X0 -> -> -> 20 `i `uc `ux a ]
-[v F9007 `uc ~T0 @X0 -> 0 `x s ]
-[i F9007
+[v F9003 `uc ~T0 @X0 -> 0 `x s ]
+[i F9003
 :U ..
-"175
+"141
 -> -> 99 `ui `uc
 -> -> 97 `ui `uc
 -> -> 116 `ui `uc
 ..
 ]
 [v _cmpString `uc ~T0 @X0 3  a ]
-[; ;app.c: 169: static UINT8 phone[] = {'+', '3', '9', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '\0'};
-[; ;app.c: 171: static uint16_t blinkTicks = 0xFFFF;
-[; ;app.c: 172: static uint8_t blinkSeconds = 0;
-[; ;app.c: 174: uint8_t smsText[((UINT8)(20))];
-[; ;app.c: 175: uint8_t cmpString[] = {'c', 'a', 't'};
-[e = _cmpString F9007 ]
-"177
-[v F9008 `uc ~T0 @X0 1 s memoryFlag ]
-[i F9008
+[; ;app.c: 135: static UINT8 phone[] = {'+', '3', '9', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '\0'};
+[; ;app.c: 137: static uint16_t blinkTicks = 0xFFFF;
+[; ;app.c: 138: static uint8_t blinkSeconds = 0;
+[; ;app.c: 140: uint8_t smsText[((UINT8)(20))];
+[; ;app.c: 141: uint8_t cmpString[] = {'c', 'a', 't'};
+[e = _cmpString F9003 ]
+"143
+[v F9004 `uc ~T0 @X0 1 s memoryFlag ]
+[i F9004
 -> -> 0 `i `uc
 ]
-"178
+"144
 [v _memoryResult `E8114 ~T0 @X0 1 a ]
-[; ;app.c: 177: static uint8_t memoryFlag = 0;
-[; ;app.c: 178: I2cOpStsType memoryResult = OP_COMPLETE;
+[; ;app.c: 143: static uint8_t memoryFlag = 0;
+[; ;app.c: 144: I2cOpStsType memoryResult = OP_COMPLETE;
 [e = _memoryResult . `E8114 1 ]
-[; ;app.c: 180: switch (SystemState)
-"180
-[e $U 899  ]
-[; ;app.c: 181: {
-"181
+[; ;app.c: 146: switch (SystemState)
+"146
+[e $U 891  ]
+[; ;app.c: 147: {
+"147
 {
-[; ;app.c: 183: case InitializationState:
-"183
-[e :U 900 ]
-[; ;app.c: 185: Led_SetLedBlinkTime(1u,100,900);
-"185
+[; ;app.c: 149: case InitializationState:
+"149
+[e :U 892 ]
+[; ;app.c: 151: Led_SetLedBlinkTime(1u,100,900);
+"151
 [e ( _Led_SetLedBlinkTime (3 , , -> -> 1 `ui `uc -> -> 100 `i `us -> -> 900 `i `us ]
-[; ;app.c: 186: break;
-"186
-[e $U 898  ]
-[; ;app.c: 189: case RunningState:
-"189
-[e :U 901 ]
-[; ;app.c: 190: if (initFsm())
-"190
-[e $ ! != -> ( _initFsm ..  `i -> -> -> 0 `i `uc `i 902  ]
-[; ;app.c: 191: {
-"191
+[; ;app.c: 152: break;
+"152
+[e $U 890  ]
+[; ;app.c: 155: case RunningState:
+"155
+[e :U 893 ]
+[; ;app.c: 156: if (initFsm())
+"156
+[e $ ! != -> ( _initFsm ..  `i -> -> -> 0 `i `uc `i 894  ]
+[; ;app.c: 157: {
+"157
 {
-[; ;app.c: 193: if (Mdm_IsRinging())
-"193
-[e $ ! != -> ( _Mdm_IsRinging ..  `i -> -> -> 0 `i `E8199 `i 903  ]
-[; ;app.c: 194: {
-"194
+[; ;app.c: 159: if (Mdm_IsRinging())
+"159
+[e $ ! != -> ( _Mdm_IsRinging ..  `i -> -> -> 0 `i `E8199 `i 895  ]
+[; ;app.c: 160: {
+"160
 {
-[; ;app.c: 195: blinkTicks = 0;
-"195
-[e = F9002 -> -> 0 `i `ui ]
-[; ;app.c: 196: if (StringCompare(phone, GetCallerNumber(), 14))
-"196
-[e $ ! != -> ( _StringCompare (3 , , &U F9001 ( _GetCallerNumber ..  -> -> 14 `i `us `i -> -> -> 0 `i `uc `i 904  ]
-[; ;app.c: 197: {
-"197
+[; ;app.c: 161: blinkTicks = 0;
+"161
+[e = F8998 -> -> 0 `i `ui ]
+[; ;app.c: 162: if (StringCompare(phone, GetCallerNumber(), 14))
+"162
+[e $ ! != -> ( _StringCompare (3 , , &U F8997 ( _GetCallerNumber ..  -> -> 14 `i `us `i -> -> -> 0 `i `uc `i 896  ]
+[; ;app.c: 163: {
+"163
 {
-[; ;app.c: 198: blinkSeconds = 5;
-"198
-[e = F9003 -> -> 5 `i `uc ]
-"199
+[; ;app.c: 164: blinkSeconds = 5;
+"164
+[e = F8999 -> -> 5 `i `uc ]
+"165
 }
-[e :U 904 ]
-[; ;app.c: 199: }
-[; ;app.c: 200: blinkSeconds = 3;
-"200
-[e = F9003 -> -> 3 `i `uc ]
-[; ;app.c: 201: Mdm_HangPhoneCall();
-"201
+[e :U 896 ]
+[; ;app.c: 165: }
+[; ;app.c: 166: blinkSeconds = 3;
+"166
+[e = F8999 -> -> 3 `i `uc ]
+[; ;app.c: 167: Mdm_HangPhoneCall();
+"167
 [e ( _Mdm_HangPhoneCall ..  ]
-[; ;app.c: 202: memoryFlag = 1;
-"202
-[e = F9008 -> -> 1 `i `uc ]
-"203
+[; ;app.c: 168: memoryFlag = 1;
+"168
+[e = F9004 -> -> 1 `i `uc ]
+"169
 }
-[e :U 903 ]
-[; ;app.c: 203: }
-[; ;app.c: 204: if (Mdm_IsSmsReceived())
-"204
-[e $ ! != -> ( _Mdm_IsSmsReceived ..  `i -> -> -> 0 `i `E8203 `i 905  ]
-[; ;app.c: 205: {
-"205
+[e :U 895 ]
+[; ;app.c: 169: }
+[; ;app.c: 170: if (Mdm_IsSmsReceived())
+"170
+[e $ ! != -> ( _Mdm_IsSmsReceived ..  `i -> -> -> 0 `i `E8203 `i 897  ]
+[; ;app.c: 171: {
+"171
 {
-[; ;app.c: 206: Mdm_RequestSmsData();
-"206
+[; ;app.c: 172: Mdm_RequestSmsData();
+"172
 [e ( _Mdm_RequestSmsData ..  ]
-"207
+"173
 }
-[e :U 905 ]
-[; ;app.c: 207: }
-[; ;app.c: 224: blinkForSeconds(blinkSeconds, &blinkTicks);
-"224
-[e ( _blinkForSeconds (2 , F9003 &U F9002 ]
-[; ;app.c: 226: if (memoryFlag == 1)
-"226
-[e $ ! == -> F9008 `i -> 1 `i 906  ]
-[; ;app.c: 227: {
-"227
+[e :U 897 ]
+[; ;app.c: 173: }
+[; ;app.c: 190: blinkForSeconds(blinkSeconds, &blinkTicks);
+"190
+[e ( _blinkForSeconds (2 , F8999 &U F8998 ]
+[; ;app.c: 192: if (memoryFlag == 1)
+"192
+[e $ ! == -> F9004 `i -> 1 `i 898  ]
+[; ;app.c: 193: {
+"193
 {
-[; ;app.c: 229: ClearBuffer(phone, 14);
-"229
-[e ( _ClearBuffer (2 , &U F9001 -> -> 14 `i `us ]
-[; ;app.c: 230: memoryFlag++;
-"230
-[e ++ F9008 -> -> 1 `i `uc ]
-"231
+[; ;app.c: 195: ClearBuffer(phone, 14);
+"195
+[e ( _ClearBuffer (2 , &U F8997 -> -> 14 `i `us ]
+[; ;app.c: 196: memoryFlag++;
+"196
+[e ++ F9004 -> -> 1 `i `uc ]
+"197
 }
-[; ;app.c: 231: }
-[e $U 907  ]
-"232
-[e :U 906 ]
-[; ;app.c: 232: else if (memoryFlag >= 2 && memoryFlag <= 250)
-[e $ ! && >= -> F9008 `i -> 2 `i <= -> F9008 `i -> 250 `i 908  ]
-[; ;app.c: 233: {
-"233
+[; ;app.c: 197: }
+[e $U 899  ]
+"198
+[e :U 898 ]
+[; ;app.c: 198: else if (memoryFlag >= 2 && memoryFlag <= 250)
+[e $ ! && >= -> F9004 `i -> 2 `i <= -> F9004 `i -> 250 `i 900  ]
+[; ;app.c: 199: {
+"199
 {
-[; ;app.c: 234: if (memoryFlag == 100)
-"234
-[e $ ! == -> F9008 `i -> 100 `i 909  ]
-[; ;app.c: 235: {
-"235
+[; ;app.c: 200: if (memoryFlag == 100)
+"200
+[e $ ! == -> F9004 `i -> 100 `i 901  ]
+[; ;app.c: 201: {
+"201
 {
-[; ;app.c: 236: memoryResult = Eeprom_Read(0, phone, 13);
-"236
-[e = _memoryResult ( _Eeprom_Read (3 , , -> -> 0 `i `uc &U F9001 -> -> 13 `i `uc ]
-[; ;app.c: 237: if (memoryResult != OP_PENDING)
-"237
-[e $ ! != -> _memoryResult `i -> . `E8245 2 `i 910  ]
-[; ;app.c: 238: {
-"238
+[; ;app.c: 202: memoryResult = Eeprom_Read(0, phone, 13);
+"202
+[e = _memoryResult ( _Eeprom_Read (3 , , -> -> 0 `i `uc &U F8997 -> -> 13 `i `uc ]
+[; ;app.c: 203: if (memoryResult != OP_PENDING)
+"203
+[e $ ! != -> _memoryResult `i -> . `E8245 2 `i 902  ]
+[; ;app.c: 204: {
+"204
 {
-[; ;app.c: 239: memoryFlag++;
-"239
-[e ++ F9008 -> -> 1 `i `uc ]
-"240
-}
-[e :U 910 ]
-"241
-}
-[; ;app.c: 240: }
-[; ;app.c: 241: }
-[e $U 911  ]
-"242
-[e :U 909 ]
-[; ;app.c: 242: else
-[; ;app.c: 243: {
-"243
-{
-[; ;app.c: 244: memoryFlag++;
-"244
-[e ++ F9008 -> -> 1 `i `uc ]
-"245
-}
-[e :U 911 ]
-"246
-}
-[e :U 908 ]
-"247
-[e :U 907 ]
+[; ;app.c: 205: memoryFlag++;
+"205
+[e ++ F9004 -> -> 1 `i `uc ]
+"206
 }
 [e :U 902 ]
-[; ;app.c: 245: }
-[; ;app.c: 246: }
-[; ;app.c: 247: }
-[; ;app.c: 248: break;
-"248
-[e $U 898  ]
-[; ;app.c: 251: default:
-"251
-[e :U 912 ]
-[; ;app.c: 252: break;
-"252
-[e $U 898  ]
-"253
+"207
 }
-[; ;app.c: 253: }
-[e $U 898  ]
-"180
+[; ;app.c: 206: }
+[; ;app.c: 207: }
+[e $U 903  ]
+"208
+[e :U 901 ]
+[; ;app.c: 208: else
+[; ;app.c: 209: {
+"209
+{
+[; ;app.c: 210: memoryFlag++;
+"210
+[e ++ F9004 -> -> 1 `i `uc ]
+"211
+}
+[e :U 903 ]
+"212
+}
+[e :U 900 ]
+"213
 [e :U 899 ]
-[e [\ _SystemState , $ . `E8958 0 900
- , $ . `E8958 1 901
- 912 ]
-"253
-[e :U 898 ]
-[; ;app.c: 254: }
-"254
-[e :UE 897 ]
+}
+[e :U 894 ]
+[; ;app.c: 211: }
+[; ;app.c: 212: }
+[; ;app.c: 213: }
+[; ;app.c: 214: break;
+"214
+[e $U 890  ]
+[; ;app.c: 217: default:
+"217
+[e :U 904 ]
+[; ;app.c: 218: break;
+"218
+[e $U 890  ]
+"219
+}
+[; ;app.c: 219: }
+[e $U 890  ]
+"146
+[e :U 891 ]
+[e [\ _SystemState , $ . `E8958 0 892
+ , $ . `E8958 1 893
+ 904 ]
+"219
+[e :U 890 ]
+[; ;app.c: 220: }
+"220
+[e :UE 889 ]
 }

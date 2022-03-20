@@ -28,6 +28,7 @@
 ************************************************************************/
 #include "app.h"
 #include "app_init.h"
+#include "app_utils.h"
 
 /************************************************************************
 * Defines
@@ -80,31 +81,6 @@ uint8_t triggerRelay(uint8_t realyId, bool isRelayOn)
     return res;
 }
 
-// max 255 seconds
-// counter variable should be static/globally defined
-bool secondsAppTimer(uint8_t seconds, uint16_t* counter, bool isCyclic)
-{
-    bool isExpired = true;
-    uint16_t destinationTicks = (uint16_t) (seconds * 1000) / MY_APP_TASK_PERIOD_MS;
-
-    if (*counter < destinationTicks)
-    {
-        *counter += 1;
-        isExpired = false;
-    }
-    if (*counter == destinationTicks)
-    {
-        if (isCyclic)
-        {
-            *counter = 0;
-        }
-        else
-        {
-            *counter = 0xFFFF;
-        }
-    }
-    return isExpired;
-}
 
 //bool initGprsModem()
 //{
@@ -141,17 +117,7 @@ bool secondsAppTimer(uint8_t seconds, uint16_t* counter, bool isCyclic)
 //    return isInitialized;
 //}
 
-void blinkForSeconds(uint8_t seconds, uint16_t* blinkTicks)
-{
-    if (secondsAppTimer(seconds, blinkTicks, false))
-    {
-        Led_SetLedStatus(LED_1, LED_STS_ON);
-    }
-    else
-    {
-       Led_SetLedStatus(LED_1, LED_STS_BLINK); 
-    }
-}
+
 /************************************************************************
 * GLOBAL Function Implementations
 ************************************************************************/

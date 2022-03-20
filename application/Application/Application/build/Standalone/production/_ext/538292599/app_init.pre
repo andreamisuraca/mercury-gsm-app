@@ -11223,7 +11223,12 @@ extern bool isMemoryEmpty;
 # 50
 bool initFsm(void);
 
-# 41 "../Source/c/04_App/app_init.c"
+# 49 "../Source/h/04_App/app_utils.h"
+bool secondsAppTimer(uint8_t seconds, uint16_t* counter, bool isCyclic);
+
+void blinkForSeconds(uint8_t seconds, uint16_t* blinkTicks);
+
+# 42 "../Source/c/04_App/app_init.c"
 typedef enum _modemStates
 {
 MODEM_INIT = 0,
@@ -11246,38 +11251,13 @@ INIT_FSM_EEPROM,
 INIT_FSM_COMPLETE
 } initFsmStates;
 
-# 66
+# 67
 static uint8_t memoryPreamble[4];
 
-# 71
+# 72
 bool isMemoryEmpty = 1;
 
-# 82
-bool secondsAppTimer2(uint8_t seconds, uint16_t* counter, bool isCyclic)
-{
-bool isExpired = 1;
-uint16_t destinationTicks = (uint16_t) (seconds * 1000) / ((UINT16)(100));
-
-if (*counter < destinationTicks)
-{
-*counter += 1;
-isExpired = 0;
-}
-if (*counter == destinationTicks)
-{
-if (isCyclic)
-{
-*counter = 0;
-}
-else
-{
-*counter = 0xFFFF;
-}
-}
-return isExpired;
-}
-
-# 109
+# 83
 bool initGprsModem(void)
 {
 static uint16_t modemCounter = 0;
@@ -11289,7 +11269,7 @@ switch(currentState)
 case MODEM_INIT:
 if (MdmStatus == ModemConfigured || MdmStatus == ModemOn)
 {
-if (secondsAppTimer2(4, &modemCounter, 0))
+if (secondsAppTimer(4, &modemCounter, 0))
 {
 Mdm_SetSmsFormat(1);
 currentState = MODEM_DELETE_SMS;
@@ -11317,7 +11297,7 @@ break;
 return isInitialized;
 }
 
-# 152
+# 126
 bool initEeprom(void)
 {
 const uint8_t addressToRead = 0;
@@ -11362,7 +11342,7 @@ break;
 return isInitialized;
 }
 
-# 203
+# 177
 bool initFsm(void)
 {
 static initFsmStates currentState = INIT_FSM_MODEM;

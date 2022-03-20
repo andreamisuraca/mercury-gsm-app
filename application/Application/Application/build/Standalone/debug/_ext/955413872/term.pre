@@ -10078,7 +10078,7 @@ void MdmHttp_GetMethod (HttpGetDataType *GetData);
 
 void MdmHttp_PostMethod (HttpPostDataType *PostData);
 
-# 54 "../../MercuryFwk/Source/h/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.h"
+# 57 "../../MercuryFwk/Source/h/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.h"
 typedef enum _MdmStatus
 {
 ModemOff,
@@ -10109,7 +10109,7 @@ SmsNotReceived = 0,
 SmsReceived
 } SmsRxStsType;
 
-# 88
+# 91
 extern MdmStatusType MdmStatus;
 
 extern EventStructureType RingEvent;
@@ -10121,7 +10121,7 @@ extern EventStructureType NewStringReceived;
 extern EventStructureType NewMdmEvtParserRequest;
 extern EventStructureType NewStringMdmTerminal;
 
-# 103
+# 106
 void Mdm_MainTask (UINT8 Options);
 
 
@@ -10144,7 +10144,7 @@ void Mdm_SetSmsFormat (UINT8 TextFormat);
 
 void Mdm_RequestSmsData (void);
 
-GetSmsStatusType Mdm_GetSmsData (UINT8 *MessageText, UINT8 *MessageHeader);
+GetSmsStatusType Mdm_GetSmsData (UINT8 *MessageText);
 
 void Mdm_SendSmsData (UINT8 *PhoneNmb, UINT8 PhoneNmbLen, UINT8 *MsgTxt, UINT8 MsgTxtLen);
 
@@ -10152,7 +10152,7 @@ SmsRxStsType Mdm_IsSmsReceived (void);
 
 UINT8* GetCallerNumber (void);
 
-# 43 "../../MercuryFwk/Source/h/03_Sml/01_Pml/05_Eeprom/eeprom_if.h"
+# 41 "../../MercuryFwk/Source/h/03_Sml/01_Pml/05_Eeprom/eeprom_if.h"
 typedef enum _EepromSts
 {
 OP_SUCCESS = 0,
@@ -10160,7 +10160,7 @@ OP_FAILED,
 OP_PENDING
 } EepromStsType;
 
-# 58
+# 57
 UINT8 Eeprom_Write (UINT8 MemoryAddress, UINT8* WriteBuffer, UINT8 DataLength);
 
 
@@ -11209,12 +11209,12 @@ void Sch_MainScheduler (void);
 
 void Sch_SchmIntService (void);
 
-# 50 "../../MercuryFwk/Source/h/03_Sml/02_Ssl/term.h"
-extern UINT16 PhoneNumberLen;
+# 51 "../../MercuryFwk/Source/h/03_Sml/02_Ssl/term.h"
+extern UINT16 UsbMasterPhoneNumberLen;
 
-extern char PhoneNumber[20];
+extern char UsbMasterPhoneNumber[((UINT16)(15))];
 
-# 57
+# 58
 void Term_MainTask (UINT8 Options);
 
 # 71 "../../MercuryFwk/Source/c/03_Sml/02_Ssl/term.c"
@@ -11279,8 +11279,8 @@ static const UINT8 MsgReady[] = {
 };
 
 # 144
-UINT16 PhoneNumberLen;
-UINT8 PhoneNumber[20];
+UINT16 UsbMasterPhoneNumberLen;
+UINT8 UsbMasterPhoneNumber[((UINT16)(15))];
 
 # 319
 void GsmGprsTerminal (void)
@@ -11488,11 +11488,11 @@ else if ((UsbRxBuffer[0u] == 'T') &&
 
 Len[0] = UsbRxBuffer[0u + 1u + 1u + 1u];
 Len[1] = UsbRxBuffer[0u + 1u + 1u + 1u + 1];
-PhoneNumberLen = atoi(Len);
+UsbMasterPhoneNumberLen = atoi(Len);
 
-for (UINT8 i = 0; i < PhoneNumberLen; i++)
+for (UINT8 i = 0; i < UsbMasterPhoneNumberLen; i++)
 {
-PhoneNumber[i] = UsbRxBuffer[0u + 1u + 1u + 1u + 2u + i];
+UsbMasterPhoneNumber[i] = UsbRxBuffer[0u + 1u + 1u + 1u + 2u + i];
 }
 }
 else if ((UsbRxBuffer[0u] == 'M') &&
@@ -11682,7 +11682,7 @@ if((cdc_trf_state == 0))
 
 memset(Data,0,50);
 
-sprintf(Data,"Build Date: %s\r\n","Mar 19 2022");
+sprintf(Data,"Build Date: %s\r\n","Mar 20 2022");
 
 putUSBUSART((void*)Data,strlen(Data));
 

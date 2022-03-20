@@ -28,6 +28,7 @@
 ************************************************************************/
 #include "app.h"
 #include "app_init.h"
+#include "app_gate.h"
 #include "app_utils.h"
 
 /************************************************************************
@@ -41,10 +42,20 @@
 /* I2c cmd */
 #define SB01_SET_RELAY_STS                               ((UINT8)(0x50))
 #define SB01_REQUEST_RELAY_STS                           ((UINT8)(0x60))
+
+
 /************************************************************************
 * Typedefs
 ************************************************************************/
 
+typedef enum _gateFsmStates
+{
+    GATE_INIT = 0,
+    GATE_SAVE_FIRST_MASTER,
+    GATE_UPDATE_NUMBERS_COUNT,
+    GATE_WAIT_EVENT,
+    GATE_TRIGGER
+} gateFsmStates;
 
 /************************************************************************
 * LOCAL Variables
@@ -55,6 +66,8 @@ static UINT8 RelayB1, RelayB2 = 0;
 static UINT8 Relay1, Relay2, Relay3, Relay4 = 0;
 static UINT8 TxBuffer[] = {0x00, 0x00};  
 static UINT8 I2cReady = FALSE;
+
+static uint8_t smsText[MESSAGE_BUFF_LEN] = {0};
 /************************************************************************
 * GLOBAL Variables
 ************************************************************************/
@@ -132,15 +145,15 @@ uint8_t triggerRelay(uint8_t realyId, bool isRelayOn)
 ************************************************************************/
 void MyApp_Task (UINT8 Options)
 {
-    static UINT8 phone[] = {'+', '3', '9', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '\0'};
+    static UINT8 smsPhoneNumber[] = {'+', '3', '9', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
 
-    static uint16_t blinkTicks = 0xFFFF;
-    static uint8_t blinkSeconds = 0;
 
-    uint8_t smsText[MESSAGE_BUFF_LEN];
+
+
+    const uint8_t cmdAddNumber[] = {'N', 'U', 'M', '+'};
     uint8_t cmpString[] = {'c', 'a', 't'};
 
-    static uint8_t memoryFlag = 0;
+    static gateFsmStates currentState = GATE_INIT;
     I2cOpStsType memoryResult = OP_COMPLETE;
 
     switch (SystemState)
@@ -153,24 +166,85 @@ void MyApp_Task (UINT8 Options)
 
         /* System Normal operation Phase */
         case RunningState:
-            if (initFsm())
+            switch (currentState)
             {
-                /* If ring evt is received */
-                if (Mdm_IsRinging())
+            case GATE_INIT:
+                if (initFsm())
                 {
-                    blinkTicks = 0;
-                    if (StringCompare(phone, GetCallerNumber(), 14))
+                    if (isMemoryEmpty)
                     {
-                        blinkSeconds = 5;
+                        if (waitSetupCall())
+                        {
+                            currentState = GATE_SAVE_FIRST_MASTER;
+                        }
+                        if (Mdm_IsSmsReceived())
+                        {
+                            Mdm_RequestSmsData();
+                        }
+                        if (Mdm_GetSmsData(smsText) == SmsDataReady)
+                        {
+                            Uart_WriteConstString(1,"AT+CMGD=1,0\r\n");
+                            if (StringCompare(smsText, cmdAddNumber, sizeof(cmdAddNumber)))
+                            {
+                                currentState = GATE_SAVE_FIRST_MASTER;
+                            }
+                        }
                     }
-                    blinkSeconds = 3;
-                    Mdm_HangPhoneCall();
-                    memoryFlag = 1;
+                    else
+                    {
+                        Led_SetLedStatus(LED_1, LED_STS_ON);
+                        currentState = GATE_WAIT_EVENT;
+                    }
                 }
-                if (Mdm_IsSmsReceived())
-                {
-                    Mdm_RequestSmsData();
-                }
+                break;
+
+            case GATE_SAVE_FIRST_MASTER:
+                saveMasterNumber(INIT_NUMBER_ADDRESS, GetCallerNumber());
+                currentState = GATE_UPDATE_NUMBERS_COUNT;
+                break;
+
+            case GATE_UPDATE_NUMBERS_COUNT:
+                updateMemorizedNumbersCount();
+                Led_SetLedStatus(LED_1, LED_STS_ON);
+                currentState = GATE_WAIT_EVENT;
+                break;
+
+            case GATE_WAIT_EVENT:
+//                Eeprom_Write(16, smsPhoneNumber, 13);
+//                currentState = GATE_TRIGGER;
+               break;
+
+            case GATE_TRIGGER:
+//                memoryResult = Eeprom_Read(16, smsText, 14);
+//                if (memoryResult != OP_PENDING)
+//                {
+//                    currentState++;
+//                }
+                break;
+
+            default:
+                break;
+            }
+
+
+
+
+//                /* If ring evt is received */
+//                if (Mdm_IsRinging())
+//                {
+//                    blinkTicks = 0;
+//                    if (StringCompare(phone, GetCallerNumber(), 14))
+//                    {
+//                        blinkSeconds = 5;
+//                    }
+//                    blinkSeconds = 3;
+//                    Mdm_HangPhoneCall();
+//                    memoryFlag = 1;
+//                }
+//                if (Mdm_IsSmsReceived())
+//                {
+//                    Mdm_RequestSmsData();
+//                }
 //                if (Mdm_GetSmsData(smsText, phone) == SmsDataReady)
 //                {
 //                    blinkTicks = 0;
@@ -187,30 +261,30 @@ void MyApp_Task (UINT8 Options)
 //                    ClearBuffer(smsText, sizeof(smsText));
 //                    ClearBuffer(phone, 14);
 //                }
-                blinkForSeconds(blinkSeconds, &blinkTicks);
+                //blinkForSeconds(blinkSeconds, &blinkTicks);
 
-                if (memoryFlag == 1)
-                {
-                    //Eeprom_Write(0, phone, 14);
-                    ClearBuffer(phone, 14);
-                    memoryFlag++;
-                }
-                else if (memoryFlag >= 2 && memoryFlag <= 250)
-                {
-                    if (memoryFlag == 100)
-                    {
-                        memoryResult = Eeprom_Read(0, phone, 13);
-                        if (memoryResult != OP_PENDING)
-                        {
-                            memoryFlag++;
-                        }
-                    }
-                    else
-                    {
-                        memoryFlag++;
-                    }
-                }
-            }
+//                if (memoryFlag == 1)
+//                {
+//                    //Eeprom_Write(0, phone, 14);
+//                    ClearBuffer(phone, 14);
+//                    memoryFlag++;
+//                }
+//                else if (memoryFlag >= 2 && memoryFlag <= 250)
+//                {
+//                    if (memoryFlag == 100)
+//                    {
+//                        memoryResult = Eeprom_Read(0, phone, 13);
+//                        if (memoryResult != OP_PENDING)
+//                        {
+//                            memoryFlag++;
+//                        }
+//                    }
+//                    else
+//                    {
+//                        memoryFlag++;
+//                    }
+//                }
+//            }
             break;
 
         /* Default */

@@ -6,10 +6,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 "71
 [v _Mcu_ClearWdg `(v ~T0 @X0 0 ef ]
 "75 ../../MercuryFwk/Source/c/03_Sml/02_Ssl/wdg.c
-[c E8958 0 1 .. ]
-[n E8958 SystemStateEnum InitializationState RunningState  ]
+[c E8957 0 1 .. ]
+[n E8957 SystemStateEnum InitializationState RunningState  ]
 "79 ../../MercuryFwk/Source/h/02_Osl/os_sched.h
-[v _SystemState `E8958 ~T0 @X0 0 e ]
+[v _SystemState `E8957 ~T0 @X0 0 e ]
 "30 ../../MercuryFwk/Source/h/01_Hal/01_Sys/hal.h
 [p n 1510 ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
@@ -7551,7 +7551,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;mdm_gsm_gprs.h: 120: RingStsType Mdm_IsRinging (void);
 [; ;mdm_gsm_gprs.h: 124: void Mdm_SetSmsFormat (UINT8 TextFormat);
 [; ;mdm_gsm_gprs.h: 126: void Mdm_RequestSmsData (void);
-[; ;mdm_gsm_gprs.h: 128: GetSmsStatusType Mdm_GetSmsData (UINT8 *MessageText, UINT8 *MessageHeader);
+[; ;mdm_gsm_gprs.h: 128: GetSmsStatusType Mdm_GetSmsData (UINT8 *MessageText);
 [; ;mdm_gsm_gprs.h: 130: void Mdm_SendSmsData (UINT8 *PhoneNmb, UINT8 PhoneNmbLen, UINT8 *MsgTxt, UINT8 MsgTxtLen);
 [; ;mdm_gsm_gprs.h: 132: SmsRxStsType Mdm_IsSmsReceived (void);
 [; ;mdm_gsm_gprs.h: 134: UINT8* GetCallerNumber (void);
@@ -8279,8 +8279,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $U 888  ]
 "75
 [e :U 889 ]
-[e [\ _SystemState , $ . `E8958 0 890
- , $ . `E8958 1 891
+[e [\ _SystemState , $ . `E8957 0 890
+ , $ . `E8957 1 891
  892 ]
 "92
 [e :U 888 ]

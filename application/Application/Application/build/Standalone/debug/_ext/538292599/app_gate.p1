@@ -1,33 +1,24 @@
 Version 3.2 HI-TECH Software Intermediate Code
 [v F7983 `(v ~T0 @X0 0 tf ]
 [v F8056 `(v ~T0 @X0 0 tf ]
-"71 ../../MercuryFwk/Source/c/01_Hal/01_Sys/sys_init.c
-[c E7710 0 1 .. ]
-[n E7710 _IntEnableType DisableInt EnableInt  ]
-[c E7714 0 1 .. ]
-[n E7714 _IntPriorityType IntLowPriority IntHighPriority  ]
-[c E7970 0 1 .. ]
-[n E7970 _StartTmrType StartTmrNotReq StartTmrReq  ]
-"54 ../../MercuryFwk/Source/h/01_Hal/02_Drv/tmr_drv.h
-[s S813 `uc 1 `uc 1 `E7710 1 `E7714 1 `us 1 `E7970 1 ]
-[n S813 _TmrBConfigType PreScaler PostScaler IntEnable IntPriority IntFreqHz StartTmrRequest ]
-"87
-[v _Tmr_TmrBConfig `(v ~T0 @X0 0 ef2`uc`*S813 ]
-"81 ../../MercuryFwk/Source/h/01_Hal/02_Drv/pm_drv.h
-[v _Pm_DsReleasePinControl `(v ~T0 @X0 0 ef ]
-"65 ../../MercuryFwk/Source/h/01_Hal/02_Drv/mcu_drv.h
-[v _Mcu_StartSystemPll `(v ~T0 @X0 0 ef ]
-"128 ../../MercuryFwk/Source/c/01_Hal/01_Sys/sys_init.c
-[c E7718 0 1 .. ]
-[n E7718 _IntPriorityEnType IntLegacyMode IntPriorityMode  ]
-"108 ../../MercuryFwk/Source/h/01_Hal/01_Sys/irq.h
-[v _Irq_InitIntController `(v ~T0 @X0 0 ef3`E7718`uc`uc ]
-"97 ../../MercuryFwk/Source/h/01_Hal/02_Drv/tmr_drv.h
-[v _Tmr_RegisterTmr2IsrCallback `(v ~T0 @X0 0 ef1`*F7983 ]
-"88 ../../MercuryFwk/Source/h/02_Osl/os_sched.h
-[v _Sch_SchmIntService `(v ~T0 @X0 0 ef ]
-"67 ../../MercuryFwk/Source/h/01_Hal/02_Drv/mcu_drv.h
-[v _Mcu_ConfigExtInt `(v ~T0 @X0 0 ef ]
+"69 ../Source/c/04_App/app_gate.c
+[c E8199 0 1 .. ]
+[n E8199 _RingStsType PhoneNotRinging PhoneRinging  ]
+"120 ../../MercuryFwk/Source/h/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.h
+[v _Mdm_IsRinging `(E8199 ~T0 @X0 0 ef ]
+"116
+[v _Mdm_HangPhoneCall `(v ~T0 @X0 0 ef ]
+"49 ../Source/h/04_App/app_utils.h
+[v _secondsAppTimer `(uc ~T0 @X0 0 ef3`uc`*ui`uc ]
+"89 ../Source/c/04_App/app_gate.c
+[c E8874 0 1 2 3 4 .. ]
+[n E8874 _LedStsType LED_STS_OFF LED_STS_ON LED_STS_TOGGLE LED_STS_BLINK LED_STS_PULSE  ]
+"102 ../../MercuryFwk/Source/h/03_Sml/02_Ssl/led.h
+[v _Led_SetLedStatus `(v ~T0 @X0 0 ef2`uc`E8874 ]
+"57 ../../MercuryFwk/Source/h/03_Sml/01_Pml/05_Eeprom/eeprom_if.h
+[v _Eeprom_Write `(uc ~T0 @X0 0 ef3`uc`*uc`uc ]
+"55 ../Source/h/04_App/app_init.h
+[v _initPreamble `(*uc ~T0 @X0 0 ef ]
 "30 ../../MercuryFwk/Source/h/01_Hal/01_Sys/hal.h
 [p n 1510 ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
@@ -7093,6 +7084,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;typedefs.h: 596: const BYTE* bRom;
 [; ;typedefs.h: 597: const WORD* wRom;
 [; ;typedefs.h: 602: } POINTER;
+[; ;sys_init.h: 53: void SystemInit (void);
 [; ;os_ser.h: 43: typedef enum EventStatusEnum
 [; ;os_ser.h: 44: {
 [; ;os_ser.h: 45: EventIdle,
@@ -7131,7 +7123,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;hal.h: 69: CfgOk = 0,
 [; ;hal.h: 70: CfgError = 1
 [; ;hal.h: 71: } CfgStsType;
-[; ;sys_init.h: 53: void SystemInit (void);
 [; ;os_sched_tbl.h: 46: typedef enum _TaskStateType
 [; ;os_sched_tbl.h: 47: {
 [; ;os_sched_tbl.h: 48: TaskIdle,
@@ -8235,7 +8226,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;ext_int.h: 52: void ExtInt_SetInt0Action (ExtInt_CallbackType Callback);
 [; ;ext_int.h: 53: void ExtInt_SetInt1Action (ExtInt_CallbackType Callback);
 [; ;wdg.h: 53: void Wdg_MainTask (UINT8 Options);
-[; ;app.h: 53: void MyApp_Task (UINT8 Options);
 [; ;os_sched.h: 60: typedef enum MainSystemTimebaseEnum
 [; ;os_sched.h: 61: {
 [; ;os_sched.h: 62: CallTaskPhase,
@@ -8250,106 +8240,151 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;os_sched.h: 79: extern SystemStateType SystemState;
 [; ;os_sched.h: 86: void Sch_MainScheduler (void);
 [; ;os_sched.h: 88: void Sch_SchmIntService (void);
-[; ;sys_init.c: 55: void InitSchedTimer (void);
-"69 ../../MercuryFwk/Source/c/01_Hal/01_Sys/sys_init.c
-[v _InitSchedTimer `(v ~T0 @X0 1 ef ]
+[; ;app.h: 53: void MyApp_Task (UINT8 Options);
+[; ;app_gate.h: 50: bool waitSetupCall(void);
+[; ;app_gate.h: 51: void saveMasterNumber(UINT8 address, UINT8* phoneNumber);
+[; ;app_gate.h: 52: void updateMemorizedNumbersCount();
+[; ;app_init.h: 46: extern bool isMemoryEmpty;
+[; ;app_init.h: 48: extern uint8_t memorizedNumbersCount[1];
+[; ;app_init.h: 53: bool initFsm(void);
+[; ;app_init.h: 55: uint8_t* initPreamble();
+[; ;app_utils.h: 49: bool secondsAppTimer(uint8_t seconds, uint16_t* counter, bool isCyclic);
+[; ;app_utils.h: 51: void blinkForSeconds(uint8_t seconds, uint16_t* blinkTicks);
+"48 ../Source/c/04_App/app_gate.c
+[v _setupCallTicks `ui ~T0 @X0 1 s ]
+[i _setupCallTicks
+-> -> 0 `i `ui
+]
+[; ;app_gate.c: 48: static uint16_t setupCallTicks = 0;
+"65
+[v _getSetupCall `(uc ~T0 @X0 1 ef ]
+"66
+{
+[; ;app_gate.c: 65: bool getSetupCall(void)
+[; ;app_gate.c: 66: {
+[e :U _getSetupCall ]
+[f ]
+"67
+[v _isCalledReceived `uc ~T0 @X0 1 a ]
+[; ;app_gate.c: 67: bool isCalledReceived = 0;
+[e = _isCalledReceived -> -> 0 `i `uc ]
+[; ;app_gate.c: 69: if (Mdm_IsRinging())
+"69
+[e $ ! != -> ( _Mdm_IsRinging ..  `i -> -> -> 0 `i `E8199 `i 888  ]
+[; ;app_gate.c: 70: {
 "70
 {
-[; ;sys_init.c: 69: void InitSchedTimer (void)
-[; ;sys_init.c: 70: {
-[e :U _InitSchedTimer ]
-[f ]
+[; ;app_gate.c: 71: Mdm_HangPhoneCall();
 "71
-[v _TmrBConfig `S813 ~T0 @X0 1 a ]
-[; ;sys_init.c: 71: TmrBConfigType TmrBConfig;
-[; ;sys_init.c: 74: TmrBConfig.PreScaler = 4;
+[e ( _Mdm_HangPhoneCall ..  ]
+[; ;app_gate.c: 72: isCalledReceived = 1;
+"72
+[e = _isCalledReceived -> -> 1 `i `uc ]
+"73
+}
+[e :U 888 ]
+[; ;app_gate.c: 73: }
+[; ;app_gate.c: 74: return isCalledReceived;
 "74
-[e = . _TmrBConfig 0 -> -> 4 `i `uc ]
-[; ;sys_init.c: 75: TmrBConfig.PostScaler = 12;
+[e ) _isCalledReceived ]
+[e $UE 887  ]
+[; ;app_gate.c: 75: }
 "75
-[e = . _TmrBConfig 1 -> -> 12 `i `uc ]
-[; ;sys_init.c: 76: TmrBConfig.IntPriority = 0u;
-"76
-[e = . _TmrBConfig 3 -> -> 0 `ui `E7714 ]
-[; ;sys_init.c: 77: TmrBConfig.IntEnable = 1u;
-"77
-[e = . _TmrBConfig 2 -> -> 1 `ui `E7710 ]
-[; ;sys_init.c: 78: TmrBConfig.IntFreqHz = ((UINT16)(1000));
-"78
-[e = . _TmrBConfig 4 -> -> 1000 `i `us ]
-[; ;sys_init.c: 79: TmrBConfig.StartTmrRequest = StartTmrReq;
-"79
-[e = . _TmrBConfig 5 . `E7970 1 ]
-[; ;sys_init.c: 82: Tmr_TmrBConfig(((UINT8)(2)),&TmrBConfig);
-"82
-[e ( _Tmr_TmrBConfig (2 , -> -> 2 `i `uc &U _TmrBConfig ]
-[; ;sys_init.c: 83: }
-"83
 [e :UE 887 ]
 }
+"84
+[v _waitSetupCall `(uc ~T0 @X0 1 ef ]
+"85
+{
+[; ;app_gate.c: 84: bool waitSetupCall(void)
+[; ;app_gate.c: 85: {
+[e :U _waitSetupCall ]
+[f ]
+"86
+[v _isCallArrived `uc ~T0 @X0 1 a ]
+[; ;app_gate.c: 86: bool isCallArrived = 0;
+[e = _isCallArrived -> -> 0 `i `uc ]
+[; ;app_gate.c: 87: if (!secondsAppTimer(30, &setupCallTicks, 0))
+"87
+[e $ ! ! != -> ( _secondsAppTimer (3 , , -> -> 30 `i `uc &U _setupCallTicks -> -> 0 `i `uc `i -> -> -> 0 `i `uc `i 890  ]
+[; ;app_gate.c: 88: {
+"88
+{
+[; ;app_gate.c: 89: Led_SetLedStatus(1u, LED_STS_BLINK);
+"89
+[e ( _Led_SetLedStatus (2 , -> -> 1 `ui `uc . `E8874 3 ]
+[; ;app_gate.c: 90: if (getSetupCall())
+"90
+[e $ ! != -> ( _getSetupCall ..  `i -> -> -> 0 `i `uc `i 891  ]
+[; ;app_gate.c: 91: {
+"91
+{
+[; ;app_gate.c: 92: isCallArrived = 1;
+"92
+[e = _isCallArrived -> -> 1 `i `uc ]
 "93
-[v _InitAuxTimer `(v ~T0 @X0 1 ef ]
-"94
-{
-[; ;sys_init.c: 93: void InitAuxTimer (void)
-[; ;sys_init.c: 94: {
-[e :U _InitAuxTimer ]
-[f ]
-"95
-[v _TmrBConfig `S813 ~T0 @X0 1 a ]
-[; ;sys_init.c: 95: TmrBConfigType TmrBConfig;
-[; ;sys_init.c: 98: TmrBConfig.PreScaler = 4;
-"98
-[e = . _TmrBConfig 0 -> -> 4 `i `uc ]
-[; ;sys_init.c: 99: TmrBConfig.PostScaler = 12;
-"99
-[e = . _TmrBConfig 1 -> -> 12 `i `uc ]
-[; ;sys_init.c: 100: TmrBConfig.IntPriority = 1u;
-"100
-[e = . _TmrBConfig 3 -> -> 1 `ui `E7714 ]
-[; ;sys_init.c: 101: TmrBConfig.IntEnable = 1u;
-"101
-[e = . _TmrBConfig 2 -> -> 1 `ui `E7710 ]
-[; ;sys_init.c: 102: TmrBConfig.IntFreqHz = 100;
-"102
-[e = . _TmrBConfig 4 -> -> 100 `i `us ]
-[; ;sys_init.c: 103: TmrBConfig.StartTmrRequest = StartTmrReq;
-"103
-[e = . _TmrBConfig 5 . `E7970 1 ]
-[; ;sys_init.c: 106: Tmr_TmrBConfig(((UINT8)(4)),&TmrBConfig);
-"106
-[e ( _Tmr_TmrBConfig (2 , -> -> 4 `i `uc &U _TmrBConfig ]
-[; ;sys_init.c: 107: }
-"107
-[e :UE 888 ]
 }
-"121
-[v _SystemInit `(v ~T0 @X0 1 ef ]
-"122
+[e :U 891 ]
+"94
+}
+[; ;app_gate.c: 93: }
+[; ;app_gate.c: 94: }
+[e $U 892  ]
+"95
+[e :U 890 ]
+[; ;app_gate.c: 95: else
+[; ;app_gate.c: 96: {
+"96
 {
-[; ;sys_init.c: 121: void SystemInit (void)
-[; ;sys_init.c: 122: {
-[e :U _SystemInit ]
-[f ]
-[; ;sys_init.c: 124: Pm_DsReleasePinControl();
-"124
-[e ( _Pm_DsReleasePinControl ..  ]
-[; ;sys_init.c: 126: Mcu_StartSystemPll();
-"126
-[e ( _Mcu_StartSystemPll ..  ]
-[; ;sys_init.c: 128: Irq_InitIntController(IntPriorityMode,1u,1u);
-"128
-[e ( _Irq_InitIntController (3 , , . `E7718 1 -> -> 1 `ui `uc -> -> 1 `ui `uc ]
-[; ;sys_init.c: 130: Tmr_RegisterTmr2IsrCallback(&Sch_SchmIntService);
-"130
-[e ( _Tmr_RegisterTmr2IsrCallback (1 &U _Sch_SchmIntService ]
-[; ;sys_init.c: 132: InitSchedTimer();
-"132
-[e ( _InitSchedTimer ..  ]
-[; ;sys_init.c: 134: Mcu_ConfigExtInt();
-"134
-[e ( _Mcu_ConfigExtInt ..  ]
-[; ;sys_init.c: 135: }
-"135
+[; ;app_gate.c: 97: Led_SetLedStatus(1u, LED_STS_ON);
+"97
+[e ( _Led_SetLedStatus (2 , -> -> 1 `ui `uc . `E8874 1 ]
+"98
+}
+[e :U 892 ]
+[; ;app_gate.c: 98: }
+[; ;app_gate.c: 99: return isCallArrived;
+"99
+[e ) _isCallArrived ]
+[e $UE 889  ]
+[; ;app_gate.c: 100: }
+"100
 [e :UE 889 ]
+}
+"108
+[v _saveMasterNumber `(v ~T0 @X0 1 ef2`uc`*uc ]
+"109
+{
+[; ;app_gate.c: 108: void saveMasterNumber(UINT8 address, UINT8* phoneNumber)
+[; ;app_gate.c: 109: {
+[e :U _saveMasterNumber ]
+"108
+[v _address `uc ~T0 @X0 1 r1 ]
+[v _phoneNumber `*uc ~T0 @X0 1 r2 ]
+"109
+[f ]
+[; ;app_gate.c: 110: phoneNumber[((UINT8)(14)) - 1] = 'M';
+"110
+[e = *U + _phoneNumber * -> - -> -> -> 14 `i `uc `i -> 1 `i `x -> -> # *U _phoneNumber `i `x -> -> 77 `ui `uc ]
+[; ;app_gate.c: 111: Eeprom_Write(address, phoneNumber, ((UINT8)(14)));
+"111
+[e ( _Eeprom_Write (3 , , _address _phoneNumber -> -> 14 `i `uc ]
+[; ;app_gate.c: 112: }
+"112
+[e :UE 893 ]
+}
+"118
+[v _updateMemorizedNumbersCount `(v ~T0 @X0 1 ef ]
+"119
+{
+[; ;app_gate.c: 118: void updateMemorizedNumbersCount()
+[; ;app_gate.c: 119: {
+[e :U _updateMemorizedNumbersCount ]
+[f ]
+[; ;app_gate.c: 120: Eeprom_Write(0, initPreamble(), 5);
+"120
+[e ( _Eeprom_Write (3 , , -> -> 0 `i `uc ( _initPreamble ..  -> -> 5 `i `uc ]
+[; ;app_gate.c: 121: }
+"121
+[e :UE 894 ]
 }

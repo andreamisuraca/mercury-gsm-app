@@ -10078,7 +10078,7 @@ void MdmHttp_GetMethod (HttpGetDataType *GetData);
 
 void MdmHttp_PostMethod (HttpPostDataType *PostData);
 
-# 54 "../../MercuryFwk/Source/h/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.h"
+# 57 "../../MercuryFwk/Source/h/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.h"
 typedef enum _MdmStatus
 {
 ModemOff,
@@ -10109,7 +10109,7 @@ SmsNotReceived = 0,
 SmsReceived
 } SmsRxStsType;
 
-# 88
+# 91
 extern MdmStatusType MdmStatus;
 
 extern EventStructureType RingEvent;
@@ -10121,7 +10121,7 @@ extern EventStructureType NewStringReceived;
 extern EventStructureType NewMdmEvtParserRequest;
 extern EventStructureType NewStringMdmTerminal;
 
-# 103
+# 106
 void Mdm_MainTask (UINT8 Options);
 
 
@@ -10144,7 +10144,7 @@ void Mdm_SetSmsFormat (UINT8 TextFormat);
 
 void Mdm_RequestSmsData (void);
 
-GetSmsStatusType Mdm_GetSmsData (UINT8 *MessageText, UINT8 *MessageHeader);
+GetSmsStatusType Mdm_GetSmsData (UINT8 *MessageText);
 
 void Mdm_SendSmsData (UINT8 *PhoneNmb, UINT8 PhoneNmbLen, UINT8 *MsgTxt, UINT8 MsgTxtLen);
 
@@ -10152,7 +10152,7 @@ SmsRxStsType Mdm_IsSmsReceived (void);
 
 UINT8* GetCallerNumber (void);
 
-# 43 "../../MercuryFwk/Source/h/03_Sml/01_Pml/05_Eeprom/eeprom_if.h"
+# 41 "../../MercuryFwk/Source/h/03_Sml/01_Pml/05_Eeprom/eeprom_if.h"
 typedef enum _EepromSts
 {
 OP_SUCCESS = 0,
@@ -10160,7 +10160,7 @@ OP_FAILED,
 OP_PENDING
 } EepromStsType;
 
-# 58
+# 57
 UINT8 Eeprom_Write (UINT8 MemoryAddress, UINT8* WriteBuffer, UINT8 DataLength);
 
 
@@ -11175,12 +11175,12 @@ UINT8 StringCompare (UINT8 *String1, UINT8 *String2, UINT16 Len);
 void StringCopy (UINT8 *SourceStr, UINT8 *DestStr, UINT16 Len);
 void ClearBuffer (UINT8 *Buffer, UINT16 Len);
 
-# 50 "../../MercuryFwk/Source/h/03_Sml/02_Ssl/term.h"
-extern UINT16 PhoneNumberLen;
+# 51 "../../MercuryFwk/Source/h/03_Sml/02_Ssl/term.h"
+extern UINT16 UsbMasterPhoneNumberLen;
 
-extern char PhoneNumber[20];
+extern char UsbMasterPhoneNumber[((UINT16)(15))];
 
-# 57
+# 58
 void Term_MainTask (UINT8 Options);
 
 # 52 "../../MercuryFwk/Source/h/03_Sml/02_Ssl/ext_int.h"
@@ -11217,7 +11217,37 @@ void Sch_SchmIntService (void);
 # 53 "../Source/h/04_App/app.h"
 void MyApp_Task (UINT8 Options);
 
+# 46 "../Source/h/04_App/app_init.h"
+extern bool isMemoryEmpty;
+
+extern uint8_t memorizedNumbersCount[1];
+
+# 53
+bool initFsm(void);
+
+uint8_t* initPreamble();
+
+# 50 "../Source/h/04_App/app_gate.h"
+bool waitSetupCall(void);
+void saveMasterNumber(UINT8 address, UINT8* phoneNumber);
+void updateMemorizedNumbersCount();
+
+# 49 "../Source/h/04_App/app_utils.h"
+bool secondsAppTimer(uint8_t seconds, uint16_t* counter, bool isCyclic);
+
+void blinkForSeconds(uint8_t seconds, uint16_t* blinkTicks);
+
 # 51 "../Source/c/04_App/app.c"
+typedef enum _gateFsmStates
+{
+GATE_INIT = 0,
+GATE_SAVE_FIRST_MASTER,
+GATE_UPDATE_NUMBERS_COUNT,
+GATE_WAIT_EVENT,
+GATE_TRIGGER
+} gateFsmStates;
+
+# 63
 static UINT8 I2cTxBuffer[10u];
 
 static UINT8 RelayB1, RelayB2 = 0;
@@ -11225,7 +11255,9 @@ static UINT8 Relay1, Relay2, Relay3, Relay4 = 0;
 static UINT8 TxBuffer[] = {0x00, 0x00};
 static UINT8 I2cReady = 0;
 
-# 71
+static uint8_t smsText[((UINT8)(20))] = {0};
+
+# 85
 uint8_t triggerRelay(uint8_t realyId, bool isRelayOn)
 {
 uint8_t txBuffer[2] = {((UINT8)(0x50)), 0x00};
@@ -11238,91 +11270,18 @@ res = I2cSlv_SendI2cMsg(txBuffer, realyId, 2);
 return res;
 }
 
-
-
-bool secondsAppTimer(uint8_t seconds, uint16_t* counter, bool isCyclic)
-{
-bool isExpired = 1;
-uint16_t destinationTicks = (uint16_t) (seconds * 1000) / ((UINT16)(100));
-
-if (*counter < destinationTicks)
-{
-*counter += 1;
-isExpired = 0;
-}
-if (*counter == destinationTicks)
-{
-if (isCyclic)
-{
-*counter = 0;
-}
-else
-{
-*counter = 0xFFFF;
-}
-}
-return isExpired;
-}
-
-bool initGprsModem()
-{
-static uint16_t modemCounter = 0;
-static bool isInitialized = 0;
-static uint8_t initMdm = 0;
-
-switch(initMdm)
-{
-case 0:
-if (MdmStatus == ModemConfigured || MdmStatus == ModemOn)
-{
-if (secondsAppTimer(5, &modemCounter, 0))
-{
-Mdm_SetSmsFormat(1);
-Led_SetLedStatus(1u, LED_STS_ON);
-initMdm = 1;
-}
-}
-break;
-case 1:
-Uart_WriteConstString(1,"AT+CMGDA=DEL ALL\r\n");
-initMdm = 2;
-break;
-case 2:
-Uart_WriteConstString(1,"AT+CLIP=1\r\n");
-initMdm = 3;
-Led_SetLedStatus(1u, LED_STS_ON);
-isInitialized = 1;
-break;
-default:
-break;
-}
-return isInitialized;
-}
-
-void blinkForSeconds(uint8_t seconds, uint16_t* blinkTicks)
-{
-if (secondsAppTimer(seconds, blinkTicks, 0))
-{
-Led_SetLedStatus(1u, LED_STS_ON);
-}
-else
-{
-Led_SetLedStatus(1u, LED_STS_BLINK);
-}
-}
-
-# 167
+# 146
 void MyApp_Task (UINT8 Options)
 {
-static UINT8 phone[] = {'+', '3', '9', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '\0'};
+static UINT8 smsPhoneNumber[] = {'+', '3', '9', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
 
-static uint16_t blinkTicks = 0xFFFF;
-static uint8_t blinkSeconds = 0;
 
-uint8_t smsText[((UINT8)(20))];
+
+
+const uint8_t cmdAddNumber[] = {'N', 'U', 'M', '+'};
 uint8_t cmpString[] = {'c', 'a', 't'};
 
-static uint8_t memoryFlag = 1;
+static gateFsmStates currentState = GATE_INIT;
 I2cOpStsType memoryResult = OP_COMPLETE;
 
 switch (SystemState)
@@ -11335,50 +11294,64 @@ break;
 
 
 case RunningState:
-if (initGprsModem())
+switch (currentState)
 {
-
-if (Mdm_IsRinging())
+case GATE_INIT:
+if (initFsm())
 {
-blinkTicks = 0;
-if (StringCompare(phone, GetCallerNumber(), 14))
+if (isMemoryEmpty)
 {
-blinkSeconds = 5;
-}
-blinkSeconds = 3;
-Mdm_HangPhoneCall();
-memoryFlag = 1;
+if (waitSetupCall())
+{
+currentState = GATE_SAVE_FIRST_MASTER;
 }
 if (Mdm_IsSmsReceived())
 {
 Mdm_RequestSmsData();
 }
-
-# 224
-blinkForSeconds(blinkSeconds, &blinkTicks);
-
-if (memoryFlag == 1)
+if (Mdm_GetSmsData(smsText) == SmsDataReady)
 {
-
-ClearBuffer(phone, 14);
-memoryFlag++;
+Uart_WriteConstString(1,"AT+CMGD=1,0\r\n");
+if (StringCompare(smsText, cmdAddNumber, sizeof(cmdAddNumber)))
+{
+currentState = GATE_SAVE_FIRST_MASTER;
 }
-else if (memoryFlag >= 2 && memoryFlag <= 250)
-{
-if (memoryFlag == 100)
-{
-memoryResult = Eeprom_Read(0, phone, 13);
-if (memoryResult != OP_PENDING)
-{
-memoryFlag++;
 }
 }
 else
 {
-memoryFlag++;
+Led_SetLedStatus(1u, LED_STS_ON);
+currentState = GATE_WAIT_EVENT;
 }
 }
+break;
+
+case GATE_SAVE_FIRST_MASTER:
+saveMasterNumber(16, GetCallerNumber());
+currentState = GATE_UPDATE_NUMBERS_COUNT;
+break;
+
+case GATE_UPDATE_NUMBERS_COUNT:
+updateMemorizedNumbersCount();
+Led_SetLedStatus(1u, LED_STS_ON);
+currentState = GATE_WAIT_EVENT;
+break;
+
+case GATE_WAIT_EVENT:
+
+
+break;
+
+case GATE_TRIGGER:
+
+# 223
+break;
+
+default:
+break;
 }
+
+# 288
 break;
 
 

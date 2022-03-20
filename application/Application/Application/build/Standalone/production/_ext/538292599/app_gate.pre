@@ -1,5 +1,5 @@
 
-# 1 "../../MercuryFwk/Source/c/03_Sml/01_Pml/01_Mdm/mdm_wifi.c"
+# 1 "../Source/c/04_App/app_gate.c"
 
 
 # 30 "../../MercuryFwk/Source/h/01_Hal/01_Sys/hal.h"
@@ -11190,9 +11190,6 @@ void ExtInt_SetInt1Action (ExtInt_CallbackType Callback);
 # 53 "../../MercuryFwk/Source/h/03_Sml/02_Ssl/wdg.h"
 void Wdg_MainTask (UINT8 Options);
 
-# 53 "../Source/h/04_App/app.h"
-void MyApp_Task (UINT8 Options);
-
 # 60 "../../MercuryFwk/Source/h/02_Osl/os_sched.h"
 typedef enum MainSystemTimebaseEnum
 {
@@ -11217,57 +11214,73 @@ void Sch_MainScheduler (void);
 
 void Sch_SchmIntService (void);
 
-# 74 "../../MercuryFwk/Source/h/03_Sml/01_Pml/01_Mdm/mdm_wifi_cmd.h"
-typedef enum _WifiDataRecType
+# 53 "../Source/h/04_App/app.h"
+void MyApp_Task (UINT8 Options);
+
+# 50 "../Source/h/04_App/app_gate.h"
+bool waitSetupCall(void);
+void saveMasterNumber(UINT8 address, UINT8* phoneNumber);
+void updateMemorizedNumbersCount();
+
+# 46 "../Source/h/04_App/app_init.h"
+extern bool isMemoryEmpty;
+
+extern uint8_t memorizedNumbersCount[1];
+
+# 53
+bool initFsm(void);
+
+uint8_t* initPreamble();
+
+# 49 "../Source/h/04_App/app_utils.h"
+bool secondsAppTimer(uint8_t seconds, uint16_t* counter, bool isCyclic);
+
+void blinkForSeconds(uint8_t seconds, uint16_t* blinkTicks);
+
+# 48 "../Source/c/04_App/app_gate.c"
+static uint16_t setupCallTicks = 0;
+
+# 65
+bool getSetupCall(void)
 {
-WiFiRcv_DataNotReceived,
-WiFiRcv_DataReceived,
-} WifiDataRecType;
+bool isCalledReceived = 0;
 
-# 83
-extern EventStructureType WifiSendError;
+if (Mdm_IsRinging())
+{
+Mdm_HangPhoneCall();
+isCalledReceived = 1;
+}
+return isCalledReceived;
+}
 
-# 89
-void MdmWifiCmd_MainTask (UINT8 Options);
+# 84
+bool waitSetupCall(void)
+{
+bool isCallArrived = 0;
+if (!secondsAppTimer(30, &setupCallTicks, 0))
+{
+Led_SetLedStatus(1u, LED_STS_BLINK);
+if (getSetupCall())
+{
+isCallArrived = 1;
+}
+}
+else
+{
+Led_SetLedStatus(1u, LED_STS_ON);
+}
+return isCallArrived;
+}
 
-void MdmWifiCmd_RestartModem (void);
+# 108
+void saveMasterNumber(UINT8 address, UINT8* phoneNumber)
+{
+phoneNumber[((UINT8)(14)) - 1] = 'M';
+Eeprom_Write(address, phoneNumber, ((UINT8)(14)));
+}
 
-UINT8 MdmWifiCmd_SetWifiMode (UINT8 WifiMode);
-
-void MdmWifiCmd_JoinAccessPoint (const UINT8 *AccessPoint, const UINT8 *Password);
-
-void MdmWifiCmd_QuitAccessPoint (void);
-
-UINT8 MdmWifiCmd_SetTransferMode (UINT8 Mode);
-
-UINT8 MdmWifiCmd_SetConnectionMode (UINT8 Mode);
-
-void MdmWifiCmd_StartConnection (UINT8 Mode, UINT8 Id, UINT8 Type, UINT8 *Address, UINT8 Port);
-
-void MdmWifiCmd_SendData (UINT8 Mode, UINT8 Id, UINT8 Len, UINT8 *Buffer);
-
-WifiDataRecType MdmWifiCmd_ReceiveWifiMsg (UINT8* RxBuffer, UINT8* DataLenght);
-
-void MdmWifiCmd_CloseConnection (UINT8 Mode, UINT8 Id);
-
-UINT8 MdmWifiCmd_ConfigureSoftAPMode(void* ssid, void* pwd, UINT8 chid, UINT8 enc);
-
-UINT8 MdmWifiCmd_ConfigureSoftAPIpAddress(void* ip);
-
-UINT8 MdmWifiCmd_ConfigureServer (UINT8 Mode, UINT16 Port);
-
-# 54 "../../MercuryFwk/Source/h/03_Sml/01_Pml/01_Mdm/mdm_wifi_http.h"
-void MdmWifiHttp_MainTask (UINT8 Options);
-
-void MdmWifiHttp_MdmJoinNetwork (const UINT8 *AccessPoint, const UINT8 *Password);
-
-UINT8 MdmWifiHttp_IsMdmJoinNetworkCompleted (void);
-
-void MdmWifiHttp_GetMethod (const UINT8 *GetString, const UINT8 *Host);
-
-UINT8 MdmWifiHttp_IsGetMethodCompleted (void);
-
-void MdmWifiHttp_PostMethod (const UINT8 *PostString, const UINT8 *Host);
-
-UINT8 MdmWifiHttp_IsPostMethodCompleted (void);
-
+# 118
+void updateMemorizedNumbersCount()
+{
+Eeprom_Write(0, initPreamble(), 5);
+}

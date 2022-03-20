@@ -8057,7 +8057,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;mdm_gsm_gprs.h: 120: RingStsType Mdm_IsRinging (void);
 [; ;mdm_gsm_gprs.h: 124: void Mdm_SetSmsFormat (UINT8 TextFormat);
 [; ;mdm_gsm_gprs.h: 126: void Mdm_RequestSmsData (void);
-[; ;mdm_gsm_gprs.h: 128: GetSmsStatusType Mdm_GetSmsData (UINT8 *MessageText, UINT8 *MessageHeader);
+[; ;mdm_gsm_gprs.h: 128: GetSmsStatusType Mdm_GetSmsData (UINT8 *MessageText);
 [; ;mdm_gsm_gprs.h: 130: void Mdm_SendSmsData (UINT8 *PhoneNmb, UINT8 PhoneNmbLen, UINT8 *MsgTxt, UINT8 MsgTxtLen);
 [; ;mdm_gsm_gprs.h: 132: SmsRxStsType Mdm_IsSmsReceived (void);
 [; ;mdm_gsm_gprs.h: 134: UINT8* GetCallerNumber (void);

@@ -34,7 +34,6 @@
 * Defines
 ************************************************************************/
 
-#define PREAMBLE_LENGTH     4
 /************************************************************************
 * Typedefs
 ************************************************************************/
@@ -70,6 +69,8 @@ static uint8_t memoryPreamble[PREAMBLE_LENGTH];
 ************************************************************************/
 
 bool isMemoryEmpty = true;
+
+uint8_t memorizedNumbersCount[1];
 /************************************************************************
 * LOCAL Function Prototypes
 ************************************************************************/
@@ -145,6 +146,7 @@ bool initEeprom(void)
             }
             else
             {
+                memorizedNumbersCount[0] = memoryPreamble[4];
                 currentState = EEPROM_EMPTY;
             }
         }
@@ -152,13 +154,11 @@ bool initEeprom(void)
 
     case EEPROM_EMPTY:
         isInitialized = true;
-        Led_SetLedStatus(LED_1, LED_STS_BLINK);
         break;
 
     case EEPROM_NOT_EMPTY:
         isInitialized = true;
         isMemoryEmpty = false;
-        Led_SetLedStatus(LED_1, LED_STS_ON);
         break;
 
     default:
@@ -203,4 +203,20 @@ bool initFsm(void)
         break;
     }
     return isInitialized;
+}
+
+/**
+ * @brief 
+ * 
+ * @return uint8_t* 
+ */
+uint8_t* initPreamble()
+{
+    memoryPreamble[0] = 'U';
+    memoryPreamble[1] = 'S';
+    memoryPreamble[2] = 'I';
+    memoryPreamble[3] = 'M';
+    memoryPreamble[4] = '1';
+    memorizedNumbersCount[0] = 1;
+    return memoryPreamble;
 }

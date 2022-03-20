@@ -7502,58 +7502,58 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;mdm_gsm_gprs_http.h: 108: void MdmHttp_QueryIpAddr (IpAddrType *Ip);
 [; ;mdm_gsm_gprs_http.h: 110: void MdmHttp_GetMethod (HttpGetDataType *GetData);
 [; ;mdm_gsm_gprs_http.h: 112: void MdmHttp_PostMethod (HttpPostDataType *PostData);
-[; ;mdm_gsm_gprs.h: 54: typedef enum _MdmStatus
-[; ;mdm_gsm_gprs.h: 55: {
-[; ;mdm_gsm_gprs.h: 56: ModemOff,
-[; ;mdm_gsm_gprs.h: 57: ModemOn,
-[; ;mdm_gsm_gprs.h: 58: ModemReady,
-[; ;mdm_gsm_gprs.h: 59: ModemConfigured,
-[; ;mdm_gsm_gprs.h: 60: ModemSleep
-[; ;mdm_gsm_gprs.h: 61: } MdmStatusType;
-[; ;mdm_gsm_gprs.h: 64: typedef enum _GetSmsStatus
-[; ;mdm_gsm_gprs.h: 65: {
-[; ;mdm_gsm_gprs.h: 66: SmsDataNotReady,
-[; ;mdm_gsm_gprs.h: 67: SmsDataReady,
-[; ;mdm_gsm_gprs.h: 68: } GetSmsStatusType;
-[; ;mdm_gsm_gprs.h: 71: typedef enum _RingStsType
-[; ;mdm_gsm_gprs.h: 72: {
-[; ;mdm_gsm_gprs.h: 73: PhoneNotRinging = 0,
-[; ;mdm_gsm_gprs.h: 74: PhoneRinging
-[; ;mdm_gsm_gprs.h: 75: } RingStsType;
-[; ;mdm_gsm_gprs.h: 78: typedef enum _SmsRxStsType
-[; ;mdm_gsm_gprs.h: 79: {
-[; ;mdm_gsm_gprs.h: 80: SmsNotReceived = 0,
-[; ;mdm_gsm_gprs.h: 81: SmsReceived
-[; ;mdm_gsm_gprs.h: 82: } SmsRxStsType;
-[; ;mdm_gsm_gprs.h: 88: extern MdmStatusType MdmStatus;
-[; ;mdm_gsm_gprs.h: 90: extern EventStructureType RingEvent;
-[; ;mdm_gsm_gprs.h: 91: extern EventStructureType SmsEvent;
-[; ;mdm_gsm_gprs.h: 92: extern EventStructureType GetSmsText;
-[; ;mdm_gsm_gprs.h: 93: extern EventStructureType SmsTxtReady;
-[; ;mdm_gsm_gprs.h: 94: extern EventStructureType MdmStsReady;
-[; ;mdm_gsm_gprs.h: 95: extern EventStructureType NewStringReceived;
-[; ;mdm_gsm_gprs.h: 96: extern EventStructureType NewMdmEvtParserRequest;
-[; ;mdm_gsm_gprs.h: 97: extern EventStructureType NewStringMdmTerminal;
-[; ;mdm_gsm_gprs.h: 103: void Mdm_MainTask (UINT8 Options);
-[; ;mdm_gsm_gprs.h: 107: void Mdm_PinUnlock (const UINT8 *PIN);
-[; ;mdm_gsm_gprs.h: 111: void Mdm_MakePhoneCall (UINT8 *PhoneNumb, UINT8 PhoneNumbLen);
-[; ;mdm_gsm_gprs.h: 113: void Mdm_HangPhoneCall (void);
-[; ;mdm_gsm_gprs.h: 115: void Mdm_GetPhoneCall (void);
-[; ;mdm_gsm_gprs.h: 117: RingStsType Mdm_IsRinging (void);
-[; ;mdm_gsm_gprs.h: 121: void Mdm_SetSmsFormat (UINT8 TextFormat);
-[; ;mdm_gsm_gprs.h: 123: void Mdm_RequestSmsData (void);
-[; ;mdm_gsm_gprs.h: 125: GetSmsStatusType Mdm_GetSmsData (UINT8 *MessageText, UINT8 *MessageHeader);
-[; ;mdm_gsm_gprs.h: 127: void Mdm_SendSmsData (UINT8 *PhoneNmb, UINT8 PhoneNmbLen, UINT8 *MsgTxt, UINT8 MsgTxtLen);
-[; ;mdm_gsm_gprs.h: 129: SmsRxStsType Mdm_IsSmsReceived (void);
-[; ;mdm_gsm_gprs.h: 131: UINT8* GetCallerNumber (void);
-[; ;eeprom_if.h: 43: typedef enum _EepromSts
-[; ;eeprom_if.h: 44: {
-[; ;eeprom_if.h: 45: OP_SUCCESS = 0,
-[; ;eeprom_if.h: 46: OP_FAILED,
-[; ;eeprom_if.h: 47: OP_PENDING
-[; ;eeprom_if.h: 48: } EepromStsType;
-[; ;eeprom_if.h: 58: UINT8 Eeprom_Write (UINT8 MemoryAddress, UINT8* WriteBuffer, UINT8 DataLength);
-[; ;eeprom_if.h: 61: EepromStsType Eeprom_Read (UINT8 MemoryAddress, UINT8* ReadBuffer, UINT8 DataLength);
+[; ;mdm_gsm_gprs.h: 57: typedef enum _MdmStatus
+[; ;mdm_gsm_gprs.h: 58: {
+[; ;mdm_gsm_gprs.h: 59: ModemOff,
+[; ;mdm_gsm_gprs.h: 60: ModemOn,
+[; ;mdm_gsm_gprs.h: 61: ModemReady,
+[; ;mdm_gsm_gprs.h: 62: ModemConfigured,
+[; ;mdm_gsm_gprs.h: 63: ModemSleep
+[; ;mdm_gsm_gprs.h: 64: } MdmStatusType;
+[; ;mdm_gsm_gprs.h: 67: typedef enum _GetSmsStatus
+[; ;mdm_gsm_gprs.h: 68: {
+[; ;mdm_gsm_gprs.h: 69: SmsDataNotReady,
+[; ;mdm_gsm_gprs.h: 70: SmsDataReady,
+[; ;mdm_gsm_gprs.h: 71: } GetSmsStatusType;
+[; ;mdm_gsm_gprs.h: 74: typedef enum _RingStsType
+[; ;mdm_gsm_gprs.h: 75: {
+[; ;mdm_gsm_gprs.h: 76: PhoneNotRinging = 0,
+[; ;mdm_gsm_gprs.h: 77: PhoneRinging
+[; ;mdm_gsm_gprs.h: 78: } RingStsType;
+[; ;mdm_gsm_gprs.h: 81: typedef enum _SmsRxStsType
+[; ;mdm_gsm_gprs.h: 82: {
+[; ;mdm_gsm_gprs.h: 83: SmsNotReceived = 0,
+[; ;mdm_gsm_gprs.h: 84: SmsReceived
+[; ;mdm_gsm_gprs.h: 85: } SmsRxStsType;
+[; ;mdm_gsm_gprs.h: 91: extern MdmStatusType MdmStatus;
+[; ;mdm_gsm_gprs.h: 93: extern EventStructureType RingEvent;
+[; ;mdm_gsm_gprs.h: 94: extern EventStructureType SmsEvent;
+[; ;mdm_gsm_gprs.h: 95: extern EventStructureType GetSmsText;
+[; ;mdm_gsm_gprs.h: 96: extern EventStructureType SmsTxtReady;
+[; ;mdm_gsm_gprs.h: 97: extern EventStructureType MdmStsReady;
+[; ;mdm_gsm_gprs.h: 98: extern EventStructureType NewStringReceived;
+[; ;mdm_gsm_gprs.h: 99: extern EventStructureType NewMdmEvtParserRequest;
+[; ;mdm_gsm_gprs.h: 100: extern EventStructureType NewStringMdmTerminal;
+[; ;mdm_gsm_gprs.h: 106: void Mdm_MainTask (UINT8 Options);
+[; ;mdm_gsm_gprs.h: 110: void Mdm_PinUnlock (const UINT8 *PIN);
+[; ;mdm_gsm_gprs.h: 114: void Mdm_MakePhoneCall (UINT8 *PhoneNumb, UINT8 PhoneNumbLen);
+[; ;mdm_gsm_gprs.h: 116: void Mdm_HangPhoneCall (void);
+[; ;mdm_gsm_gprs.h: 118: void Mdm_GetPhoneCall (void);
+[; ;mdm_gsm_gprs.h: 120: RingStsType Mdm_IsRinging (void);
+[; ;mdm_gsm_gprs.h: 124: void Mdm_SetSmsFormat (UINT8 TextFormat);
+[; ;mdm_gsm_gprs.h: 126: void Mdm_RequestSmsData (void);
+[; ;mdm_gsm_gprs.h: 128: GetSmsStatusType Mdm_GetSmsData (UINT8 *MessageText);
+[; ;mdm_gsm_gprs.h: 130: void Mdm_SendSmsData (UINT8 *PhoneNmb, UINT8 PhoneNmbLen, UINT8 *MsgTxt, UINT8 MsgTxtLen);
+[; ;mdm_gsm_gprs.h: 132: SmsRxStsType Mdm_IsSmsReceived (void);
+[; ;mdm_gsm_gprs.h: 134: UINT8* GetCallerNumber (void);
+[; ;eeprom_if.h: 41: typedef enum _EepromSts
+[; ;eeprom_if.h: 42: {
+[; ;eeprom_if.h: 43: OP_SUCCESS = 0,
+[; ;eeprom_if.h: 44: OP_FAILED,
+[; ;eeprom_if.h: 45: OP_PENDING
+[; ;eeprom_if.h: 46: } EepromStsType;
+[; ;eeprom_if.h: 57: UINT8 Eeprom_Write (UINT8 MemoryAddress, UINT8* WriteBuffer, UINT8 DataLength);
+[; ;eeprom_if.h: 60: EepromStsType Eeprom_Read (UINT8 MemoryAddress, UINT8* ReadBuffer, UINT8 DataLength);
 [; ;usb_common.h: 133: typedef union
 [; ;usb_common.h: 134: {
 [; ;usb_common.h: 135: uint8_t bitmap;
@@ -8202,9 +8202,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;sf.h: 53: UINT8 StringCompare (UINT8 *String1, UINT8 *String2, UINT16 Len);
 [; ;sf.h: 54: void StringCopy (UINT8 *SourceStr, UINT8 *DestStr, UINT16 Len);
 [; ;sf.h: 55: void ClearBuffer (UINT8 *Buffer, UINT16 Len);
-[; ;term.h: 50: extern UINT16 PhoneNumberLen;
-[; ;term.h: 52: extern char PhoneNumber[20];
-[; ;term.h: 57: void Term_MainTask (UINT8 Options);
+[; ;term.h: 51: extern UINT16 UsbMasterPhoneNumberLen;
+[; ;term.h: 53: extern char UsbMasterPhoneNumber[((UINT16)(15))];
+[; ;term.h: 58: void Term_MainTask (UINT8 Options);
 [; ;ext_int.h: 52: void ExtInt_SetInt0Action (ExtInt_CallbackType Callback);
 [; ;ext_int.h: 53: void ExtInt_SetInt1Action (ExtInt_CallbackType Callback);
 [; ;wdg.h: 53: void Wdg_MainTask (UINT8 Options);

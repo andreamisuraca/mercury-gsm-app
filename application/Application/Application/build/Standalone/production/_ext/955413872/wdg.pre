@@ -10144,7 +10144,7 @@ void Mdm_SetSmsFormat (UINT8 TextFormat);
 
 void Mdm_RequestSmsData (void);
 
-GetSmsStatusType Mdm_GetSmsData (UINT8 *MessageText, UINT8 *MessageHeader);
+GetSmsStatusType Mdm_GetSmsData (UINT8 *MessageText);
 
 void Mdm_SendSmsData (UINT8 *PhoneNmb, UINT8 PhoneNmbLen, UINT8 *MsgTxt, UINT8 MsgTxtLen);
 

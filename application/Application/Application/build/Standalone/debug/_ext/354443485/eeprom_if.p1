@@ -5,10 +5,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _StringCopy `(v ~T0 @X0 0 ef3`*uc`*uc`us ]
 "88 ../../MercuryFwk/Source/h/03_Sml/01_Pml/02_SlvI2c/i2c_slv.h
 [v _I2cSlv_SendI2cMsg `(uc ~T0 @X0 0 ef3`*uc`uc`uc ]
-"96 ../../MercuryFwk/Source/c/03_Sml/01_Pml/05_Eeprom/eeprom_if.c
+"105 ../../MercuryFwk/Source/c/03_Sml/01_Pml/05_Eeprom/eeprom_if.c
 [c E8956 0 1 2 .. ]
 [n E8956 _EepromSts OP_SUCCESS OP_FAILED OP_PENDING  ]
-"97
+"107
 [c E8930 0 1 2 .. ]
 [n E8930 _I2cOpSts OP_IN_PROGRESS OP_COMPLETE OP_TIMEOUT  ]
 "96 ../../MercuryFwk/Source/h/03_Sml/01_Pml/02_SlvI2c/i2c_slv.h
@@ -7486,50 +7486,50 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;mdm_gsm_gprs_http.h: 108: void MdmHttp_QueryIpAddr (IpAddrType *Ip);
 [; ;mdm_gsm_gprs_http.h: 110: void MdmHttp_GetMethod (HttpGetDataType *GetData);
 [; ;mdm_gsm_gprs_http.h: 112: void MdmHttp_PostMethod (HttpPostDataType *PostData);
-[; ;mdm_gsm_gprs.h: 54: typedef enum _MdmStatus
-[; ;mdm_gsm_gprs.h: 55: {
-[; ;mdm_gsm_gprs.h: 56: ModemOff,
-[; ;mdm_gsm_gprs.h: 57: ModemOn,
-[; ;mdm_gsm_gprs.h: 58: ModemReady,
-[; ;mdm_gsm_gprs.h: 59: ModemConfigured,
-[; ;mdm_gsm_gprs.h: 60: ModemSleep
-[; ;mdm_gsm_gprs.h: 61: } MdmStatusType;
-[; ;mdm_gsm_gprs.h: 64: typedef enum _GetSmsStatus
-[; ;mdm_gsm_gprs.h: 65: {
-[; ;mdm_gsm_gprs.h: 66: SmsDataNotReady,
-[; ;mdm_gsm_gprs.h: 67: SmsDataReady,
-[; ;mdm_gsm_gprs.h: 68: } GetSmsStatusType;
-[; ;mdm_gsm_gprs.h: 71: typedef enum _RingStsType
-[; ;mdm_gsm_gprs.h: 72: {
-[; ;mdm_gsm_gprs.h: 73: PhoneNotRinging = 0,
-[; ;mdm_gsm_gprs.h: 74: PhoneRinging
-[; ;mdm_gsm_gprs.h: 75: } RingStsType;
-[; ;mdm_gsm_gprs.h: 78: typedef enum _SmsRxStsType
-[; ;mdm_gsm_gprs.h: 79: {
-[; ;mdm_gsm_gprs.h: 80: SmsNotReceived = 0,
-[; ;mdm_gsm_gprs.h: 81: SmsReceived
-[; ;mdm_gsm_gprs.h: 82: } SmsRxStsType;
-[; ;mdm_gsm_gprs.h: 88: extern MdmStatusType MdmStatus;
-[; ;mdm_gsm_gprs.h: 90: extern EventStructureType RingEvent;
-[; ;mdm_gsm_gprs.h: 91: extern EventStructureType SmsEvent;
-[; ;mdm_gsm_gprs.h: 92: extern EventStructureType GetSmsText;
-[; ;mdm_gsm_gprs.h: 93: extern EventStructureType SmsTxtReady;
-[; ;mdm_gsm_gprs.h: 94: extern EventStructureType MdmStsReady;
-[; ;mdm_gsm_gprs.h: 95: extern EventStructureType NewStringReceived;
-[; ;mdm_gsm_gprs.h: 96: extern EventStructureType NewMdmEvtParserRequest;
-[; ;mdm_gsm_gprs.h: 97: extern EventStructureType NewStringMdmTerminal;
-[; ;mdm_gsm_gprs.h: 103: void Mdm_MainTask (UINT8 Options);
-[; ;mdm_gsm_gprs.h: 107: void Mdm_PinUnlock (const UINT8 *PIN);
-[; ;mdm_gsm_gprs.h: 111: void Mdm_MakePhoneCall (UINT8 *PhoneNumb, UINT8 PhoneNumbLen);
-[; ;mdm_gsm_gprs.h: 113: void Mdm_HangPhoneCall (void);
-[; ;mdm_gsm_gprs.h: 115: void Mdm_GetPhoneCall (void);
-[; ;mdm_gsm_gprs.h: 117: RingStsType Mdm_IsRinging (void);
-[; ;mdm_gsm_gprs.h: 121: void Mdm_SetSmsFormat (UINT8 TextFormat);
-[; ;mdm_gsm_gprs.h: 123: void Mdm_RequestSmsData (void);
-[; ;mdm_gsm_gprs.h: 125: GetSmsStatusType Mdm_GetSmsData (UINT8 *MessageText, UINT8 *MessageHeader);
-[; ;mdm_gsm_gprs.h: 127: void Mdm_SendSmsData (UINT8 *PhoneNmb, UINT8 PhoneNmbLen, UINT8 *MsgTxt, UINT8 MsgTxtLen);
-[; ;mdm_gsm_gprs.h: 129: SmsRxStsType Mdm_IsSmsReceived (void);
-[; ;mdm_gsm_gprs.h: 131: UINT8* GetCallerNumber (void);
+[; ;mdm_gsm_gprs.h: 57: typedef enum _MdmStatus
+[; ;mdm_gsm_gprs.h: 58: {
+[; ;mdm_gsm_gprs.h: 59: ModemOff,
+[; ;mdm_gsm_gprs.h: 60: ModemOn,
+[; ;mdm_gsm_gprs.h: 61: ModemReady,
+[; ;mdm_gsm_gprs.h: 62: ModemConfigured,
+[; ;mdm_gsm_gprs.h: 63: ModemSleep
+[; ;mdm_gsm_gprs.h: 64: } MdmStatusType;
+[; ;mdm_gsm_gprs.h: 67: typedef enum _GetSmsStatus
+[; ;mdm_gsm_gprs.h: 68: {
+[; ;mdm_gsm_gprs.h: 69: SmsDataNotReady,
+[; ;mdm_gsm_gprs.h: 70: SmsDataReady,
+[; ;mdm_gsm_gprs.h: 71: } GetSmsStatusType;
+[; ;mdm_gsm_gprs.h: 74: typedef enum _RingStsType
+[; ;mdm_gsm_gprs.h: 75: {
+[; ;mdm_gsm_gprs.h: 76: PhoneNotRinging = 0,
+[; ;mdm_gsm_gprs.h: 77: PhoneRinging
+[; ;mdm_gsm_gprs.h: 78: } RingStsType;
+[; ;mdm_gsm_gprs.h: 81: typedef enum _SmsRxStsType
+[; ;mdm_gsm_gprs.h: 82: {
+[; ;mdm_gsm_gprs.h: 83: SmsNotReceived = 0,
+[; ;mdm_gsm_gprs.h: 84: SmsReceived
+[; ;mdm_gsm_gprs.h: 85: } SmsRxStsType;
+[; ;mdm_gsm_gprs.h: 91: extern MdmStatusType MdmStatus;
+[; ;mdm_gsm_gprs.h: 93: extern EventStructureType RingEvent;
+[; ;mdm_gsm_gprs.h: 94: extern EventStructureType SmsEvent;
+[; ;mdm_gsm_gprs.h: 95: extern EventStructureType GetSmsText;
+[; ;mdm_gsm_gprs.h: 96: extern EventStructureType SmsTxtReady;
+[; ;mdm_gsm_gprs.h: 97: extern EventStructureType MdmStsReady;
+[; ;mdm_gsm_gprs.h: 98: extern EventStructureType NewStringReceived;
+[; ;mdm_gsm_gprs.h: 99: extern EventStructureType NewMdmEvtParserRequest;
+[; ;mdm_gsm_gprs.h: 100: extern EventStructureType NewStringMdmTerminal;
+[; ;mdm_gsm_gprs.h: 106: void Mdm_MainTask (UINT8 Options);
+[; ;mdm_gsm_gprs.h: 110: void Mdm_PinUnlock (const UINT8 *PIN);
+[; ;mdm_gsm_gprs.h: 114: void Mdm_MakePhoneCall (UINT8 *PhoneNumb, UINT8 PhoneNumbLen);
+[; ;mdm_gsm_gprs.h: 116: void Mdm_HangPhoneCall (void);
+[; ;mdm_gsm_gprs.h: 118: void Mdm_GetPhoneCall (void);
+[; ;mdm_gsm_gprs.h: 120: RingStsType Mdm_IsRinging (void);
+[; ;mdm_gsm_gprs.h: 124: void Mdm_SetSmsFormat (UINT8 TextFormat);
+[; ;mdm_gsm_gprs.h: 126: void Mdm_RequestSmsData (void);
+[; ;mdm_gsm_gprs.h: 128: GetSmsStatusType Mdm_GetSmsData (UINT8 *MessageText);
+[; ;mdm_gsm_gprs.h: 130: void Mdm_SendSmsData (UINT8 *PhoneNmb, UINT8 PhoneNmbLen, UINT8 *MsgTxt, UINT8 MsgTxtLen);
+[; ;mdm_gsm_gprs.h: 132: SmsRxStsType Mdm_IsSmsReceived (void);
+[; ;mdm_gsm_gprs.h: 134: UINT8* GetCallerNumber (void);
 [; ;usb_common.h: 133: typedef union
 [; ;usb_common.h: 134: {
 [; ;usb_common.h: 135: uint8_t bitmap;
@@ -8178,9 +8178,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;sf.h: 53: UINT8 StringCompare (UINT8 *String1, UINT8 *String2, UINT16 Len);
 [; ;sf.h: 54: void StringCopy (UINT8 *SourceStr, UINT8 *DestStr, UINT16 Len);
 [; ;sf.h: 55: void ClearBuffer (UINT8 *Buffer, UINT16 Len);
-[; ;term.h: 50: extern UINT16 PhoneNumberLen;
-[; ;term.h: 52: extern char PhoneNumber[20];
-[; ;term.h: 57: void Term_MainTask (UINT8 Options);
+[; ;term.h: 51: extern UINT16 UsbMasterPhoneNumberLen;
+[; ;term.h: 53: extern char UsbMasterPhoneNumber[((UINT16)(15))];
+[; ;term.h: 58: void Term_MainTask (UINT8 Options);
 [; ;ext_int.h: 52: void ExtInt_SetInt0Action (ExtInt_CallbackType Callback);
 [; ;ext_int.h: 53: void ExtInt_SetInt1Action (ExtInt_CallbackType Callback);
 [; ;wdg.h: 53: void Wdg_MainTask (UINT8 Options);
@@ -8227,126 +8227,136 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;i2c_slv.h: 92: I2cReadMsgStsType I2cSlv_I2cReadMsgSts (void);
 [; ;i2c_slv.h: 94: I2cCommStsType I2cSlv_GetI2cSts(void);
 [; ;i2c_slv.h: 96: I2cOpStsType I2cSlv_QueryI2cData (UINT8* TxBuffer, UINT8 TxLen, UINT8* RxBuffer, UINT8 RxLen, UINT8 SlaveAddr);
-[; ;eeprom_if.h: 43: typedef enum _EepromSts
-[; ;eeprom_if.h: 44: {
-[; ;eeprom_if.h: 45: OP_SUCCESS = 0,
-[; ;eeprom_if.h: 46: OP_FAILED,
-[; ;eeprom_if.h: 47: OP_PENDING
-[; ;eeprom_if.h: 48: } EepromStsType;
-[; ;eeprom_if.h: 58: UINT8 Eeprom_Write (UINT8 MemoryAddress, UINT8* WriteBuffer, UINT8 DataLength);
-[; ;eeprom_if.h: 61: EepromStsType Eeprom_Read (UINT8 MemoryAddress, UINT8* ReadBuffer, UINT8 DataLength);
-"44 ../../MercuryFwk/Source/c/03_Sml/01_Pml/05_Eeprom/eeprom_if.c
+[; ;eeprom_if.h: 41: typedef enum _EepromSts
+[; ;eeprom_if.h: 42: {
+[; ;eeprom_if.h: 43: OP_SUCCESS = 0,
+[; ;eeprom_if.h: 44: OP_FAILED,
+[; ;eeprom_if.h: 45: OP_PENDING
+[; ;eeprom_if.h: 46: } EepromStsType;
+[; ;eeprom_if.h: 57: UINT8 Eeprom_Write (UINT8 MemoryAddress, UINT8* WriteBuffer, UINT8 DataLength);
+[; ;eeprom_if.h: 60: EepromStsType Eeprom_Read (UINT8 MemoryAddress, UINT8* ReadBuffer, UINT8 DataLength);
+"47 ../../MercuryFwk/Source/c/03_Sml/01_Pml/05_Eeprom/eeprom_if.c
 [v _EepromBuffer `uc ~T0 @X0 -> 15 `i s ]
-[; ;eeprom_if.c: 44: static UINT8 EepromBuffer[15];
-"45
+[; ;eeprom_if.c: 47: static UINT8 EepromBuffer[15];
+"50
 [v _ReadAddress `uc ~T0 @X0 -> -> 1 `i `ux s ]
-[; ;eeprom_if.c: 45: static UINT8 ReadAddress[1];
-"72
+[; ;eeprom_if.c: 50: static UINT8 ReadAddress[1];
+"78
 [v _Eeprom_Write `(uc ~T0 @X0 1 ef3`uc`*uc`uc ]
-"73
+"79
 {
-[; ;eeprom_if.c: 72: UINT8 Eeprom_Write (UINT8 MemoryAddress, UINT8* WriteBuffer, UINT8 DataLength)
-[; ;eeprom_if.c: 73: {
+[; ;eeprom_if.c: 78: UINT8 Eeprom_Write (UINT8 MemoryAddress, UINT8* WriteBuffer, UINT8 DataLength)
+[; ;eeprom_if.c: 79: {
 [e :U _Eeprom_Write ]
-"72
+"78
 [v _MemoryAddress `uc ~T0 @X0 1 r1 ]
 [v _WriteBuffer `*uc ~T0 @X0 1 r2 ]
 [v _DataLength `uc ~T0 @X0 1 r3 ]
-"73
-[f ]
-"74
-[v _WriteSts `uc ~T0 @X0 1 a ]
-[; ;eeprom_if.c: 74: UINT8 WriteSts = 0u;
-[e = _WriteSts -> -> 0 `ui `uc ]
-"75
-[v _SlaveAddress `uc ~T0 @X0 1 a ]
-[; ;eeprom_if.c: 75: UINT8 SlaveAddress = 0x50;
-[e = _SlaveAddress -> -> 80 `i `uc ]
-"76
-[v _CommandLength `Cuc ~T0 @X0 1 a ]
-[; ;eeprom_if.c: 76: const UINT8 CommandLength = DataLength + 1;
-[e = _CommandLength -> + -> _DataLength `i -> 1 `i `uc ]
-[; ;eeprom_if.c: 78: EepromBuffer[0] = MemoryAddress;
-"78
-[e = *U + &U _EepromBuffer * -> -> -> 0 `i `ui `ux -> -> # *U &U _EepromBuffer `ui `ux _MemoryAddress ]
-[; ;eeprom_if.c: 79: StringCopy(WriteBuffer, EepromBuffer + 1, DataLength);
 "79
-[e ( _StringCopy (3 , , _WriteBuffer + &U _EepromBuffer * -> -> 1 `i `x -> -> # *U &U _EepromBuffer `i `x -> _DataLength `us ]
-[; ;eeprom_if.c: 81: WriteSts = I2cSlv_SendI2cMsg(EepromBuffer, SlaveAddress, CommandLength);
+[f ]
+"80
+[v _SlaveAddress `Cuc ~T0 @X0 1 a ]
+[; ;eeprom_if.c: 80: const UINT8 SlaveAddress = 0x50;
+[e = _SlaveAddress -> -> 80 `i `uc ]
 "81
-[e = _WriteSts ( _I2cSlv_SendI2cMsg (3 , , &U _EepromBuffer _SlaveAddress _CommandLength ]
-[; ;eeprom_if.c: 82: return WriteSts;
+[v _CommandLength `Cuc ~T0 @X0 1 a ]
+[; ;eeprom_if.c: 81: const UINT8 CommandLength = DataLength + 1;
+[e = _CommandLength -> + -> _DataLength `i -> 1 `i `uc ]
 "82
+[v _WriteSts `uc ~T0 @X0 1 a ]
+[; ;eeprom_if.c: 82: UINT8 WriteSts = 0u;
+[e = _WriteSts -> -> 0 `ui `uc ]
+[; ;eeprom_if.c: 84: if (CommandLength <= 15)
+"84
+[e $ ! <= -> _CommandLength `i -> 15 `i 888  ]
+[; ;eeprom_if.c: 85: {
+"85
+{
+[; ;eeprom_if.c: 86: EepromBuffer[0] = MemoryAddress;
+"86
+[e = *U + &U _EepromBuffer * -> -> -> 0 `i `ui `ux -> -> # *U &U _EepromBuffer `ui `ux _MemoryAddress ]
+[; ;eeprom_if.c: 87: StringCopy(WriteBuffer, EepromBuffer + 1, DataLength);
+"87
+[e ( _StringCopy (3 , , _WriteBuffer + &U _EepromBuffer * -> -> 1 `i `x -> -> # *U &U _EepromBuffer `i `x -> _DataLength `us ]
+[; ;eeprom_if.c: 89: WriteSts = I2cSlv_SendI2cMsg(EepromBuffer, SlaveAddress, CommandLength);
+"89
+[e = _WriteSts ( _I2cSlv_SendI2cMsg (3 , , &U _EepromBuffer _SlaveAddress _CommandLength ]
+"90
+}
+[e :U 888 ]
+[; ;eeprom_if.c: 90: }
+[; ;eeprom_if.c: 91: return WriteSts;
+"91
 [e ) _WriteSts ]
 [e $UE 887  ]
-[; ;eeprom_if.c: 83: }
-"83
+[; ;eeprom_if.c: 92: }
+"92
 [e :UE 887 ]
 }
-"95
+"104
 [v _Eeprom_Read `(E8956 ~T0 @X0 1 ef3`uc`*uc`uc ]
-"96
+"105
 {
-[; ;eeprom_if.c: 95: EepromStsType Eeprom_Read (UINT8 MemoryAddress, UINT8* ReadBuffer, UINT8 DataLength)
-[; ;eeprom_if.c: 96: {
+[; ;eeprom_if.c: 104: EepromStsType Eeprom_Read (UINT8 MemoryAddress, UINT8* ReadBuffer, UINT8 DataLength)
+[; ;eeprom_if.c: 105: {
 [e :U _Eeprom_Read ]
-"95
+"104
 [v _MemoryAddress `uc ~T0 @X0 1 r1 ]
 [v _ReadBuffer `*uc ~T0 @X0 1 r2 ]
 [v _DataLength `uc ~T0 @X0 1 r3 ]
-"96
-[f ]
-"97
-[v _QuerySts `E8930 ~T0 @X0 1 a ]
-[; ;eeprom_if.c: 97: I2cOpStsType QuerySts = OP_IN_PROGRESS;
-[e = _QuerySts . `E8930 0 ]
-"98
-[v _ReadSts `E8956 ~T0 @X0 1 a ]
-[; ;eeprom_if.c: 98: EepromStsType ReadSts = OP_PENDING;
-[e = _ReadSts . `E8956 2 ]
-"99
-[v _SlaveAddress `uc ~T0 @X0 1 a ]
-[; ;eeprom_if.c: 99: UINT8 SlaveAddress = 0x50;
-[e = _SlaveAddress -> -> 80 `i `uc ]
-[; ;eeprom_if.c: 100: ReadAddress[0] = MemoryAddress;
-"100
-[e = *U + &U _ReadAddress * -> -> -> 0 `i `ui `ux -> -> # *U &U _ReadAddress `ui `ux _MemoryAddress ]
-[; ;eeprom_if.c: 102: QuerySts = I2cSlv_QueryI2cData(ReadAddress, 1, ReadBuffer, DataLength, SlaveAddress);
-"102
-[e = _QuerySts ( _I2cSlv_QueryI2cData (4 , , , , &U _ReadAddress -> -> 1 `i `uc _ReadBuffer _DataLength _SlaveAddress ]
-[; ;eeprom_if.c: 104: if (QuerySts == OP_COMPLETE)
-"104
-[e $ ! == -> _QuerySts `i -> . `E8930 1 `i 889  ]
-[; ;eeprom_if.c: 105: {
 "105
-{
-[; ;eeprom_if.c: 106: ReadSts = OP_SUCCESS;
+[f ]
 "106
-[e = _ReadSts . `E8956 0 ]
+[v _SlaveAddress `Cuc ~T0 @X0 1 a ]
+[; ;eeprom_if.c: 106: const UINT8 SlaveAddress = 0x50;
+[e = _SlaveAddress -> -> 80 `i `uc ]
 "107
-}
-[; ;eeprom_if.c: 107: }
-[e $U 890  ]
+[v _QuerySts `E8930 ~T0 @X0 1 a ]
+[; ;eeprom_if.c: 107: I2cOpStsType QuerySts = OP_IN_PROGRESS;
+[e = _QuerySts . `E8930 0 ]
 "108
-[e :U 889 ]
-[; ;eeprom_if.c: 108: else if (QuerySts == OP_TIMEOUT)
-[e $ ! == -> _QuerySts `i -> . `E8930 2 `i 891  ]
-[; ;eeprom_if.c: 109: {
+[v _ReadSts `E8956 ~T0 @X0 1 a ]
+[; ;eeprom_if.c: 108: EepromStsType ReadSts = OP_PENDING;
+[e = _ReadSts . `E8956 2 ]
+[; ;eeprom_if.c: 109: ReadAddress[0] = MemoryAddress;
 "109
-{
-[; ;eeprom_if.c: 110: ReadSts = OP_FAILED;
-"110
-[e = _ReadSts . `E8956 1 ]
+[e = *U + &U _ReadAddress * -> -> -> 0 `i `ui `ux -> -> # *U &U _ReadAddress `ui `ux _MemoryAddress ]
+[; ;eeprom_if.c: 111: QuerySts = I2cSlv_QueryI2cData(ReadAddress, 1, ReadBuffer, DataLength, SlaveAddress);
 "111
-}
-[e :U 891 ]
-"112
-[e :U 890 ]
-[; ;eeprom_if.c: 111: }
-[; ;eeprom_if.c: 112: return ReadSts;
-[e ) _ReadSts ]
-[e $UE 888  ]
-[; ;eeprom_if.c: 113: }
+[e = _QuerySts ( _I2cSlv_QueryI2cData (4 , , , , &U _ReadAddress -> -> 1 `i `uc _ReadBuffer _DataLength _SlaveAddress ]
+[; ;eeprom_if.c: 113: if (QuerySts == OP_COMPLETE)
 "113
-[e :UE 888 ]
+[e $ ! == -> _QuerySts `i -> . `E8930 1 `i 890  ]
+[; ;eeprom_if.c: 114: {
+"114
+{
+[; ;eeprom_if.c: 115: ReadSts = OP_SUCCESS;
+"115
+[e = _ReadSts . `E8956 0 ]
+"116
+}
+[; ;eeprom_if.c: 116: }
+[e $U 891  ]
+"117
+[e :U 890 ]
+[; ;eeprom_if.c: 117: else if (QuerySts == OP_TIMEOUT)
+[e $ ! == -> _QuerySts `i -> . `E8930 2 `i 892  ]
+[; ;eeprom_if.c: 118: {
+"118
+{
+[; ;eeprom_if.c: 119: ReadSts = OP_FAILED;
+"119
+[e = _ReadSts . `E8956 1 ]
+"120
+}
+[e :U 892 ]
+"121
+[e :U 891 ]
+[; ;eeprom_if.c: 120: }
+[; ;eeprom_if.c: 121: return ReadSts;
+[e ) _ReadSts ]
+[e $UE 889  ]
+[; ;eeprom_if.c: 122: }
+"122
+[e :UE 889 ]
 }

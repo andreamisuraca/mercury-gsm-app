@@ -10078,7 +10078,7 @@ void MdmHttp_GetMethod (HttpGetDataType *GetData);
 
 void MdmHttp_PostMethod (HttpPostDataType *PostData);
 
-# 54 "../../MercuryFwk/Source/h/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.h"
+# 57 "../../MercuryFwk/Source/h/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.h"
 typedef enum _MdmStatus
 {
 ModemOff,
@@ -10109,7 +10109,7 @@ SmsNotReceived = 0,
 SmsReceived
 } SmsRxStsType;
 
-# 88
+# 91
 extern MdmStatusType MdmStatus;
 
 extern EventStructureType RingEvent;
@@ -10121,7 +10121,7 @@ extern EventStructureType NewStringReceived;
 extern EventStructureType NewMdmEvtParserRequest;
 extern EventStructureType NewStringMdmTerminal;
 
-# 103
+# 106
 void Mdm_MainTask (UINT8 Options);
 
 
@@ -10144,7 +10144,7 @@ void Mdm_SetSmsFormat (UINT8 TextFormat);
 
 void Mdm_RequestSmsData (void);
 
-GetSmsStatusType Mdm_GetSmsData (UINT8 *MessageText, UINT8 *MessageHeader);
+GetSmsStatusType Mdm_GetSmsData (UINT8 *MessageText);
 
 void Mdm_SendSmsData (UINT8 *PhoneNmb, UINT8 PhoneNmbLen, UINT8 *MsgTxt, UINT8 MsgTxtLen);
 
@@ -10152,7 +10152,7 @@ SmsRxStsType Mdm_IsSmsReceived (void);
 
 UINT8* GetCallerNumber (void);
 
-# 43 "../../MercuryFwk/Source/h/03_Sml/01_Pml/05_Eeprom/eeprom_if.h"
+# 41 "../../MercuryFwk/Source/h/03_Sml/01_Pml/05_Eeprom/eeprom_if.h"
 typedef enum _EepromSts
 {
 OP_SUCCESS = 0,
@@ -10160,7 +10160,7 @@ OP_FAILED,
 OP_PENDING
 } EepromStsType;
 
-# 58
+# 57
 UINT8 Eeprom_Write (UINT8 MemoryAddress, UINT8* WriteBuffer, UINT8 DataLength);
 
 
@@ -11170,12 +11170,12 @@ void Sysm_SleepMode (void);
 
 void Sysm_DeepSleepMode (void);
 
-# 50 "../../MercuryFwk/Source/h/03_Sml/02_Ssl/term.h"
-extern UINT16 PhoneNumberLen;
+# 51 "../../MercuryFwk/Source/h/03_Sml/02_Ssl/term.h"
+extern UINT16 UsbMasterPhoneNumberLen;
 
-extern char PhoneNumber[20];
+extern char UsbMasterPhoneNumber[((UINT16)(15))];
 
-# 57
+# 58
 void Term_MainTask (UINT8 Options);
 
 # 52 "../../MercuryFwk/Source/h/03_Sml/02_Ssl/ext_int.h"

@@ -1,7 +1,7 @@
 /************************************************************************
 *                          EEPROM Interface                             *
 *************************************************************************
-* FileName:         app_init.h                                          *
+* FileName:         app_gate.h                                          *
 * HW:               Mercury System                                      *
 * Author:           A.Misuraca                                          *
 *                                                                       *
@@ -20,11 +20,11 @@
 * --------------------------------------------------------------------- *
 * Author       Date        Version      Comment                         *
 * ---------------------------------------------------------------------	*
-* A.Misuraca   19/03/21    1.0          First release                   *
+* A.Misuraca   20/03/21    1.0          First release                   *
 ************************************************************************/
 
-#ifndef APP_INIT_H
-#define	APP_INIT_H
+#ifndef APP_GATE_H
+#define	APP_GATE_H
 
 /************************************************************************
 * Includes
@@ -34,7 +34,7 @@
 * EXPORTED Defines
 ************************************************************************/
 
-#define PREAMBLE_LENGTH     5
+#define INIT_NUMBER_ADDRESS     16
 /************************************************************************
 * EXPORTED Typedef
 ************************************************************************/
@@ -43,15 +43,12 @@
 * EXPORTED Variables
 ************************************************************************/
 
-extern bool isMemoryEmpty;
-
-extern uint8_t memorizedNumbersCount[1];
 /************************************************************************
 * EXPORTED Functions
 ************************************************************************/
 
-bool initFsm(void);
+bool waitSetupCall(void);
+void saveMasterNumber(UINT8 address, UINT8* phoneNumber);
+void updateMemorizedNumbersCount();
 
-uint8_t* initPreamble();
-
-#endif    /* APP_INIT_H */
+#endif    /* APP_GATE_H */

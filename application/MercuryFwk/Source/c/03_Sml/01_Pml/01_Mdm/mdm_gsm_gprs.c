@@ -882,14 +882,14 @@ void Mdm_RequestSmsData (void)
 
 /************************************************************************
 * Function:     Mdm_GetSmsData
-* Input:        UINT8 *MessageText, UINT8 *MessageHeader
+* Input:        UINT8 *MessageText
 * Output:       GetSmsStatusType 
 * Author:       F.Ficili
 * Description:  API to get the SMS data to the modem. The data must be 
 *               requested before using the Mdm_GetSmsData API.
 * Date:         25/09/16
 ************************************************************************/
-GetSmsStatusType Mdm_GetSmsData (UINT8 *MessageText, UINT8 *MessageHeader)
+GetSmsStatusType Mdm_GetSmsData (UINT8 *MessageText)
 {
    GetSmsStatusType GetSmsStatus = SmsDataNotReady;
    
@@ -898,7 +898,7 @@ GetSmsStatusType Mdm_GetSmsData (UINT8 *MessageText, UINT8 *MessageHeader)
    {
       /* ...Copy text data */
       StringCopy(Mdm_SmsRx.MessageBuffer, MessageText, Mdm_SmsRx.TextLen + 1);
-      StringCopy(Mdm_SmsRx.HeaderBuffer + 21, MessageHeader, PHONE_NUMBER_LEN);
+      StringCopy(Mdm_SmsRx.HeaderBuffer + 21, callerNumber, PHONE_NUMBER_LEN);
       /* Update status */
       GetSmsStatus = SmsDataReady;
    }

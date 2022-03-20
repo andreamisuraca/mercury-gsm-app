@@ -7634,7 +7634,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;mdm_gsm_gprs.h: 120: RingStsType Mdm_IsRinging (void);
 [; ;mdm_gsm_gprs.h: 124: void Mdm_SetSmsFormat (UINT8 TextFormat);
 [; ;mdm_gsm_gprs.h: 126: void Mdm_RequestSmsData (void);
-[; ;mdm_gsm_gprs.h: 128: GetSmsStatusType Mdm_GetSmsData (UINT8 *MessageText, UINT8 *MessageHeader);
+[; ;mdm_gsm_gprs.h: 128: GetSmsStatusType Mdm_GetSmsData (UINT8 *MessageText);
 [; ;mdm_gsm_gprs.h: 130: void Mdm_SendSmsData (UINT8 *PhoneNmb, UINT8 PhoneNmbLen, UINT8 *MsgTxt, UINT8 MsgTxtLen);
 [; ;mdm_gsm_gprs.h: 132: SmsRxStsType Mdm_IsSmsReceived (void);
 [; ;mdm_gsm_gprs.h: 134: UINT8* GetCallerNumber (void);
@@ -8402,9 +8402,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :UE 891 ]
 }
 [v $root$_HighPriorityIsr `(v ~T0 @X0 0 e ]
-[v F8979 `(v ~T0 @X0 1 tf ]
+[v F8978 `(v ~T0 @X0 1 tf ]
 "153
-[v _HighPriorityIsr `IHF8979 ~T0 @X0 1 e ]
+[v _HighPriorityIsr `IHF8978 ~T0 @X0 1 e ]
 "154
 {
 [; ;irq.c: 153: void high_priority interrupt HighPriorityIsr (void)
@@ -8468,9 +8468,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :UE 892 ]
 }
 [v $root$_LowPriorityIsr `(v ~T0 @X0 0 e ]
-[v F8986 `(v ~T0 @X0 1 tf ]
+[v F8985 `(v ~T0 @X0 1 tf ]
 "236
-[v _LowPriorityIsr `ILF8986 ~T0 @X0 1 e ]
+[v _LowPriorityIsr `ILF8985 ~T0 @X0 1 e ]
 "237
 {
 [; ;irq.c: 236: void low_priority interrupt LowPriorityIsr (void)

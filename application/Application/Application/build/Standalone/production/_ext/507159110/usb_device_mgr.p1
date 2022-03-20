@@ -8,20 +8,20 @@ Version 3.2 HI-TECH Software Intermediate Code
 "831 ../../MercuryFwk/Source/h/03_Sml/01_Pml/04_Usb/usb_device_cdc.h
 [v _CDCTxService `(v ~T0 @X0 0 ef ]
 "74 ../../MercuryFwk/Source/c/03_Sml/01_Pml/04_Usb/usb_device_mgr.c
-[c E8343 0 1 .. ]
-[n E8343 SystemStateEnum InitializationState RunningState  ]
+[c E8342 0 1 .. ]
+[n E8342 SystemStateEnum InitializationState RunningState  ]
 "79 ../../MercuryFwk/Source/h/02_Osl/os_sched.h
-[v _SystemState `E8343 ~T0 @X0 0 e ]
+[v _SystemState `E8342 ~T0 @X0 0 e ]
 "105 ../../MercuryFwk/Source/c/03_Sml/01_Pml/04_Usb/usb_device_mgr.c
-[c E8363 0 1 100 101 102 103 104 105 106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 400 500 600 700 800 900 1000 10000 32767 .. ]
-[n E8363 . EVENT_NONE EVENT_DEVICE_STACK_BASE EVENT_HOST_STACK_BASE EVENT_HUB_ATTACH EVENT_STALL EVENT_VBUS_SES_REQUEST EVENT_VBUS_OVERCURRENT EVENT_VBUS_REQUEST_POWER EVENT_VBUS_RELEASE_POWER EVENT_VBUS_POWER_AVAILABLE EVENT_UNSUPPORTED_DEVICE EVENT_CANNOT_ENUMERATE EVENT_CLIENT_INIT_ERROR EVENT_OUT_OF_MEMORY EVENT_UNSPECIFIED_ERROR EVENT_DETACH EVENT_TRANSFER EVENT_SOF EVENT_RESUME EVENT_SUSPEND EVENT_RESET EVENT_DATA_ISOC_READ EVENT_DATA_ISOC_WRITE EVENT_OVERRIDE_CLIENT_DRIVER_SELECTION EVENT_1MS EVENT_ALT_INTERFACE EVENT_HOLD_BEFORE_CONFIGURATION EVENT_GENERIC_BASE EVENT_MSD_BASE EVENT_HID_BASE EVENT_PRINTER_BASE EVENT_CDC_BASE EVENT_CHARGER_BASE EVENT_AUDIO_BASE EVENT_USER_BASE EVENT_BUS_ERROR  ]
+[c E8362 0 1 100 101 102 103 104 105 106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 400 500 600 700 800 900 1000 10000 32767 .. ]
+[n E8362 . EVENT_NONE EVENT_DEVICE_STACK_BASE EVENT_HOST_STACK_BASE EVENT_HUB_ATTACH EVENT_STALL EVENT_VBUS_SES_REQUEST EVENT_VBUS_OVERCURRENT EVENT_VBUS_REQUEST_POWER EVENT_VBUS_RELEASE_POWER EVENT_VBUS_POWER_AVAILABLE EVENT_UNSUPPORTED_DEVICE EVENT_CANNOT_ENUMERATE EVENT_CLIENT_INIT_ERROR EVENT_OUT_OF_MEMORY EVENT_UNSPECIFIED_ERROR EVENT_DETACH EVENT_TRANSFER EVENT_SOF EVENT_RESUME EVENT_SUSPEND EVENT_RESET EVENT_DATA_ISOC_READ EVENT_DATA_ISOC_WRITE EVENT_OVERRIDE_CLIENT_DRIVER_SELECTION EVENT_1MS EVENT_ALT_INTERFACE EVENT_HOLD_BEFORE_CONFIGURATION EVENT_GENERIC_BASE EVENT_MSD_BASE EVENT_HID_BASE EVENT_PRINTER_BASE EVENT_CDC_BASE EVENT_CHARGER_BASE EVENT_AUDIO_BASE EVENT_USER_BASE EVENT_BUS_ERROR  ]
 "536 ../../MercuryFwk/Source/h/03_Sml/01_Pml/04_Usb/usb_device_cdc.h
 [v _CDCInitEP `(v ~T0 @X0 0 ef ]
 "562
 [v _USBCheckCDCRequest `(v ~T0 @X0 0 ef ]
 "106 ../../MercuryFwk/Source/c/03_Sml/01_Pml/04_Usb/usb_device_mgr.c
-[c E8431 1 2 3 4 5 .. ]
-[n E8431 . EVENT_CONFIGURED EVENT_SET_DESCRIPTOR EVENT_EP0_REQUEST EVENT_ATTACH EVENT_TRANSFER_TERMINATED  ]
+[c E8430 1 2 3 4 5 .. ]
+[n E8430 . EVENT_CONFIGURED EVENT_SET_DESCRIPTOR EVENT_EP0_REQUEST EVENT_ATTACH EVENT_TRANSFER_TERMINATED  ]
 "30 ../../MercuryFwk/Source/h/01_Hal/01_Sys/hal.h
 [p n 1510 ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
@@ -7563,7 +7563,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;mdm_gsm_gprs.h: 120: RingStsType Mdm_IsRinging (void);
 [; ;mdm_gsm_gprs.h: 124: void Mdm_SetSmsFormat (UINT8 TextFormat);
 [; ;mdm_gsm_gprs.h: 126: void Mdm_RequestSmsData (void);
-[; ;mdm_gsm_gprs.h: 128: GetSmsStatusType Mdm_GetSmsData (UINT8 *MessageText, UINT8 *MessageHeader);
+[; ;mdm_gsm_gprs.h: 128: GetSmsStatusType Mdm_GetSmsData (UINT8 *MessageText);
 [; ;mdm_gsm_gprs.h: 130: void Mdm_SendSmsData (UINT8 *PhoneNmb, UINT8 PhoneNmbLen, UINT8 *MsgTxt, UINT8 MsgTxtLen);
 [; ;mdm_gsm_gprs.h: 132: SmsRxStsType Mdm_IsSmsReceived (void);
 [; ;mdm_gsm_gprs.h: 134: UINT8* GetCallerNumber (void);
@@ -8295,8 +8295,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $U 888  ]
 "74
 [e :U 889 ]
-[e [\ _SystemState , $ . `E8343 0 890
- , $ . `E8343 1 891
+[e [\ _SystemState , $ . `E8342 0 890
+ , $ . `E8342 1 891
  892 ]
 "101
 [e :U 888 ]
@@ -8305,14 +8305,14 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :UE 887 ]
 }
 "104
-[v _USER_USB_CALLBACK_EVENT_HANDLER `(uc ~T0 @X0 1 ef3`E8363`*v`ui ]
+[v _USER_USB_CALLBACK_EVENT_HANDLER `(uc ~T0 @X0 1 ef3`E8362`*v`ui ]
 "105
 {
 [; ;usb_device_mgr.c: 104: bool USER_USB_CALLBACK_EVENT_HANDLER(USB_EVENT event, void *pdata, uint16_t size)
 [; ;usb_device_mgr.c: 105: {
 [e :U _USER_USB_CALLBACK_EVENT_HANDLER ]
 "104
-[v _event `E8363 ~T0 @X0 1 r1 ]
+[v _event `E8362 ~T0 @X0 1 r1 ]
 [v _pdata `*v ~T0 @X0 1 r2 ]
 [v _size `ui ~T0 @X0 1 r3 ]
 "105
@@ -8395,15 +8395,15 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $U 894  ]
 "106
 [e :U 895 ]
-[e [\ -> _event `i , $ -> . `E8363 16 `i 896
- , $ -> . `E8363 17 `i 897
- , $ -> . `E8363 19 `i 898
- , $ -> . `E8363 18 `i 899
- , $ -> . `E8431 0 `i 900
- , $ -> . `E8431 1 `i 901
- , $ -> . `E8431 2 `i 902
- , $ -> . `E8363 35 `i 903
- , $ -> . `E8431 4 `i 904
+[e [\ -> _event `i , $ -> . `E8362 16 `i 896
+ , $ -> . `E8362 17 `i 897
+ , $ -> . `E8362 19 `i 898
+ , $ -> . `E8362 18 `i 899
+ , $ -> . `E8430 0 `i 900
+ , $ -> . `E8430 1 `i 901
+ , $ -> . `E8430 2 `i 902
+ , $ -> . `E8362 35 `i 903
+ , $ -> . `E8430 4 `i 904
  905 ]
 "163
 [e :U 894 ]

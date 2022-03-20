@@ -10100,7 +10100,7 @@ void Mdm_SetSmsFormat (UINT8 TextFormat);
 
 void Mdm_RequestSmsData (void);
 
-GetSmsStatusType Mdm_GetSmsData (UINT8 *MessageText, UINT8 *MessageHeader);
+GetSmsStatusType Mdm_GetSmsData (UINT8 *MessageText);
 
 void Mdm_SendSmsData (UINT8 *PhoneNmb, UINT8 PhoneNmbLen, UINT8 *MsgTxt, UINT8 MsgTxtLen);
 
@@ -11230,7 +11230,7 @@ const UINT8 SlaveAddress = 0x50;
 const UINT8 CommandLength = DataLength + 1;
 UINT8 WriteSts = 0u;
 
-if (DataLength <= 15)
+if (CommandLength <= 15)
 {
 EepromBuffer[0] = MemoryAddress;
 StringCopy(WriteBuffer, EepromBuffer + 1, DataLength);

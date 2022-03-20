@@ -11926,7 +11926,7 @@ if (ReceiveEvt(&SmsTxtReady))
 {
 
 StringCopy(Mdm_SmsRx.MessageBuffer, MessageText, Mdm_SmsRx.TextLen + 1);
-StringCopy(Mdm_SmsRx.HeaderBuffer + 21, callerNumber, ((UINT8)(14)));
+StringCopy(Mdm_SmsRx.HeaderBuffer + 21, callerNumber, ((UINT8)(14)) - 1);
 
 GetSmsStatus = SmsDataReady;
 }

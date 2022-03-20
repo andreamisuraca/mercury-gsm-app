@@ -92,7 +92,7 @@ bool initGprsModem(void)
         case MODEM_INIT:
             if (MdmStatus == ModemConfigured || MdmStatus == ModemOn)
             {
-                if (secondsAppTimer(4, &modemCounter, false))
+                if (secondsAppTimer(5, &modemCounter, false))
                 {
                     Mdm_SetSmsFormat(1);
                     currentState = MODEM_DELETE_SMS;

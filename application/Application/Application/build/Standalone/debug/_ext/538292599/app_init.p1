@@ -8324,9 +8324,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;app_init.c: 94: {
 "94
 {
-[; ;app_init.c: 95: if (secondsAppTimer(4, &modemCounter, 0))
+[; ;app_init.c: 95: if (secondsAppTimer(5, &modemCounter, 0))
 "95
-[e $ ! != -> ( _secondsAppTimer (3 , , -> -> 4 `i `uc &U F9000 -> -> 0 `i `uc `i -> -> -> 0 `i `uc `i 892  ]
+[e $ ! != -> ( _secondsAppTimer (3 , , -> -> 5 `i `uc &U F9000 -> -> 0 `i `uc `i -> -> -> 0 `i `uc `i 892  ]
 [; ;app_init.c: 96: {
 "96
 {

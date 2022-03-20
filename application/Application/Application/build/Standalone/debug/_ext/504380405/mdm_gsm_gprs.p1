@@ -10013,9 +10013,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;mdm_gsm_gprs.c: 900: StringCopy(Mdm_SmsRx.MessageBuffer, MessageText, Mdm_SmsRx.TextLen + 1);
 "900
 [e ( _StringCopy (3 , , &U . _Mdm_SmsRx 1 _MessageText -> + -> . _Mdm_SmsRx 3 `i -> 1 `i `us ]
-[; ;mdm_gsm_gprs.c: 901: StringCopy(Mdm_SmsRx.HeaderBuffer + 21, callerNumber, ((UINT8)(14)));
+[; ;mdm_gsm_gprs.c: 901: StringCopy(Mdm_SmsRx.HeaderBuffer + 21, callerNumber, ((UINT8)(14)) - 1);
 "901
-[e ( _StringCopy (3 , , + &U . _Mdm_SmsRx 0 * -> -> 21 `i `x -> -> # *U &U . _Mdm_SmsRx 0 `i `x &U _callerNumber -> -> -> 14 `i `uc `us ]
+[e ( _StringCopy (3 , , + &U . _Mdm_SmsRx 0 * -> -> 21 `i `x -> -> # *U &U . _Mdm_SmsRx 0 `i `x &U _callerNumber -> - -> -> -> 14 `i `uc `i -> 1 `i `us ]
 [; ;mdm_gsm_gprs.c: 903: GetSmsStatus = SmsDataReady;
 "903
 [e = _GetSmsStatus . `E8920 1 ]

@@ -11275,7 +11275,7 @@ switch(currentState)
 case MODEM_INIT:
 if (MdmStatus == ModemConfigured || MdmStatus == ModemOn)
 {
-if (secondsAppTimer(4, &modemCounter, 0))
+if (secondsAppTimer(5, &modemCounter, 0))
 {
 Mdm_SetSmsFormat(1);
 currentState = MODEM_DELETE_SMS;

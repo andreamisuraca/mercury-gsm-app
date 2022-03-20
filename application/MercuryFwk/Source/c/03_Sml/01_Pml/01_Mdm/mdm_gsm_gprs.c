@@ -898,7 +898,7 @@ GetSmsStatusType Mdm_GetSmsData (UINT8 *MessageText)
    {
       /* ...Copy text data */
       StringCopy(Mdm_SmsRx.MessageBuffer, MessageText, Mdm_SmsRx.TextLen + 1);
-      StringCopy(Mdm_SmsRx.HeaderBuffer + 21, callerNumber, PHONE_NUMBER_LEN);
+      StringCopy(Mdm_SmsRx.HeaderBuffer + 21, callerNumber, PHONE_NUMBER_LEN - 1);
       /* Update status */
       GetSmsStatus = SmsDataReady;
    }

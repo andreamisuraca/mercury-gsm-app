@@ -11,10 +11,6 @@
 # All addresses and the length are given in unqualified hexadecimal
 # in delta units.  Any other numeric values are decimal.
 %PSECTS
-$/tmp/xcXFAWJVA.obj
-init CODE 0 CC CC 4 1
-reset_vec CODE 0 0 0 6 1
-config CONFIG 0 FFF8 FFF8 8 1
 $dist/Standalone/debug/Application.debug.obj
 intcodelo CODE 0 18 18 B4 1
 cinit CODE 0 2950 2950 13E 1
@@ -233,6 +229,10 @@ text182 CODE 0 650A 650A 4 1
 text183 CODE 0 650E 650E 4 1
 bssCOMRAM COMRAM 1 23 23 1F 1
 mediumconst MEDIUMCONST 0 FC22 FC22 3D6 1
+$/tmp/xcXqyIR1y.obj
+init CODE 0 CC CC 4 1
+reset_vec CODE 0 0 0 6 1
+config CONFIG 0 FFF8 FFF8 8 1
 # %UNUSED Section
 # This section enumerates the unused ranges of each CLASS. Each entry
 # is described on a single line as follows:
@@ -3090,157 +3090,157 @@ FE text60 CODE >461:/home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/
 64A4 text0 CODE >61:/home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/00_Main/main.c
 64A8 text0 CODE >64:/home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/00_Main/main.c
 64AC text0 CODE >68:/home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/00_Main/main.c
-2950 cinit CODE >27158:/tmp/xcXXDuHGb
-2950 cinit CODE >27160:/tmp/xcXXDuHGb
-2950 cinit CODE >27163:/tmp/xcXXDuHGb
-2950 cinit CODE >27769:/tmp/xcXXDuHGb
-2952 cinit CODE >27770:/tmp/xcXXDuHGb
-2954 cinit CODE >27771:/tmp/xcXXDuHGb
-2956 cinit CODE >27772:/tmp/xcXXDuHGb
-2958 cinit CODE >27773:/tmp/xcXXDuHGb
-295A cinit CODE >27774:/tmp/xcXXDuHGb
-295C cinit CODE >27775:/tmp/xcXXDuHGb
-2960 cinit CODE >27776:/tmp/xcXXDuHGb
-2964 cinit CODE >27777:/tmp/xcXXDuHGb
-2964 cinit CODE >27778:/tmp/xcXXDuHGb
-2966 cinit CODE >27779:/tmp/xcXXDuHGb
-296A cinit CODE >27780:/tmp/xcXXDuHGb
-296C cinit CODE >27781:/tmp/xcXXDuHGb
-296E cinit CODE >27782:/tmp/xcXXDuHGb
-2970 cinit CODE >27786:/tmp/xcXXDuHGb
-2972 cinit CODE >27787:/tmp/xcXXDuHGb
-2974 cinit CODE >27788:/tmp/xcXXDuHGb
-2976 cinit CODE >27789:/tmp/xcXXDuHGb
-2978 cinit CODE >27790:/tmp/xcXXDuHGb
-297A cinit CODE >27791:/tmp/xcXXDuHGb
-297C cinit CODE >27792:/tmp/xcXXDuHGb
-2980 cinit CODE >27793:/tmp/xcXXDuHGb
-2984 cinit CODE >27794:/tmp/xcXXDuHGb
-2984 cinit CODE >27795:/tmp/xcXXDuHGb
-2986 cinit CODE >27796:/tmp/xcXXDuHGb
-298A cinit CODE >27797:/tmp/xcXXDuHGb
-298C cinit CODE >27798:/tmp/xcXXDuHGb
-298E cinit CODE >27799:/tmp/xcXXDuHGb
-2990 cinit CODE >27803:/tmp/xcXXDuHGb
-2992 cinit CODE >27804:/tmp/xcXXDuHGb
-2994 cinit CODE >27805:/tmp/xcXXDuHGb
-2996 cinit CODE >27806:/tmp/xcXXDuHGb
-2998 cinit CODE >27807:/tmp/xcXXDuHGb
-299A cinit CODE >27808:/tmp/xcXXDuHGb
-299C cinit CODE >27809:/tmp/xcXXDuHGb
-29A0 cinit CODE >27810:/tmp/xcXXDuHGb
-29A4 cinit CODE >27811:/tmp/xcXXDuHGb
-29A4 cinit CODE >27812:/tmp/xcXXDuHGb
-29A6 cinit CODE >27813:/tmp/xcXXDuHGb
-29AA cinit CODE >27814:/tmp/xcXXDuHGb
-29AC cinit CODE >27815:/tmp/xcXXDuHGb
-29AE cinit CODE >27816:/tmp/xcXXDuHGb
-29B0 cinit CODE >27820:/tmp/xcXXDuHGb
-29B2 cinit CODE >27821:/tmp/xcXXDuHGb
-29B4 cinit CODE >27822:/tmp/xcXXDuHGb
-29B6 cinit CODE >27823:/tmp/xcXXDuHGb
-29B8 cinit CODE >27824:/tmp/xcXXDuHGb
-29BA cinit CODE >27825:/tmp/xcXXDuHGb
-29BC cinit CODE >27826:/tmp/xcXXDuHGb
-29BE cinit CODE >27827:/tmp/xcXXDuHGb
-29C2 cinit CODE >27828:/tmp/xcXXDuHGb
-29C4 cinit CODE >27829:/tmp/xcXXDuHGb
-29C8 cinit CODE >27833:/tmp/xcXXDuHGb
-29CA cinit CODE >27834:/tmp/xcXXDuHGb
-29CC cinit CODE >27835:/tmp/xcXXDuHGb
-29CE cinit CODE >27836:/tmp/xcXXDuHGb
-29D0 cinit CODE >27837:/tmp/xcXXDuHGb
-29D2 cinit CODE >27838:/tmp/xcXXDuHGb
-29D4 cinit CODE >27839:/tmp/xcXXDuHGb
-29D8 cinit CODE >27840:/tmp/xcXXDuHGb
-29DC cinit CODE >27841:/tmp/xcXXDuHGb
-29DC cinit CODE >27842:/tmp/xcXXDuHGb
-29DE cinit CODE >27843:/tmp/xcXXDuHGb
-29E2 cinit CODE >27844:/tmp/xcXXDuHGb
-29E4 cinit CODE >27845:/tmp/xcXXDuHGb
-29E6 cinit CODE >27846:/tmp/xcXXDuHGb
-29E8 cinit CODE >27850:/tmp/xcXXDuHGb
-29EC cinit CODE >27851:/tmp/xcXXDuHGb
-29F0 cinit CODE >27852:/tmp/xcXXDuHGb
-29F0 cinit CODE >27853:/tmp/xcXXDuHGb
-29F2 cinit CODE >27854:/tmp/xcXXDuHGb
-29F4 cinit CODE >27855:/tmp/xcXXDuHGb
-29F6 cinit CODE >27856:/tmp/xcXXDuHGb
-29F8 cinit CODE >27857:/tmp/xcXXDuHGb
-29FA cinit CODE >27858:/tmp/xcXXDuHGb
-29FC cinit CODE >27861:/tmp/xcXXDuHGb
-2A00 cinit CODE >27862:/tmp/xcXXDuHGb
-2A02 cinit CODE >27863:/tmp/xcXXDuHGb
-2A02 cinit CODE >27864:/tmp/xcXXDuHGb
-2A04 cinit CODE >27865:/tmp/xcXXDuHGb
-2A06 cinit CODE >27866:/tmp/xcXXDuHGb
-2A08 cinit CODE >27869:/tmp/xcXXDuHGb
-2A0C cinit CODE >27870:/tmp/xcXXDuHGb
-2A0E cinit CODE >27871:/tmp/xcXXDuHGb
-2A0E cinit CODE >27872:/tmp/xcXXDuHGb
-2A10 cinit CODE >27873:/tmp/xcXXDuHGb
-2A12 cinit CODE >27874:/tmp/xcXXDuHGb
-2A14 cinit CODE >27877:/tmp/xcXXDuHGb
-2A18 cinit CODE >27878:/tmp/xcXXDuHGb
-2A1A cinit CODE >27879:/tmp/xcXXDuHGb
-2A1A cinit CODE >27880:/tmp/xcXXDuHGb
-2A1C cinit CODE >27881:/tmp/xcXXDuHGb
-2A1E cinit CODE >27882:/tmp/xcXXDuHGb
-2A20 cinit CODE >27885:/tmp/xcXXDuHGb
-2A24 cinit CODE >27886:/tmp/xcXXDuHGb
-2A26 cinit CODE >27887:/tmp/xcXXDuHGb
-2A26 cinit CODE >27888:/tmp/xcXXDuHGb
-2A28 cinit CODE >27889:/tmp/xcXXDuHGb
-2A2A cinit CODE >27890:/tmp/xcXXDuHGb
-2A2C cinit CODE >27893:/tmp/xcXXDuHGb
-2A30 cinit CODE >27894:/tmp/xcXXDuHGb
-2A32 cinit CODE >27895:/tmp/xcXXDuHGb
-2A32 cinit CODE >27896:/tmp/xcXXDuHGb
-2A34 cinit CODE >27897:/tmp/xcXXDuHGb
-2A36 cinit CODE >27898:/tmp/xcXXDuHGb
-2A38 cinit CODE >27901:/tmp/xcXXDuHGb
-2A3C cinit CODE >27902:/tmp/xcXXDuHGb
-2A3E cinit CODE >27903:/tmp/xcXXDuHGb
-2A3E cinit CODE >27904:/tmp/xcXXDuHGb
-2A40 cinit CODE >27905:/tmp/xcXXDuHGb
-2A42 cinit CODE >27906:/tmp/xcXXDuHGb
-2A44 cinit CODE >27909:/tmp/xcXXDuHGb
-2A48 cinit CODE >27910:/tmp/xcXXDuHGb
-2A4A cinit CODE >27911:/tmp/xcXXDuHGb
-2A4A cinit CODE >27912:/tmp/xcXXDuHGb
-2A4C cinit CODE >27913:/tmp/xcXXDuHGb
-2A4E cinit CODE >27914:/tmp/xcXXDuHGb
-2A50 cinit CODE >27917:/tmp/xcXXDuHGb
-2A54 cinit CODE >27918:/tmp/xcXXDuHGb
-2A56 cinit CODE >27919:/tmp/xcXXDuHGb
-2A56 cinit CODE >27920:/tmp/xcXXDuHGb
-2A58 cinit CODE >27921:/tmp/xcXXDuHGb
-2A5A cinit CODE >27922:/tmp/xcXXDuHGb
-2A5C cinit CODE >27925:/tmp/xcXXDuHGb
-2A60 cinit CODE >27926:/tmp/xcXXDuHGb
-2A62 cinit CODE >27927:/tmp/xcXXDuHGb
-2A62 cinit CODE >27928:/tmp/xcXXDuHGb
-2A64 cinit CODE >27929:/tmp/xcXXDuHGb
-2A66 cinit CODE >27930:/tmp/xcXXDuHGb
-2A68 cinit CODE >27933:/tmp/xcXXDuHGb
-2A6C cinit CODE >27934:/tmp/xcXXDuHGb
-2A6E cinit CODE >27935:/tmp/xcXXDuHGb
-2A6E cinit CODE >27936:/tmp/xcXXDuHGb
-2A70 cinit CODE >27937:/tmp/xcXXDuHGb
-2A72 cinit CODE >27938:/tmp/xcXXDuHGb
-2A74 cinit CODE >27941:/tmp/xcXXDuHGb
-2A78 cinit CODE >27942:/tmp/xcXXDuHGb
-2A7A cinit CODE >27943:/tmp/xcXXDuHGb
-2A7A cinit CODE >27944:/tmp/xcXXDuHGb
-2A7C cinit CODE >27945:/tmp/xcXXDuHGb
-2A7E cinit CODE >27946:/tmp/xcXXDuHGb
-2A80 cinit CODE >27952:/tmp/xcXXDuHGb
-2A80 cinit CODE >27954:/tmp/xcXXDuHGb
-2A82 cinit CODE >27955:/tmp/xcXXDuHGb
-2A84 cinit CODE >27957:/tmp/xcXXDuHGb
-2A86 cinit CODE >27958:/tmp/xcXXDuHGb
-2A88 cinit CODE >27959:/tmp/xcXXDuHGb
-2A8A cinit CODE >27960:/tmp/xcXXDuHGb
+2950 cinit CODE >27158:/tmp/xcXQQ1A5M
+2950 cinit CODE >27160:/tmp/xcXQQ1A5M
+2950 cinit CODE >27163:/tmp/xcXQQ1A5M
+2950 cinit CODE >27769:/tmp/xcXQQ1A5M
+2952 cinit CODE >27770:/tmp/xcXQQ1A5M
+2954 cinit CODE >27771:/tmp/xcXQQ1A5M
+2956 cinit CODE >27772:/tmp/xcXQQ1A5M
+2958 cinit CODE >27773:/tmp/xcXQQ1A5M
+295A cinit CODE >27774:/tmp/xcXQQ1A5M
+295C cinit CODE >27775:/tmp/xcXQQ1A5M
+2960 cinit CODE >27776:/tmp/xcXQQ1A5M
+2964 cinit CODE >27777:/tmp/xcXQQ1A5M
+2964 cinit CODE >27778:/tmp/xcXQQ1A5M
+2966 cinit CODE >27779:/tmp/xcXQQ1A5M
+296A cinit CODE >27780:/tmp/xcXQQ1A5M
+296C cinit CODE >27781:/tmp/xcXQQ1A5M
+296E cinit CODE >27782:/tmp/xcXQQ1A5M
+2970 cinit CODE >27786:/tmp/xcXQQ1A5M
+2972 cinit CODE >27787:/tmp/xcXQQ1A5M
+2974 cinit CODE >27788:/tmp/xcXQQ1A5M
+2976 cinit CODE >27789:/tmp/xcXQQ1A5M
+2978 cinit CODE >27790:/tmp/xcXQQ1A5M
+297A cinit CODE >27791:/tmp/xcXQQ1A5M
+297C cinit CODE >27792:/tmp/xcXQQ1A5M
+2980 cinit CODE >27793:/tmp/xcXQQ1A5M
+2984 cinit CODE >27794:/tmp/xcXQQ1A5M
+2984 cinit CODE >27795:/tmp/xcXQQ1A5M
+2986 cinit CODE >27796:/tmp/xcXQQ1A5M
+298A cinit CODE >27797:/tmp/xcXQQ1A5M
+298C cinit CODE >27798:/tmp/xcXQQ1A5M
+298E cinit CODE >27799:/tmp/xcXQQ1A5M
+2990 cinit CODE >27803:/tmp/xcXQQ1A5M
+2992 cinit CODE >27804:/tmp/xcXQQ1A5M
+2994 cinit CODE >27805:/tmp/xcXQQ1A5M
+2996 cinit CODE >27806:/tmp/xcXQQ1A5M
+2998 cinit CODE >27807:/tmp/xcXQQ1A5M
+299A cinit CODE >27808:/tmp/xcXQQ1A5M
+299C cinit CODE >27809:/tmp/xcXQQ1A5M
+29A0 cinit CODE >27810:/tmp/xcXQQ1A5M
+29A4 cinit CODE >27811:/tmp/xcXQQ1A5M
+29A4 cinit CODE >27812:/tmp/xcXQQ1A5M
+29A6 cinit CODE >27813:/tmp/xcXQQ1A5M
+29AA cinit CODE >27814:/tmp/xcXQQ1A5M
+29AC cinit CODE >27815:/tmp/xcXQQ1A5M
+29AE cinit CODE >27816:/tmp/xcXQQ1A5M
+29B0 cinit CODE >27820:/tmp/xcXQQ1A5M
+29B2 cinit CODE >27821:/tmp/xcXQQ1A5M
+29B4 cinit CODE >27822:/tmp/xcXQQ1A5M
+29B6 cinit CODE >27823:/tmp/xcXQQ1A5M
+29B8 cinit CODE >27824:/tmp/xcXQQ1A5M
+29BA cinit CODE >27825:/tmp/xcXQQ1A5M
+29BC cinit CODE >27826:/tmp/xcXQQ1A5M
+29BE cinit CODE >27827:/tmp/xcXQQ1A5M
+29C2 cinit CODE >27828:/tmp/xcXQQ1A5M
+29C4 cinit CODE >27829:/tmp/xcXQQ1A5M
+29C8 cinit CODE >27833:/tmp/xcXQQ1A5M
+29CA cinit CODE >27834:/tmp/xcXQQ1A5M
+29CC cinit CODE >27835:/tmp/xcXQQ1A5M
+29CE cinit CODE >27836:/tmp/xcXQQ1A5M
+29D0 cinit CODE >27837:/tmp/xcXQQ1A5M
+29D2 cinit CODE >27838:/tmp/xcXQQ1A5M
+29D4 cinit CODE >27839:/tmp/xcXQQ1A5M
+29D8 cinit CODE >27840:/tmp/xcXQQ1A5M
+29DC cinit CODE >27841:/tmp/xcXQQ1A5M
+29DC cinit CODE >27842:/tmp/xcXQQ1A5M
+29DE cinit CODE >27843:/tmp/xcXQQ1A5M
+29E2 cinit CODE >27844:/tmp/xcXQQ1A5M
+29E4 cinit CODE >27845:/tmp/xcXQQ1A5M
+29E6 cinit CODE >27846:/tmp/xcXQQ1A5M
+29E8 cinit CODE >27850:/tmp/xcXQQ1A5M
+29EC cinit CODE >27851:/tmp/xcXQQ1A5M
+29F0 cinit CODE >27852:/tmp/xcXQQ1A5M
+29F0 cinit CODE >27853:/tmp/xcXQQ1A5M
+29F2 cinit CODE >27854:/tmp/xcXQQ1A5M
+29F4 cinit CODE >27855:/tmp/xcXQQ1A5M
+29F6 cinit CODE >27856:/tmp/xcXQQ1A5M
+29F8 cinit CODE >27857:/tmp/xcXQQ1A5M
+29FA cinit CODE >27858:/tmp/xcXQQ1A5M
+29FC cinit CODE >27861:/tmp/xcXQQ1A5M
+2A00 cinit CODE >27862:/tmp/xcXQQ1A5M
+2A02 cinit CODE >27863:/tmp/xcXQQ1A5M
+2A02 cinit CODE >27864:/tmp/xcXQQ1A5M
+2A04 cinit CODE >27865:/tmp/xcXQQ1A5M
+2A06 cinit CODE >27866:/tmp/xcXQQ1A5M
+2A08 cinit CODE >27869:/tmp/xcXQQ1A5M
+2A0C cinit CODE >27870:/tmp/xcXQQ1A5M
+2A0E cinit CODE >27871:/tmp/xcXQQ1A5M
+2A0E cinit CODE >27872:/tmp/xcXQQ1A5M
+2A10 cinit CODE >27873:/tmp/xcXQQ1A5M
+2A12 cinit CODE >27874:/tmp/xcXQQ1A5M
+2A14 cinit CODE >27877:/tmp/xcXQQ1A5M
+2A18 cinit CODE >27878:/tmp/xcXQQ1A5M
+2A1A cinit CODE >27879:/tmp/xcXQQ1A5M
+2A1A cinit CODE >27880:/tmp/xcXQQ1A5M
+2A1C cinit CODE >27881:/tmp/xcXQQ1A5M
+2A1E cinit CODE >27882:/tmp/xcXQQ1A5M
+2A20 cinit CODE >27885:/tmp/xcXQQ1A5M
+2A24 cinit CODE >27886:/tmp/xcXQQ1A5M
+2A26 cinit CODE >27887:/tmp/xcXQQ1A5M
+2A26 cinit CODE >27888:/tmp/xcXQQ1A5M
+2A28 cinit CODE >27889:/tmp/xcXQQ1A5M
+2A2A cinit CODE >27890:/tmp/xcXQQ1A5M
+2A2C cinit CODE >27893:/tmp/xcXQQ1A5M
+2A30 cinit CODE >27894:/tmp/xcXQQ1A5M
+2A32 cinit CODE >27895:/tmp/xcXQQ1A5M
+2A32 cinit CODE >27896:/tmp/xcXQQ1A5M
+2A34 cinit CODE >27897:/tmp/xcXQQ1A5M
+2A36 cinit CODE >27898:/tmp/xcXQQ1A5M
+2A38 cinit CODE >27901:/tmp/xcXQQ1A5M
+2A3C cinit CODE >27902:/tmp/xcXQQ1A5M
+2A3E cinit CODE >27903:/tmp/xcXQQ1A5M
+2A3E cinit CODE >27904:/tmp/xcXQQ1A5M
+2A40 cinit CODE >27905:/tmp/xcXQQ1A5M
+2A42 cinit CODE >27906:/tmp/xcXQQ1A5M
+2A44 cinit CODE >27909:/tmp/xcXQQ1A5M
+2A48 cinit CODE >27910:/tmp/xcXQQ1A5M
+2A4A cinit CODE >27911:/tmp/xcXQQ1A5M
+2A4A cinit CODE >27912:/tmp/xcXQQ1A5M
+2A4C cinit CODE >27913:/tmp/xcXQQ1A5M
+2A4E cinit CODE >27914:/tmp/xcXQQ1A5M
+2A50 cinit CODE >27917:/tmp/xcXQQ1A5M
+2A54 cinit CODE >27918:/tmp/xcXQQ1A5M
+2A56 cinit CODE >27919:/tmp/xcXQQ1A5M
+2A56 cinit CODE >27920:/tmp/xcXQQ1A5M
+2A58 cinit CODE >27921:/tmp/xcXQQ1A5M
+2A5A cinit CODE >27922:/tmp/xcXQQ1A5M
+2A5C cinit CODE >27925:/tmp/xcXQQ1A5M
+2A60 cinit CODE >27926:/tmp/xcXQQ1A5M
+2A62 cinit CODE >27927:/tmp/xcXQQ1A5M
+2A62 cinit CODE >27928:/tmp/xcXQQ1A5M
+2A64 cinit CODE >27929:/tmp/xcXQQ1A5M
+2A66 cinit CODE >27930:/tmp/xcXQQ1A5M
+2A68 cinit CODE >27933:/tmp/xcXQQ1A5M
+2A6C cinit CODE >27934:/tmp/xcXQQ1A5M
+2A6E cinit CODE >27935:/tmp/xcXQQ1A5M
+2A6E cinit CODE >27936:/tmp/xcXQQ1A5M
+2A70 cinit CODE >27937:/tmp/xcXQQ1A5M
+2A72 cinit CODE >27938:/tmp/xcXQQ1A5M
+2A74 cinit CODE >27941:/tmp/xcXQQ1A5M
+2A78 cinit CODE >27942:/tmp/xcXQQ1A5M
+2A7A cinit CODE >27943:/tmp/xcXQQ1A5M
+2A7A cinit CODE >27944:/tmp/xcXQQ1A5M
+2A7C cinit CODE >27945:/tmp/xcXQQ1A5M
+2A7E cinit CODE >27946:/tmp/xcXQQ1A5M
+2A80 cinit CODE >27952:/tmp/xcXQQ1A5M
+2A80 cinit CODE >27954:/tmp/xcXQQ1A5M
+2A82 cinit CODE >27955:/tmp/xcXQQ1A5M
+2A84 cinit CODE >27957:/tmp/xcXQQ1A5M
+2A86 cinit CODE >27958:/tmp/xcXQQ1A5M
+2A88 cinit CODE >27959:/tmp/xcXQQ1A5M
+2A8A cinit CODE >27960:/tmp/xcXQQ1A5M
 # %SYMTAB Section
 # An enumeration of all symbols in the program.
 # The beginning of the section is indicated by %SYMTAB.
@@ -3298,7 +3298,7 @@ Tmr_TmrBIrqSet@Priority 7D 0 BANK0 1 cstackBANK0 dist/Standalone/debug/Applicati
 __Hibigdata 0 0 CODE 0 ibigdata dist/Standalone/debug/Application.debug.obj
 __end_of_LowPriorityIsr CC 0 CODE 0 intcodelo dist/Standalone/debug/Application.debug.obj
 _TaskTable 5A4 0 BANK5 1 dataBANK5 dist/Standalone/debug/Application.debug.obj
-__mediumconst FC22 0 MEDIUMCONST 0 mediumconst /tmp/xcXFAWJVA.obj
+__mediumconst FC22 0 MEDIUMCONST 0 mediumconst /tmp/xcXqyIR1y.obj
 __end_of_Rtcc_RtcConfig 4658 0 CODE 0 text87 dist/Standalone/debug/Application.debug.obj
 __size_of_Rtcm_SetRtccDate 0 0 ABS 0 - dist/Standalone/debug/Application.debug.obj
 __end_of_I2c_WriteData 2022 0 CODE 0 text155 dist/Standalone/debug/Application.debug.obj
@@ -3339,7 +3339,7 @@ _UEIE F37 0 ABS 0 - dist/Standalone/debug/Application.debug.obj
 _UEIR F63 0 ABS 0 - dist/Standalone/debug/Application.debug.obj
 _UEP0 F26 0 ABS 0 - dist/Standalone/debug/Application.debug.obj
 _UEP1 F27 0 ABS 0 - dist/Standalone/debug/Application.debug.obj
-___sp 0 0 STACK 2 stack /tmp/xcXFAWJVA.obj
+___sp 0 0 STACK 2 stack /tmp/xcXqyIR1y.obj
 _atoi 36CE 0 CODE 0 text76 dist/Standalone/debug/Application.debug.obj
 _itoa 5A82 0 CODE 0 text71 dist/Standalone/debug/Application.debug.obj
 _main 64A4 0 CODE 0 text0 dist/Standalone/debug/Application.debug.obj
@@ -3352,7 +3352,7 @@ _Led3Pulse 385 0 BANK3 1 bssBANK3 dist/Standalone/debug/Application.debug.obj
 btemp 42 0 COMRAM 1 temp dist/Standalone/debug/Application.debug.obj
 _Pm_DsReleasePinControl 64EA 0 CODE 0 text3 dist/Standalone/debug/Application.debug.obj
 __size_of_USBCtrlTrfTxService 0 0 ABS 0 - dist/Standalone/debug/Application.debug.obj
-start CC 0 CODE 0 init /tmp/xcXFAWJVA.obj
+start CC 0 CODE 0 init /tmp/xcXqyIR1y.obj
 __size_of_HttpGetMethod 0 0 ABS 0 - dist/Standalone/debug/Application.debug.obj
 __size_of___awdiv 0 0 ABS 0 - dist/Standalone/debug/Application.debug.obj
 __size_of___awmod 0 0 ABS 0 - dist/Standalone/debug/Application.debug.obj
@@ -3439,11 +3439,11 @@ _ReadByte 64C4 0 CODE 0 text161 dist/Standalone/debug/Application.debug.obj
 Tmr_TmrBConfig@TmrNumb A3 0 BANK0 1 cstackBANK0 dist/Standalone/debug/Application.debug.obj
 GenerateEvt@EventStatus 7F 0 BANK0 1 cstackBANK0 dist/Standalone/debug/Application.debug.obj
 __size_of_Uart_ClearRxBuffer 0 0 ABS 0 - dist/Standalone/debug/Application.debug.obj
-__accesstop 60 0 ABS 0 - /tmp/xcXFAWJVA.obj
-intlevel0 0 0 CODE 0 text /tmp/xcXFAWJVA.obj
-intlevel1 0 0 CODE 0 text /tmp/xcXFAWJVA.obj
-intlevel2 0 0 CODE 0 text /tmp/xcXFAWJVA.obj
-intlevel3 0 0 CODE 0 text /tmp/xcXFAWJVA.obj
+__accesstop 60 0 ABS 0 - /tmp/xcXqyIR1y.obj
+intlevel0 0 0 CODE 0 text /tmp/xcXqyIR1y.obj
+intlevel1 0 0 CODE 0 text /tmp/xcXqyIR1y.obj
+intlevel2 0 0 CODE 0 text /tmp/xcXqyIR1y.obj
+intlevel3 0 0 CODE 0 text /tmp/xcXqyIR1y.obj
 __ptext100 4516 0 CODE 0 text100 dist/Standalone/debug/Application.debug.obj
 __ptext101 5758 0 CODE 0 text101 dist/Standalone/debug/Application.debug.obj
 __ptext102 4C1C 0 CODE 0 text102 dist/Standalone/debug/Application.debug.obj
@@ -3603,8 +3603,8 @@ __size_of_SetAckStatus 0 0 ABS 0 - dist/Standalone/debug/Application.debug.obj
 __end_of_Mdm_SetSmsFormat 57A8 0 CODE 0 text101 dist/Standalone/debug/Application.debug.obj
 ___awdiv@dividend 7D 0 BANK0 1 cstackBANK0 dist/Standalone/debug/Application.debug.obj
 __end_of_saveMasterNumber 6042 0 CODE 0 text96 dist/Standalone/debug/Application.debug.obj
-___inthi_sp 0 0 STACK 2 stack /tmp/xcXFAWJVA.obj
-___intlo_sp 0 0 STACK 2 stack /tmp/xcXFAWJVA.obj
+___inthi_sp 0 0 STACK 2 stack /tmp/xcXqyIR1y.obj
+___intlo_sp 0 0 STACK 2 stack /tmp/xcXqyIR1y.obj
 __size_of_LedStateMachine 0 0 ABS 0 - dist/Standalone/debug/Application.debug.obj
 __end_of_GetCallerNumber 5DAE 0 CODE 0 text113 dist/Standalone/debug/Application.debug.obj
 ModemEvtParser@F9106 3CA 0 BANK3 1 dataBANK3 dist/Standalone/debug/Application.debug.obj
@@ -4001,7 +4001,7 @@ __Hbigbss 0 0 BIGRAM 1 bigbss dist/Standalone/debug/Application.debug.obj
 __Hbigram 0 0 ABS 0 bigram dist/Standalone/debug/Application.debug.obj
 I2cSlv_ReceiveI2cMsg@RxBuffer 80 0 BANK0 1 cstackBANK0 dist/Standalone/debug/Application.debug.obj
 LedStateMachine@LedPulse 95 0 BANK0 1 cstackBANK0 dist/Standalone/debug/Application.debug.obj
-__smallconst 0 0 SMALLCONST 0 smallconst /tmp/xcXFAWJVA.obj
+__smallconst 0 0 SMALLCONST 0 smallconst /tmp/xcXqyIR1y.obj
 _USBCheckStdRequest 3512 0 CODE 0 text39 dist/Standalone/debug/Application.debug.obj
 _CheckAckStatus 64D8 0 CODE 0 text165 dist/Standalone/debug/Application.debug.obj
 _BAUDCON1 F7E 0 ABS 0 - dist/Standalone/debug/Application.debug.obj
@@ -4613,8 +4613,8 @@ _Mdm_DrvMainFn 64F0 0 CODE 0 text24 dist/Standalone/debug/Application.debug.obj
 putUSBUSART@length 85 0 BANK0 1 cstackBANK0 dist/Standalone/debug/Application.debug.obj
 itoa@cp 99 0 BANK0 1 cstackBANK0 dist/Standalone/debug/Application.debug.obj
 __end_of_GetOsTickCounter 6438 0 CODE 0 text140 dist/Standalone/debug/Application.debug.obj
-stackhi EBF 0 ABS 0 - /tmp/xcXFAWJVA.obj
-stacklo DE8 0 ABS 0 - /tmp/xcXFAWJVA.obj
+stackhi EBF 0 ABS 0 - /tmp/xcXqyIR1y.obj
+stacklo DE8 0 ABS 0 - /tmp/xcXqyIR1y.obj
 _cdc_mem_type 1E2 0 BANK1 1 bssBANK1 dist/Standalone/debug/Application.debug.obj
 __end_of_USBConfigureEndpoint 478E 0 CODE 0 text48 dist/Standalone/debug/Application.debug.obj
 _Tmr_RegisterTmr2IsrCallback 64B0 0 CODE 0 text2 dist/Standalone/debug/Application.debug.obj
@@ -4883,7 +4883,7 @@ _MainSystemTimebaseFlag 2F4 0 BANK2 1 dataBANK2 dist/Standalone/debug/Applicatio
 _MdmHttp_MainTask 596E 0 CODE 0 text21 dist/Standalone/debug/Application.debug.obj
 __end_of_USBCheckCDCRequest 4270 0 CODE 0 text45 dist/Standalone/debug/Application.debug.obj
 __end_of_USBCtrlTrfInHandler 4050 0 CODE 0 text52 dist/Standalone/debug/Application.debug.obj
-__ramtop F00 0 RAM 0 ramtop /tmp/xcXFAWJVA.obj
+__ramtop F00 0 RAM 0 ramtop /tmp/xcXqyIR1y.obj
 _sprintf 3878 0 CODE 0 text58 dist/Standalone/debug/Application.debug.obj
 ReadByte@Byte 7D 0 BANK0 1 cstackBANK0 dist/Standalone/debug/Application.debug.obj
 __size_of_OsTmr_Wait 0 0 ABS 0 - dist/Standalone/debug/Application.debug.obj

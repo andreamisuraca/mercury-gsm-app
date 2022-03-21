@@ -199,12 +199,12 @@ void MyApp_Task (UINT8 Options)
                 break;
 
             case GATE_SAVE_FIRST_MASTER:
-                saveMasterNumber(INIT_NUMBER_ADDRESS, GetCallerNumber());
+                saveNumberInMemory(INIT_NUMBER_ADDRESS, GetCallerNumber());
                 currentState = GATE_UPDATE_NUMBERS_COUNT;
                 break;
 
             case GATE_UPDATE_NUMBERS_COUNT:
-                updateMemorizedNumbersCount();
+                initMemorizedNumbersCount();
                 Led_SetLedStatus(LED_1, LED_STS_ON);
                 currentState = GATE_WAIT_EVENT;
                 break;

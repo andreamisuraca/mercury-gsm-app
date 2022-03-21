@@ -216,7 +216,7 @@ uint8_t* initPreamble()
     memoryPreamble[1] = 'S';
     memoryPreamble[2] = 'I';
     memoryPreamble[3] = 'M';
-    memoryPreamble[4] = '1';
+    memoryPreamble[4] = 1;
     memorizedNumbersCount[0] = 1;
     return memoryPreamble;
 }

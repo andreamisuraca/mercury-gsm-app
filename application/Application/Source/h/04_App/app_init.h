@@ -34,7 +34,9 @@
 * EXPORTED Defines
 ************************************************************************/
 
-#define PREAMBLE_LENGTH     5
+#define PREAMBLE_LENGTH         5
+#define MAX_NUMBERS_IN_MEM      10
+#define COUNTER_POSITION_IN_MEM 4
 /************************************************************************
 * EXPORTED Typedef
 ************************************************************************/

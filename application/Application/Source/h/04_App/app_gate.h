@@ -48,7 +48,7 @@
 ************************************************************************/
 
 bool waitSetupCall(void);
-void saveMasterNumber(UINT8 address, UINT8* phoneNumber);
-void updateMemorizedNumbersCount();
+void saveNumberInMemory(UINT8 address, UINT8* phoneNumber);
+void initMemorizedNumbersCount();
 
 #endif    /* APP_GATE_H */

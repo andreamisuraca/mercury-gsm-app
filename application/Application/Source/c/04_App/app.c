@@ -54,7 +54,10 @@ typedef enum _gateFsmStates
     GATE_SAVE_FIRST_MASTER,
     GATE_UPDATE_NUMBERS_COUNT,
     GATE_WAIT_EVENT,
-    GATE_TRIGGER
+    GATE_ADD_CMD,
+    GATE_DEL_CMD,
+    GATE_TRIGGER_CMD,
+    GATE_ACTIVATE_RELAY
 } gateFsmStates;
 
 /************************************************************************
@@ -81,6 +84,28 @@ static uint8_t smsText[MESSAGE_BUFF_LEN] = {0};
 /************************************************************************
 * LOCAL Function Implementations
 ************************************************************************/
+
+
+gateFsmStates parseCommand(uint8_t* text, uint8* senderNumber)
+{
+    const uint8_t addNumberCmd[] = {'A', 'D', 'D'};
+    const uint8_t deleteNumberCmd[] = {'D', 'E', 'L'};
+    gateFsmStates state = GATE_WAIT_EVENT;
+
+    if (StringCompare(text, addNumberCmd, sizeof(addNumberCmd)))
+    {
+        state = GATE_ADD_CMD;
+    }
+    else if (StringCompare(text, deleteNumberCmd, sizeof(deleteNumberCmd)))
+    {
+        state = GATE_DEL_CMD;
+    }
+    else
+    {
+        /* ignore command */
+    }
+    return state;
+}
 
 uint8_t triggerRelay(uint8_t realyId, bool isRelayOn)
 {
@@ -155,6 +180,7 @@ void MyApp_Task (UINT8 Options)
 
     static gateFsmStates currentState = GATE_INIT;
     I2cOpStsType memoryResult = OP_COMPLETE;
+    uint8_t numberInMemory = 0;
 
     switch (SystemState)
     {
@@ -210,16 +236,40 @@ void MyApp_Task (UINT8 Options)
                 break;
 
             case GATE_WAIT_EVENT:
-//                Eeprom_Write(16, smsPhoneNumber, 13);
-//                currentState = GATE_TRIGGER;
+                if (Mdm_IsSmsReceived())
+                {
+                    Mdm_RequestSmsData();
+                }
+                if (Mdm_GetSmsData(smsText) == SmsDataReady)
+                {
+                    Uart_WriteConstString(1,"AT+CMGD=1,0\r\n");
+                    currentState = parseCommand();
+                }
+                if (Mdm_IsRinging())
+                {
+                    Mdm_HangPhoneCall();
+                    currentState = GATE_TRIGGER_CMD;
+                }
                break;
 
-            case GATE_TRIGGER:
-//                memoryResult = Eeprom_Read(16, smsText, 14);
-//                if (memoryResult != OP_PENDING)
-//                {
-//                    currentState++;
-//                }
+            case GATE_ADD_CMD:
+                break;
+
+            case GATE_DEL_CMD:
+                break;
+
+            case GATE_TRIGGER_CMD:
+                numberInMemory = isNumberInMemory(GetCallerNumber())
+                if (numberInMemory == 1)
+                {
+                    currentState = GATE_WAIT_EVENT;
+                }
+                else if (numberInMemory != 0 && numberInMemory != 1)
+                {
+                    currentState = GATE_ACTIVATE_RELAY;
+                }
+
+            case GATE_ACTIVATE_RELAY:
                 break;
 
             default:

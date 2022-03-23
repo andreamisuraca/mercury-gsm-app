@@ -11288,7 +11288,7 @@ static UINT8 PhoneNumber[20];
 static UINT8 MessageText[50];
 
 
-static UINT8 callerNumber[((UINT8)(14))];
+static UINT8 callerNumber[((UINT8)(13))];
 
 
 EventStructureType SendSmsEvent = {EventIdle};
@@ -11609,7 +11609,7 @@ case ((UINT8)(3)):
 
 if (StringCompare(ClipString, RxBuffer, sizeof(ClipString)))
 {
-StringCopy(RxBuffer + 8, callerNumber, ((UINT8)(14)));
+StringCopy(RxBuffer + 8, callerNumber, ((UINT8)(13)));
 
 GenerateEvt(&ClipEvent);
 
@@ -11926,7 +11926,7 @@ if (ReceiveEvt(&SmsTxtReady))
 {
 
 StringCopy(Mdm_SmsRx.MessageBuffer, MessageText, Mdm_SmsRx.TextLen + 1);
-StringCopy(Mdm_SmsRx.HeaderBuffer + 21, callerNumber, ((UINT8)(14)));
+StringCopy(Mdm_SmsRx.HeaderBuffer + 21, callerNumber, ((UINT8)(13)) - 1);
 
 GetSmsStatus = SmsDataReady;
 }
@@ -12020,7 +12020,7 @@ UINT8* GetCallerNumber (void)
 {
 if (!ReceiveEvt(&ClipEvent))
 {
-ClearBuffer(callerNumber, ((UINT8)(14)));
+ClearBuffer(callerNumber, ((UINT8)(13)));
 }
 return callerNumber;
 }

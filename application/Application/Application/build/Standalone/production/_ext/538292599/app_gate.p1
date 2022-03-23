@@ -17,8 +17,17 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _Led_SetLedStatus `(v ~T0 @X0 0 ef2`uc`E8874 ]
 "57 ../../MercuryFwk/Source/h/03_Sml/01_Pml/05_Eeprom/eeprom_if.h
 [v _Eeprom_Write `(uc ~T0 @X0 0 ef3`uc`*uc`uc ]
-"55 ../Source/h/04_App/app_init.h
+"57 ../Source/h/04_App/app_init.h
 [v _initPreamble `(*uc ~T0 @X0 0 ef ]
+"50
+[v _memorizedNumbersCount `uc ~T0 @X0 -> 0 `x e ]
+"181 ../Source/c/04_App/app_gate.c
+[c E8244 0 1 2 .. ]
+[n E8244 _EepromSts OP_SUCCESS OP_FAILED OP_PENDING  ]
+"60 ../../MercuryFwk/Source/h/03_Sml/01_Pml/05_Eeprom/eeprom_if.h
+[v _Eeprom_Read `(E8244 ~T0 @X0 0 ef3`uc`*uc`uc ]
+"53 ../../MercuryFwk/Source/h/03_Sml/02_Ssl/sf.h
+[v _StringCompare `(uc ~T0 @X0 0 ef3`*uc`*uc`us ]
 "30 ../../MercuryFwk/Source/h/01_Hal/01_Sys/hal.h
 [p n 1510 ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
@@ -8242,12 +8251,14 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;os_sched.h: 88: void Sch_SchmIntService (void);
 [; ;app.h: 53: void MyApp_Task (UINT8 Options);
 [; ;app_gate.h: 50: bool waitSetupCall(void);
-[; ;app_gate.h: 51: void saveMasterNumber(UINT8 address, UINT8* phoneNumber);
-[; ;app_gate.h: 52: void updateMemorizedNumbersCount();
-[; ;app_init.h: 46: extern bool isMemoryEmpty;
-[; ;app_init.h: 48: extern uint8_t memorizedNumbersCount[1];
-[; ;app_init.h: 53: bool initFsm(void);
-[; ;app_init.h: 55: uint8_t* initPreamble();
+[; ;app_gate.h: 51: void saveNumberInMemory(UINT8 address, UINT8* phoneNumber);
+[; ;app_gate.h: 52: void initMemorizedNumbersCount();
+[; ;app_gate.h: 53: bool isNumberValid(uint8_t* phoneNumber);
+[; ;app_gate.h: 54: uint8_t isNumberInMemory(uint8_t* phoneNumber);
+[; ;app_init.h: 48: extern bool isMemoryEmpty;
+[; ;app_init.h: 50: extern uint8_t memorizedNumbersCount[1];
+[; ;app_init.h: 55: bool initFsm(void);
+[; ;app_init.h: 57: uint8_t* initPreamble();
 [; ;app_utils.h: 49: bool secondsAppTimer(uint8_t seconds, uint16_t* counter, bool isCyclic);
 [; ;app_utils.h: 51: void blinkForSeconds(uint8_t seconds, uint16_t* blinkTicks);
 "48 ../Source/c/04_App/app_gate.c
@@ -8352,39 +8363,328 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :UE 889 ]
 }
 "108
-[v _saveMasterNumber `(v ~T0 @X0 1 ef2`uc`*uc ]
+[v _saveNumberInMemory `(v ~T0 @X0 1 ef2`uc`*uc ]
 "109
 {
-[; ;app_gate.c: 108: void saveMasterNumber(UINT8 address, UINT8* phoneNumber)
+[; ;app_gate.c: 108: void saveNumberInMemory(UINT8 address, UINT8* phoneNumber)
 [; ;app_gate.c: 109: {
-[e :U _saveMasterNumber ]
+[e :U _saveNumberInMemory ]
 "108
 [v _address `uc ~T0 @X0 1 r1 ]
 [v _phoneNumber `*uc ~T0 @X0 1 r2 ]
 "109
 [f ]
-[; ;app_gate.c: 110: phoneNumber[((UINT8)(14)) - 1] = 'M';
+[; ;app_gate.c: 110: Eeprom_Write(address, phoneNumber, ((UINT8)(13)));
 "110
-[e = *U + _phoneNumber * -> - -> -> -> 14 `i `uc `i -> 1 `i `x -> -> # *U _phoneNumber `i `x -> -> 77 `ui `uc ]
-[; ;app_gate.c: 111: Eeprom_Write(address, phoneNumber, ((UINT8)(14)));
+[e ( _Eeprom_Write (3 , , _address _phoneNumber -> -> 13 `i `uc ]
+[; ;app_gate.c: 111: }
 "111
-[e ( _Eeprom_Write (3 , , _address _phoneNumber -> -> 14 `i `uc ]
-[; ;app_gate.c: 112: }
-"112
 [e :UE 893 ]
 }
+"117
+[v _initMemorizedNumbersCount `(v ~T0 @X0 1 ef ]
 "118
-[v _updateMemorizedNumbersCount `(v ~T0 @X0 1 ef ]
-"119
 {
-[; ;app_gate.c: 118: void updateMemorizedNumbersCount()
-[; ;app_gate.c: 119: {
-[e :U _updateMemorizedNumbersCount ]
+[; ;app_gate.c: 117: void initMemorizedNumbersCount()
+[; ;app_gate.c: 118: {
+[e :U _initMemorizedNumbersCount ]
 [f ]
-[; ;app_gate.c: 120: Eeprom_Write(0, initPreamble(), 5);
-"120
+[; ;app_gate.c: 119: Eeprom_Write(0, initPreamble(), 5);
+"119
 [e ( _Eeprom_Write (3 , , -> -> 0 `i `uc ( _initPreamble ..  -> -> 5 `i `uc ]
-[; ;app_gate.c: 121: }
-"121
+[; ;app_gate.c: 120: }
+"120
 [e :UE 894 ]
+}
+"122
+[v _incrementMemorizedNumbersCount `(uc ~T0 @X0 1 ef ]
+"123
+{
+[; ;app_gate.c: 122: bool incrementMemorizedNumbersCount()
+[; ;app_gate.c: 123: {
+[e :U _incrementMemorizedNumbersCount ]
+[f ]
+"124
+[v _isError `uc ~T0 @X0 1 a ]
+[; ;app_gate.c: 124: bool isError = 0;
+[e = _isError -> -> 0 `i `uc ]
+[; ;app_gate.c: 125: if (memorizedNumbersCount[0] == 10)
+"125
+[e $ ! == -> *U + &U _memorizedNumbersCount * -> -> -> 0 `i `ui `ux -> -> # *U &U _memorizedNumbersCount `ui `ux `i -> 10 `i 896  ]
+[; ;app_gate.c: 126: {
+"126
+{
+[; ;app_gate.c: 127: isError = 1;
+"127
+[e = _isError -> -> 1 `i `uc ]
+"128
+}
+[; ;app_gate.c: 128: }
+[e $U 897  ]
+"129
+[e :U 896 ]
+[; ;app_gate.c: 129: else
+[; ;app_gate.c: 130: {
+"130
+{
+[; ;app_gate.c: 131: memorizedNumbersCount[0]++;
+"131
+[e ++ *U + &U _memorizedNumbersCount * -> -> -> 0 `i `ui `ux -> -> # *U &U _memorizedNumbersCount `ui `ux -> -> 1 `i `uc ]
+[; ;app_gate.c: 132: Eeprom_Write(4, memorizedNumbersCount, 1);
+"132
+[e ( _Eeprom_Write (3 , , -> -> 4 `i `uc &U _memorizedNumbersCount -> -> 1 `i `uc ]
+"133
+}
+[e :U 897 ]
+[; ;app_gate.c: 133: }
+[; ;app_gate.c: 134: return isError;
+"134
+[e ) _isError ]
+[e $UE 895  ]
+[; ;app_gate.c: 135: }
+"135
+[e :UE 895 ]
+}
+"137
+[v _decrementMemorizedNumbersCount `(uc ~T0 @X0 1 ef ]
+"138
+{
+[; ;app_gate.c: 137: bool decrementMemorizedNumbersCount()
+[; ;app_gate.c: 138: {
+[e :U _decrementMemorizedNumbersCount ]
+[f ]
+"139
+[v _isError `uc ~T0 @X0 1 a ]
+[; ;app_gate.c: 139: bool isError = 0;
+[e = _isError -> -> 0 `i `uc ]
+[; ;app_gate.c: 140: if (memorizedNumbersCount[0] == 1)
+"140
+[e $ ! == -> *U + &U _memorizedNumbersCount * -> -> -> 0 `i `ui `ux -> -> # *U &U _memorizedNumbersCount `ui `ux `i -> 1 `i 899  ]
+[; ;app_gate.c: 141: {
+"141
+{
+[; ;app_gate.c: 142: isError = 1;
+"142
+[e = _isError -> -> 1 `i `uc ]
+"143
+}
+[; ;app_gate.c: 143: }
+[e $U 900  ]
+"144
+[e :U 899 ]
+[; ;app_gate.c: 144: else
+[; ;app_gate.c: 145: {
+"145
+{
+[; ;app_gate.c: 146: memorizedNumbersCount[0]--;
+"146
+[e -- *U + &U _memorizedNumbersCount * -> -> -> 0 `i `ui `ux -> -> # *U &U _memorizedNumbersCount `ui `ux -> -> 1 `i `uc ]
+[; ;app_gate.c: 147: Eeprom_Write(4, memorizedNumbersCount, 1);
+"147
+[e ( _Eeprom_Write (3 , , -> -> 4 `i `uc &U _memorizedNumbersCount -> -> 1 `i `uc ]
+"148
+}
+[e :U 900 ]
+[; ;app_gate.c: 148: }
+[; ;app_gate.c: 149: return isError;
+"149
+[e ) _isError ]
+[e $UE 898  ]
+[; ;app_gate.c: 150: }
+"150
+[e :UE 898 ]
+}
+"152
+[v _isNumberValid `(uc ~T0 @X0 1 ef1`*uc ]
+"153
+{
+[; ;app_gate.c: 152: bool isNumberValid(uint8_t* phoneNumber)
+[; ;app_gate.c: 153: {
+[e :U _isNumberValid ]
+"152
+[v _phoneNumber `*uc ~T0 @X0 1 r1 ]
+"153
+[f ]
+"154
+[v _isNumberOk `uc ~T0 @X0 1 a ]
+[; ;app_gate.c: 154: bool isNumberOk = 0;
+[e = _isNumberOk -> -> 0 `i `uc ]
+"155
+[v _i `uc ~T0 @X0 1 a ]
+[; ;app_gate.c: 155: uint8_t i = 0;
+[e = _i -> -> 0 `i `uc ]
+[; ;app_gate.c: 156: if (phoneNumber[0] == '+')
+"156
+[e $ ! == -> *U + _phoneNumber * -> -> 0 `i `x -> -> # *U _phoneNumber `i `x `ui -> 43 `ui 902  ]
+[; ;app_gate.c: 157: {
+"157
+{
+[; ;app_gate.c: 158: for (i = 1; i < ((UINT8)(13)); i++)
+"158
+{
+[e = _i -> -> 1 `i `uc ]
+[e $ < -> _i `i -> -> -> 13 `i `uc `i 903  ]
+[e $U 904  ]
+"159
+[e :U 903 ]
+[; ;app_gate.c: 159: {
+{
+[; ;app_gate.c: 160: if (phoneNumber[i] >= '0' && phoneNumber[i] <= '9')
+"160
+[e $ ! && >= -> *U + _phoneNumber * -> _i `ux -> -> # *U _phoneNumber `ui `ux `ui -> 48 `ui <= -> *U + _phoneNumber * -> _i `ux -> -> # *U _phoneNumber `ui `ux `ui -> 57 `ui 906  ]
+[; ;app_gate.c: 161: {
+"161
+{
+[; ;app_gate.c: 162: isNumberOk = 1;
+"162
+[e = _isNumberOk -> -> 1 `i `uc ]
+"163
+}
+[; ;app_gate.c: 163: }
+[e $U 907  ]
+"164
+[e :U 906 ]
+[; ;app_gate.c: 164: else
+[; ;app_gate.c: 165: {
+"165
+{
+[; ;app_gate.c: 166: isNumberOk = 0;
+"166
+[e = _isNumberOk -> -> 0 `i `uc ]
+[; ;app_gate.c: 167: break;
+"167
+[e $U 904  ]
+"168
+}
+[e :U 907 ]
+"169
+}
+"158
+[e ++ _i -> -> 1 `i `uc ]
+[e $ < -> _i `i -> -> -> 13 `i `uc `i 903  ]
+[e :U 904 ]
+"169
+}
+"170
+}
+[e :U 902 ]
+[; ;app_gate.c: 168: }
+[; ;app_gate.c: 169: }
+[; ;app_gate.c: 170: }
+[; ;app_gate.c: 171: return isNumberOk;
+"171
+[e ) _isNumberOk ]
+[e $UE 901  ]
+[; ;app_gate.c: 172: }
+"172
+[e :UE 901 ]
+}
+"174
+[v _isNumberInMemory `(uc ~T0 @X0 1 ef1`*uc ]
+"175
+{
+[; ;app_gate.c: 174: uint8_t isNumberInMemory(uint8_t* phoneNumber)
+[; ;app_gate.c: 175: {
+[e :U _isNumberInMemory ]
+"174
+[v _phoneNumber `*uc ~T0 @X0 1 r1 ]
+"175
+[f ]
+"176
+[v _searchInProgress `Cuc ~T0 @X0 1 a ]
+[; ;app_gate.c: 176: const uint8_t searchInProgress = 0;
+[e = _searchInProgress -> -> 0 `i `uc ]
+"177
+[v _searchFailed `Cuc ~T0 @X0 1 a ]
+[; ;app_gate.c: 177: const uint8_t searchFailed = 1;
+[e = _searchFailed -> -> 1 `i `uc ]
+"178
+[v F9011 `uc ~T0 @X0 1 s currentPosition ]
+[i F9011
+-> -> 16 `i `uc
+]
+"179
+[v _positionInMemory `uc ~T0 @X0 1 a ]
+[; ;app_gate.c: 178: static uint8_t currentPosition = 16;
+[; ;app_gate.c: 179: uint8_t positionInMemory = searchInProgress;
+[e = _positionInMemory _searchInProgress ]
+"180
+[v _readBuffer `uc ~T0 @X0 -> -> -> 13 `i `uc `ux a ]
+"181
+[v _memoryOpResult `E8244 ~T0 @X0 1 a ]
+[; ;app_gate.c: 180: uint8_t readBuffer[((UINT8)(13))];
+[; ;app_gate.c: 181: EepromStsType memoryOpResult = OP_PENDING;
+[e = _memoryOpResult . `E8244 2 ]
+[; ;app_gate.c: 183: if (currentPosition >= 16 * 10)
+"183
+[e $ ! >= -> F9011 `i * -> 16 `i -> 10 `i 909  ]
+[; ;app_gate.c: 184: {
+"184
+{
+[; ;app_gate.c: 185: currentPosition = 16;
+"185
+[e = F9011 -> -> 16 `i `uc ]
+"186
+}
+[e :U 909 ]
+[; ;app_gate.c: 186: }
+[; ;app_gate.c: 187: memoryOpResult = Eeprom_Read(currentPosition, readBuffer, ((UINT8)(13)));
+"187
+[e = _memoryOpResult ( _Eeprom_Read (3 , , F9011 &U _readBuffer -> -> 13 `i `uc ]
+[; ;app_gate.c: 188: if (memoryOpResult != OP_PENDING)
+"188
+[e $ ! != -> _memoryOpResult `i -> . `E8244 2 `i 910  ]
+[; ;app_gate.c: 189: {
+"189
+{
+[; ;app_gate.c: 190: if (isNumberValid(readBuffer))
+"190
+[e $ ! != -> ( _isNumberValid (1 &U _readBuffer `i -> -> -> 0 `i `uc `i 911  ]
+[; ;app_gate.c: 191: {
+"191
+{
+[; ;app_gate.c: 192: if (StringCompare(phoneNumber, readBuffer, ((UINT8)(13))))
+"192
+[e $ ! != -> ( _StringCompare (3 , , _phoneNumber &U _readBuffer -> -> -> 13 `i `uc `us `i -> -> -> 0 `i `uc `i 912  ]
+[; ;app_gate.c: 193: {
+"193
+{
+[; ;app_gate.c: 194: positionInMemory = currentPosition;
+"194
+[e = _positionInMemory F9011 ]
+[; ;app_gate.c: 195: currentPosition = 16 * 10;
+"195
+[e = F9011 -> * -> 16 `i -> 10 `i `uc ]
+"196
+}
+[; ;app_gate.c: 196: }
+[e $U 913  ]
+"197
+[e :U 912 ]
+[; ;app_gate.c: 197: else
+[; ;app_gate.c: 198: {
+"198
+{
+"200
+}
+[e :U 913 ]
+"202
+}
+[e :U 911 ]
+[; ;app_gate.c: 200: }
+[; ;app_gate.c: 202: }
+[; ;app_gate.c: 203: currentPosition += 16;
+"203
+[e =+ F9011 -> -> 16 `i `uc ]
+"204
+}
+[e :U 910 ]
+[; ;app_gate.c: 204: }
+[; ;app_gate.c: 205: return positionInMemory;
+"205
+[e ) _positionInMemory ]
+[e $UE 908  ]
+[; ;app_gate.c: 206: }
+"206
+[e :UE 908 ]
 }

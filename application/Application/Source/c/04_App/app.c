@@ -86,7 +86,7 @@ static uint8_t smsText[MESSAGE_BUFF_LEN] = {0};
 ************************************************************************/
 
 
-gateFsmStates parseCommand(uint8_t* text, uint8* senderNumber)
+gateFsmStates parseCommand(uint8_t* text)
 {
     const uint8_t addNumberCmd[] = {'A', 'D', 'D'};
     const uint8_t deleteNumberCmd[] = {'D', 'E', 'L'};
@@ -243,7 +243,7 @@ void MyApp_Task (UINT8 Options)
                 if (Mdm_GetSmsData(smsText) == SmsDataReady)
                 {
                     Uart_WriteConstString(1,"AT+CMGD=1,0\r\n");
-                    currentState = parseCommand();
+                    currentState = parseCommand(smsText);
                 }
                 if (Mdm_IsRinging())
                 {
@@ -253,13 +253,37 @@ void MyApp_Task (UINT8 Options)
                break;
 
             case GATE_ADD_CMD:
+                if (isNumberValid(smsText + 3))
+                {
+                    numberInMemory = isNumberInMemory(GetCallerNumber());
+                    if (numberInMemory == 1)
+                    {
+                        currentState = GATE_WAIT_EVENT;
+                    }
+                    else if (numberInMemory != 0 && numberInMemory != 1)
+                    {
+                        //saveNewNumber(smsText + 3);
+                    }
+                }
                 break;
 
             case GATE_DEL_CMD:
+                if (isNumberValid(smsText + 3))
+                {
+                    numberInMemory = isNumberInMemory(GetCallerNumber());
+                    if (numberInMemory == 1)
+                    {
+                        currentState = GATE_WAIT_EVENT;
+                    }
+                    else if (numberInMemory != 0 && numberInMemory != 1)
+                    {
+                        //deleteNumber(smsText + 3);
+                    }
+                }
                 break;
 
             case GATE_TRIGGER_CMD:
-                numberInMemory = isNumberInMemory(GetCallerNumber())
+                numberInMemory = isNumberInMemory(GetCallerNumber());
                 if (numberInMemory == 1)
                 {
                     currentState = GATE_WAIT_EVENT;

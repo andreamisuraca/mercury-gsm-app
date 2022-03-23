@@ -8381,8 +8381,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _MessageText `uc ~T0 @X0 -> 50 `i s ]
 [; ;mdm_gsm_gprs.c: 145: static UINT8 MessageText[50];
 "148
-[v _callerNumber `uc ~T0 @X0 -> -> -> 14 `i `uc `ux s ]
-[; ;mdm_gsm_gprs.c: 148: static UINT8 callerNumber[((UINT8)(14))];
+[v _callerNumber `uc ~T0 @X0 -> -> -> 13 `i `uc `ux s ]
+[; ;mdm_gsm_gprs.c: 148: static UINT8 callerNumber[((UINT8)(13))];
 "151
 [v _SendSmsEvent `S802 ~T0 @X0 1 e ]
 [i _SendSmsEvent
@@ -9261,9 +9261,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;mdm_gsm_gprs.c: 529: {
 "529
 {
-[; ;mdm_gsm_gprs.c: 530: StringCopy(RxBuffer + 8, callerNumber, ((UINT8)(14)));
+[; ;mdm_gsm_gprs.c: 530: StringCopy(RxBuffer + 8, callerNumber, ((UINT8)(13)));
 "530
-[e ( _StringCopy (3 , , + &U _RxBuffer * -> -> 8 `i `x -> -> # *U &U _RxBuffer `i `x &U _callerNumber -> -> -> 14 `i `uc `us ]
+[e ( _StringCopy (3 , , + &U _RxBuffer * -> -> 8 `i `x -> -> # *U &U _RxBuffer `i `x &U _callerNumber -> -> -> 13 `i `uc `us ]
 [; ;mdm_gsm_gprs.c: 532: GenerateEvt(&ClipEvent);
 "532
 [e ( _GenerateEvt (1 &U _ClipEvent ]
@@ -10013,9 +10013,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;mdm_gsm_gprs.c: 900: StringCopy(Mdm_SmsRx.MessageBuffer, MessageText, Mdm_SmsRx.TextLen + 1);
 "900
 [e ( _StringCopy (3 , , &U . _Mdm_SmsRx 1 _MessageText -> + -> . _Mdm_SmsRx 3 `i -> 1 `i `us ]
-[; ;mdm_gsm_gprs.c: 901: StringCopy(Mdm_SmsRx.HeaderBuffer + 21, callerNumber, ((UINT8)(14)));
+[; ;mdm_gsm_gprs.c: 901: StringCopy(Mdm_SmsRx.HeaderBuffer + 21, callerNumber, ((UINT8)(13)) - 1);
 "901
-[e ( _StringCopy (3 , , + &U . _Mdm_SmsRx 0 * -> -> 21 `i `x -> -> # *U &U . _Mdm_SmsRx 0 `i `x &U _callerNumber -> -> -> 14 `i `uc `us ]
+[e ( _StringCopy (3 , , + &U . _Mdm_SmsRx 0 * -> -> 21 `i `x -> -> # *U &U . _Mdm_SmsRx 0 `i `x &U _callerNumber -> - -> -> -> 13 `i `uc `i -> 1 `i `us ]
 [; ;mdm_gsm_gprs.c: 903: GetSmsStatus = SmsDataReady;
 "903
 [e = _GetSmsStatus . `E8920 1 ]
@@ -10240,9 +10240,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;mdm_gsm_gprs.c: 1040: {
 "1040
 {
-[; ;mdm_gsm_gprs.c: 1041: ClearBuffer(callerNumber, ((UINT8)(14)));
+[; ;mdm_gsm_gprs.c: 1041: ClearBuffer(callerNumber, ((UINT8)(13)));
 "1041
-[e ( _ClearBuffer (2 , &U _callerNumber -> -> -> 14 `i `uc `us ]
+[e ( _ClearBuffer (2 , &U _callerNumber -> -> -> 13 `i `uc `us ]
 "1042
 }
 [e :U 1003 ]

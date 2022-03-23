@@ -9824,7 +9824,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;term.c: 801: memset(Data,0,50);
 "801
 [e ( _memset (3 , , -> &U F9032 `*v -> 0 `i -> -> 50 `i `ui ]
-[; ;term.c: 803: sprintf(Data,"Build Date: %s\r\n","Mar 20 2022");
+[; ;term.c: 803: sprintf(Data,"Build Date: %s\r\n","Mar 26 2022");
 "803
 [e ( _sprintf (1 , (. , &U F9032 :s 7C :s 8C ]
 [; ;term.c: 805: putUSBUSART((void*)Data,strlen(Data));
@@ -9953,7 +9953,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :UE 980 ]
 }
 [p f _sprintf 8650752 ]
-[a 8C 77 97 114 32 50 48 32 50 48 50 50 0 ]
+[a 8C 77 97 114 32 50 54 32 50 48 50 50 0 ]
 [a 4C 46 0 ]
 [a 5C 46 0 ]
 [a 3C 70 114 97 109 101 119 111 114 107 32 86 101 114 115 105 111 110 58 32 0 ]

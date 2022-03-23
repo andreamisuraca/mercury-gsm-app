@@ -192,8 +192,13 @@ uint8_t isNumberInMemory(uint8_t* phoneNumber)
             if (StringCompare(phoneNumber, readBuffer, PHONE_NUMBER_LEN))
             {
                 positionInMemory = currentPosition;
-                currentPosition = INIT_NUMBER_ADDRESS;
+                currentPosition = INIT_NUMBER_ADDRESS * MAX_NUMBERS_IN_MEM;
             }
+            else
+            {
+                // add method to skip other reads if I have already read all the memorized numbers.
+            }
+            
         }
         currentPosition += INIT_NUMBER_ADDRESS;
     }

@@ -50,6 +50,7 @@
 bool waitSetupCall(void);
 void saveNumberInMemory(UINT8 address, UINT8* phoneNumber);
 void initMemorizedNumbersCount();
+bool isNumberValid(uint8_t* phoneNumber);
 uint8_t isNumberInMemory(uint8_t* phoneNumber);
 
 #endif    /* APP_GATE_H */

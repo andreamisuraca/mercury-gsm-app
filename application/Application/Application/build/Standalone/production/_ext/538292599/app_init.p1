@@ -8248,10 +8248,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;os_sched.h: 86: void Sch_MainScheduler (void);
 [; ;os_sched.h: 88: void Sch_SchmIntService (void);
 [; ;app.h: 53: void MyApp_Task (UINT8 Options);
-[; ;app_init.h: 46: extern bool isMemoryEmpty;
-[; ;app_init.h: 48: extern uint8_t memorizedNumbersCount[1];
-[; ;app_init.h: 53: bool initFsm(void);
-[; ;app_init.h: 55: uint8_t* initPreamble();
+[; ;app_init.h: 48: extern bool isMemoryEmpty;
+[; ;app_init.h: 50: extern uint8_t memorizedNumbersCount[1];
+[; ;app_init.h: 55: bool initFsm(void);
+[; ;app_init.h: 57: uint8_t* initPreamble();
 [; ;app_utils.h: 49: bool secondsAppTimer(uint8_t seconds, uint16_t* counter, bool isCyclic);
 [; ;app_utils.h: 51: void blinkForSeconds(uint8_t seconds, uint16_t* blinkTicks);
 [; ;app_init.c: 41: typedef enum _modemStates
@@ -8324,9 +8324,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;app_init.c: 94: {
 "94
 {
-[; ;app_init.c: 95: if (secondsAppTimer(4, &modemCounter, 0))
+[; ;app_init.c: 95: if (secondsAppTimer(5, &modemCounter, 0))
 "95
-[e $ ! != -> ( _secondsAppTimer (3 , , -> -> 4 `i `uc &U F9000 -> -> 0 `i `uc `i -> -> -> 0 `i `uc `i 892  ]
+[e $ ! != -> ( _secondsAppTimer (3 , , -> -> 5 `i `uc &U F9000 -> -> 0 `i `uc `i -> -> -> 0 `i `uc `i 892  ]
 [; ;app_init.c: 96: {
 "96
 {
@@ -8654,9 +8654,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;app_init.c: 218: memoryPreamble[3] = 'M';
 "218
 [e = *U + &U _memoryPreamble * -> -> -> 3 `i `ui `ux -> -> # *U &U _memoryPreamble `ui `ux -> -> 77 `ui `uc ]
-[; ;app_init.c: 219: memoryPreamble[4] = '1';
+[; ;app_init.c: 219: memoryPreamble[4] = 1;
 "219
-[e = *U + &U _memoryPreamble * -> -> -> 4 `i `ui `ux -> -> # *U &U _memoryPreamble `ui `ux -> -> 49 `ui `uc ]
+[e = *U + &U _memoryPreamble * -> -> -> 4 `i `ui `ux -> -> # *U &U _memoryPreamble `ui `ux -> -> 1 `i `uc ]
 [; ;app_init.c: 220: memorizedNumbersCount[0] = 1;
 "220
 [e = *U + &U _memorizedNumbersCount * -> -> -> 0 `i `ui `ux -> -> # *U &U _memorizedNumbersCount `ui `ux -> -> 1 `i `uc ]

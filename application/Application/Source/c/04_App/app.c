@@ -170,6 +170,7 @@ uint8_t triggerRelay(uint8_t realyId, bool isRelayOn)
 ************************************************************************/
 void MyApp_Task (UINT8 Options)
 {
+    const uint8_t emptyNumber[PHONE_NUMBER_LEN] = {0};
     static UINT8 smsPhoneNumber[] = {'+', '3', '9', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
 
 
@@ -277,7 +278,7 @@ void MyApp_Task (UINT8 Options)
                     }
                     else if (numberInMemory != 0 && numberInMemory != 1)
                     {
-                        //deleteNumber(smsText + 3);
+                        saveNumberInMemory(numberInMemory, emptyNumber);
                     }
                 }
                 break;

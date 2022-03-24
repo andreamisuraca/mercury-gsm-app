@@ -830,23 +830,23 @@ GATE_DEL_CMD 5
 GATE_TRIGGER_CMD 6
 GATE_ACTIVATE_RELAY 7
 ]
-"182
+"183
 [e E8114 _I2cOpSts `uc
 OP_IN_PROGRESS 0
 OP_COMPLETE 1
 OP_TIMEOUT 2
 ]
-"206
+"207
 [e E8203 _SmsRxStsType `uc
 SmsNotReceived 0
 SmsReceived 1
 ]
-"210
+"211
 [e E8195 _GetSmsStatus `uc
 SmsDataNotReady 0
 SmsDataReady 1
 ]
-"221
+"222
 [e E8874 _LedStsType `uc
 LED_STS_OFF 0
 LED_STS_ON 1
@@ -854,12 +854,12 @@ LED_STS_TOGGLE 2
 LED_STS_BLINK 3
 LED_STS_PULSE 4
 ]
-"248
+"249
 [e E8199 _RingStsType `uc
 PhoneNotRinging 0
 PhoneRinging 1
 ]
-"185
+"186
 [e E8957 SystemStateEnum `uc
 InitializationState 0
 RunningState 1
@@ -2587,21 +2587,25 @@ OP_PENDING 2
 "171 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app.c
 [v _MyApp_Task MyApp_Task `(v  1 e 1 0 ]
 {
-"178
-[v MyApp_Task@cmdAddNumber cmdAddNumber `C[4]uc  1 a 4 22 ]
-"179
-[v MyApp_Task@cmpString cmpString `[3]uc  1 a 3 19 ]
-"183
-[v MyApp_Task@numberInMemory numberInMemory `uc  1 a 1 27 ]
-"182
-[v MyApp_Task@memoryResult memoryResult `E8114  1 a 1 26 ]
 "173
-[v MyApp_Task@F9029 F9029 `C[4]uc  1 s 4 F9029 ]
-"178
-[v MyApp_Task@F9031 F9031 `[3]uc  1 s 3 F9031 ]
-"181
+[v MyApp_Task@emptyNumber emptyNumber `C[13]uc  1 a 13 19 ]
+"179
+[v MyApp_Task@cmdAddNumber cmdAddNumber `C[4]uc  1 a 4 35 ]
+"180
+[v MyApp_Task@cmpString cmpString `[3]uc  1 a 3 32 ]
+"184
+[v MyApp_Task@numberInMemory numberInMemory `uc  1 a 1 40 ]
+"183
+[v MyApp_Task@memoryResult memoryResult `E8114  1 a 1 39 ]
+"172
+[v MyApp_Task@F9029 F9029 `C[13]uc  1 s 13 F9029 ]
+"174
+[v MyApp_Task@F9032 F9032 `C[4]uc  1 s 4 F9032 ]
+"179
+[v MyApp_Task@F9034 F9034 `[3]uc  1 s 3 F9034 ]
+"182
 [v MyApp_Task@currentState currentState `E8991  1 s 1 currentState ]
-"368
+"369
 } 0
 "845 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/02_Ssl/term.c
 [v _Term_MainTask Term_MainTask `(v  1 e 1 0 ]

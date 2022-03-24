@@ -8,7 +8,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _StringCompare `(uc ~T0 @X0 0 ef3`*uc`*uc`us ]
 "88 ../../MercuryFwk/Source/h/03_Sml/01_Pml/02_SlvI2c/i2c_slv.h
 [v _I2cSlv_SendI2cMsg `(uc ~T0 @X0 0 ef3`*uc`uc`uc ]
-"182 ../Source/c/04_App/app.c
+"183 ../Source/c/04_App/app.c
 [c E8114 0 1 2 .. ]
 [n E8114 _I2cOpSts OP_IN_PROGRESS OP_COMPLETE OP_TIMEOUT  ]
 "104 ../../MercuryFwk/Source/h/03_Sml/02_Ssl/led.h
@@ -19,21 +19,21 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _isMemoryEmpty `uc ~T0 @X0 0 e ]
 "50 ../Source/h/04_App/app_gate.h
 [v _waitSetupCall `(uc ~T0 @X0 0 ef ]
-"206 ../Source/c/04_App/app.c
+"207 ../Source/c/04_App/app.c
 [c E8203 0 1 .. ]
 [n E8203 _SmsRxStsType SmsNotReceived SmsReceived  ]
 "132 ../../MercuryFwk/Source/h/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.h
 [v _Mdm_IsSmsReceived `(E8203 ~T0 @X0 0 ef ]
 "126
 [v _Mdm_RequestSmsData `(v ~T0 @X0 0 ef ]
-"210 ../Source/c/04_App/app.c
+"211 ../Source/c/04_App/app.c
 [c E8195 0 1 .. ]
 [n E8195 _GetSmsStatus SmsDataNotReady SmsDataReady  ]
 "128 ../../MercuryFwk/Source/h/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.h
 [v _Mdm_GetSmsData `(E8195 ~T0 @X0 0 ef1`*uc ]
 "216 ../../MercuryFwk/Source/h/01_Hal/02_Drv/uart_drv.h
 [v _Uart_WriteConstString `(v ~T0 @X0 0 ef2`uc`*Cuc ]
-"221 ../Source/c/04_App/app.c
+"222 ../Source/c/04_App/app.c
 [c E8874 0 1 2 3 4 .. ]
 [n E8874 _LedStsType LED_STS_OFF LED_STS_ON LED_STS_TOGGLE LED_STS_BLINK LED_STS_PULSE  ]
 "102 ../../MercuryFwk/Source/h/03_Sml/02_Ssl/led.h
@@ -44,7 +44,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _GetCallerNumber `(*uc ~T0 @X0 0 ef ]
 "52 ../Source/h/04_App/app_gate.h
 [v _initMemorizedNumbersCount `(v ~T0 @X0 0 ef ]
-"248 ../Source/c/04_App/app.c
+"249 ../Source/c/04_App/app.c
 [c E8199 0 1 .. ]
 [n E8199 _RingStsType PhoneNotRinging PhoneRinging  ]
 "120 ../../MercuryFwk/Source/h/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.h
@@ -55,7 +55,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _isNumberValid `(uc ~T0 @X0 0 ef1`*uc ]
 "54
 [v _isNumberInMemory `(uc ~T0 @X0 0 ef1`*uc ]
-"185 ../Source/c/04_App/app.c
+"186 ../Source/c/04_App/app.c
 [c E8957 0 1 .. ]
 [n E8957 SystemStateEnum InitializationState RunningState  ]
 "79 ../../MercuryFwk/Source/h/02_Osl/os_sched.h
@@ -8493,9 +8493,19 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _Options `uc ~T0 @X0 1 r1 ]
 "172
 [f ]
+[v F9029 `Cuc ~T0 @X0 -> -> -> 13 `i `uc `ux s ]
+[i F9029
+:U ..
 "173
-[v F9027 `uc ~T0 @X0 -> 0 `x s smsPhoneNumber ]
-[i F9027
+-> -> 0 `i `uc
+..
+]
+[v _emptyNumber `Cuc ~T0 @X0 -> -> -> 13 `i `uc `ux a ]
+[; ;app.c: 173: const uint8_t emptyNumber[((UINT8)(13))] = {0};
+[e = _emptyNumber F9029 ]
+"174
+[v F9030 `uc ~T0 @X0 -> 0 `x s smsPhoneNumber ]
+[i F9030
 :U ..
 -> -> 43 `ui `uc
 -> -> 51 `ui `uc
@@ -8512,10 +8522,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 57 `ui `uc
 ..
 ]
-[v F9029 `Cuc ~T0 @X0 -> 0 `x s ]
-[i F9029
+[v F9032 `Cuc ~T0 @X0 -> 0 `x s ]
+[i F9032
 :U ..
-"178
+"179
 -> -> 78 `ui `uc
 -> -> 85 `ui `uc
 -> -> 77 `ui `uc
@@ -8523,372 +8533,375 @@ Version 3.2 HI-TECH Software Intermediate Code
 ..
 ]
 [v _cmdAddNumber `Cuc ~T0 @X0 4  a ]
-[; ;app.c: 173: static UINT8 smsPhoneNumber[] = {'+', '3', '9', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
-[; ;app.c: 178: const uint8_t cmdAddNumber[] = {'N', 'U', 'M', '+'};
-[e = _cmdAddNumber F9029 ]
-[v F9031 `uc ~T0 @X0 -> 0 `x s ]
-[i F9031
+[; ;app.c: 174: static UINT8 smsPhoneNumber[] = {'+', '3', '9', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+[; ;app.c: 179: const uint8_t cmdAddNumber[] = {'N', 'U', 'M', '+'};
+[e = _cmdAddNumber F9032 ]
+[v F9034 `uc ~T0 @X0 -> 0 `x s ]
+[i F9034
 :U ..
-"179
+"180
 -> -> 99 `ui `uc
 -> -> 97 `ui `uc
 -> -> 116 `ui `uc
 ..
 ]
 [v _cmpString `uc ~T0 @X0 3  a ]
-[; ;app.c: 179: uint8_t cmpString[] = {'c', 'a', 't'};
-[e = _cmpString F9031 ]
-"181
-[v F9032 `E8991 ~T0 @X0 1 s currentState ]
-[i F9032
+[; ;app.c: 180: uint8_t cmpString[] = {'c', 'a', 't'};
+[e = _cmpString F9034 ]
+"182
+[v F9035 `E8991 ~T0 @X0 1 s currentState ]
+[i F9035
 . `E8991 0
 ]
-"182
-[v _memoryResult `E8114 ~T0 @X0 1 a ]
-[; ;app.c: 181: static gateFsmStates currentState = GATE_INIT;
-[; ;app.c: 182: I2cOpStsType memoryResult = OP_COMPLETE;
-[e = _memoryResult . `E8114 1 ]
 "183
+[v _memoryResult `E8114 ~T0 @X0 1 a ]
+[; ;app.c: 182: static gateFsmStates currentState = GATE_INIT;
+[; ;app.c: 183: I2cOpStsType memoryResult = OP_COMPLETE;
+[e = _memoryResult . `E8114 1 ]
+"184
 [v _numberInMemory `uc ~T0 @X0 1 a ]
-[; ;app.c: 183: uint8_t numberInMemory = 0;
+[; ;app.c: 184: uint8_t numberInMemory = 0;
 [e = _numberInMemory -> -> 0 `i `uc ]
-[; ;app.c: 185: switch (SystemState)
-"185
-[e $U 896  ]
-[; ;app.c: 186: {
+[; ;app.c: 186: switch (SystemState)
 "186
+[e $U 896  ]
+[; ;app.c: 187: {
+"187
 {
-[; ;app.c: 188: case InitializationState:
-"188
+[; ;app.c: 189: case InitializationState:
+"189
 [e :U 897 ]
-[; ;app.c: 190: Led_SetLedBlinkTime(1u,100,900);
-"190
-[e ( _Led_SetLedBlinkTime (3 , , -> -> 1 `ui `uc -> -> 100 `i `us -> -> 900 `i `us ]
-[; ;app.c: 191: break;
+[; ;app.c: 191: Led_SetLedBlinkTime(1u,100,900);
 "191
+[e ( _Led_SetLedBlinkTime (3 , , -> -> 1 `ui `uc -> -> 100 `i `us -> -> 900 `i `us ]
+[; ;app.c: 192: break;
+"192
 [e $U 895  ]
-[; ;app.c: 194: case RunningState:
-"194
-[e :U 898 ]
-[; ;app.c: 195: switch (currentState)
+[; ;app.c: 195: case RunningState:
 "195
-[e $U 900  ]
-[; ;app.c: 196: {
+[e :U 898 ]
+[; ;app.c: 196: switch (currentState)
 "196
-{
-[; ;app.c: 197: case GATE_INIT:
+[e $U 900  ]
+[; ;app.c: 197: {
 "197
-[e :U 901 ]
-[; ;app.c: 198: if (initFsm())
+{
+[; ;app.c: 198: case GATE_INIT:
 "198
-[e $ ! != -> ( _initFsm ..  `i -> -> -> 0 `i `uc `i 902  ]
-[; ;app.c: 199: {
+[e :U 901 ]
+[; ;app.c: 199: if (initFsm())
 "199
-{
-[; ;app.c: 200: if (isMemoryEmpty)
+[e $ ! != -> ( _initFsm ..  `i -> -> -> 0 `i `uc `i 902  ]
+[; ;app.c: 200: {
 "200
-[e $ ! != -> _isMemoryEmpty `i -> -> -> 0 `i `uc `i 903  ]
-[; ;app.c: 201: {
+{
+[; ;app.c: 201: if (isMemoryEmpty)
 "201
-{
-[; ;app.c: 202: if (waitSetupCall())
+[e $ ! != -> _isMemoryEmpty `i -> -> -> 0 `i `uc `i 903  ]
+[; ;app.c: 202: {
 "202
-[e $ ! != -> ( _waitSetupCall ..  `i -> -> -> 0 `i `uc `i 904  ]
-[; ;app.c: 203: {
-"203
 {
-[; ;app.c: 204: currentState = GATE_SAVE_FIRST_MASTER;
+[; ;app.c: 203: if (waitSetupCall())
+"203
+[e $ ! != -> ( _waitSetupCall ..  `i -> -> -> 0 `i `uc `i 904  ]
+[; ;app.c: 204: {
 "204
-[e = F9032 . `E8991 1 ]
+{
+[; ;app.c: 205: currentState = GATE_SAVE_FIRST_MASTER;
 "205
+[e = F9035 . `E8991 1 ]
+"206
 }
 [e :U 904 ]
-[; ;app.c: 205: }
-[; ;app.c: 206: if (Mdm_IsSmsReceived())
-"206
-[e $ ! != -> ( _Mdm_IsSmsReceived ..  `i -> -> -> 0 `i `E8203 `i 905  ]
-[; ;app.c: 207: {
+[; ;app.c: 206: }
+[; ;app.c: 207: if (Mdm_IsSmsReceived())
 "207
-{
-[; ;app.c: 208: Mdm_RequestSmsData();
+[e $ ! != -> ( _Mdm_IsSmsReceived ..  `i -> -> -> 0 `i `E8203 `i 905  ]
+[; ;app.c: 208: {
 "208
-[e ( _Mdm_RequestSmsData ..  ]
+{
+[; ;app.c: 209: Mdm_RequestSmsData();
 "209
+[e ( _Mdm_RequestSmsData ..  ]
+"210
 }
 [e :U 905 ]
-[; ;app.c: 209: }
-[; ;app.c: 210: if (Mdm_GetSmsData(smsText) == SmsDataReady)
-"210
-[e $ ! == -> ( _Mdm_GetSmsData (1 &U _smsText `i -> . `E8195 1 `i 906  ]
-[; ;app.c: 211: {
+[; ;app.c: 210: }
+[; ;app.c: 211: if (Mdm_GetSmsData(smsText) == SmsDataReady)
 "211
-{
-[; ;app.c: 212: Uart_WriteConstString(1,"AT+CMGD=1,0\r\n");
+[e $ ! == -> ( _Mdm_GetSmsData (1 &U _smsText `i -> . `E8195 1 `i 906  ]
+[; ;app.c: 212: {
 "212
-[e ( _Uart_WriteConstString (2 , -> -> 1 `i `uc :s 1C ]
-[; ;app.c: 213: if (StringCompare(smsText, cmdAddNumber, sizeof(cmdAddNumber)))
-"213
-[e $ ! != -> ( _StringCompare (3 , , &U _smsText -> &U _cmdAddNumber `*uc -> -> # _cmdAddNumber `ui `us `i -> -> -> 0 `i `uc `i 907  ]
-[; ;app.c: 214: {
-"214
 {
-[; ;app.c: 215: currentState = GATE_SAVE_FIRST_MASTER;
+[; ;app.c: 213: Uart_WriteConstString(1,"AT+CMGD=1,0\r\n");
+"213
+[e ( _Uart_WriteConstString (2 , -> -> 1 `i `uc :s 1C ]
+[; ;app.c: 214: if (StringCompare(smsText, cmdAddNumber, sizeof(cmdAddNumber)))
+"214
+[e $ ! != -> ( _StringCompare (3 , , &U _smsText -> &U _cmdAddNumber `*uc -> -> # _cmdAddNumber `ui `us `i -> -> -> 0 `i `uc `i 907  ]
+[; ;app.c: 215: {
 "215
-[e = F9032 . `E8991 1 ]
+{
+[; ;app.c: 216: currentState = GATE_SAVE_FIRST_MASTER;
 "216
-}
-[e :U 907 ]
+[e = F9035 . `E8991 1 ]
 "217
 }
-[e :U 906 ]
+[e :U 907 ]
 "218
 }
-[; ;app.c: 216: }
+[e :U 906 ]
+"219
+}
 [; ;app.c: 217: }
 [; ;app.c: 218: }
+[; ;app.c: 219: }
 [e $U 908  ]
-"219
-[e :U 903 ]
-[; ;app.c: 219: else
-[; ;app.c: 220: {
 "220
-{
-[; ;app.c: 221: Led_SetLedStatus(1u, LED_STS_ON);
+[e :U 903 ]
+[; ;app.c: 220: else
+[; ;app.c: 221: {
 "221
-[e ( _Led_SetLedStatus (2 , -> -> 1 `ui `uc . `E8874 1 ]
-[; ;app.c: 222: currentState = GATE_WAIT_EVENT;
+{
+[; ;app.c: 222: Led_SetLedStatus(1u, LED_STS_ON);
 "222
-[e = F9032 . `E8991 3 ]
+[e ( _Led_SetLedStatus (2 , -> -> 1 `ui `uc . `E8874 1 ]
+[; ;app.c: 223: currentState = GATE_WAIT_EVENT;
 "223
-}
-[e :U 908 ]
+[e = F9035 . `E8991 3 ]
 "224
 }
-[e :U 902 ]
-[; ;app.c: 223: }
-[; ;app.c: 224: }
-[; ;app.c: 225: break;
+[e :U 908 ]
 "225
+}
+[e :U 902 ]
+[; ;app.c: 224: }
+[; ;app.c: 225: }
+[; ;app.c: 226: break;
+"226
 [e $U 899  ]
-[; ;app.c: 227: case GATE_SAVE_FIRST_MASTER:
-"227
-[e :U 909 ]
-[; ;app.c: 228: saveNumberInMemory(16, GetCallerNumber());
+[; ;app.c: 228: case GATE_SAVE_FIRST_MASTER:
 "228
-[e ( _saveNumberInMemory (2 , -> -> 16 `i `uc ( _GetCallerNumber ..  ]
-[; ;app.c: 229: currentState = GATE_UPDATE_NUMBERS_COUNT;
+[e :U 909 ]
+[; ;app.c: 229: saveNumberInMemory(16, GetCallerNumber());
 "229
-[e = F9032 . `E8991 2 ]
-[; ;app.c: 230: break;
+[e ( _saveNumberInMemory (2 , -> -> 16 `i `uc ( _GetCallerNumber ..  ]
+[; ;app.c: 230: currentState = GATE_UPDATE_NUMBERS_COUNT;
 "230
+[e = F9035 . `E8991 2 ]
+[; ;app.c: 231: break;
+"231
 [e $U 899  ]
-[; ;app.c: 232: case GATE_UPDATE_NUMBERS_COUNT:
-"232
-[e :U 910 ]
-[; ;app.c: 233: initMemorizedNumbersCount();
+[; ;app.c: 233: case GATE_UPDATE_NUMBERS_COUNT:
 "233
-[e ( _initMemorizedNumbersCount ..  ]
-[; ;app.c: 234: Led_SetLedStatus(1u, LED_STS_ON);
+[e :U 910 ]
+[; ;app.c: 234: initMemorizedNumbersCount();
 "234
-[e ( _Led_SetLedStatus (2 , -> -> 1 `ui `uc . `E8874 1 ]
-[; ;app.c: 235: currentState = GATE_WAIT_EVENT;
+[e ( _initMemorizedNumbersCount ..  ]
+[; ;app.c: 235: Led_SetLedStatus(1u, LED_STS_ON);
 "235
-[e = F9032 . `E8991 3 ]
-[; ;app.c: 236: break;
+[e ( _Led_SetLedStatus (2 , -> -> 1 `ui `uc . `E8874 1 ]
+[; ;app.c: 236: currentState = GATE_WAIT_EVENT;
 "236
+[e = F9035 . `E8991 3 ]
+[; ;app.c: 237: break;
+"237
 [e $U 899  ]
-[; ;app.c: 238: case GATE_WAIT_EVENT:
-"238
-[e :U 911 ]
-[; ;app.c: 239: if (Mdm_IsSmsReceived())
+[; ;app.c: 239: case GATE_WAIT_EVENT:
 "239
-[e $ ! != -> ( _Mdm_IsSmsReceived ..  `i -> -> -> 0 `i `E8203 `i 912  ]
-[; ;app.c: 240: {
+[e :U 911 ]
+[; ;app.c: 240: if (Mdm_IsSmsReceived())
 "240
-{
-[; ;app.c: 241: Mdm_RequestSmsData();
+[e $ ! != -> ( _Mdm_IsSmsReceived ..  `i -> -> -> 0 `i `E8203 `i 912  ]
+[; ;app.c: 241: {
 "241
-[e ( _Mdm_RequestSmsData ..  ]
+{
+[; ;app.c: 242: Mdm_RequestSmsData();
 "242
+[e ( _Mdm_RequestSmsData ..  ]
+"243
 }
 [e :U 912 ]
-[; ;app.c: 242: }
-[; ;app.c: 243: if (Mdm_GetSmsData(smsText) == SmsDataReady)
-"243
-[e $ ! == -> ( _Mdm_GetSmsData (1 &U _smsText `i -> . `E8195 1 `i 913  ]
-[; ;app.c: 244: {
+[; ;app.c: 243: }
+[; ;app.c: 244: if (Mdm_GetSmsData(smsText) == SmsDataReady)
 "244
-{
-[; ;app.c: 245: Uart_WriteConstString(1,"AT+CMGD=1,0\r\n");
+[e $ ! == -> ( _Mdm_GetSmsData (1 &U _smsText `i -> . `E8195 1 `i 913  ]
+[; ;app.c: 245: {
 "245
-[e ( _Uart_WriteConstString (2 , -> -> 1 `i `uc :s 2C ]
-[; ;app.c: 246: currentState = parseCommand(smsText);
+{
+[; ;app.c: 246: Uart_WriteConstString(1,"AT+CMGD=1,0\r\n");
 "246
-[e = F9032 ( _parseCommand (1 &U _smsText ]
+[e ( _Uart_WriteConstString (2 , -> -> 1 `i `uc :s 2C ]
+[; ;app.c: 247: currentState = parseCommand(smsText);
 "247
+[e = F9035 ( _parseCommand (1 &U _smsText ]
+"248
 }
 [e :U 913 ]
-[; ;app.c: 247: }
-[; ;app.c: 248: if (Mdm_IsRinging())
-"248
-[e $ ! != -> ( _Mdm_IsRinging ..  `i -> -> -> 0 `i `E8199 `i 914  ]
-[; ;app.c: 249: {
+[; ;app.c: 248: }
+[; ;app.c: 249: if (Mdm_IsRinging())
 "249
-{
-[; ;app.c: 250: Mdm_HangPhoneCall();
+[e $ ! != -> ( _Mdm_IsRinging ..  `i -> -> -> 0 `i `E8199 `i 914  ]
+[; ;app.c: 250: {
 "250
-[e ( _Mdm_HangPhoneCall ..  ]
-[; ;app.c: 251: currentState = GATE_TRIGGER_CMD;
+{
+[; ;app.c: 251: Mdm_HangPhoneCall();
 "251
-[e = F9032 . `E8991 6 ]
+[e ( _Mdm_HangPhoneCall ..  ]
+[; ;app.c: 252: currentState = GATE_TRIGGER_CMD;
 "252
+[e = F9035 . `E8991 6 ]
+"253
 }
 [e :U 914 ]
-[; ;app.c: 252: }
-[; ;app.c: 253: break;
-"253
+[; ;app.c: 253: }
+[; ;app.c: 254: break;
+"254
 [e $U 899  ]
-[; ;app.c: 255: case GATE_ADD_CMD:
-"255
-[e :U 915 ]
-[; ;app.c: 256: if (isNumberValid(smsText + 3))
+[; ;app.c: 256: case GATE_ADD_CMD:
 "256
-[e $ ! != -> ( _isNumberValid (1 + &U _smsText * -> -> 3 `i `x -> -> # *U &U _smsText `i `x `i -> -> -> 0 `i `uc `i 916  ]
-[; ;app.c: 257: {
+[e :U 915 ]
+[; ;app.c: 257: if (isNumberValid(smsText + 3))
 "257
-{
-[; ;app.c: 258: numberInMemory = isNumberInMemory(GetCallerNumber());
+[e $ ! != -> ( _isNumberValid (1 + &U _smsText * -> -> 3 `i `x -> -> # *U &U _smsText `i `x `i -> -> -> 0 `i `uc `i 916  ]
+[; ;app.c: 258: {
 "258
-[e = _numberInMemory ( _isNumberInMemory (1 ( _GetCallerNumber ..  ]
-[; ;app.c: 259: if (numberInMemory == 1)
+{
+[; ;app.c: 259: numberInMemory = isNumberInMemory(GetCallerNumber());
 "259
-[e $ ! == -> _numberInMemory `i -> 1 `i 917  ]
-[; ;app.c: 260: {
+[e = _numberInMemory ( _isNumberInMemory (1 ( _GetCallerNumber ..  ]
+[; ;app.c: 260: if (numberInMemory == 1)
 "260
-{
-[; ;app.c: 261: currentState = GATE_WAIT_EVENT;
+[e $ ! == -> _numberInMemory `i -> 1 `i 917  ]
+[; ;app.c: 261: {
 "261
-[e = F9032 . `E8991 3 ]
-"262
-}
-[; ;app.c: 262: }
-[e $U 918  ]
-"263
-[e :U 917 ]
-[; ;app.c: 263: else if (numberInMemory != 0 && numberInMemory != 1)
-[e $ ! && != -> _numberInMemory `i -> 0 `i != -> _numberInMemory `i -> 1 `i 919  ]
-[; ;app.c: 264: {
-"264
 {
-"266
+[; ;app.c: 262: currentState = GATE_WAIT_EVENT;
+"262
+[e = F9035 . `E8991 3 ]
+"263
+}
+[; ;app.c: 263: }
+[e $U 918  ]
+"264
+[e :U 917 ]
+[; ;app.c: 264: else if (numberInMemory != 0 && numberInMemory != 1)
+[e $ ! && != -> _numberInMemory `i -> 0 `i != -> _numberInMemory `i -> 1 `i 919  ]
+[; ;app.c: 265: {
+"265
+{
+"267
 }
 [e :U 919 ]
-"267
+"268
 [e :U 918 ]
 }
 [e :U 916 ]
-[; ;app.c: 266: }
 [; ;app.c: 267: }
-[; ;app.c: 268: break;
-"268
+[; ;app.c: 268: }
+[; ;app.c: 269: break;
+"269
 [e $U 899  ]
-[; ;app.c: 270: case GATE_DEL_CMD:
-"270
-[e :U 920 ]
-[; ;app.c: 271: if (isNumberValid(smsText + 3))
+[; ;app.c: 271: case GATE_DEL_CMD:
 "271
-[e $ ! != -> ( _isNumberValid (1 + &U _smsText * -> -> 3 `i `x -> -> # *U &U _smsText `i `x `i -> -> -> 0 `i `uc `i 921  ]
-[; ;app.c: 272: {
+[e :U 920 ]
+[; ;app.c: 272: if (isNumberValid(smsText + 3))
 "272
-{
-[; ;app.c: 273: numberInMemory = isNumberInMemory(GetCallerNumber());
+[e $ ! != -> ( _isNumberValid (1 + &U _smsText * -> -> 3 `i `x -> -> # *U &U _smsText `i `x `i -> -> -> 0 `i `uc `i 921  ]
+[; ;app.c: 273: {
 "273
-[e = _numberInMemory ( _isNumberInMemory (1 ( _GetCallerNumber ..  ]
-[; ;app.c: 274: if (numberInMemory == 1)
+{
+[; ;app.c: 274: numberInMemory = isNumberInMemory(GetCallerNumber());
 "274
-[e $ ! == -> _numberInMemory `i -> 1 `i 922  ]
-[; ;app.c: 275: {
+[e = _numberInMemory ( _isNumberInMemory (1 ( _GetCallerNumber ..  ]
+[; ;app.c: 275: if (numberInMemory == 1)
 "275
-{
-[; ;app.c: 276: currentState = GATE_WAIT_EVENT;
+[e $ ! == -> _numberInMemory `i -> 1 `i 922  ]
+[; ;app.c: 276: {
 "276
-[e = F9032 . `E8991 3 ]
-"277
-}
-[; ;app.c: 277: }
-[e $U 923  ]
-"278
-[e :U 922 ]
-[; ;app.c: 278: else if (numberInMemory != 0 && numberInMemory != 1)
-[e $ ! && != -> _numberInMemory `i -> 0 `i != -> _numberInMemory `i -> 1 `i 924  ]
-[; ;app.c: 279: {
-"279
 {
+[; ;app.c: 277: currentState = GATE_WAIT_EVENT;
+"277
+[e = F9035 . `E8991 3 ]
+"278
+}
+[; ;app.c: 278: }
+[e $U 923  ]
+"279
+[e :U 922 ]
+[; ;app.c: 279: else if (numberInMemory != 0 && numberInMemory != 1)
+[e $ ! && != -> _numberInMemory `i -> 0 `i != -> _numberInMemory `i -> 1 `i 924  ]
+[; ;app.c: 280: {
+"280
+{
+[; ;app.c: 281: saveNumberInMemory(numberInMemory, emptyNumber);
 "281
+[e ( _saveNumberInMemory (2 , _numberInMemory -> &U _emptyNumber `*uc ]
+"282
 }
 [e :U 924 ]
-"282
+"283
 [e :U 923 ]
 }
 [e :U 921 ]
-[; ;app.c: 281: }
 [; ;app.c: 282: }
-[; ;app.c: 283: break;
-"283
+[; ;app.c: 283: }
+[; ;app.c: 284: break;
+"284
 [e $U 899  ]
-[; ;app.c: 285: case GATE_TRIGGER_CMD:
-"285
-[e :U 925 ]
-[; ;app.c: 286: numberInMemory = isNumberInMemory(GetCallerNumber());
+[; ;app.c: 286: case GATE_TRIGGER_CMD:
 "286
-[e = _numberInMemory ( _isNumberInMemory (1 ( _GetCallerNumber ..  ]
-[; ;app.c: 287: if (numberInMemory == 1)
+[e :U 925 ]
+[; ;app.c: 287: numberInMemory = isNumberInMemory(GetCallerNumber());
 "287
-[e $ ! == -> _numberInMemory `i -> 1 `i 926  ]
-[; ;app.c: 288: {
+[e = _numberInMemory ( _isNumberInMemory (1 ( _GetCallerNumber ..  ]
+[; ;app.c: 288: if (numberInMemory == 1)
 "288
-{
-[; ;app.c: 289: currentState = GATE_WAIT_EVENT;
+[e $ ! == -> _numberInMemory `i -> 1 `i 926  ]
+[; ;app.c: 289: {
 "289
-[e = F9032 . `E8991 3 ]
-"290
-}
-[; ;app.c: 290: }
-[e $U 927  ]
-"291
-[e :U 926 ]
-[; ;app.c: 291: else if (numberInMemory != 0 && numberInMemory != 1)
-[e $ ! && != -> _numberInMemory `i -> 0 `i != -> _numberInMemory `i -> 1 `i 928  ]
-[; ;app.c: 292: {
-"292
 {
-[; ;app.c: 293: currentState = GATE_ACTIVATE_RELAY;
+[; ;app.c: 290: currentState = GATE_WAIT_EVENT;
+"290
+[e = F9035 . `E8991 3 ]
+"291
+}
+[; ;app.c: 291: }
+[e $U 927  ]
+"292
+[e :U 926 ]
+[; ;app.c: 292: else if (numberInMemory != 0 && numberInMemory != 1)
+[e $ ! && != -> _numberInMemory `i -> 0 `i != -> _numberInMemory `i -> 1 `i 928  ]
+[; ;app.c: 293: {
 "293
-[e = F9032 . `E8991 7 ]
+{
+[; ;app.c: 294: currentState = GATE_ACTIVATE_RELAY;
 "294
+[e = F9035 . `E8991 7 ]
+"295
 }
 [e :U 928 ]
-"296
-[e :U 927 ]
-[; ;app.c: 294: }
-[; ;app.c: 296: case GATE_ACTIVATE_RELAY:
-[e :U 929 ]
-[; ;app.c: 297: break;
 "297
+[e :U 927 ]
+[; ;app.c: 295: }
+[; ;app.c: 297: case GATE_ACTIVATE_RELAY:
+[e :U 929 ]
+[; ;app.c: 298: break;
+"298
 [e $U 899  ]
-[; ;app.c: 299: default:
-"299
-[e :U 930 ]
-[; ;app.c: 300: break;
+[; ;app.c: 300: default:
 "300
-[e $U 899  ]
+[e :U 930 ]
+[; ;app.c: 301: break;
 "301
-}
-[; ;app.c: 301: }
 [e $U 899  ]
-"195
+"302
+}
+[; ;app.c: 302: }
+[e $U 899  ]
+"196
 [e :U 900 ]
-[e [\ F9032 , $ . `E8991 0 901
+[e [\ F9035 , $ . `E8991 0 901
  , $ . `E8991 1 909
  , $ . `E8991 2 910
  , $ . `E8991 3 911
@@ -8897,30 +8910,30 @@ Version 3.2 HI-TECH Software Intermediate Code
  , $ . `E8991 6 925
  , $ . `E8991 7 929
  930 ]
-"301
+"302
 [e :U 899 ]
-[; ;app.c: 362: break;
-"362
+[; ;app.c: 363: break;
+"363
 [e $U 895  ]
-[; ;app.c: 365: default:
-"365
-[e :U 931 ]
-[; ;app.c: 366: break;
+[; ;app.c: 366: default:
 "366
-[e $U 895  ]
+[e :U 931 ]
+[; ;app.c: 367: break;
 "367
-}
-[; ;app.c: 367: }
 [e $U 895  ]
-"185
+"368
+}
+[; ;app.c: 368: }
+[e $U 895  ]
+"186
 [e :U 896 ]
 [e [\ _SystemState , $ . `E8957 0 897
  , $ . `E8957 1 898
  931 ]
-"367
-[e :U 895 ]
-[; ;app.c: 368: }
 "368
+[e :U 895 ]
+[; ;app.c: 369: }
+"369
 [e :UE 894 ]
 }
 [a 1C 65 84 43 67 77 71 68 61 49 44 48 13 10 0 ]

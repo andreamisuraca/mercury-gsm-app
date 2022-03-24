@@ -11299,6 +11299,7 @@ return res;
 # 171
 void MyApp_Task (UINT8 Options)
 {
+const uint8_t emptyNumber[((UINT8)(13))] = {0};
 static UINT8 smsPhoneNumber[] = {'+', '3', '9', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
 
 
@@ -11406,7 +11407,7 @@ currentState = GATE_WAIT_EVENT;
 }
 else if (numberInMemory != 0 && numberInMemory != 1)
 {
-
+saveNumberInMemory(numberInMemory, emptyNumber);
 }
 }
 break;
@@ -11429,7 +11430,7 @@ default:
 break;
 }
 
-# 362
+# 363
 break;
 
 

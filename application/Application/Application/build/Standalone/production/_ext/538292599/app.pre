@@ -11233,6 +11233,7 @@ void saveNumberInMemory(UINT8 address, UINT8* phoneNumber);
 void initMemorizedNumbersCount();
 bool isNumberValid(uint8_t* phoneNumber);
 uint8_t isNumberInMemory(uint8_t* phoneNumber);
+uint8_t findEmptySpot();
 
 # 49 "../Source/h/04_App/app_utils.h"
 bool secondsAppTimer(uint8_t seconds, uint16_t* counter, bool isCyclic);
@@ -11247,12 +11248,13 @@ GATE_SAVE_FIRST_MASTER,
 GATE_UPDATE_NUMBERS_COUNT,
 GATE_WAIT_EVENT,
 GATE_ADD_CMD,
+GATE_SAVE_NEW,
 GATE_DEL_CMD,
 GATE_TRIGGER_CMD,
 GATE_ACTIVATE_RELAY
 } gateFsmStates;
 
-# 66
+# 67
 static UINT8 I2cTxBuffer[10u];
 
 static UINT8 RelayB1, RelayB2 = 0;
@@ -11262,7 +11264,7 @@ static UINT8 I2cReady = 0;
 
 static uint8_t smsText[((UINT8)(20))] = {0};
 
-# 89
+# 90
 gateFsmStates parseCommand(uint8_t* text)
 {
 const uint8_t addNumberCmd[] = {'A', 'D', 'D'};
@@ -11281,6 +11283,11 @@ else
 {
 
 }
+
+if (!isNumberValid(text + 3))
+{
+state = GATE_WAIT_EVENT;
+}
 return state;
 }
 
@@ -11296,7 +11303,7 @@ res = I2cSlv_SendI2cMsg(txBuffer, realyId, 2);
 return res;
 }
 
-# 171
+# 140
 void MyApp_Task (UINT8 Options)
 {
 const uint8_t emptyNumber[((UINT8)(13))] = {0};
@@ -11383,8 +11390,6 @@ currentState = GATE_TRIGGER_CMD;
 break;
 
 case GATE_ADD_CMD:
-if (isNumberValid(smsText + 3))
-{
 numberInMemory = isNumberInMemory(GetCallerNumber());
 if (numberInMemory == 1)
 {
@@ -11392,14 +11397,24 @@ currentState = GATE_WAIT_EVENT;
 }
 else if (numberInMemory != 0 && numberInMemory != 1)
 {
-
+currentState = GATE_SAVE_NEW;
 }
+break;
+
+case GATE_SAVE_NEW:
+numberInMemory = findEmptySpot();
+if (numberInMemory == 1)
+{
+currentState = GATE_WAIT_EVENT;
+}
+else if (numberInMemory != 0 && numberInMemory != 1)
+{
+saveNumberInMemory(smsText + 3, numberInMemory);
+currentState = GATE_WAIT_EVENT;
 }
 break;
 
 case GATE_DEL_CMD:
-if (isNumberValid(smsText + 3))
-{
 numberInMemory = isNumberInMemory(GetCallerNumber());
 if (numberInMemory == 1)
 {
@@ -11408,7 +11423,7 @@ currentState = GATE_WAIT_EVENT;
 else if (numberInMemory != 0 && numberInMemory != 1)
 {
 saveNumberInMemory(numberInMemory, emptyNumber);
-}
+currentState = GATE_WAIT_EVENT;
 }
 break;
 
@@ -11429,8 +11444,6 @@ break;
 default:
 break;
 }
-
-# 363
 break;
 
 

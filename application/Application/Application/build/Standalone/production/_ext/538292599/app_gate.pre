@@ -11223,6 +11223,7 @@ void saveNumberInMemory(UINT8 address, UINT8* phoneNumber);
 void initMemorizedNumbersCount();
 bool isNumberValid(uint8_t* phoneNumber);
 uint8_t isNumberInMemory(uint8_t* phoneNumber);
+uint8_t findEmptySpot();
 
 # 48 "../Source/h/04_App/app_init.h"
 extern bool isMemoryEmpty;
@@ -11365,9 +11366,37 @@ else
 {
 
 }
-
 }
 currentPosition += 16;
+}
+return positionInMemory;
+}
+
+uint8_t findEmptySpot()
+{
+const uint8_t searchInProgress = 0;
+const uint8_t searchFailed = 1;
+static uint8_t currentPosition = 16;
+uint8_t positionInMemory = searchInProgress;
+uint8_t readBuffer[((UINT8)(13))];
+EepromStsType memoryOpResult = OP_PENDING;
+
+if (currentPosition >= 16 * 10)
+{
+currentPosition = 16;
+}
+memoryOpResult = Eeprom_Read(currentPosition, readBuffer, ((UINT8)(13)));
+if (memoryOpResult != OP_PENDING)
+{
+if (isNumberValid(readBuffer))
+{
+currentPosition += 16;
+}
+else
+{
+positionInMemory = currentPosition;
+currentPosition = 16 * 10;
+}
 }
 return positionInMemory;
 }

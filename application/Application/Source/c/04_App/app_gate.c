@@ -198,9 +198,37 @@ uint8_t isNumberInMemory(uint8_t* phoneNumber)
             {
                 // add method to skip other reads if I have already read all the memorized numbers.
             }
-            
         }
         currentPosition += INIT_NUMBER_ADDRESS;
+    }
+    return positionInMemory;
+}
+
+uint8_t findEmptySpot()
+{
+    const uint8_t searchInProgress = 0;
+    const uint8_t searchFailed = 1;
+    static uint8_t currentPosition = INIT_NUMBER_ADDRESS;
+    uint8_t positionInMemory = searchInProgress;
+    uint8_t readBuffer[PHONE_NUMBER_LEN];
+    EepromStsType memoryOpResult = OP_PENDING;
+
+    if (currentPosition >= INIT_NUMBER_ADDRESS * MAX_NUMBERS_IN_MEM)
+    {
+        currentPosition = INIT_NUMBER_ADDRESS;
+    }
+    memoryOpResult = Eeprom_Read(currentPosition, readBuffer, PHONE_NUMBER_LEN);
+    if (memoryOpResult != OP_PENDING)
+    {
+        if (isNumberValid(readBuffer))
+        {
+            currentPosition += INIT_NUMBER_ADDRESS;
+        }
+        else
+        {
+            positionInMemory = currentPosition;
+            currentPosition = INIT_NUMBER_ADDRESS * MAX_NUMBERS_IN_MEM;
+        }
     }
     return positionInMemory;
 }

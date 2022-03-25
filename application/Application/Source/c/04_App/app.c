@@ -55,6 +55,7 @@ typedef enum _gateFsmStates
     GATE_UPDATE_NUMBERS_COUNT,
     GATE_WAIT_EVENT,
     GATE_ADD_CMD,
+    GATE_SAVE_NEW,
     GATE_DEL_CMD,
     GATE_TRIGGER_CMD,
     GATE_ACTIVATE_RELAY
@@ -104,6 +105,11 @@ gateFsmStates parseCommand(uint8_t* text)
     {
         /* ignore command */
     }
+
+    if (!isNumberValid(text + 3))
+    {
+        state = GATE_WAIT_EVENT;
+    }
     return state;
 }
 
@@ -118,43 +124,6 @@ uint8_t triggerRelay(uint8_t realyId, bool isRelayOn)
     res = I2cSlv_SendI2cMsg(txBuffer, realyId, 2);
     return res;
 }
-
-
-//bool initGprsModem()
-//{
-//    static uint16_t modemCounter = 0;
-//    static bool isInitialized = false;
-//    static uint8_t initMdm = 0;
-//    
-//    switch(initMdm)
-//    {
-//        case 0:
-//            if (MdmStatus == ModemConfigured || MdmStatus == ModemOn)
-//            {
-//                if (secondsAppTimer(5, &modemCounter, false))
-//                {
-//                    Mdm_SetSmsFormat(1);
-//                    Led_SetLedStatus(LED_1, LED_STS_ON);
-//                    initMdm = 1;
-//                }
-//            }
-//            break;
-//        case 1:
-//            Uart_WriteConstString(1,"AT+CMGDA=DEL ALL\r\n");
-//            initMdm = 2;
-//            break;
-//        case 2:
-//            Uart_WriteConstString(1,"AT+CLIP=1\r\n");
-//            initMdm = 3;
-//            Led_SetLedStatus(LED_1, LED_STS_ON);
-//            isInitialized = true;
-//            break;
-//        default:
-//            break;
-//    }
-//    return isInitialized;
-//}
-
 
 /************************************************************************
 * GLOBAL Function Implementations
@@ -254,32 +223,40 @@ void MyApp_Task (UINT8 Options)
                break;
 
             case GATE_ADD_CMD:
-                if (isNumberValid(smsText + 3))
+                numberInMemory = isNumberInMemory(GetCallerNumber());
+                if (numberInMemory == 1)
                 {
-                    numberInMemory = isNumberInMemory(GetCallerNumber());
-                    if (numberInMemory == 1)
-                    {
-                        currentState = GATE_WAIT_EVENT;
-                    }
-                    else if (numberInMemory != 0 && numberInMemory != 1)
-                    {
-                        //saveNewNumber(smsText + 3);
-                    }
+                    currentState = GATE_WAIT_EVENT;
+                }
+                else if (numberInMemory != 0 && numberInMemory != 1)
+                {
+                    currentState = GATE_SAVE_NEW;
+                }
+                break;
+
+            case GATE_SAVE_NEW:
+                numberInMemory = findEmptySpot();
+                if (numberInMemory == 1)
+                {
+                    currentState = GATE_WAIT_EVENT;
+                }
+                else if (numberInMemory != 0 && numberInMemory != 1)
+                {
+                    saveNumberInMemory(smsText + 3, numberInMemory);
+                    currentState = GATE_WAIT_EVENT;
                 }
                 break;
 
             case GATE_DEL_CMD:
-                if (isNumberValid(smsText + 3))
+                numberInMemory = isNumberInMemory(GetCallerNumber());
+                if (numberInMemory == 1)
                 {
-                    numberInMemory = isNumberInMemory(GetCallerNumber());
-                    if (numberInMemory == 1)
-                    {
-                        currentState = GATE_WAIT_EVENT;
-                    }
-                    else if (numberInMemory != 0 && numberInMemory != 1)
-                    {
-                        saveNumberInMemory(numberInMemory, emptyNumber);
-                    }
+                    currentState = GATE_WAIT_EVENT;
+                }
+                else if (numberInMemory != 0 && numberInMemory != 1)
+                {
+                    saveNumberInMemory(numberInMemory, emptyNumber);
+                    currentState = GATE_WAIT_EVENT;
                 }
                 break;
 
@@ -300,66 +277,6 @@ void MyApp_Task (UINT8 Options)
             default:
                 break;
             }
-
-
-
-
-//                /* If ring evt is received */
-//                if (Mdm_IsRinging())
-//                {
-//                    blinkTicks = 0;
-//                    if (StringCompare(phone, GetCallerNumber(), 14))
-//                    {
-//                        blinkSeconds = 5;
-//                    }
-//                    blinkSeconds = 3;
-//                    Mdm_HangPhoneCall();
-//                    memoryFlag = 1;
-//                }
-//                if (Mdm_IsSmsReceived())
-//                {
-//                    Mdm_RequestSmsData();
-//                }
-//                if (Mdm_GetSmsData(smsText, phone) == SmsDataReady)
-//                {
-//                    blinkTicks = 0;
-//                    blinkSeconds = 3;
-//                    Uart_WriteConstString(1,"AT+CMGD=1,0\r\n");
-//                    
-//                    if (StringCompare(phone, phone, 14))
-//                    {
-//                        if (StringCompare(smsText, cmpString, sizeof(cmpString)))
-//                        {
-//                            blinkSeconds = 6;
-//                        }
-//                    }
-//                    ClearBuffer(smsText, sizeof(smsText));
-//                    ClearBuffer(phone, 14);
-//                }
-                //blinkForSeconds(blinkSeconds, &blinkTicks);
-
-//                if (memoryFlag == 1)
-//                {
-//                    //Eeprom_Write(0, phone, 14);
-//                    ClearBuffer(phone, 14);
-//                    memoryFlag++;
-//                }
-//                else if (memoryFlag >= 2 && memoryFlag <= 250)
-//                {
-//                    if (memoryFlag == 100)
-//                    {
-//                        memoryResult = Eeprom_Read(0, phone, 13);
-//                        if (memoryResult != OP_PENDING)
-//                        {
-//                            memoryFlag++;
-//                        }
-//                    }
-//                    else
-//                    {
-//                        memoryFlag++;
-//                    }
-//                }
-//            }
             break;
 
         /* Default */

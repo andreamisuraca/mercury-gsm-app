@@ -819,34 +819,35 @@ RunningState 1
 InitializationState 0
 RunningState 1
 ]
-"90 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app.c
-[e E8991 _gateFsmStates `uc
+"91 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app.c
+[e E8992 _gateFsmStates `uc
 GATE_INIT 0
 GATE_SAVE_FIRST_MASTER 1
 GATE_UPDATE_NUMBERS_COUNT 2
 GATE_WAIT_EVENT 3
 GATE_ADD_CMD 4
-GATE_DEL_CMD 5
-GATE_TRIGGER_CMD 6
-GATE_ACTIVATE_RELAY 7
+GATE_SAVE_NEW 5
+GATE_DEL_CMD 6
+GATE_TRIGGER_CMD 7
+GATE_ACTIVATE_RELAY 8
 ]
-"183
+"152
 [e E8114 _I2cOpSts `uc
 OP_IN_PROGRESS 0
 OP_COMPLETE 1
 OP_TIMEOUT 2
 ]
-"207
+"176
 [e E8203 _SmsRxStsType `uc
 SmsNotReceived 0
 SmsReceived 1
 ]
-"211
+"180
 [e E8195 _GetSmsStatus `uc
 SmsDataNotReady 0
 SmsDataReady 1
 ]
-"222
+"191
 [e E8874 _LedStsType `uc
 LED_STS_OFF 0
 LED_STS_ON 1
@@ -854,12 +855,12 @@ LED_STS_TOGGLE 2
 LED_STS_BLINK 3
 LED_STS_PULSE 4
 ]
-"249
+"218
 [e E8199 _RingStsType `uc
 PhoneNotRinging 0
 PhoneRinging 1
 ]
-"186
+"155
 [e E8957 SystemStateEnum `uc
 InitializationState 0
 RunningState 1
@@ -1233,9 +1234,9 @@ OP_PENDING 2
 [v _Term_MainTask Term_MainTask `(v  1 e 1 0 ]
 "73 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/02_Ssl/wdg.c
 [v _Wdg_MainTask Wdg_MainTask `(v  1 e 1 0 ]
-"89 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app.c
-[v _parseCommand parseCommand `(E8991  1 e 1 0 ]
-"171
+"90 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app.c
+[v _parseCommand parseCommand `(E8992  1 e 1 0 ]
+"140
 [v _MyApp_Task MyApp_Task `(v  1 e 1 0 ]
 "65 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app_gate.c
 [v _getSetupCall getSetupCall `(uc  1 e 1 0 ]
@@ -1249,6 +1250,8 @@ OP_PENDING 2
 [v _isNumberValid isNumberValid `(uc  1 e 1 0 ]
 "174
 [v _isNumberInMemory isNumberInMemory `(uc  1 e 1 0 ]
+"207
+[v _findEmptySpot findEmptySpot `(uc  1 e 1 0 ]
 "84 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app_init.c
 [v _initGprsModem initGprsModem `(uc  1 e 1 0 ]
 "127
@@ -1727,7 +1730,7 @@ OP_PENDING 2
 [v _Tmr2IsrCallback Tmr2IsrCallback `*.37(v  1 e 2 0 ]
 "73
 [v _Tmr4IsrCallback Tmr4IsrCallback `*.37(v  1 e 2 0 ]
-"73 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app.c
+"74 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app.c
 [v _smsText smsText `[20]uc  1 s 20 smsText ]
 "48 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app_gate.c
 [v _setupCallTicks setupCallTicks `ui  1 s 2 setupCallTicks ]
@@ -2574,38 +2577,38 @@ OP_PENDING 2
 [v _ScheduleTasks ScheduleTasks `(v  1 e 1 0 ]
 {
 "102
-[v ScheduleTasks@ActiveTaskIndex ActiveTaskIndex `uc  1 a 1 200 ]
+[v ScheduleTasks@ActiveTaskIndex ActiveTaskIndex `uc  1 a 1 0 ]
 "122
 } 0
 "79
 [v _InitializeTasks InitializeTasks `(v  1 e 1 0 ]
 {
 "82
-[v InitializeTasks@ActiveTaskIndex ActiveTaskIndex `uc  1 a 1 200 ]
+[v InitializeTasks@ActiveTaskIndex ActiveTaskIndex `uc  1 a 1 2 ]
 "89
 } 0
-"171 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app.c
+"140 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app.c
 [v _MyApp_Task MyApp_Task `(v  1 e 1 0 ]
 {
-"173
-[v MyApp_Task@emptyNumber emptyNumber `C[13]uc  1 a 13 19 ]
-"179
-[v MyApp_Task@cmdAddNumber cmdAddNumber `C[4]uc  1 a 4 35 ]
-"180
-[v MyApp_Task@cmpString cmpString `[3]uc  1 a 3 32 ]
-"184
-[v MyApp_Task@numberInMemory numberInMemory `uc  1 a 1 40 ]
-"183
-[v MyApp_Task@memoryResult memoryResult `E8114  1 a 1 39 ]
-"172
-[v MyApp_Task@F9029 F9029 `C[13]uc  1 s 13 F9029 ]
-"174
-[v MyApp_Task@F9032 F9032 `C[4]uc  1 s 4 F9032 ]
-"179
-[v MyApp_Task@F9034 F9034 `[3]uc  1 s 3 F9034 ]
-"182
-[v MyApp_Task@currentState currentState `E8991  1 s 1 currentState ]
-"369
+"142
+[v MyApp_Task@emptyNumber emptyNumber `C[13]uc  1 a 13 21 ]
+"148
+[v MyApp_Task@cmdAddNumber cmdAddNumber `C[4]uc  1 a 4 37 ]
+"149
+[v MyApp_Task@cmpString cmpString `[3]uc  1 a 3 34 ]
+"153
+[v MyApp_Task@numberInMemory numberInMemory `uc  1 a 1 42 ]
+"152
+[v MyApp_Task@memoryResult memoryResult `E8114  1 a 1 41 ]
+"141
+[v MyApp_Task@F9031 F9031 `C[13]uc  1 s 13 F9031 ]
+"143
+[v MyApp_Task@F9034 F9034 `C[4]uc  1 s 4 F9034 ]
+"148
+[v MyApp_Task@F9036 F9036 `[3]uc  1 s 3 F9036 ]
+"151
+[v MyApp_Task@currentState currentState `E8992  1 s 1 currentState ]
+"286
 } 0
 "845 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/02_Ssl/term.c
 [v _Term_MainTask Term_MainTask `(v  1 e 1 0 ]
@@ -3380,22 +3383,22 @@ OP_PENDING 2
 [v saveNumberInMemory@address address `uc  1 a 1 48 ]
 "111
 } 0
-"89 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app.c
-[v _parseCommand parseCommand `(E8991  1 e 1 0 ]
+"90 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app.c
+[v _parseCommand parseCommand `(E8992  1 e 1 0 ]
 {
-"92
-[v parseCommand@deleteNumberCmd deleteNumberCmd `C[3]uc  1 a 3 45 ]
-"91
-[v parseCommand@addNumberCmd addNumberCmd `C[3]uc  1 a 3 42 ]
 "93
-[v parseCommand@state state `E8991  1 a 1 48 ]
-"89
-[v parseCommand@text text `*.39uc  1 p 2 40 ]
+[v parseCommand@deleteNumberCmd deleteNumberCmd `C[3]uc  1 a 3 45 ]
+"92
+[v parseCommand@addNumberCmd addNumberCmd `C[3]uc  1 a 3 42 ]
+"94
+[v parseCommand@state state `E8992  1 a 1 48 ]
 "90
-[v parseCommand@F9015 F9015 `C[3]uc  1 s 3 F9015 ]
+[v parseCommand@text text `*.39uc  1 p 2 40 ]
 "91
 [v parseCommand@F9017 F9017 `C[3]uc  1 s 3 F9017 ]
-"108
+"92
+[v parseCommand@F9019 F9019 `C[3]uc  1 s 3 F9019 ]
+"114
 } 0
 "174 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app_gate.c
 [v _isNumberInMemory isNumberInMemory `(uc  1 e 1 0 ]
@@ -3414,18 +3417,7 @@ OP_PENDING 2
 [v isNumberInMemory@phoneNumber phoneNumber `*.39uc  1 p 2 0 ]
 "178
 [v isNumberInMemory@currentPosition currentPosition `uc  1 s 1 currentPosition ]
-"206
-} 0
-"152
-[v _isNumberValid isNumberValid `(uc  1 e 1 0 ]
-{
-"155
-[v isNumberValid@i i `uc  1 a 1 33 ]
-"154
-[v isNumberValid@isNumberOk isNumberOk `uc  1 a 1 32 ]
-"152
-[v isNumberValid@phoneNumber phoneNumber `*.39uc  1 p 2 29 ]
-"172
+"205
 } 0
 "117
 [v _initMemorizedNumbersCount initMemorizedNumbersCount `(v  1 e 1 0 ]
@@ -3517,6 +3509,34 @@ OP_PENDING 2
 "130
 [v initEeprom@currentState currentState `E8987  1 s 1 currentState ]
 "168
+} 0
+"207 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app_gate.c
+[v _findEmptySpot findEmptySpot `(uc  1 e 1 0 ]
+{
+"213
+[v findEmptySpot@readBuffer readBuffer `[13]uc  1 a 13 0 ]
+"214
+[v findEmptySpot@memoryOpResult memoryOpResult `E8244  1 a 1 16 ]
+"212
+[v findEmptySpot@positionInMemory positionInMemory `uc  1 a 1 15 ]
+"209
+[v findEmptySpot@searchInProgress searchInProgress `Cuc  1 a 1 14 ]
+"210
+[v findEmptySpot@searchFailed searchFailed `Cuc  1 a 1 13 ]
+"211
+[v findEmptySpot@currentPosition currentPosition `uc  1 s 1 currentPosition ]
+"234
+} 0
+"152
+[v _isNumberValid isNumberValid `(uc  1 e 1 0 ]
+{
+"155
+[v isNumberValid@i i `uc  1 a 1 33 ]
+"154
+[v isNumberValid@isNumberOk isNumberOk `uc  1 a 1 32 ]
+"152
+[v isNumberValid@phoneNumber phoneNumber `*.39uc  1 p 2 29 ]
+"172
 } 0
 "104 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/01_Pml/05_Eeprom/eeprom_if.c
 [v _Eeprom_Read Eeprom_Read `(E8956  1 e 1 0 ]

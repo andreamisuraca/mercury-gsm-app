@@ -8255,6 +8255,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;app_gate.h: 52: void initMemorizedNumbersCount();
 [; ;app_gate.h: 53: bool isNumberValid(uint8_t* phoneNumber);
 [; ;app_gate.h: 54: uint8_t isNumberInMemory(uint8_t* phoneNumber);
+[; ;app_gate.h: 55: uint8_t findEmptySpot();
 [; ;app_init.h: 48: extern bool isMemoryEmpty;
 [; ;app_init.h: 50: extern uint8_t memorizedNumbersCount[1];
 [; ;app_init.h: 55: bool initFsm(void);
@@ -8599,8 +8600,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;app_gate.c: 177: const uint8_t searchFailed = 1;
 [e = _searchFailed -> -> 1 `i `uc ]
 "178
-[v F9011 `uc ~T0 @X0 1 s currentPosition ]
-[i F9011
+[v F9012 `uc ~T0 @X0 1 s currentPosition ]
+[i F9012
 -> -> 16 `i `uc
 ]
 "179
@@ -8617,20 +8618,20 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _memoryOpResult . `E8244 2 ]
 [; ;app_gate.c: 183: if (currentPosition >= 16 * 10)
 "183
-[e $ ! >= -> F9011 `i * -> 16 `i -> 10 `i 909  ]
+[e $ ! >= -> F9012 `i * -> 16 `i -> 10 `i 909  ]
 [; ;app_gate.c: 184: {
 "184
 {
 [; ;app_gate.c: 185: currentPosition = 16;
 "185
-[e = F9011 -> -> 16 `i `uc ]
+[e = F9012 -> -> 16 `i `uc ]
 "186
 }
 [e :U 909 ]
 [; ;app_gate.c: 186: }
 [; ;app_gate.c: 187: memoryOpResult = Eeprom_Read(currentPosition, readBuffer, ((UINT8)(13)));
 "187
-[e = _memoryOpResult ( _Eeprom_Read (3 , , F9011 &U _readBuffer -> -> 13 `i `uc ]
+[e = _memoryOpResult ( _Eeprom_Read (3 , , F9012 &U _readBuffer -> -> 13 `i `uc ]
 [; ;app_gate.c: 188: if (memoryOpResult != OP_PENDING)
 "188
 [e $ ! != -> _memoryOpResult `i -> . `E8244 2 `i 910  ]
@@ -8651,10 +8652,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;app_gate.c: 194: positionInMemory = currentPosition;
 "194
-[e = _positionInMemory F9011 ]
+[e = _positionInMemory F9012 ]
 [; ;app_gate.c: 195: currentPosition = 16 * 10;
 "195
-[e = F9011 -> * -> 16 `i -> 10 `i `uc ]
+[e = F9012 -> * -> 16 `i -> 10 `i `uc ]
 "196
 }
 [; ;app_gate.c: 196: }
@@ -8668,23 +8669,119 @@ Version 3.2 HI-TECH Software Intermediate Code
 "200
 }
 [e :U 913 ]
-"202
+"201
 }
 [e :U 911 ]
 [; ;app_gate.c: 200: }
-[; ;app_gate.c: 202: }
-[; ;app_gate.c: 203: currentPosition += 16;
+[; ;app_gate.c: 201: }
+[; ;app_gate.c: 202: currentPosition += 16;
+"202
+[e =+ F9012 -> -> 16 `i `uc ]
 "203
-[e =+ F9011 -> -> 16 `i `uc ]
-"204
 }
 [e :U 910 ]
-[; ;app_gate.c: 204: }
-[; ;app_gate.c: 205: return positionInMemory;
-"205
+[; ;app_gate.c: 203: }
+[; ;app_gate.c: 204: return positionInMemory;
+"204
 [e ) _positionInMemory ]
 [e $UE 908  ]
-[; ;app_gate.c: 206: }
-"206
+[; ;app_gate.c: 205: }
+"205
 [e :UE 908 ]
+}
+"207
+[v _findEmptySpot `(uc ~T0 @X0 1 ef ]
+"208
+{
+[; ;app_gate.c: 207: uint8_t findEmptySpot()
+[; ;app_gate.c: 208: {
+[e :U _findEmptySpot ]
+[f ]
+"209
+[v _searchInProgress `Cuc ~T0 @X0 1 a ]
+[; ;app_gate.c: 209: const uint8_t searchInProgress = 0;
+[e = _searchInProgress -> -> 0 `i `uc ]
+"210
+[v _searchFailed `Cuc ~T0 @X0 1 a ]
+[; ;app_gate.c: 210: const uint8_t searchFailed = 1;
+[e = _searchFailed -> -> 1 `i `uc ]
+"211
+[v F9021 `uc ~T0 @X0 1 s currentPosition ]
+[i F9021
+-> -> 16 `i `uc
+]
+"212
+[v _positionInMemory `uc ~T0 @X0 1 a ]
+[; ;app_gate.c: 211: static uint8_t currentPosition = 16;
+[; ;app_gate.c: 212: uint8_t positionInMemory = searchInProgress;
+[e = _positionInMemory _searchInProgress ]
+"213
+[v _readBuffer `uc ~T0 @X0 -> -> -> 13 `i `uc `ux a ]
+"214
+[v _memoryOpResult `E8244 ~T0 @X0 1 a ]
+[; ;app_gate.c: 213: uint8_t readBuffer[((UINT8)(13))];
+[; ;app_gate.c: 214: EepromStsType memoryOpResult = OP_PENDING;
+[e = _memoryOpResult . `E8244 2 ]
+[; ;app_gate.c: 216: if (currentPosition >= 16 * 10)
+"216
+[e $ ! >= -> F9021 `i * -> 16 `i -> 10 `i 915  ]
+[; ;app_gate.c: 217: {
+"217
+{
+[; ;app_gate.c: 218: currentPosition = 16;
+"218
+[e = F9021 -> -> 16 `i `uc ]
+"219
+}
+[e :U 915 ]
+[; ;app_gate.c: 219: }
+[; ;app_gate.c: 220: memoryOpResult = Eeprom_Read(currentPosition, readBuffer, ((UINT8)(13)));
+"220
+[e = _memoryOpResult ( _Eeprom_Read (3 , , F9021 &U _readBuffer -> -> 13 `i `uc ]
+[; ;app_gate.c: 221: if (memoryOpResult != OP_PENDING)
+"221
+[e $ ! != -> _memoryOpResult `i -> . `E8244 2 `i 916  ]
+[; ;app_gate.c: 222: {
+"222
+{
+[; ;app_gate.c: 223: if (isNumberValid(readBuffer))
+"223
+[e $ ! != -> ( _isNumberValid (1 &U _readBuffer `i -> -> -> 0 `i `uc `i 917  ]
+[; ;app_gate.c: 224: {
+"224
+{
+[; ;app_gate.c: 225: currentPosition += 16;
+"225
+[e =+ F9021 -> -> 16 `i `uc ]
+"226
+}
+[; ;app_gate.c: 226: }
+[e $U 918  ]
+"227
+[e :U 917 ]
+[; ;app_gate.c: 227: else
+[; ;app_gate.c: 228: {
+"228
+{
+[; ;app_gate.c: 229: positionInMemory = currentPosition;
+"229
+[e = _positionInMemory F9021 ]
+[; ;app_gate.c: 230: currentPosition = 16 * 10;
+"230
+[e = F9021 -> * -> 16 `i -> 10 `i `uc ]
+"231
+}
+[e :U 918 ]
+"232
+}
+[e :U 916 ]
+[; ;app_gate.c: 231: }
+[; ;app_gate.c: 232: }
+[; ;app_gate.c: 233: return positionInMemory;
+"233
+[e ) _positionInMemory ]
+[e $UE 914  ]
+[; ;app_gate.c: 234: }
+"234
+[e :UE 914 ]
 }

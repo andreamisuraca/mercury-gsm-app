@@ -201,6 +201,10 @@ uint8_t isNumberInMemory(uint8_t* phoneNumber)
         }
         currentPosition += INIT_NUMBER_ADDRESS;
     }
+    if (positionInMemory == 0 && currentPosition >= INIT_NUMBER_ADDRESS * MAX_NUMBERS_IN_MEM)
+    {
+        positionInMemory = searchFailed;
+    }
     return positionInMemory;
 }
 

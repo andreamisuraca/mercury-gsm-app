@@ -140,7 +140,7 @@ uint8_t triggerRelay(uint8_t realyId, bool isRelayOn)
 void MyApp_Task (UINT8 Options)
 {
     const uint8_t emptyNumber[PHONE_NUMBER_LEN] = {0};
-    static UINT8 smsPhoneNumber[] = {'+', '3', '9', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+    static UINT8 receivedNumber[] = {'+', '3', '9', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
 
 
 
@@ -214,16 +214,18 @@ void MyApp_Task (UINT8 Options)
                 {
                     Uart_WriteConstString(1,"AT+CMGD=1,0\r\n");
                     currentState = parseCommand(smsText);
+                    StringCopy(GetLastInteractionNumber(), receivedNumber, PHONE_NUMBER_LEN);
                 }
                 if (Mdm_IsRinging())
                 {
                     Mdm_HangPhoneCall();
                     currentState = GATE_TRIGGER_CMD;
+                    StringCopy(GetCallerNumber(), receivedNumber, PHONE_NUMBER_LEN);
                 }
                break;
 
             case GATE_ADD_CMD:
-                numberInMemory = isNumberInMemory(GetCallerNumber());
+                numberInMemory = isNumberInMemory(receivedNumber);
                 if (numberInMemory == 1)
                 {
                     currentState = GATE_WAIT_EVENT;
@@ -248,7 +250,7 @@ void MyApp_Task (UINT8 Options)
                 break;
 
             case GATE_DEL_CMD:
-                numberInMemory = isNumberInMemory(GetCallerNumber());
+                numberInMemory = isNumberInMemory(receivedNumber);
                 if (numberInMemory == 1)
                 {
                     currentState = GATE_WAIT_EVENT;
@@ -261,7 +263,7 @@ void MyApp_Task (UINT8 Options)
                 break;
 
             case GATE_TRIGGER_CMD:
-                numberInMemory = isNumberInMemory(GetCallerNumber());
+                numberInMemory = isNumberInMemory(receivedNumber);
                 if (numberInMemory == 1)
                 {
                     currentState = GATE_WAIT_EVENT;

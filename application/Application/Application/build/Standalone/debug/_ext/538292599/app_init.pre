@@ -10151,6 +10151,7 @@ void Mdm_SendSmsData (UINT8 *PhoneNmb, UINT8 PhoneNmbLen, UINT8 *MsgTxt, UINT8 M
 SmsRxStsType Mdm_IsSmsReceived (void);
 
 UINT8* GetCallerNumber (void);
+UINT8* GetLastInteractionNumber (void);
 
 # 41 "../../MercuryFwk/Source/h/03_Sml/01_Pml/05_Eeprom/eeprom_if.h"
 typedef enum _EepromSts
@@ -11217,12 +11218,12 @@ void Sch_SchmIntService (void);
 # 53 "../Source/h/04_App/app.h"
 void MyApp_Task (UINT8 Options);
 
-# 46 "../Source/h/04_App/app_init.h"
+# 48 "../Source/h/04_App/app_init.h"
 extern bool isMemoryEmpty;
 
 extern uint8_t memorizedNumbersCount[1];
 
-# 53
+# 55
 bool initFsm(void);
 
 uint8_t* initPreamble();
@@ -11386,7 +11387,7 @@ memoryPreamble[0] = 'U';
 memoryPreamble[1] = 'S';
 memoryPreamble[2] = 'I';
 memoryPreamble[3] = 'M';
-memoryPreamble[4] = '1';
+memoryPreamble[4] = 1;
 memorizedNumbersCount[0] = 1;
 return memoryPreamble;
 }

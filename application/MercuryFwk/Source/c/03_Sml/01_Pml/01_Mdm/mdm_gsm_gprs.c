@@ -898,7 +898,7 @@ GetSmsStatusType Mdm_GetSmsData (UINT8 *MessageText)
    {
       /* ...Copy text data */
       StringCopy(Mdm_SmsRx.MessageBuffer, MessageText, Mdm_SmsRx.TextLen + 1);
-      StringCopy(Mdm_SmsRx.HeaderBuffer + 21, callerNumber, PHONE_NUMBER_LEN - 1);
+      StringCopy(Mdm_SmsRx.HeaderBuffer + 21, callerNumber, PHONE_NUMBER_LEN);
       /* Update status */
       GetSmsStatus = SmsDataReady;
    }
@@ -1040,6 +1040,11 @@ UINT8* GetCallerNumber (void)
    {
       ClearBuffer(callerNumber, PHONE_NUMBER_LEN);
    }
+   return callerNumber;
+}
+
+UINT8* GetLastInteractionNumber (void)
+{
    return callerNumber;
 }
 

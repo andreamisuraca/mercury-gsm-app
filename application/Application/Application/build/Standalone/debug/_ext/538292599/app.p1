@@ -8849,9 +8849,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;app.c: 246: {
 "246
 {
-[; ;app.c: 247: saveNumberInMemory(smsText + 3, numberInMemory);
+[; ;app.c: 247: saveNumberInMemory(numberInMemory, smsText + 3);
 "247
-[e ( _saveNumberInMemory (2 , -> + &U _smsText * -> -> 3 `i `x -> -> # *U &U _smsText `i `x `uc -> _numberInMemory `*uc ]
+[e ( _saveNumberInMemory (2 , _numberInMemory + &U _smsText * -> -> 3 `i `x -> -> # *U &U _smsText `i `x ]
 [; ;app.c: 248: currentState = GATE_WAIT_EVENT;
 "248
 [e = F9039 . `E8994 3 ]

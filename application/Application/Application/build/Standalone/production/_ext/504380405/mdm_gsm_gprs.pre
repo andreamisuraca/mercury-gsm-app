@@ -11216,6 +11216,7 @@ void Mdm_SendSmsData (UINT8 *PhoneNmb, UINT8 PhoneNmbLen, UINT8 *MsgTxt, UINT8 M
 SmsRxStsType Mdm_IsSmsReceived (void);
 
 UINT8* GetCallerNumber (void);
+UINT8* GetLastInteractionNumber (void);
 
 # 75 "../../MercuryFwk/Source/c/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.c"
 typedef enum _TurnOnMdmState
@@ -11926,7 +11927,7 @@ if (ReceiveEvt(&SmsTxtReady))
 {
 
 StringCopy(Mdm_SmsRx.MessageBuffer, MessageText, Mdm_SmsRx.TextLen + 1);
-StringCopy(Mdm_SmsRx.HeaderBuffer + 21, callerNumber, ((UINT8)(13)) - 1);
+StringCopy(Mdm_SmsRx.HeaderBuffer + 21, callerNumber, ((UINT8)(13)));
 
 GetSmsStatus = SmsDataReady;
 }
@@ -12022,6 +12023,11 @@ if (!ReceiveEvt(&ClipEvent))
 {
 ClearBuffer(callerNumber, ((UINT8)(13)));
 }
+return callerNumber;
+}
+
+UINT8* GetLastInteractionNumber (void)
+{
 return callerNumber;
 }
 

@@ -55,8 +55,10 @@ typedef enum _gateFsmStates
     GATE_UPDATE_NUMBERS_COUNT,
     GATE_WAIT_EVENT,
     GATE_ADD_CMD,
+    GATE_CHECK_DUPLICATED,
     GATE_SAVE_NEW,
     GATE_DEL_CMD,
+    GATE_DEL_NUMBER,
     GATE_TRIGGER_CMD,
     GATE_ACTIVATE_RELAY
 } gateFsmStates;
@@ -232,7 +234,19 @@ void MyApp_Task (UINT8 Options)
                 }
                 else if (numberInMemory != 0 && numberInMemory != 1)
                 {
+                    currentState = GATE_CHECK_DUPLICATED;
+                }
+                break;
+
+            case GATE_CHECK_DUPLICATED:
+                numberInMemory = isNumberInMemory(smsText + 3);
+                if (numberInMemory == 1)
+                {
                     currentState = GATE_SAVE_NEW;
+                }
+                else if (numberInMemory != 0 && numberInMemory != 1)
+                {
+                    currentState = GATE_WAIT_EVENT;
                 }
                 break;
 
@@ -244,13 +258,26 @@ void MyApp_Task (UINT8 Options)
                 }
                 else if (numberInMemory != 0 && numberInMemory != 1)
                 {
-                    saveNumberInMemory(smsText + 3, numberInMemory);
+                    saveNumberInMemory(numberInMemory, smsText + 3);
                     currentState = GATE_WAIT_EVENT;
                 }
                 break;
 
             case GATE_DEL_CMD:
                 numberInMemory = isNumberInMemory(receivedNumber);
+                if (numberInMemory == 1)
+                {
+                    currentState = GATE_WAIT_EVENT;
+                }
+                else if (numberInMemory != 0 && numberInMemory != 1)
+                {
+                    saveNumberInMemory(numberInMemory, emptyNumber);
+                    currentState = GATE_WAIT_EVENT;
+                }
+                break;
+
+            case GATE_DEL_NUMBER:
+                numberInMemory = isNumberInMemory(smsText + 3);
                 if (numberInMemory == 1)
                 {
                     currentState = GATE_WAIT_EVENT;

@@ -17,8 +17,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [c E8913 0 1 2 3 4 .. ]
 [n E8913 _MdmStatus ModemOff ModemOn ModemReady ModemConfigured ModemSleep  ]
 "285
-[c E8989 0 1 2 3 4 5 .. ]
-[n E8989 _CheckMdmStsType MdmCh_SetInitialDelay MdmCh_InitialDelay MdmCh_SendATE1 MdmCh_WaitEcho MdmCh_Delay MdmCh_Done  ]
+[c E8991 0 1 2 3 4 5 .. ]
+[n E8991 _CheckMdmStsType MdmCh_SetInitialDelay MdmCh_InitialDelay MdmCh_SendATE1 MdmCh_WaitEcho MdmCh_Delay MdmCh_Done  ]
 "286
 [c E7757 0 1 2 .. ]
 [n E7757 _SwTimerStatusType SwTmrNotExpired SwTimerExpired SwTimerDisabled  ]
@@ -45,11 +45,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 "62 ../../MercuryFwk/Source/h/01_Hal/02_Drv/mdm_drv.h
 [v _MdmOnOffPulseRequest `S802 ~T0 @X0 0 e ]
 "378 ../../MercuryFwk/Source/c/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.c
-[c E8969 0 1 2 .. ]
-[n E8969 _TurnOnMdmState TurnOnDelay TurnOnModuleReq Stop  ]
+[c E8971 0 1 2 .. ]
+[n E8971 _TurnOnMdmState TurnOnDelay TurnOnModuleReq Stop  ]
 "421
-[c E8980 0 1 2 3 4 5 6 .. ]
-[n E8980 _MdmConfigState MdmCfg_Init MdmCfg_ChangeBaud MdmCfg_SetMdmEchoMode MdmCfg_SetMdmSmsMode MdmCfg_Delay MdmCfg_UpdateMdmSts MdmCfg_Stop  ]
+[c E8982 0 1 2 3 4 5 6 .. ]
+[n E8982 _MdmConfigState MdmCfg_Init MdmCfg_ChangeBaud MdmCfg_SetMdmEchoMode MdmCfg_SetMdmSmsMode MdmCfg_Delay MdmCfg_UpdateMdmSts MdmCfg_Stop  ]
 "215 ../../MercuryFwk/Source/h/01_Hal/02_Drv/uart_drv.h
 [v _Uart_InitUartModule `(v ~T0 @X0 0 ef2`uc`*S809 ]
 "53 ../../MercuryFwk/Source/h/03_Sml/02_Ssl/sf.h
@@ -59,15 +59,15 @@ Version 3.2 HI-TECH Software Intermediate Code
 "228 ../../MercuryFwk/Source/h/01_Hal/02_Drv/uart_drv.h
 [v _Uart_ClearRxBuffer `(v ~T0 @X0 0 ef ]
 "586 ../../MercuryFwk/Source/c/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.c
-[c E8974 0 1 2 3 .. ]
-[n E8974 _GetSmsState GetSms_CheckReq GetSms_SendAtCmd GetSms_StoreHeader GetSms_StoreText  ]
+[c E8976 0 1 2 3 .. ]
+[n E8976 _GetSmsState GetSms_CheckReq GetSms_SendAtCmd GetSms_StoreHeader GetSms_StoreText  ]
 "55 ../../MercuryFwk/Source/h/03_Sml/02_Ssl/sf.h
 [v _ClearBuffer `(v ~T0 @X0 0 ef2`*uc`us ]
 "210 ../../MercuryFwk/Source/h/01_Hal/02_Drv/uart_drv.h
 [v _RxLen `us ~T0 @X0 0 e ]
 "658 ../../MercuryFwk/Source/c/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.c
-[c E8997 0 1 2 3 4 5 .. ]
-[n E8997 _SendSms_StateType SendSms_WaitEvt SendSms_CmgsCmd SendSms_EnterCmd SendSms_WaitConf SendSms_SendSmsText SendSms_Delay  ]
+[c E8999 0 1 2 3 4 5 .. ]
+[n E8999 _SendSms_StateType SendSms_WaitEvt SendSms_CmgsCmd SendSms_EnterCmd SendSms_WaitConf SendSms_SendSmsText SendSms_Delay  ]
 "218 ../../MercuryFwk/Source/h/01_Hal/02_Drv/uart_drv.h
 [v _Uart_WriteStringLen `(v ~T0 @X0 0 ef3`uc`*uc`uc ]
 "756 ../../MercuryFwk/Source/c/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.c
@@ -8308,6 +8308,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;mdm_gsm_gprs.h: 130: void Mdm_SendSmsData (UINT8 *PhoneNmb, UINT8 PhoneNmbLen, UINT8 *MsgTxt, UINT8 MsgTxtLen);
 [; ;mdm_gsm_gprs.h: 132: SmsRxStsType Mdm_IsSmsReceived (void);
 [; ;mdm_gsm_gprs.h: 134: UINT8* GetCallerNumber (void);
+[; ;mdm_gsm_gprs.h: 135: UINT8* GetLastInteractionNumber (void);
 [; ;mdm_gsm_gprs.c: 75: typedef enum _TurnOnMdmState
 [; ;mdm_gsm_gprs.c: 76: {
 [; ;mdm_gsm_gprs.c: 77: TurnOnDelay,
@@ -8675,13 +8676,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U _CheckModem ]
 [f ]
 "285
-[v F9088 `E8989 ~T0 @X0 1 s CheckMdmSts ]
-[i F9088
-. `E8989 0
+[v F9090 `E8991 ~T0 @X0 1 s CheckMdmSts ]
+[i F9090
+. `E8991 0
 ]
 "286
-[v F9089 `S804 ~T0 @X0 1 s Timeout ]
-[i F9089
+[v F9091 `S804 ~T0 @X0 1 s Timeout ]
+[i F9091
 :U ..
 :U ..
 -> -> 0 `ui `uc
@@ -8705,10 +8706,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U 894 ]
 [; ;mdm_gsm_gprs.c: 292: OsTmr_StartTimer(&Timeout,2000);
 "292
-[e ( _OsTmr_StartTimer (2 , &U F9089 -> -> -> 2000 `i `l `ul ]
+[e ( _OsTmr_StartTimer (2 , &U F9091 -> -> -> 2000 `i `l `ul ]
 [; ;mdm_gsm_gprs.c: 294: CheckMdmSts = MdmCh_InitialDelay;
 "294
-[e = F9088 . `E8989 1 ]
+[e = F9090 . `E8991 1 ]
 [; ;mdm_gsm_gprs.c: 295: break;
 "295
 [e $U 892  ]
@@ -8717,13 +8718,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U 895 ]
 [; ;mdm_gsm_gprs.c: 299: if (OsTmr_GetTimerStatus(&Timeout) == SwTimerExpired)
 "299
-[e $ ! == -> ( _OsTmr_GetTimerStatus (1 &U F9089 `i -> . `E7757 1 `i 896  ]
+[e $ ! == -> ( _OsTmr_GetTimerStatus (1 &U F9091 `i -> . `E7757 1 `i 896  ]
 [; ;mdm_gsm_gprs.c: 300: {
 "300
 {
 [; ;mdm_gsm_gprs.c: 302: CheckMdmSts = MdmCh_SendATE1;
 "302
-[e = F9088 . `E8989 2 ]
+[e = F9090 . `E8991 2 ]
 "303
 }
 [e :U 896 ]
@@ -8739,10 +8740,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _Uart_WriteConstString (2 , -> -> 1 `i `uc :s 1C ]
 [; ;mdm_gsm_gprs.c: 310: OsTmr_StartTimer(&Timeout,2000u);
 "310
-[e ( _OsTmr_StartTimer (2 , &U F9089 -> -> 2000 `ui `ul ]
+[e ( _OsTmr_StartTimer (2 , &U F9091 -> -> 2000 `ui `ul ]
 [; ;mdm_gsm_gprs.c: 312: CheckMdmSts = MdmCh_WaitEcho;
 "312
-[e = F9088 . `E8989 3 ]
+[e = F9090 . `E8991 3 ]
 [; ;mdm_gsm_gprs.c: 313: break;
 "313
 [e $U 892  ]
@@ -8769,10 +8770,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _GenerateEvt (1 &U _MdmOnOffPulseRequest ]
 [; ;mdm_gsm_gprs.c: 326: OsTmr_StartTimer(&Timeout,1000u);
 "326
-[e ( _OsTmr_StartTimer (2 , &U F9089 -> -> 1000 `ui `ul ]
+[e ( _OsTmr_StartTimer (2 , &U F9091 -> -> 1000 `ui `ul ]
 [; ;mdm_gsm_gprs.c: 328: CheckMdmSts = MdmCh_Delay;
 "328
-[e = F9088 . `E8989 4 ]
+[e = F9090 . `E8991 4 ]
 "329
 }
 [e :U 900 ]
@@ -8784,7 +8785,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 "331
 [e :U 899 ]
 [; ;mdm_gsm_gprs.c: 331: else if (OsTmr_GetTimerStatus(&Timeout) == SwTimerExpired)
-[e $ ! == -> ( _OsTmr_GetTimerStatus (1 &U F9089 `i -> . `E7757 1 `i 902  ]
+[e $ ! == -> ( _OsTmr_GetTimerStatus (1 &U F9091 `i -> . `E7757 1 `i 902  ]
 [; ;mdm_gsm_gprs.c: 332: {
 "332
 {
@@ -8796,7 +8797,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _ComChecCompleted -> -> 1 `ui `uc ]
 [; ;mdm_gsm_gprs.c: 338: CheckMdmSts = MdmCh_Done;
 "338
-[e = F9088 . `E8989 5 ]
+[e = F9090 . `E8991 5 ]
 "339
 }
 [; ;mdm_gsm_gprs.c: 339: }
@@ -8820,7 +8821,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U 904 ]
 [; ;mdm_gsm_gprs.c: 348: if (OsTmr_GetTimerStatus(&Timeout) == SwTimerExpired)
 "348
-[e $ ! == -> ( _OsTmr_GetTimerStatus (1 &U F9089 `i -> . `E7757 1 `i 905  ]
+[e $ ! == -> ( _OsTmr_GetTimerStatus (1 &U F9091 `i -> . `E7757 1 `i 905  ]
 [; ;mdm_gsm_gprs.c: 349: {
 "349
 {
@@ -8832,7 +8833,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _ComChecCompleted -> -> 1 `ui `uc ]
 [; ;mdm_gsm_gprs.c: 355: CheckMdmSts = MdmCh_Done;
 "355
-[e = F9088 . `E8989 5 ]
+[e = F9090 . `E8991 5 ]
 "356
 }
 [e :U 905 ]
@@ -8858,12 +8859,12 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $U 892  ]
 "288
 [e :U 893 ]
-[e [\ F9088 , $ . `E8989 0 894
- , $ . `E8989 1 895
- , $ . `E8989 2 897
- , $ . `E8989 3 898
- , $ . `E8989 4 904
- , $ . `E8989 5 906
+[e [\ F9090 , $ . `E8991 0 894
+ , $ . `E8991 1 895
+ , $ . `E8991 2 897
+ , $ . `E8991 3 898
+ , $ . `E8991 4 904
+ , $ . `E8991 5 906
  907 ]
 "365
 [e :U 892 ]
@@ -8880,13 +8881,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U _TurnOnModem ]
 [f ]
 "378
-[v F9091 `E8969 ~T0 @X0 1 s TurnOnMdmState ]
-[i F9091
-. `E8969 0
+[v F9093 `E8971 ~T0 @X0 1 s TurnOnMdmState ]
+[i F9093
+. `E8971 0
 ]
 "379
-[v F9092 `us ~T0 @X0 1 s Counter ]
-[i F9092
+[v F9094 `us ~T0 @X0 1 s Counter ]
+[i F9094
 -> -> 0 `i `us
 ]
 [; ;mdm_gsm_gprs.c: 378: static TurnOnMdmStateType TurnOnMdmState = TurnOnDelay;
@@ -8902,16 +8903,16 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U 911 ]
 [; ;mdm_gsm_gprs.c: 385: Counter++;
 "385
-[e ++ F9092 -> -> 1 `i `us ]
+[e ++ F9094 -> -> 1 `i `us ]
 [; ;mdm_gsm_gprs.c: 387: if (Counter >= (((UINT16)(3000))/((UINT16)(1))))
 "387
-[e $ ! >= -> F9092 `ui / -> -> -> 3000 `i `us `ui -> -> -> 1 `i `us `ui 912  ]
+[e $ ! >= -> F9094 `ui / -> -> -> 3000 `i `us `ui -> -> -> 1 `i `us `ui 912  ]
 [; ;mdm_gsm_gprs.c: 388: {
 "388
 {
 [; ;mdm_gsm_gprs.c: 390: TurnOnMdmState = TurnOnModuleReq;
 "390
-[e = F9091 . `E8969 1 ]
+[e = F9093 . `E8971 1 ]
 "391
 }
 [e :U 912 ]
@@ -8930,7 +8931,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _MdmStatus . `E8913 1 ]
 [; ;mdm_gsm_gprs.c: 400: TurnOnMdmState = Stop;
 "400
-[e = F9091 . `E8969 2 ]
+[e = F9093 . `E8971 2 ]
 [; ;mdm_gsm_gprs.c: 401: break;
 "401
 [e $U 909  ]
@@ -8952,9 +8953,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $U 909  ]
 "381
 [e :U 910 ]
-[e [\ F9091 , $ . `E8969 0 911
- , $ . `E8969 1 913
- , $ . `E8969 2 914
+[e [\ F9093 , $ . `E8971 0 911
+ , $ . `E8971 1 913
+ , $ . `E8971 2 914
  915 ]
 "408
 [e :U 909 ]
@@ -8971,23 +8972,23 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U _ConfigureModem ]
 [f ]
 "421
-[v F9096 `E8980 ~T0 @X0 1 s MdmConfigState ]
-[i F9096
-. `E8980 0
+[v F9098 `E8982 ~T0 @X0 1 s MdmConfigState ]
+[i F9098
+. `E8982 0
 ]
 "422
-[v F9097 `E8980 ~T0 @X0 1 s NextState ]
-[i F9097
-. `E8980 0
+[v F9099 `E8982 ~T0 @X0 1 s NextState ]
+[i F9099
+. `E8982 0
 ]
 "423
-[v F9098 `us ~T0 @X0 1 s DelayValueMs ]
-[i F9098
+[v F9100 `us ~T0 @X0 1 s DelayValueMs ]
+[i F9100
 -> -> 0 `i `us
 ]
 "424
-[v F9099 `us ~T0 @X0 1 s DelayCounter ]
-[i F9099
+[v F9101 `us ~T0 @X0 1 s DelayCounter ]
+[i F9101
 -> -> 0 `i `us
 ]
 [; ;mdm_gsm_gprs.c: 421: static MdmConfigStateType MdmConfigState = MdmCfg_Init;
@@ -9011,7 +9012,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;mdm_gsm_gprs.c: 433: MdmConfigState = MdmCfg_ChangeBaud;
 "433
-[e = F9096 . `E8980 1 ]
+[e = F9098 . `E8982 1 ]
 "434
 }
 [e :U 920 ]
@@ -9033,13 +9034,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _Uart_InitUartModule (2 , -> -> 1 `i `uc &U _UartConfig ]
 [; ;mdm_gsm_gprs.c: 445: DelayValueMs = (((UINT16)(1000))/((UINT16)(1)));
 "445
-[e = F9098 -> / -> -> -> 1000 `i `us `ui -> -> -> 1 `i `us `ui `us ]
+[e = F9100 -> / -> -> -> 1000 `i `us `ui -> -> -> 1 `i `us `ui `us ]
 [; ;mdm_gsm_gprs.c: 447: NextState = MdmCfg_SetMdmEchoMode;
 "447
-[e = F9097 . `E8980 2 ]
+[e = F9099 . `E8982 2 ]
 [; ;mdm_gsm_gprs.c: 448: MdmConfigState = MdmCfg_Delay;
 "448
-[e = F9096 . `E8980 4 ]
+[e = F9098 . `E8982 4 ]
 [; ;mdm_gsm_gprs.c: 449: break;
 "449
 [e $U 917  ]
@@ -9051,13 +9052,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _Uart_WriteConstString (2 , -> -> 1 `i `uc :s 3C ]
 [; ;mdm_gsm_gprs.c: 455: DelayValueMs = (((UINT16)(1000))/((UINT16)(1)));
 "455
-[e = F9098 -> / -> -> -> 1000 `i `us `ui -> -> -> 1 `i `us `ui `us ]
+[e = F9100 -> / -> -> -> 1000 `i `us `ui -> -> -> 1 `i `us `ui `us ]
 [; ;mdm_gsm_gprs.c: 457: NextState = MdmCfg_UpdateMdmSts;
 "457
-[e = F9097 . `E8980 5 ]
+[e = F9099 . `E8982 5 ]
 [; ;mdm_gsm_gprs.c: 458: MdmConfigState = MdmCfg_Delay;
 "458
-[e = F9096 . `E8980 4 ]
+[e = F9098 . `E8982 4 ]
 [; ;mdm_gsm_gprs.c: 459: break;
 "459
 [e $U 917  ]
@@ -9066,19 +9067,19 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U 923 ]
 [; ;mdm_gsm_gprs.c: 463: DelayCounter++;
 "463
-[e ++ F9099 -> -> 1 `i `us ]
+[e ++ F9101 -> -> 1 `i `us ]
 [; ;mdm_gsm_gprs.c: 465: if (DelayCounter >= DelayValueMs)
 "465
-[e $ ! >= -> F9099 `ui -> F9098 `ui 924  ]
+[e $ ! >= -> F9101 `ui -> F9100 `ui 924  ]
 [; ;mdm_gsm_gprs.c: 466: {
 "466
 {
 [; ;mdm_gsm_gprs.c: 468: DelayCounter = 0;
 "468
-[e = F9099 -> -> 0 `i `us ]
+[e = F9101 -> -> 0 `i `us ]
 [; ;mdm_gsm_gprs.c: 470: MdmConfigState = NextState;
 "470
-[e = F9096 F9097 ]
+[e = F9098 F9099 ]
 "471
 }
 [e :U 924 ]
@@ -9097,7 +9098,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _GenerateEvt (1 &U _MdmStsReady ]
 [; ;mdm_gsm_gprs.c: 480: MdmConfigState = MdmCfg_Stop;
 "480
-[e = F9096 . `E8980 6 ]
+[e = F9098 . `E8982 6 ]
 [; ;mdm_gsm_gprs.c: 481: break;
 "481
 [e $U 917  ]
@@ -9119,12 +9120,12 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $U 917  ]
 "426
 [e :U 918 ]
-[e [\ F9096 , $ . `E8980 0 919
- , $ . `E8980 1 921
- , $ . `E8980 2 922
- , $ . `E8980 4 923
- , $ . `E8980 5 925
- , $ . `E8980 6 926
+[e [\ F9098 , $ . `E8982 0 919
+ , $ . `E8982 1 921
+ , $ . `E8982 2 922
+ , $ . `E8982 4 923
+ , $ . `E8982 5 925
+ , $ . `E8982 6 926
  927 ]
 "488
 [e :U 917 ]
@@ -9140,8 +9141,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;mdm_gsm_gprs.c: 500: {
 [e :U _ModemEvtParser ]
 [f ]
-[v F9106 `uc ~T0 @X0 -> 0 `x s ]
-[i F9106
+[v F9108 `uc ~T0 @X0 -> 0 `x s ]
+[i F9108
 :U ..
 "501
 -> -> 82 `ui `uc
@@ -9152,9 +9153,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 ]
 [v _RingString `uc ~T0 @X0 4  a ]
 [; ;mdm_gsm_gprs.c: 501: UINT8 RingString[] = {'R','I','N','G'};
-[e = _RingString F9106 ]
-[v F9108 `uc ~T0 @X0 -> 0 `x s ]
-[i F9108
+[e = _RingString F9108 ]
+[v F9110 `uc ~T0 @X0 -> 0 `x s ]
+[i F9110
 :U ..
 "502
 -> -> 43 `ui `uc
@@ -9166,9 +9167,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 ]
 [v _ClipString `uc ~T0 @X0 5  a ]
 [; ;mdm_gsm_gprs.c: 502: UINT8 ClipString[] = {'+','C','L','I', 'P'};
-[e = _ClipString F9108 ]
-[v F9110 `uc ~T0 @X0 -> 0 `x s ]
-[i F9110
+[e = _ClipString F9110 ]
+[v F9112 `uc ~T0 @X0 -> 0 `x s ]
+[i F9112
 :U ..
 "503
 -> -> 43 `ui `uc
@@ -9180,9 +9181,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 ]
 [v _SmsString `uc ~T0 @X0 5  a ]
 [; ;mdm_gsm_gprs.c: 503: UINT8 SmsString[] = {'+','C','M','T','I'};
-[e = _SmsString F9110 ]
-[v F9112 `uc ~T0 @X0 -> 0 `x s ]
-[i F9112
+[e = _SmsString F9112 ]
+[v F9114 `uc ~T0 @X0 -> 0 `x s ]
+[i F9114
 :U ..
 "504
 -> -> 67 `ui `uc
@@ -9199,7 +9200,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 ]
 [v _CallReadyString `uc ~T0 @X0 10  a ]
 [; ;mdm_gsm_gprs.c: 504: UINT8 CallReadyString[] = {'C','a','l','l',' ','R','e','a','d','y'};
-[e = _CallReadyString F9112 ]
+[e = _CallReadyString F9114 ]
 "505
 [v _CompareIdx `uc ~T0 @X0 1 a ]
 [; ;mdm_gsm_gprs.c: 505: UINT8 CompareIdx = 0;
@@ -9379,9 +9380,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U _GetSmsSm ]
 [f ]
 "586
-[v F9122 `E8974 ~T0 @X0 1 s GetSmsState ]
-[i F9122
-. `E8974 0
+[v F9124 `E8976 ~T0 @X0 1 s GetSmsState ]
+[i F9124
+. `E8976 0
 ]
 [; ;mdm_gsm_gprs.c: 586: static GetSmsStateType GetSmsState = GetSms_CheckReq;
 [; ;mdm_gsm_gprs.c: 589: if (MdmStatus == ModemConfigured)
@@ -9407,7 +9408,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;mdm_gsm_gprs.c: 598: GetSmsState = GetSms_SendAtCmd;
 "598
-[e = F9122 . `E8974 1 ]
+[e = F9124 . `E8976 1 ]
 "599
 }
 [e :U 950 ]
@@ -9423,7 +9424,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _Uart_WriteConstString (2 , -> -> 1 `i `uc :s 4C ]
 [; ;mdm_gsm_gprs.c: 606: GetSmsState = GetSms_StoreHeader;
 "606
-[e = F9122 . `E8974 2 ]
+[e = F9124 . `E8976 2 ]
 [; ;mdm_gsm_gprs.c: 607: break;
 "607
 [e $U 947  ]
@@ -9453,7 +9454,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = . _Mdm_SmsRx 2 -> _RxLen `uc ]
 [; ;mdm_gsm_gprs.c: 621: GetSmsState = GetSms_StoreText;
 "621
-[e = F9122 . `E8974 3 ]
+[e = F9124 . `E8976 3 ]
 "622
 }
 [e :U 954 ]
@@ -9485,7 +9486,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = . _Mdm_SmsRx 3 -> _RxLen `uc ]
 [; ;mdm_gsm_gprs.c: 636: GetSmsState = GetSms_CheckReq;
 "636
-[e = F9122 . `E8974 0 ]
+[e = F9124 . `E8976 0 ]
 [; ;mdm_gsm_gprs.c: 638: GenerateEvt(&SmsTxtReady);
 "638
 [e ( _GenerateEvt (1 &U _SmsTxtReady ]
@@ -9508,10 +9509,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $U 947  ]
 "591
 [e :U 948 ]
-[e [\ F9122 , $ . `E8974 0 949
- , $ . `E8974 1 951
- , $ . `E8974 2 952
- , $ . `E8974 3 955
+[e [\ F9124 , $ . `E8976 0 949
+ , $ . `E8976 1 951
+ , $ . `E8976 2 952
+ , $ . `E8976 3 955
  957 ]
 "644
 [e :U 947 ]
@@ -9532,18 +9533,18 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U _SendSmsSm ]
 [f ]
 "658
-[v F9124 `E8997 ~T0 @X0 1 s SendSms_State ]
-[i F9124
-. `E8997 0
+[v F9126 `E8999 ~T0 @X0 1 s SendSms_State ]
+[i F9126
+. `E8999 0
 ]
 "659
-[v F9125 `E8997 ~T0 @X0 1 s SendSms_NextState ]
-[i F9125
-. `E8997 0
+[v F9127 `E8999 ~T0 @X0 1 s SendSms_NextState ]
+[i F9127
+. `E8999 0
 ]
 "660
-[v F9126 `S804 ~T0 @X0 1 s SwTimer ]
-[i F9126
+[v F9128 `S804 ~T0 @X0 1 s SwTimer ]
+[i F9128
 :U ..
 :U ..
 -> -> 1 `ui `uc
@@ -9583,7 +9584,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;mdm_gsm_gprs.c: 673: SendSms_State = SendSms_CmgsCmd;
 "673
-[e = F9124 . `E8997 1 ]
+[e = F9126 . `E8999 1 ]
 "674
 }
 [e :U 963 ]
@@ -9611,13 +9612,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _Uart_WriteStringLen (3 , , -> -> 1 `i `uc &U _UartMessage -> + -> _PhoneNumbLen `i -> 11 `i `uc ]
 [; ;mdm_gsm_gprs.c: 688: OsTmr_StartTimer(&SwTimer,2500);
 "688
-[e ( _OsTmr_StartTimer (2 , &U F9126 -> -> -> 2500 `i `l `ul ]
+[e ( _OsTmr_StartTimer (2 , &U F9128 -> -> -> 2500 `i `l `ul ]
 [; ;mdm_gsm_gprs.c: 689: SendSms_State = SendSms_Delay;
 "689
-[e = F9124 . `E8997 5 ]
+[e = F9126 . `E8999 5 ]
 [; ;mdm_gsm_gprs.c: 690: SendSms_NextState = SendSms_EnterCmd;
 "690
-[e = F9125 . `E8997 2 ]
+[e = F9127 . `E8999 2 ]
 [; ;mdm_gsm_gprs.c: 691: break;
 "691
 [e $U 960  ]
@@ -9635,7 +9636,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _Uart_WriteStringLen (3 , , -> -> 1 `i `uc &U _UartMessage -> -> 2 `i `uc ]
 [; ;mdm_gsm_gprs.c: 700: SendSms_State = SendSms_WaitConf;
 "700
-[e = F9124 . `E8997 3 ]
+[e = F9126 . `E8999 3 ]
 [; ;mdm_gsm_gprs.c: 701: break;
 "701
 [e $U 960  ]
@@ -9656,7 +9657,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;mdm_gsm_gprs.c: 711: SendSms_State = SendSms_SendSmsText;
 "711
-[e = F9124 . `E8997 4 ]
+[e = F9126 . `E8999 4 ]
 "712
 }
 [e :U 968 ]
@@ -9682,7 +9683,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _Uart_WriteStringLen (3 , , -> -> 1 `i `uc &U _UartMessage -> + -> _SmsLen `i -> 1 `i `uc ]
 [; ;mdm_gsm_gprs.c: 724: SendSms_State = SendSms_WaitEvt;
 "724
-[e = F9124 . `E8997 0 ]
+[e = F9126 . `E8999 0 ]
 [; ;mdm_gsm_gprs.c: 725: break;
 "725
 [e $U 960  ]
@@ -9691,13 +9692,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U 970 ]
 [; ;mdm_gsm_gprs.c: 729: if (OsTmr_GetTimerStatus(&SwTimer) == SwTimerExpired)
 "729
-[e $ ! == -> ( _OsTmr_GetTimerStatus (1 &U F9126 `i -> . `E7757 1 `i 971  ]
+[e $ ! == -> ( _OsTmr_GetTimerStatus (1 &U F9128 `i -> . `E7757 1 `i 971  ]
 [; ;mdm_gsm_gprs.c: 730: {
 "730
 {
 [; ;mdm_gsm_gprs.c: 732: SendSms_State = SendSms_NextState;
 "732
-[e = F9124 F9125 ]
+[e = F9126 F9127 ]
 "733
 }
 [e :U 971 ]
@@ -9717,12 +9718,12 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $U 960  ]
 "666
 [e :U 961 ]
-[e [\ F9124 , $ . `E8997 0 962
- , $ . `E8997 1 964
- , $ . `E8997 2 965
- , $ . `E8997 3 966
- , $ . `E8997 4 969
- , $ . `E8997 5 970
+[e [\ F9126 , $ . `E8999 0 962
+ , $ . `E8999 1 964
+ , $ . `E8999 2 965
+ , $ . `E8999 3 966
+ , $ . `E8999 4 969
+ , $ . `E8999 5 970
  972 ]
 "738
 [e :U 960 ]
@@ -10013,9 +10014,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;mdm_gsm_gprs.c: 900: StringCopy(Mdm_SmsRx.MessageBuffer, MessageText, Mdm_SmsRx.TextLen + 1);
 "900
 [e ( _StringCopy (3 , , &U . _Mdm_SmsRx 1 _MessageText -> + -> . _Mdm_SmsRx 3 `i -> 1 `i `us ]
-[; ;mdm_gsm_gprs.c: 901: StringCopy(Mdm_SmsRx.HeaderBuffer + 21, callerNumber, ((UINT8)(13)) - 1);
+[; ;mdm_gsm_gprs.c: 901: StringCopy(Mdm_SmsRx.HeaderBuffer + 21, callerNumber, ((UINT8)(13)));
 "901
-[e ( _StringCopy (3 , , + &U . _Mdm_SmsRx 0 * -> -> 21 `i `x -> -> # *U &U . _Mdm_SmsRx 0 `i `x &U _callerNumber -> - -> -> -> 13 `i `uc `i -> 1 `i `us ]
+[e ( _StringCopy (3 , , + &U . _Mdm_SmsRx 0 * -> -> 21 `i `x -> -> # *U &U . _Mdm_SmsRx 0 `i `x &U _callerNumber -> -> -> 13 `i `uc `us ]
 [; ;mdm_gsm_gprs.c: 903: GetSmsStatus = SmsDataReady;
 "903
 [e = _GetSmsStatus . `E8920 1 ]
@@ -10254,6 +10255,22 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;mdm_gsm_gprs.c: 1044: }
 "1044
 [e :UE 1002 ]
+}
+"1046
+[v _GetLastInteractionNumber `(*uc ~T0 @X0 1 ef ]
+"1047
+{
+[; ;mdm_gsm_gprs.c: 1046: UINT8* GetLastInteractionNumber (void)
+[; ;mdm_gsm_gprs.c: 1047: {
+[e :U _GetLastInteractionNumber ]
+[f ]
+[; ;mdm_gsm_gprs.c: 1048: return callerNumber;
+"1048
+[e ) &U _callerNumber ]
+[e $UE 1004  ]
+[; ;mdm_gsm_gprs.c: 1049: }
+"1049
+[e :UE 1004 ]
 }
 [a 5C 65 84 43 67 77 71 83 61 34 0 ]
 [a 6C 65 84 72 13 0 ]

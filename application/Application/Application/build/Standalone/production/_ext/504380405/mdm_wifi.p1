@@ -7546,6 +7546,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;mdm_gsm_gprs.h: 130: void Mdm_SendSmsData (UINT8 *PhoneNmb, UINT8 PhoneNmbLen, UINT8 *MsgTxt, UINT8 MsgTxtLen);
 [; ;mdm_gsm_gprs.h: 132: SmsRxStsType Mdm_IsSmsReceived (void);
 [; ;mdm_gsm_gprs.h: 134: UINT8* GetCallerNumber (void);
+[; ;mdm_gsm_gprs.h: 135: UINT8* GetLastInteractionNumber (void);
 [; ;eeprom_if.h: 41: typedef enum _EepromSts
 [; ;eeprom_if.h: 42: {
 [; ;eeprom_if.h: 43: OP_SUCCESS = 0,

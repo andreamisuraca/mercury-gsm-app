@@ -2593,15 +2593,15 @@ OP_PENDING 2
 [v _MyApp_Task MyApp_Task `(v  1 e 1 0 ]
 {
 "142
-[v MyApp_Task@emptyNumber emptyNumber `C[13]uc  1 a 13 21 ]
+[v MyApp_Task@emptyNumber emptyNumber `C[13]uc  1 a 13 19 ]
 "148
-[v MyApp_Task@cmdAddNumber cmdAddNumber `C[4]uc  1 a 4 37 ]
+[v MyApp_Task@cmdAddNumber cmdAddNumber `C[4]uc  1 a 4 35 ]
 "149
-[v MyApp_Task@cmpString cmpString `[3]uc  1 a 3 34 ]
+[v MyApp_Task@cmpString cmpString `[3]uc  1 a 3 32 ]
 "153
-[v MyApp_Task@numberInMemory numberInMemory `uc  1 a 1 42 ]
+[v MyApp_Task@numberInMemory numberInMemory `uc  1 a 1 40 ]
 "152
-[v MyApp_Task@memoryResult memoryResult `E8114  1 a 1 41 ]
+[v MyApp_Task@memoryResult memoryResult `E8114  1 a 1 39 ]
 "141
 [v MyApp_Task@F9033 F9033 `C[13]uc  1 s 13 F9033 ]
 "143

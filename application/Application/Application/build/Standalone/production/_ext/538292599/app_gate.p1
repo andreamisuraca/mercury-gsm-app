@@ -11,10 +11,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 "49 ../Source/h/04_App/app_utils.h
 [v _secondsAppTimer `(uc ~T0 @X0 0 ef3`uc`*ui`uc ]
 "89 ../Source/c/04_App/app_gate.c
-[c E8874 0 1 2 3 4 .. ]
-[n E8874 _LedStsType LED_STS_OFF LED_STS_ON LED_STS_TOGGLE LED_STS_BLINK LED_STS_PULSE  ]
+[c E8876 0 1 2 3 4 .. ]
+[n E8876 _LedStsType LED_STS_OFF LED_STS_ON LED_STS_TOGGLE LED_STS_BLINK LED_STS_PULSE  ]
 "102 ../../MercuryFwk/Source/h/03_Sml/02_Ssl/led.h
-[v _Led_SetLedStatus `(v ~T0 @X0 0 ef2`uc`E8874 ]
+[v _Led_SetLedStatus `(v ~T0 @X0 0 ef2`uc`E8876 ]
 "57 ../../MercuryFwk/Source/h/03_Sml/01_Pml/05_Eeprom/eeprom_if.h
 [v _Eeprom_Write `(uc ~T0 @X0 0 ef3`uc`*uc`uc ]
 "57 ../Source/h/04_App/app_init.h
@@ -22,10 +22,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 "50
 [v _memorizedNumbersCount `uc ~T0 @X0 -> 0 `x e ]
 "181 ../Source/c/04_App/app_gate.c
-[c E8244 0 1 2 .. ]
-[n E8244 _EepromSts OP_SUCCESS OP_FAILED OP_PENDING  ]
+[c E8246 0 1 2 .. ]
+[n E8246 _EepromSts OP_SUCCESS OP_FAILED OP_PENDING  ]
 "60 ../../MercuryFwk/Source/h/03_Sml/01_Pml/05_Eeprom/eeprom_if.h
-[v _Eeprom_Read `(E8244 ~T0 @X0 0 ef3`uc`*uc`uc ]
+[v _Eeprom_Read `(E8246 ~T0 @X0 0 ef3`uc`*uc`uc ]
 "53 ../../MercuryFwk/Source/h/03_Sml/02_Ssl/sf.h
 [v _StringCompare `(uc ~T0 @X0 0 ef3`*uc`*uc`us ]
 "30 ../../MercuryFwk/Source/h/01_Hal/01_Sys/hal.h
@@ -7573,6 +7573,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;mdm_gsm_gprs.h: 130: void Mdm_SendSmsData (UINT8 *PhoneNmb, UINT8 PhoneNmbLen, UINT8 *MsgTxt, UINT8 MsgTxtLen);
 [; ;mdm_gsm_gprs.h: 132: SmsRxStsType Mdm_IsSmsReceived (void);
 [; ;mdm_gsm_gprs.h: 134: UINT8* GetCallerNumber (void);
+[; ;mdm_gsm_gprs.h: 135: UINT8* GetLastInteractionNumber (void);
 [; ;eeprom_if.h: 41: typedef enum _EepromSts
 [; ;eeprom_if.h: 42: {
 [; ;eeprom_if.h: 43: OP_SUCCESS = 0,
@@ -8324,7 +8325,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;app_gate.c: 89: Led_SetLedStatus(1u, LED_STS_BLINK);
 "89
-[e ( _Led_SetLedStatus (2 , -> -> 1 `ui `uc . `E8874 3 ]
+[e ( _Led_SetLedStatus (2 , -> -> 1 `ui `uc . `E8876 3 ]
 [; ;app_gate.c: 90: if (getSetupCall())
 "90
 [e $ ! != -> ( _getSetupCall ..  `i -> -> -> 0 `i `uc `i 891  ]
@@ -8350,7 +8351,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;app_gate.c: 97: Led_SetLedStatus(1u, LED_STS_ON);
 "97
-[e ( _Led_SetLedStatus (2 , -> -> 1 `ui `uc . `E8874 1 ]
+[e ( _Led_SetLedStatus (2 , -> -> 1 `ui `uc . `E8876 1 ]
 "98
 }
 [e :U 892 ]
@@ -8600,8 +8601,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;app_gate.c: 177: const uint8_t searchFailed = 1;
 [e = _searchFailed -> -> 1 `i `uc ]
 "178
-[v F9012 `uc ~T0 @X0 1 s currentPosition ]
-[i F9012
+[v F9014 `uc ~T0 @X0 1 s currentPosition ]
+[i F9014
 -> -> 16 `i `uc
 ]
 "179
@@ -8612,29 +8613,29 @@ Version 3.2 HI-TECH Software Intermediate Code
 "180
 [v _readBuffer `uc ~T0 @X0 -> -> -> 13 `i `uc `ux a ]
 "181
-[v _memoryOpResult `E8244 ~T0 @X0 1 a ]
+[v _memoryOpResult `E8246 ~T0 @X0 1 a ]
 [; ;app_gate.c: 180: uint8_t readBuffer[((UINT8)(13))];
 [; ;app_gate.c: 181: EepromStsType memoryOpResult = OP_PENDING;
-[e = _memoryOpResult . `E8244 2 ]
+[e = _memoryOpResult . `E8246 2 ]
 [; ;app_gate.c: 183: if (currentPosition >= 16 * 10)
 "183
-[e $ ! >= -> F9012 `i * -> 16 `i -> 10 `i 909  ]
+[e $ ! >= -> F9014 `i * -> 16 `i -> 10 `i 909  ]
 [; ;app_gate.c: 184: {
 "184
 {
 [; ;app_gate.c: 185: currentPosition = 16;
 "185
-[e = F9012 -> -> 16 `i `uc ]
+[e = F9014 -> -> 16 `i `uc ]
 "186
 }
 [e :U 909 ]
 [; ;app_gate.c: 186: }
 [; ;app_gate.c: 187: memoryOpResult = Eeprom_Read(currentPosition, readBuffer, ((UINT8)(13)));
 "187
-[e = _memoryOpResult ( _Eeprom_Read (3 , , F9012 &U _readBuffer -> -> 13 `i `uc ]
+[e = _memoryOpResult ( _Eeprom_Read (3 , , F9014 &U _readBuffer -> -> 13 `i `uc ]
 [; ;app_gate.c: 188: if (memoryOpResult != OP_PENDING)
 "188
-[e $ ! != -> _memoryOpResult `i -> . `E8244 2 `i 910  ]
+[e $ ! != -> _memoryOpResult `i -> . `E8246 2 `i 910  ]
 [; ;app_gate.c: 189: {
 "189
 {
@@ -8652,10 +8653,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;app_gate.c: 194: positionInMemory = currentPosition;
 "194
-[e = _positionInMemory F9012 ]
+[e = _positionInMemory F9014 ]
 [; ;app_gate.c: 195: currentPosition = 16 * 10;
 "195
-[e = F9012 -> * -> 16 `i -> 10 `i `uc ]
+[e = F9014 -> * -> 16 `i -> 10 `i `uc ]
 "196
 }
 [; ;app_gate.c: 196: }
@@ -8676,112 +8677,138 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;app_gate.c: 201: }
 [; ;app_gate.c: 202: currentPosition += 16;
 "202
-[e =+ F9012 -> -> 16 `i `uc ]
+[e =+ F9014 -> -> 16 `i `uc ]
 "203
 }
 [e :U 910 ]
 [; ;app_gate.c: 203: }
-[; ;app_gate.c: 204: return positionInMemory;
+[; ;app_gate.c: 204: if (positionInMemory == 0 && currentPosition >= 16 * 10)
 "204
+[e $ ! && == -> _positionInMemory `i -> 0 `i >= -> F9014 `i * -> 16 `i -> 10 `i 914  ]
+[; ;app_gate.c: 205: {
+"205
+{
+[; ;app_gate.c: 206: positionInMemory = searchFailed;
+"206
+[e = _positionInMemory _searchFailed ]
+"207
+}
+[e :U 914 ]
+[; ;app_gate.c: 207: }
+[; ;app_gate.c: 208: return positionInMemory;
+"208
 [e ) _positionInMemory ]
 [e $UE 908  ]
-[; ;app_gate.c: 205: }
-"205
+[; ;app_gate.c: 209: }
+"209
 [e :UE 908 ]
 }
-"207
+"211
 [v _findEmptySpot `(uc ~T0 @X0 1 ef ]
-"208
+"212
 {
-[; ;app_gate.c: 207: uint8_t findEmptySpot()
-[; ;app_gate.c: 208: {
+[; ;app_gate.c: 211: uint8_t findEmptySpot()
+[; ;app_gate.c: 212: {
 [e :U _findEmptySpot ]
 [f ]
-"209
+"213
 [v _searchInProgress `Cuc ~T0 @X0 1 a ]
-[; ;app_gate.c: 209: const uint8_t searchInProgress = 0;
+[; ;app_gate.c: 213: const uint8_t searchInProgress = 0;
 [e = _searchInProgress -> -> 0 `i `uc ]
-"210
+"214
 [v _searchFailed `Cuc ~T0 @X0 1 a ]
-[; ;app_gate.c: 210: const uint8_t searchFailed = 1;
+[; ;app_gate.c: 214: const uint8_t searchFailed = 1;
 [e = _searchFailed -> -> 1 `i `uc ]
-"211
-[v F9021 `uc ~T0 @X0 1 s currentPosition ]
-[i F9021
+"215
+[v F9023 `uc ~T0 @X0 1 s currentPosition ]
+[i F9023
 -> -> 16 `i `uc
 ]
-"212
-[v _positionInMemory `uc ~T0 @X0 1 a ]
-[; ;app_gate.c: 211: static uint8_t currentPosition = 16;
-[; ;app_gate.c: 212: uint8_t positionInMemory = searchInProgress;
-[e = _positionInMemory _searchInProgress ]
-"213
-[v _readBuffer `uc ~T0 @X0 -> -> -> 13 `i `uc `ux a ]
-"214
-[v _memoryOpResult `E8244 ~T0 @X0 1 a ]
-[; ;app_gate.c: 213: uint8_t readBuffer[((UINT8)(13))];
-[; ;app_gate.c: 214: EepromStsType memoryOpResult = OP_PENDING;
-[e = _memoryOpResult . `E8244 2 ]
-[; ;app_gate.c: 216: if (currentPosition >= 16 * 10)
 "216
-[e $ ! >= -> F9021 `i * -> 16 `i -> 10 `i 915  ]
-[; ;app_gate.c: 217: {
+[v _positionInMemory `uc ~T0 @X0 1 a ]
+[; ;app_gate.c: 215: static uint8_t currentPosition = 16;
+[; ;app_gate.c: 216: uint8_t positionInMemory = searchInProgress;
+[e = _positionInMemory _searchInProgress ]
 "217
-{
-[; ;app_gate.c: 218: currentPosition = 16;
+[v _readBuffer `uc ~T0 @X0 -> -> -> 13 `i `uc `ux a ]
 "218
-[e = F9021 -> -> 16 `i `uc ]
-"219
-}
-[e :U 915 ]
-[; ;app_gate.c: 219: }
-[; ;app_gate.c: 220: memoryOpResult = Eeprom_Read(currentPosition, readBuffer, ((UINT8)(13)));
+[v _memoryOpResult `E8246 ~T0 @X0 1 a ]
+[; ;app_gate.c: 217: uint8_t readBuffer[((UINT8)(13))];
+[; ;app_gate.c: 218: EepromStsType memoryOpResult = OP_PENDING;
+[e = _memoryOpResult . `E8246 2 ]
+[; ;app_gate.c: 220: if (currentPosition >= 16 * 10)
 "220
-[e = _memoryOpResult ( _Eeprom_Read (3 , , F9021 &U _readBuffer -> -> 13 `i `uc ]
-[; ;app_gate.c: 221: if (memoryOpResult != OP_PENDING)
+[e $ ! >= -> F9023 `i * -> 16 `i -> 10 `i 916  ]
+[; ;app_gate.c: 221: {
 "221
-[e $ ! != -> _memoryOpResult `i -> . `E8244 2 `i 916  ]
-[; ;app_gate.c: 222: {
+{
+[; ;app_gate.c: 222: currentPosition = 16;
 "222
-{
-[; ;app_gate.c: 223: if (isNumberValid(readBuffer))
+[e = F9023 -> -> 16 `i `uc ]
 "223
-[e $ ! != -> ( _isNumberValid (1 &U _readBuffer `i -> -> -> 0 `i `uc `i 917  ]
-[; ;app_gate.c: 224: {
-"224
-{
-[; ;app_gate.c: 225: currentPosition += 16;
-"225
-[e =+ F9021 -> -> 16 `i `uc ]
-"226
 }
-[; ;app_gate.c: 226: }
-[e $U 918  ]
+[e :U 916 ]
+[; ;app_gate.c: 223: }
+[; ;app_gate.c: 224: memoryOpResult = Eeprom_Read(currentPosition, readBuffer, ((UINT8)(13)));
+"224
+[e = _memoryOpResult ( _Eeprom_Read (3 , , F9023 &U _readBuffer -> -> 13 `i `uc ]
+[; ;app_gate.c: 225: if (memoryOpResult != OP_PENDING)
+"225
+[e $ ! != -> _memoryOpResult `i -> . `E8246 2 `i 917  ]
+[; ;app_gate.c: 226: {
+"226
+{
+[; ;app_gate.c: 227: if (isNumberValid(readBuffer))
 "227
-[e :U 917 ]
-[; ;app_gate.c: 227: else
+[e $ ! != -> ( _isNumberValid (1 &U _readBuffer `i -> -> -> 0 `i `uc `i 918  ]
 [; ;app_gate.c: 228: {
 "228
 {
-[; ;app_gate.c: 229: positionInMemory = currentPosition;
+[; ;app_gate.c: 229: currentPosition += 16;
 "229
-[e = _positionInMemory F9021 ]
-[; ;app_gate.c: 230: currentPosition = 16 * 10;
+[e =+ F9023 -> -> 16 `i `uc ]
 "230
-[e = F9021 -> * -> 16 `i -> 10 `i `uc ]
+}
+[; ;app_gate.c: 230: }
+[e $U 919  ]
 "231
-}
 [e :U 918 ]
+[; ;app_gate.c: 231: else
+[; ;app_gate.c: 232: {
 "232
-}
-[e :U 916 ]
-[; ;app_gate.c: 231: }
-[; ;app_gate.c: 232: }
-[; ;app_gate.c: 233: return positionInMemory;
+{
+[; ;app_gate.c: 233: positionInMemory = currentPosition;
 "233
-[e ) _positionInMemory ]
-[e $UE 914  ]
-[; ;app_gate.c: 234: }
+[e = _positionInMemory F9023 ]
+[; ;app_gate.c: 234: currentPosition = 16 * 10;
 "234
-[e :UE 914 ]
+[e = F9023 -> * -> 16 `i -> 10 `i `uc ]
+"235
+}
+[e :U 919 ]
+"236
+}
+[e :U 917 ]
+[; ;app_gate.c: 235: }
+[; ;app_gate.c: 236: }
+[; ;app_gate.c: 237: if (positionInMemory == 0 && currentPosition >= 16 * 10)
+"237
+[e $ ! && == -> _positionInMemory `i -> 0 `i >= -> F9023 `i * -> 16 `i -> 10 `i 920  ]
+[; ;app_gate.c: 238: {
+"238
+{
+[; ;app_gate.c: 239: positionInMemory = searchFailed;
+"239
+[e = _positionInMemory _searchFailed ]
+"240
+}
+[e :U 920 ]
+[; ;app_gate.c: 240: }
+[; ;app_gate.c: 241: return positionInMemory;
+"241
+[e ) _positionInMemory ]
+[e $UE 915  ]
+[; ;app_gate.c: 242: }
+"242
+[e :UE 915 ]
 }

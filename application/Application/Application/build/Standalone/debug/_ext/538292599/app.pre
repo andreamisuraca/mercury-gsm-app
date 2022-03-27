@@ -11412,7 +11412,7 @@ currentState = GATE_WAIT_EVENT;
 }
 else if (numberInMemory != 0 && numberInMemory != 1)
 {
-saveNumberInMemory(smsText + 3, numberInMemory);
+saveNumberInMemory(numberInMemory, smsText + 3);
 currentState = GATE_WAIT_EVENT;
 }
 break;

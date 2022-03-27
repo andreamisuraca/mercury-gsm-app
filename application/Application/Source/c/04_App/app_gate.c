@@ -234,5 +234,9 @@ uint8_t findEmptySpot()
             currentPosition = INIT_NUMBER_ADDRESS * MAX_NUMBERS_IN_MEM;
         }
     }
+    if (positionInMemory == 0 && currentPosition >= INIT_NUMBER_ADDRESS * MAX_NUMBERS_IN_MEM)
+    {
+        positionInMemory = searchFailed;
+    }
     return positionInMemory;
 }

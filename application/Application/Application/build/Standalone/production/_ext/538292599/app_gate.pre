@@ -10151,6 +10151,7 @@ void Mdm_SendSmsData (UINT8 *PhoneNmb, UINT8 PhoneNmbLen, UINT8 *MsgTxt, UINT8 M
 SmsRxStsType Mdm_IsSmsReceived (void);
 
 UINT8* GetCallerNumber (void);
+UINT8* GetLastInteractionNumber (void);
 
 # 41 "../../MercuryFwk/Source/h/03_Sml/01_Pml/05_Eeprom/eeprom_if.h"
 typedef enum _EepromSts
@@ -11369,6 +11370,10 @@ else
 }
 currentPosition += 16;
 }
+if (positionInMemory == 0 && currentPosition >= 16 * 10)
+{
+positionInMemory = searchFailed;
+}
 return positionInMemory;
 }
 
@@ -11397,6 +11402,10 @@ else
 positionInMemory = currentPosition;
 currentPosition = 16 * 10;
 }
+}
+if (positionInMemory == 0 && currentPosition >= 16 * 10)
+{
+positionInMemory = searchFailed;
 }
 return positionInMemory;
 }

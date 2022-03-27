@@ -7638,6 +7638,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;mdm_gsm_gprs.h: 130: void Mdm_SendSmsData (UINT8 *PhoneNmb, UINT8 PhoneNmbLen, UINT8 *MsgTxt, UINT8 MsgTxtLen);
 [; ;mdm_gsm_gprs.h: 132: SmsRxStsType Mdm_IsSmsReceived (void);
 [; ;mdm_gsm_gprs.h: 134: UINT8* GetCallerNumber (void);
+[; ;mdm_gsm_gprs.h: 135: UINT8* GetLastInteractionNumber (void);
 [; ;eeprom_if.h: 41: typedef enum _EepromSts
 [; ;eeprom_if.h: 42: {
 [; ;eeprom_if.h: 43: OP_SUCCESS = 0,
@@ -8402,9 +8403,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :UE 891 ]
 }
 [v $root$_HighPriorityIsr `(v ~T0 @X0 0 e ]
-[v F8978 `(v ~T0 @X0 1 tf ]
+[v F8980 `(v ~T0 @X0 1 tf ]
 "153
-[v _HighPriorityIsr `IHF8978 ~T0 @X0 1 e ]
+[v _HighPriorityIsr `IHF8980 ~T0 @X0 1 e ]
 "154
 {
 [; ;irq.c: 153: void high_priority interrupt HighPriorityIsr (void)
@@ -8468,9 +8469,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :UE 892 ]
 }
 [v $root$_LowPriorityIsr `(v ~T0 @X0 0 e ]
-[v F8985 `(v ~T0 @X0 1 tf ]
+[v F8987 `(v ~T0 @X0 1 tf ]
 "236
-[v _LowPriorityIsr `ILF8985 ~T0 @X0 1 e ]
+[v _LowPriorityIsr `ILF8987 ~T0 @X0 1 e ]
 "237
 {
 [; ;irq.c: 236: void low_priority interrupt LowPriorityIsr (void)

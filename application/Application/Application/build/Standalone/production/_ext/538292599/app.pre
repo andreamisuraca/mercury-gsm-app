@@ -10151,6 +10151,7 @@ void Mdm_SendSmsData (UINT8 *PhoneNmb, UINT8 PhoneNmbLen, UINT8 *MsgTxt, UINT8 M
 SmsRxStsType Mdm_IsSmsReceived (void);
 
 UINT8* GetCallerNumber (void);
+UINT8* GetLastInteractionNumber (void);
 
 # 41 "../../MercuryFwk/Source/h/03_Sml/01_Pml/05_Eeprom/eeprom_if.h"
 typedef enum _EepromSts
@@ -11248,13 +11249,15 @@ GATE_SAVE_FIRST_MASTER,
 GATE_UPDATE_NUMBERS_COUNT,
 GATE_WAIT_EVENT,
 GATE_ADD_CMD,
+GATE_CHECK_DUPLICATED,
 GATE_SAVE_NEW,
 GATE_DEL_CMD,
+GATE_DEL_NUMBER,
 GATE_TRIGGER_CMD,
 GATE_ACTIVATE_RELAY
 } gateFsmStates;
 
-# 67
+# 69
 static UINT8 I2cTxBuffer[10u];
 
 static UINT8 RelayB1, RelayB2 = 0;
@@ -11264,7 +11267,7 @@ static UINT8 I2cReady = 0;
 
 static uint8_t smsText[((UINT8)(20))] = {0};
 
-# 90
+# 92
 gateFsmStates parseCommand(uint8_t* text)
 {
 const uint8_t addNumberCmd[] = {'A', 'D', 'D'};
@@ -11303,11 +11306,11 @@ res = I2cSlv_SendI2cMsg(txBuffer, realyId, 2);
 return res;
 }
 
-# 140
+# 142
 void MyApp_Task (UINT8 Options)
 {
 const uint8_t emptyNumber[((UINT8)(13))] = {0};
-static UINT8 smsPhoneNumber[] = {'+', '3', '9', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+static UINT8 receivedNumber[] = {'+', '3', '9', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
 
 
 
@@ -11381,23 +11384,37 @@ if (Mdm_GetSmsData(smsText) == SmsDataReady)
 {
 Uart_WriteConstString(1,"AT+CMGD=1,0\r\n");
 currentState = parseCommand(smsText);
+StringCopy(GetLastInteractionNumber(), receivedNumber, ((UINT8)(13)));
 }
 if (Mdm_IsRinging())
 {
 Mdm_HangPhoneCall();
 currentState = GATE_TRIGGER_CMD;
+StringCopy(GetCallerNumber(), receivedNumber, ((UINT8)(13)));
 }
 break;
 
 case GATE_ADD_CMD:
-numberInMemory = isNumberInMemory(GetCallerNumber());
+numberInMemory = isNumberInMemory(receivedNumber);
 if (numberInMemory == 1)
 {
 currentState = GATE_WAIT_EVENT;
 }
 else if (numberInMemory != 0 && numberInMemory != 1)
 {
+currentState = GATE_CHECK_DUPLICATED;
+}
+break;
+
+case GATE_CHECK_DUPLICATED:
+numberInMemory = isNumberInMemory(smsText + 3);
+if (numberInMemory == 1)
+{
 currentState = GATE_SAVE_NEW;
+}
+else if (numberInMemory != 0 && numberInMemory != 1)
+{
+currentState = GATE_WAIT_EVENT;
 }
 break;
 
@@ -11409,13 +11426,26 @@ currentState = GATE_WAIT_EVENT;
 }
 else if (numberInMemory != 0 && numberInMemory != 1)
 {
-saveNumberInMemory(smsText + 3, numberInMemory);
+saveNumberInMemory(numberInMemory, smsText + 3);
 currentState = GATE_WAIT_EVENT;
 }
 break;
 
 case GATE_DEL_CMD:
-numberInMemory = isNumberInMemory(GetCallerNumber());
+numberInMemory = isNumberInMemory(receivedNumber);
+if (numberInMemory == 1)
+{
+currentState = GATE_WAIT_EVENT;
+}
+else if (numberInMemory != 0 && numberInMemory != 1)
+{
+saveNumberInMemory(numberInMemory, emptyNumber);
+currentState = GATE_WAIT_EVENT;
+}
+break;
+
+case GATE_DEL_NUMBER:
+numberInMemory = isNumberInMemory(smsText + 3);
 if (numberInMemory == 1)
 {
 currentState = GATE_WAIT_EVENT;
@@ -11428,7 +11458,7 @@ currentState = GATE_WAIT_EVENT;
 break;
 
 case GATE_TRIGGER_CMD:
-numberInMemory = isNumberInMemory(GetCallerNumber());
+numberInMemory = isNumberInMemory(receivedNumber);
 if (numberInMemory == 1)
 {
 currentState = GATE_WAIT_EVENT;

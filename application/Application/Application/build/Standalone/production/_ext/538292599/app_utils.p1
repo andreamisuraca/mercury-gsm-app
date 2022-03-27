@@ -2,10 +2,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v F7983 `(v ~T0 @X0 0 tf ]
 [v F8056 `(v ~T0 @X0 0 tf ]
 "100 ../Source/c/04_App/app_utils.c
-[c E8874 0 1 2 3 4 .. ]
-[n E8874 _LedStsType LED_STS_OFF LED_STS_ON LED_STS_TOGGLE LED_STS_BLINK LED_STS_PULSE  ]
+[c E8876 0 1 2 3 4 .. ]
+[n E8876 _LedStsType LED_STS_OFF LED_STS_ON LED_STS_TOGGLE LED_STS_BLINK LED_STS_PULSE  ]
 "102 ../../MercuryFwk/Source/h/03_Sml/02_Ssl/led.h
-[v _Led_SetLedStatus `(v ~T0 @X0 0 ef2`uc`E8874 ]
+[v _Led_SetLedStatus `(v ~T0 @X0 0 ef2`uc`E8876 ]
 "30 ../../MercuryFwk/Source/h/01_Hal/01_Sys/hal.h
 [p n 1510 ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
@@ -7551,6 +7551,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;mdm_gsm_gprs.h: 130: void Mdm_SendSmsData (UINT8 *PhoneNmb, UINT8 PhoneNmbLen, UINT8 *MsgTxt, UINT8 MsgTxtLen);
 [; ;mdm_gsm_gprs.h: 132: SmsRxStsType Mdm_IsSmsReceived (void);
 [; ;mdm_gsm_gprs.h: 134: UINT8* GetCallerNumber (void);
+[; ;mdm_gsm_gprs.h: 135: UINT8* GetLastInteractionNumber (void);
 [; ;eeprom_if.h: 41: typedef enum _EepromSts
 [; ;eeprom_if.h: 42: {
 [; ;eeprom_if.h: 43: OP_SUCCESS = 0,
@@ -8331,7 +8332,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;app_utils.c: 100: Led_SetLedStatus(1u, LED_STS_ON);
 "100
-[e ( _Led_SetLedStatus (2 , -> -> 1 `ui `uc . `E8874 1 ]
+[e ( _Led_SetLedStatus (2 , -> -> 1 `ui `uc . `E8876 1 ]
 "101
 }
 [; ;app_utils.c: 101: }
@@ -8344,7 +8345,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;app_utils.c: 104: Led_SetLedStatus(1u, LED_STS_BLINK);
 "104
-[e ( _Led_SetLedStatus (2 , -> -> 1 `ui `uc . `E8874 3 ]
+[e ( _Led_SetLedStatus (2 , -> -> 1 `ui `uc . `E8876 3 ]
 "105
 }
 [e :U 894 ]

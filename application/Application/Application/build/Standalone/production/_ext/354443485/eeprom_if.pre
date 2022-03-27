@@ -10107,6 +10107,7 @@ void Mdm_SendSmsData (UINT8 *PhoneNmb, UINT8 PhoneNmbLen, UINT8 *MsgTxt, UINT8 M
 SmsRxStsType Mdm_IsSmsReceived (void);
 
 UINT8* GetCallerNumber (void);
+UINT8* GetLastInteractionNumber (void);
 
 # 133 "../../MercuryFwk/Source/h/03_Sml/01_Pml/04_Usb/usb_common.h"
 typedef union

@@ -34,6 +34,11 @@
 * EXPORTED Defines
 ************************************************************************/
 
+#define MASTER_NUMBER_ADDRESS   16
+#define INIT_NUMBER_ADDRESS     32
+#define SEARCH_IN_PROGRESS      0
+#define SEARCH_FAILED           1
+#define TEXT_OFFSET             4
 /************************************************************************
 * EXPORTED Typedef
 ************************************************************************/
@@ -50,4 +55,10 @@ bool secondsAppTimer(uint8_t seconds, uint16_t* counter, bool isCyclic);
 
 void blinkForSeconds(uint8_t seconds, uint16_t* blinkTicks);
 
+bool waitSetupCall(void);
+void saveNumberInMemory(UINT8 address, UINT8* phoneNumber);
+bool isNumberValid(uint8_t* phoneNumber);
+uint8_t isNumberInMemory(uint8_t* phoneNumber);
+uint8_t findEmptySpot();
+uint8_t isMasterNumber(uint8_t* phoneNumber);
 #endif    /* APP_UTILS_H */

@@ -120,3 +120,27 @@ EepromStsType Eeprom_Read (UINT8 MemoryAddress, UINT8* ReadBuffer, UINT8 DataLen
     }
     return ReadSts;
 }
+
+/************************************************************************
+* Function:     Eeprom_Reset
+* Output:       UINT8 - Address of the cleared memory area.
+* Author:       A. Misuraca
+* Description:  API used to reset the whole memory.
+* Date:         27/03/22
+************************************************************************/
+UINT8 Eeprom_Reset (void)
+{
+    const UINT8 SlaveAddress = 0x50;
+    static UINT8 memoryAddress = 0;
+
+    EepromBuffer[0] = memoryAddress;
+    I2cSlv_SendI2cMsg(EepromBuffer, SlaveAddress, MAX_EEPROM_BUFFER);
+
+    memoryAddress += 16;
+    if (memoryAddress >= 224)
+    {
+        ClearBuffer(EepromBuffer, MAX_EEPROM_BUFFER);
+        memoryAddress = 0;
+    }
+    return memoryAddress;
+}

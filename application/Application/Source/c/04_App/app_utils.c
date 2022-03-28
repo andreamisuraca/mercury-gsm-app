@@ -33,6 +33,7 @@
 * Defines
 ************************************************************************/
 
+#define MAX_NUMBERS_IN_MEM      10
 /************************************************************************
 * Typedefs
 ************************************************************************/
@@ -103,4 +104,124 @@ void blinkForSeconds(uint8_t seconds, uint16_t* blinkTicks)
     {
        Led_SetLedStatus(LED_1, LED_STS_BLINK); 
     }
+}
+
+
+/**
+ * @brief 
+ * 
+ * @param address 
+ * @param phoneNumber 
+ */
+void saveNumberInMemory(UINT8 address, UINT8* phoneNumber)
+{
+    Eeprom_Write(address, phoneNumber, PHONE_NUMBER_LEN);
+}
+
+bool isNumberValid(uint8_t* phoneNumber)
+{
+    bool isNumberOk = false;
+    uint8_t i = 0;
+    if (phoneNumber[0] == '+')
+    {
+        for (i = 1; i < PHONE_NUMBER_LEN; i++)
+        {
+            if (phoneNumber[i] >= '0' && phoneNumber[i] <= '9')
+            {
+                isNumberOk = true;
+            }
+            else
+            {
+                isNumberOk = false;
+                break;
+            }
+        }
+    }
+    return isNumberOk;
+}
+
+uint8_t isNumberInMemory(uint8_t* phoneNumber)
+{
+    static uint8_t currentPosition = INIT_NUMBER_ADDRESS;
+    uint8_t positionInMemory = SEARCH_IN_PROGRESS;
+    uint8_t readBuffer[PHONE_NUMBER_LEN];
+    EepromStsType memoryOpResult = OP_PENDING;
+
+    if (currentPosition >= INIT_NUMBER_ADDRESS * MAX_NUMBERS_IN_MEM)
+    {
+        currentPosition = INIT_NUMBER_ADDRESS;
+    }
+    memoryOpResult = Eeprom_Read(currentPosition, readBuffer, PHONE_NUMBER_LEN);
+    if (memoryOpResult != OP_PENDING)
+    {
+        if (isNumberValid(readBuffer))
+        {
+            if (StringCompare(phoneNumber, readBuffer, PHONE_NUMBER_LEN))
+            {
+                positionInMemory = currentPosition;
+                currentPosition = INIT_NUMBER_ADDRESS * MAX_NUMBERS_IN_MEM;
+            }
+            else
+            {
+                // add method to skip other reads if I have already read all the memorized numbers.
+            }
+        }
+        currentPosition += INIT_NUMBER_ADDRESS;
+    }
+    if (positionInMemory == 0 && currentPosition >= INIT_NUMBER_ADDRESS * MAX_NUMBERS_IN_MEM)
+    {
+        positionInMemory = SEARCH_FAILED;
+    }
+    return positionInMemory;
+}
+
+uint8_t isMasterNumber(uint8_t* phoneNumber)
+{
+    uint8_t readBuffer[PHONE_NUMBER_LEN];
+    EepromStsType memoryOpResult = OP_PENDING;
+
+    memoryOpResult = Eeprom_Read(MASTER_NUMBER_ADDRESS, readBuffer, PHONE_NUMBER_LEN);
+    if (memoryOpResult != OP_PENDING)
+    {
+        memoryOpResult = OP_FAILED;
+        if (isNumberValid(readBuffer))
+        {
+            if (StringCompare(phoneNumber, readBuffer, PHONE_NUMBER_LEN))
+            {
+                memoryOpResult = OP_SUCCESS;
+            }
+        }
+    }
+    return memoryOpResult;
+}
+
+uint8_t findEmptySpot()
+{
+    static uint8_t currentPosition = INIT_NUMBER_ADDRESS;
+    uint8_t positionInMemory = SEARCH_IN_PROGRESS;
+    uint8_t readBuffer[PHONE_NUMBER_LEN];
+    EepromStsType memoryOpResult = OP_PENDING;
+
+    if (currentPosition >= INIT_NUMBER_ADDRESS * MAX_NUMBERS_IN_MEM)
+    {
+        currentPosition = INIT_NUMBER_ADDRESS;
+    }
+    memoryOpResult = Eeprom_Read(currentPosition, readBuffer, PHONE_NUMBER_LEN);
+    if (memoryOpResult != OP_PENDING)
+    {
+        if (isNumberValid(readBuffer))
+        {
+            currentPosition += INIT_NUMBER_ADDRESS;
+        }
+        else
+        {
+            positionInMemory = currentPosition;
+            currentPosition = INIT_NUMBER_ADDRESS * MAX_NUMBERS_IN_MEM;
+        }
+    }
+    if (positionInMemory == 0 && currentPosition >= INIT_NUMBER_ADDRESS * MAX_NUMBERS_IN_MEM)
+    {
+        positionInMemory = SEARCH_FAILED;
+    }
+    return positionInMemory;
 }

@@ -10167,6 +10167,9 @@ UINT8 Eeprom_Write (UINT8 MemoryAddress, UINT8* WriteBuffer, UINT8 DataLength);
 
 EepromStsType Eeprom_Read (UINT8 MemoryAddress, UINT8* ReadBuffer, UINT8 DataLength);
 
+
+UINT8 Eeprom_Reset (void);
+
 # 133 "../../MercuryFwk/Source/h/03_Sml/01_Pml/04_Usb/usb_common.h"
 typedef union
 {
@@ -11218,22 +11221,24 @@ void Sch_SchmIntService (void);
 # 53 "../Source/h/04_App/app.h"
 void MyApp_Task (UINT8 Options);
 
-# 48 "../Source/h/04_App/app_init.h"
-extern bool isMemoryEmpty;
-
-extern uint8_t memorizedNumbersCount[1];
-
-# 55
+# 51 "../Source/h/04_App/app_init.h"
 bool initFsm(void);
 
 uint8_t* initPreamble();
 
-# 49 "../Source/h/04_App/app_utils.h"
+# 54 "../Source/h/04_App/app_utils.h"
 bool secondsAppTimer(uint8_t seconds, uint16_t* counter, bool isCyclic);
 
 void blinkForSeconds(uint8_t seconds, uint16_t* blinkTicks);
 
-# 41 "../Source/c/04_App/app_init.c"
+bool waitSetupCall(void);
+void saveNumberInMemory(UINT8 address, UINT8* phoneNumber);
+bool isNumberValid(uint8_t* phoneNumber);
+uint8_t isNumberInMemory(uint8_t* phoneNumber);
+uint8_t findEmptySpot();
+uint8_t isMasterNumber(uint8_t* phoneNumber);
+
+# 42 "../Source/c/04_App/app_init.c"
 typedef enum _modemStates
 {
 MODEM_INIT = 0,
@@ -11253,18 +11258,17 @@ typedef enum _initFsmStates
 {
 INIT_FSM_MODEM = 0,
 INIT_FSM_EEPROM,
+INIT_FSM_WAIT_CMD,
+INIT_FSM_PREAMBLE,
 INIT_FSM_COMPLETE
 } initFsmStates;
 
-# 66
-static uint8_t memoryPreamble[5];
+# 69
+static uint8_t memoryPreamble[4];
+static uint16_t setupCallTicks = 0;
+static bool isMemoryEmpty = 1;
 
-# 71
-bool isMemoryEmpty = 1;
-
-uint8_t memorizedNumbersCount[1];
-
-# 84
+# 86
 bool initGprsModem(void)
 {
 static uint16_t modemCounter = 0;
@@ -11295,6 +11299,7 @@ currentState = MODEM_INIT_COMPLETE;
 break;
 
 case MODEM_INIT_COMPLETE:
+currentState = MODEM_INIT;
 isInitialized = 1;
 break;
 
@@ -11304,7 +11309,7 @@ break;
 return isInitialized;
 }
 
-# 127
+# 130
 bool initEeprom(void)
 {
 const uint8_t addressToRead = 0;
@@ -11315,7 +11320,7 @@ bool isInitialized = 0;
 switch (currentState)
 {
 case EEPROM_INIT:
-memoryOpResult = Eeprom_Read(0, memoryPreamble, 5);
+memoryOpResult = Eeprom_Read(0, memoryPreamble, 4);
 if (memoryOpResult != OP_PENDING)
 {
 if (memoryPreamble[0] == 'U' &&
@@ -11327,7 +11332,6 @@ currentState = EEPROM_NOT_EMPTY;
 }
 else
 {
-memorizedNumbersCount[0] = memoryPreamble[4];
 currentState = EEPROM_EMPTY;
 }
 }
@@ -11335,9 +11339,11 @@ break;
 
 case EEPROM_EMPTY:
 isInitialized = 1;
+currentState = EEPROM_INIT;
 break;
 
 case EEPROM_NOT_EMPTY:
+currentState = EEPROM_INIT;
 isInitialized = 1;
 isMemoryEmpty = 0;
 break;
@@ -11348,7 +11354,44 @@ break;
 return isInitialized;
 }
 
-# 177
+# 178
+bool getSetupCall(void)
+{
+bool isCalledReceived = 0;
+
+if (Mdm_IsRinging())
+{
+Mdm_HangPhoneCall();
+isCalledReceived = 1;
+}
+return isCalledReceived;
+}
+
+# 194
+bool waitSetupCall(void)
+{
+bool isCallArrived = 0;
+if (!secondsAppTimer(30, &setupCallTicks, 0))
+{
+Led_SetLedStatus(1u, LED_STS_BLINK);
+if (getSetupCall())
+{
+isCallArrived = 1;
+}
+}
+else
+{
+Led_SetLedStatus(1u, LED_STS_ON);
+}
+return isCallArrived;
+}
+
+void savePreamble()
+{
+Eeprom_Write(0, initPreamble(), 4);
+}
+
+# 224
 bool initFsm(void)
 {
 static initFsmStates currentState = INIT_FSM_MODEM;
@@ -11366,11 +11409,35 @@ break;
 case INIT_FSM_EEPROM:
 if (initEeprom())
 {
+currentState = INIT_FSM_WAIT_CMD;
+setupCallTicks = 0;
+}
+break;
+
+case INIT_FSM_WAIT_CMD:
+if (isMemoryEmpty)
+{
+if (waitSetupCall())
+{
+saveNumberInMemory(16, GetCallerNumber());
+currentState = INIT_FSM_PREAMBLE;
+}
+
+}
+else
+{
 currentState = INIT_FSM_COMPLETE;
 }
 break;
 
+case INIT_FSM_PREAMBLE:
+savePreamble();
+currentState = INIT_FSM_COMPLETE;
+break;
+
 case INIT_FSM_COMPLETE:
+Led_SetLedStatus(1u, LED_STS_ON);
+currentState = INIT_FSM_MODEM;
 isInitialized = 1;
 break;
 
@@ -11380,14 +11447,12 @@ break;
 return isInitialized;
 }
 
-# 213
+# 284
 uint8_t* initPreamble()
 {
 memoryPreamble[0] = 'U';
 memoryPreamble[1] = 'S';
 memoryPreamble[2] = 'I';
 memoryPreamble[3] = 'M';
-memoryPreamble[4] = 1;
-memorizedNumbersCount[0] = 1;
 return memoryPreamble;
 }

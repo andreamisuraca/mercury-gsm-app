@@ -7560,6 +7560,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;eeprom_if.h: 46: } EepromStsType;
 [; ;eeprom_if.h: 57: UINT8 Eeprom_Write (UINT8 MemoryAddress, UINT8* WriteBuffer, UINT8 DataLength);
 [; ;eeprom_if.h: 60: EepromStsType Eeprom_Read (UINT8 MemoryAddress, UINT8* ReadBuffer, UINT8 DataLength);
+[; ;eeprom_if.h: 63: UINT8 Eeprom_Reset (void);
 [; ;usb_common.h: 133: typedef union
 [; ;usb_common.h: 134: {
 [; ;usb_common.h: 135: uint8_t bitmap;

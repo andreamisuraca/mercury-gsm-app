@@ -13,6 +13,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n E8932 _I2cOpSts OP_IN_PROGRESS OP_COMPLETE OP_TIMEOUT  ]
 "96 ../../MercuryFwk/Source/h/03_Sml/01_Pml/02_SlvI2c/i2c_slv.h
 [v _I2cSlv_QueryI2cData `(E8932 ~T0 @X0 0 ef5`*uc`uc`*uc`uc`uc ]
+"55 ../../MercuryFwk/Source/h/03_Sml/02_Ssl/sf.h
+[v _ClearBuffer `(v ~T0 @X0 0 ef2`*uc`us ]
 "30 ../../MercuryFwk/Source/h/01_Hal/01_Sys/hal.h
 [p n 1510 ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
@@ -8236,6 +8238,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;eeprom_if.h: 46: } EepromStsType;
 [; ;eeprom_if.h: 57: UINT8 Eeprom_Write (UINT8 MemoryAddress, UINT8* WriteBuffer, UINT8 DataLength);
 [; ;eeprom_if.h: 60: EepromStsType Eeprom_Read (UINT8 MemoryAddress, UINT8* ReadBuffer, UINT8 DataLength);
+[; ;eeprom_if.h: 63: UINT8 Eeprom_Reset (void);
 "47 ../../MercuryFwk/Source/c/03_Sml/01_Pml/05_Eeprom/eeprom_if.c
 [v _EepromBuffer `uc ~T0 @X0 -> 15 `i s ]
 [; ;eeprom_if.c: 47: static UINT8 EepromBuffer[15];
@@ -8360,4 +8363,55 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;eeprom_if.c: 122: }
 "122
 [e :UE 889 ]
+}
+"131
+[v _Eeprom_Reset `(uc ~T0 @X0 1 ef ]
+"132
+{
+[; ;eeprom_if.c: 131: UINT8 Eeprom_Reset (void)
+[; ;eeprom_if.c: 132: {
+[e :U _Eeprom_Reset ]
+[f ]
+"133
+[v _SlaveAddress `Cuc ~T0 @X0 1 a ]
+[; ;eeprom_if.c: 133: const UINT8 SlaveAddress = 0x50;
+[e = _SlaveAddress -> -> 80 `i `uc ]
+"134
+[v F8989 `uc ~T0 @X0 1 s memoryAddress ]
+[i F8989
+-> -> 0 `i `uc
+]
+[; ;eeprom_if.c: 134: static UINT8 memoryAddress = 0;
+[; ;eeprom_if.c: 136: EepromBuffer[0] = memoryAddress;
+"136
+[e = *U + &U _EepromBuffer * -> -> -> 0 `i `ui `ux -> -> # *U &U _EepromBuffer `ui `ux F8989 ]
+[; ;eeprom_if.c: 137: I2cSlv_SendI2cMsg(EepromBuffer, SlaveAddress, 15);
+"137
+[e ( _I2cSlv_SendI2cMsg (3 , , &U _EepromBuffer _SlaveAddress -> -> 15 `i `uc ]
+[; ;eeprom_if.c: 139: memoryAddress += 16;
+"139
+[e =+ F8989 -> -> 16 `i `uc ]
+[; ;eeprom_if.c: 140: if (memoryAddress >= 224)
+"140
+[e $ ! >= -> F8989 `i -> 224 `i 894  ]
+[; ;eeprom_if.c: 141: {
+"141
+{
+[; ;eeprom_if.c: 142: ClearBuffer(EepromBuffer, 15);
+"142
+[e ( _ClearBuffer (2 , &U _EepromBuffer -> -> 15 `i `us ]
+[; ;eeprom_if.c: 143: memoryAddress = 0;
+"143
+[e = F8989 -> -> 0 `i `uc ]
+"144
+}
+[e :U 894 ]
+[; ;eeprom_if.c: 144: }
+[; ;eeprom_if.c: 145: return memoryAddress;
+"145
+[e ) F8989 ]
+[e $UE 893  ]
+[; ;eeprom_if.c: 146: }
+"146
+[e :UE 893 ]
 }

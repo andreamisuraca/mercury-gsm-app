@@ -10167,6 +10167,9 @@ UINT8 Eeprom_Write (UINT8 MemoryAddress, UINT8* WriteBuffer, UINT8 DataLength);
 
 EepromStsType Eeprom_Read (UINT8 MemoryAddress, UINT8* ReadBuffer, UINT8 DataLength);
 
+
+UINT8 Eeprom_Reset (void);
+
 # 82 "../../MercuryFwk/Source/h/03_Sml/02_Ssl/led.h"
 typedef enum _LedStsType
 {

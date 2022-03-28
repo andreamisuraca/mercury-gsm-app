@@ -7647,6 +7647,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;eeprom_if.h: 46: } EepromStsType;
 [; ;eeprom_if.h: 57: UINT8 Eeprom_Write (UINT8 MemoryAddress, UINT8* WriteBuffer, UINT8 DataLength);
 [; ;eeprom_if.h: 60: EepromStsType Eeprom_Read (UINT8 MemoryAddress, UINT8* ReadBuffer, UINT8 DataLength);
+[; ;eeprom_if.h: 63: UINT8 Eeprom_Reset (void);
 [; ;usb_common.h: 133: typedef union
 [; ;usb_common.h: 134: {
 [; ;usb_common.h: 135: uint8_t bitmap;
@@ -8403,9 +8404,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :UE 891 ]
 }
 [v $root$_HighPriorityIsr `(v ~T0 @X0 0 e ]
-[v F8980 `(v ~T0 @X0 1 tf ]
+[v F8982 `(v ~T0 @X0 1 tf ]
 "153
-[v _HighPriorityIsr `IHF8980 ~T0 @X0 1 e ]
+[v _HighPriorityIsr `IHF8982 ~T0 @X0 1 e ]
 "154
 {
 [; ;irq.c: 153: void high_priority interrupt HighPriorityIsr (void)
@@ -8469,9 +8470,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :UE 892 ]
 }
 [v $root$_LowPriorityIsr `(v ~T0 @X0 0 e ]
-[v F8987 `(v ~T0 @X0 1 tf ]
+[v F8989 `(v ~T0 @X0 1 tf ]
 "236
-[v _LowPriorityIsr `ILF8987 ~T0 @X0 1 e ]
+[v _LowPriorityIsr `ILF8989 ~T0 @X0 1 e ]
 "237
 {
 [; ;irq.c: 236: void low_priority interrupt LowPriorityIsr (void)

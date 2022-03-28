@@ -34,6 +34,7 @@
 * Defines
 ************************************************************************/
 
+#define TIMEOUT_SETUP_CALL_SEC      30
 /************************************************************************
 * Typedefs
 ************************************************************************/
@@ -57,6 +58,8 @@ typedef enum _initFsmStates
 {
     INIT_FSM_MODEM = 0,
     INIT_FSM_EEPROM,
+    INIT_FSM_WAIT_CMD,
+    INIT_FSM_PREAMBLE,
     INIT_FSM_COMPLETE
 } initFsmStates;
 /************************************************************************
@@ -64,13 +67,12 @@ typedef enum _initFsmStates
 ************************************************************************/
 
 static uint8_t memoryPreamble[PREAMBLE_LENGTH];
+static uint16_t setupCallTicks = 0;
+static bool isMemoryEmpty = true;
 /************************************************************************
 * GLOBAL Variables
 ************************************************************************/
 
-bool isMemoryEmpty = true;
-
-uint8_t memorizedNumbersCount[1];
 /************************************************************************
 * LOCAL Function Prototypes
 ************************************************************************/
@@ -111,6 +113,7 @@ bool initGprsModem(void)
             break;
 
         case MODEM_INIT_COMPLETE:
+            currentState = MODEM_INIT;
             isInitialized = true;
             break;
 
@@ -146,7 +149,6 @@ bool initEeprom(void)
             }
             else
             {
-                memorizedNumbersCount[0] = memoryPreamble[4];
                 currentState = EEPROM_EMPTY;
             }
         }
@@ -154,9 +156,11 @@ bool initEeprom(void)
 
     case EEPROM_EMPTY:
         isInitialized = true;
+        currentState = EEPROM_INIT;
         break;
 
     case EEPROM_NOT_EMPTY:
+        currentState = EEPROM_INIT;
         isInitialized = true;
         isMemoryEmpty = false;
         break;
@@ -165,6 +169,49 @@ bool initEeprom(void)
         break;
     }
     return isInitialized;
+}
+
+/**
+ * @brief 
+ * 
+ */
+bool getSetupCall(void)
+{
+    bool isCalledReceived = false;
+
+    if (Mdm_IsRinging())
+    {
+        Mdm_HangPhoneCall();
+        isCalledReceived = true;
+    }
+    return isCalledReceived;
+}
+
+/**
+ * @brief 
+ * 
+ */
+bool waitSetupCall(void)
+{
+    bool isCallArrived = false;
+    if (!secondsAppTimer(TIMEOUT_SETUP_CALL_SEC, &setupCallTicks, false))
+    {
+        Led_SetLedStatus(LED_1, LED_STS_BLINK);
+        if (getSetupCall())
+        {
+            isCallArrived = true;
+        }
+    }
+    else
+    {
+        Led_SetLedStatus(LED_1, LED_STS_ON);
+    }
+    return isCallArrived;
+}
+
+void savePreamble()
+{
+    Eeprom_Write(0, initPreamble(), PREAMBLE_LENGTH);
 }
 /************************************************************************
 * GLOBAL Function Implementations
@@ -191,11 +238,35 @@ bool initFsm(void)
     case INIT_FSM_EEPROM:
         if (initEeprom())
         {
+            currentState = INIT_FSM_WAIT_CMD;
+            setupCallTicks = 0;
+        }
+        break;
+
+    case INIT_FSM_WAIT_CMD:
+        if (isMemoryEmpty)
+        {
+            if (waitSetupCall())
+            {
+                saveNumberInMemory(MASTER_NUMBER_ADDRESS, GetCallerNumber());
+                currentState = INIT_FSM_PREAMBLE;
+            }
+            // todo: add wait for usb command
+        }
+        else
+        {
             currentState = INIT_FSM_COMPLETE;
         }
         break;
 
+    case INIT_FSM_PREAMBLE:
+        savePreamble();
+        currentState = INIT_FSM_COMPLETE;
+        break;
+
     case INIT_FSM_COMPLETE:
+        Led_SetLedStatus(LED_1, LED_STS_ON);
+        currentState = INIT_FSM_MODEM;
         isInitialized = true;
         break;
 
@@ -216,7 +287,5 @@ uint8_t* initPreamble()
     memoryPreamble[1] = 'S';
     memoryPreamble[2] = 'I';
     memoryPreamble[3] = 'M';
-    memoryPreamble[4] = 1;
-    memorizedNumbersCount[0] = 1;
     return memoryPreamble;
 }

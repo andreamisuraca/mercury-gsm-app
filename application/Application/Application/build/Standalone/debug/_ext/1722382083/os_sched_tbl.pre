@@ -10191,6 +10191,9 @@ UINT8 Eeprom_Write (UINT8 MemoryAddress, UINT8* WriteBuffer, UINT8 DataLength);
 
 EepromStsType Eeprom_Read (UINT8 MemoryAddress, UINT8* ReadBuffer, UINT8 DataLength);
 
+
+UINT8 Eeprom_Reset (void);
+
 # 133 "../../MercuryFwk/Source/h/03_Sml/01_Pml/04_Usb/usb_common.h"
 typedef union
 {

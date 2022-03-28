@@ -80,10 +80,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 "84
 [v _Rtcm_GetRtccDate `(S885 ~T0 @X0 0 ef ]
 "101 ../../MercuryFwk/Source/c/03_Sml/02_Ssl/rtcm.c
-[c E8929 0 1 .. ]
-[n E8929 SystemStateEnum InitializationState RunningState  ]
+[c E8931 0 1 .. ]
+[n E8931 SystemStateEnum InitializationState RunningState  ]
 "79 ../../MercuryFwk/Source/h/02_Osl/os_sched.h
-[v _SystemState `E8929 ~T0 @X0 0 e ]
+[v _SystemState `E8931 ~T0 @X0 0 e ]
 "182 ../../MercuryFwk/Source/c/03_Sml/02_Ssl/rtcm.c
 [c E8026 0 1 2 3 4 5 6 .. ]
 [n E8026 _RtccValPointerType ValPtrYear ValPtrMonth ValPtrDay ValPtrWeekday ValPtrHours ValPtrMinutes ValPtrSeconds  ]
@@ -7654,6 +7654,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;eeprom_if.h: 46: } EepromStsType;
 [; ;eeprom_if.h: 57: UINT8 Eeprom_Write (UINT8 MemoryAddress, UINT8* WriteBuffer, UINT8 DataLength);
 [; ;eeprom_if.h: 60: EepromStsType Eeprom_Read (UINT8 MemoryAddress, UINT8* ReadBuffer, UINT8 DataLength);
+[; ;eeprom_if.h: 63: UINT8 Eeprom_Reset (void);
 [; ;usb_common.h: 133: typedef union
 [; ;usb_common.h: 134: {
 [; ;usb_common.h: 135: uint8_t bitmap;
@@ -8477,8 +8478,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $U 889  ]
 "101
 [e :U 890 ]
-[e [\ _SystemState , $ . `E8929 0 891
- , $ . `E8929 1 892
+[e [\ _SystemState , $ . `E8931 0 891
+ , $ . `E8931 1 892
  893 ]
 "165
 [e :U 889 ]

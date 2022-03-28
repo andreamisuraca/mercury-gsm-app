@@ -11218,6 +11218,9 @@ UINT8 Eeprom_Write (UINT8 MemoryAddress, UINT8* WriteBuffer, UINT8 DataLength);
 
 EepromStsType Eeprom_Read (UINT8 MemoryAddress, UINT8* ReadBuffer, UINT8 DataLength);
 
+
+UINT8 Eeprom_Reset (void);
+
 # 47 "../../MercuryFwk/Source/c/03_Sml/01_Pml/05_Eeprom/eeprom_if.c"
 static UINT8 EepromBuffer[15];
 
@@ -11260,4 +11263,22 @@ else if (QuerySts == OP_TIMEOUT)
 ReadSts = OP_FAILED;
 }
 return ReadSts;
+}
+
+# 131
+UINT8 Eeprom_Reset (void)
+{
+const UINT8 SlaveAddress = 0x50;
+static UINT8 memoryAddress = 0;
+
+EepromBuffer[0] = memoryAddress;
+I2cSlv_SendI2cMsg(EepromBuffer, SlaveAddress, 15);
+
+memoryAddress += 16;
+if (memoryAddress >= 224)
+{
+ClearBuffer(EepromBuffer, 15);
+memoryAddress = 0;
+}
+return memoryAddress;
 }

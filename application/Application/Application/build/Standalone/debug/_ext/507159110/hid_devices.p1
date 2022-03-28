@@ -8070,6 +8070,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;eeprom_if.h: 46: } EepromStsType;
 [; ;eeprom_if.h: 57: UINT8 Eeprom_Write (UINT8 MemoryAddress, UINT8* WriteBuffer, UINT8 DataLength);
 [; ;eeprom_if.h: 60: EepromStsType Eeprom_Read (UINT8 MemoryAddress, UINT8* ReadBuffer, UINT8 DataLength);
+[; ;eeprom_if.h: 63: UINT8 Eeprom_Reset (void);
 [; ;usb_device_cdc.h: 536: void CDCInitEP(void);
 [; ;usb_device_cdc.h: 562: void USBCheckCDCRequest(void);
 [; ;usb_device_cdc.h: 580: void CDCNotificationHandler(void);

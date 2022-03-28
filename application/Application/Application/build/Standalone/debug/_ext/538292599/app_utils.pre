@@ -10167,6 +10167,9 @@ UINT8 Eeprom_Write (UINT8 MemoryAddress, UINT8* WriteBuffer, UINT8 DataLength);
 
 EepromStsType Eeprom_Read (UINT8 MemoryAddress, UINT8* ReadBuffer, UINT8 DataLength);
 
+
+UINT8 Eeprom_Reset (void);
+
 # 133 "../../MercuryFwk/Source/h/03_Sml/01_Pml/04_Usb/usb_common.h"
 typedef union
 {
@@ -11218,12 +11221,19 @@ void Sch_SchmIntService (void);
 # 53 "../Source/h/04_App/app.h"
 void MyApp_Task (UINT8 Options);
 
-# 49 "../Source/h/04_App/app_utils.h"
+# 54 "../Source/h/04_App/app_utils.h"
 bool secondsAppTimer(uint8_t seconds, uint16_t* counter, bool isCyclic);
 
 void blinkForSeconds(uint8_t seconds, uint16_t* blinkTicks);
 
-# 66 "../Source/c/04_App/app_utils.c"
+bool waitSetupCall(void);
+void saveNumberInMemory(UINT8 address, UINT8* phoneNumber);
+bool isNumberValid(uint8_t* phoneNumber);
+uint8_t isNumberInMemory(uint8_t* phoneNumber);
+uint8_t findEmptySpot();
+uint8_t isMasterNumber(uint8_t* phoneNumber);
+
+# 67 "../Source/c/04_App/app_utils.c"
 bool secondsAppTimer(uint8_t seconds, uint16_t* counter, bool isCyclic)
 {
 bool isExpired = 1;
@@ -11248,7 +11258,7 @@ else
 return isExpired;
 }
 
-# 96
+# 97
 void blinkForSeconds(uint8_t seconds, uint16_t* blinkTicks)
 {
 if (secondsAppTimer(seconds, blinkTicks, 0))
@@ -11259,4 +11269,118 @@ else
 {
 Led_SetLedStatus(1u, LED_STS_BLINK);
 }
+}
+
+# 116
+void saveNumberInMemory(UINT8 address, UINT8* phoneNumber)
+{
+Eeprom_Write(address, phoneNumber, ((UINT8)(13)));
+}
+
+bool isNumberValid(uint8_t* phoneNumber)
+{
+bool isNumberOk = 0;
+uint8_t i = 0;
+if (phoneNumber[0] == '+')
+{
+for (i = 1; i < ((UINT8)(13)); i++)
+{
+if (phoneNumber[i] >= '0' && phoneNumber[i] <= '9')
+{
+isNumberOk = 1;
+}
+else
+{
+isNumberOk = 0;
+break;
+}
+}
+}
+return isNumberOk;
+}
+
+uint8_t isNumberInMemory(uint8_t* phoneNumber)
+{
+static uint8_t currentPosition = 32;
+uint8_t positionInMemory = 0;
+uint8_t readBuffer[((UINT8)(13))];
+EepromStsType memoryOpResult = OP_PENDING;
+
+if (currentPosition >= 32 * 10)
+{
+currentPosition = 32;
+}
+memoryOpResult = Eeprom_Read(currentPosition, readBuffer, ((UINT8)(13)));
+if (memoryOpResult != OP_PENDING)
+{
+if (isNumberValid(readBuffer))
+{
+if (StringCompare(phoneNumber, readBuffer, ((UINT8)(13))))
+{
+positionInMemory = currentPosition;
+currentPosition = 32 * 10;
+}
+else
+{
+
+}
+}
+currentPosition += 32;
+}
+if (positionInMemory == 0 && currentPosition >= 32 * 10)
+{
+positionInMemory = 1;
+}
+return positionInMemory;
+}
+
+uint8_t isMasterNumber(uint8_t* phoneNumber)
+{
+uint8_t readBuffer[((UINT8)(13))];
+EepromStsType memoryOpResult = OP_PENDING;
+
+memoryOpResult = Eeprom_Read(16, readBuffer, ((UINT8)(13)));
+if (memoryOpResult != OP_PENDING)
+{
+memoryOpResult = OP_FAILED;
+if (isNumberValid(readBuffer))
+{
+if (StringCompare(phoneNumber, readBuffer, ((UINT8)(13))))
+{
+memoryOpResult = OP_SUCCESS;
+}
+}
+}
+return memoryOpResult;
+}
+
+uint8_t findEmptySpot()
+{
+static uint8_t currentPosition = 32;
+uint8_t positionInMemory = 0;
+uint8_t readBuffer[((UINT8)(13))];
+EepromStsType memoryOpResult = OP_PENDING;
+
+if (currentPosition >= 32 * 10)
+{
+currentPosition = 32;
+}
+memoryOpResult = Eeprom_Read(currentPosition, readBuffer, ((UINT8)(13)));
+if (memoryOpResult != OP_PENDING)
+{
+if (isNumberValid(readBuffer))
+{
+currentPosition += 32;
+}
+else
+{
+positionInMemory = currentPosition;
+currentPosition = 32 * 10;
+}
+}
+if (positionInMemory == 0 && currentPosition >= 32 * 10)
+{
+positionInMemory = 1;
+}
+return positionInMemory;
 }

@@ -2,11 +2,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v F7983 `(v ~T0 @X0 0 tf ]
 [v F8056 `(v ~T0 @X0 0 tf ]
 "53 ../../MercuryFwk/Source/c/02_Osl/os_sched.c
-[c E8957 0 1 .. ]
-[n E8957 MainSystemTimebaseEnum CallTaskPhase WaitTriggerPhase  ]
+[c E8959 0 1 .. ]
+[n E8959 MainSystemTimebaseEnum CallTaskPhase WaitTriggerPhase  ]
 "55
-[c E8961 0 1 .. ]
-[n E8961 SystemStateEnum InitializationState RunningState  ]
+[c E8963 0 1 .. ]
+[n E8963 SystemStateEnum InitializationState RunningState  ]
 "70 ../../MercuryFwk/Source/h/02_Osl/os_sched_tbl.h
 [v _TaskNumber `Cus ~T0 @X0 0 e ]
 [v F7748 `(v ~T0 @X0 0 tf1`uc ]
@@ -7576,6 +7576,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;eeprom_if.h: 46: } EepromStsType;
 [; ;eeprom_if.h: 57: UINT8 Eeprom_Write (UINT8 MemoryAddress, UINT8* WriteBuffer, UINT8 DataLength);
 [; ;eeprom_if.h: 60: EepromStsType Eeprom_Read (UINT8 MemoryAddress, UINT8* ReadBuffer, UINT8 DataLength);
+[; ;eeprom_if.h: 63: UINT8 Eeprom_Reset (void);
 [; ;usb_common.h: 133: typedef union
 [; ;usb_common.h: 134: {
 [; ;usb_common.h: 135: uint8_t bitmap;
@@ -8246,15 +8247,15 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;os_sched.h: 86: void Sch_MainScheduler (void);
 [; ;os_sched.h: 88: void Sch_SchmIntService (void);
 "53 ../../MercuryFwk/Source/c/02_Osl/os_sched.c
-[v _MainSystemTimebaseFlag `E8957 ~T0 @X0 1 e ]
+[v _MainSystemTimebaseFlag `E8959 ~T0 @X0 1 e ]
 [i _MainSystemTimebaseFlag
-. `E8957 1
+. `E8959 1
 ]
 [; ;os_sched.c: 53: MainSystemTimebaseType MainSystemTimebaseFlag = WaitTriggerPhase;
 "55
-[v _SystemState `E8961 ~T0 @X0 1 e ]
+[v _SystemState `E8963 ~T0 @X0 1 e ]
 [i _SystemState
-. `E8961 0
+. `E8963 0
 ]
 [; ;os_sched.c: 55: SystemStateType SystemState = InitializationState;
 [; ;os_sched.c: 62: void InitializeTasks (void);
@@ -8377,26 +8378,26 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U _UpdateSchFlag ]
 [f ]
 "135
-[v F8985 `us ~T0 @X0 1 s InterruptCounter ]
-[i F8985
+[v F8987 `us ~T0 @X0 1 s InterruptCounter ]
+[i F8987
 -> -> 0 `i `us
 ]
 [; ;os_sched.c: 135: static UINT16 InterruptCounter = 0;
 [; ;os_sched.c: 138: InterruptCounter++;
 "138
-[e ++ F8985 -> -> 1 `i `us ]
+[e ++ F8987 -> -> 1 `i `us ]
 [; ;os_sched.c: 140: if (InterruptCounter >= ((((UINT16)(1000))*((UINT16)(1)))/1000))
 "140
-[e $ ! >= -> F8985 `ui / * -> -> -> 1000 `i `us `ui -> -> -> 1 `i `us `ui -> -> 1000 `i `ui 898  ]
+[e $ ! >= -> F8987 `ui / * -> -> -> 1000 `i `us `ui -> -> -> 1 `i `us `ui -> -> 1000 `i `ui 898  ]
 [; ;os_sched.c: 141: {
 "141
 {
 [; ;os_sched.c: 143: InterruptCounter = 0;
 "143
-[e = F8985 -> -> 0 `i `us ]
+[e = F8987 -> -> 0 `i `us ]
 [; ;os_sched.c: 145: MainSystemTimebaseFlag = CallTaskPhase;
 "145
-[e = _MainSystemTimebaseFlag . `E8957 0 ]
+[e = _MainSystemTimebaseFlag . `E8959 0 ]
 "146
 }
 [e :U 898 ]
@@ -8433,7 +8434,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _InitializeTasks ..  ]
 [; ;os_sched.c: 180: SystemState = RunningState;
 "180
-[e = _SystemState . `E8961 1 ]
+[e = _SystemState . `E8963 1 ]
 [; ;os_sched.c: 187: while(((UINT8)(1)))
 "187
 [e $U 901  ]
@@ -8443,7 +8444,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;os_sched.c: 190: if (MainSystemTimebaseFlag == CallTaskPhase)
 "190
-[e $ ! == -> _MainSystemTimebaseFlag `i -> . `E8957 0 `i 904  ]
+[e $ ! == -> _MainSystemTimebaseFlag `i -> . `E8959 0 `i 904  ]
 [; ;os_sched.c: 191: {
 "191
 {
@@ -8452,7 +8453,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _ScheduleTasks ..  ]
 [; ;os_sched.c: 201: MainSystemTimebaseFlag = WaitTriggerPhase;
 "201
-[e = _MainSystemTimebaseFlag . `E8957 1 ]
+[e = _MainSystemTimebaseFlag . `E8959 1 ]
 "202
 }
 [e :U 904 ]

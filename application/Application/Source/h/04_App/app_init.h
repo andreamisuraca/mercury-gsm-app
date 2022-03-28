@@ -34,8 +34,7 @@
 * EXPORTED Defines
 ************************************************************************/
 
-#define PREAMBLE_LENGTH         5
-#define MAX_NUMBERS_IN_MEM      10
+#define PREAMBLE_LENGTH         4
 #define COUNTER_POSITION_IN_MEM 4
 /************************************************************************
 * EXPORTED Typedef
@@ -45,9 +44,6 @@
 * EXPORTED Variables
 ************************************************************************/
 
-extern bool isMemoryEmpty;
-
-extern uint8_t memorizedNumbersCount[1];
 /************************************************************************
 * EXPORTED Functions
 ************************************************************************/

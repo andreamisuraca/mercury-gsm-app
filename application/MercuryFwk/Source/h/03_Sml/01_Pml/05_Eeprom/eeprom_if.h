@@ -59,4 +59,7 @@ UINT8 Eeprom_Write (UINT8 MemoryAddress, UINT8* WriteBuffer, UINT8 DataLength);
 /* API used to read data from NvM given a specific address. */
 EepromStsType Eeprom_Read (UINT8 MemoryAddress, UINT8* ReadBuffer, UINT8 DataLength);
 
+/* API used to reset the whole memory. */
+UINT8 Eeprom_Reset (void);
+
 #endif    /* EEPROM_IF_H */

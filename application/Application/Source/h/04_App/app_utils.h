@@ -36,6 +36,7 @@
 
 #define MASTER_NUMBER_ADDRESS   16
 #define INIT_NUMBER_ADDRESS     32
+#define OFFSET_NUMBER_ADDRESS   16
 #define SEARCH_IN_PROGRESS      0
 #define SEARCH_FAILED           1
 #define TEXT_OFFSET             4
@@ -43,6 +44,14 @@
 * EXPORTED Typedef
 ************************************************************************/
 
+typedef enum _searchFsmStates
+{
+    SEARCH_FSM_START = 0,
+    SEARCH_FSM_CHECK_NUMBER,
+    SEARCH_FSM_ERROR,
+    SEARCH_FSM_FOUND,
+    SEARCH_FSM_NOT_FOUND
+} searchFsmStates;
 /************************************************************************
 * EXPORTED Variables
 ************************************************************************/
@@ -58,7 +67,9 @@ void blinkForSeconds(uint8_t seconds, uint16_t* blinkTicks);
 bool waitSetupCall(void);
 void saveNumberInMemory(UINT8 address, UINT8* phoneNumber);
 bool isNumberValid(uint8_t* phoneNumber);
-uint8_t isNumberInMemory(uint8_t* phoneNumber);
-uint8_t findEmptySpot();
+//uint8_t isNumberInMemory(uint8_t* phoneNumber);
+searchFsmStates isNumberInMemory(uint8_t* phoneNumber, uint8_t* positionInMemory);
+//uint8_t findEmptySpot();
+searchFsmStates findEmptySpot(uint8_t* positionInMemory);
 uint8_t isMasterNumber(uint8_t* phoneNumber);
 #endif    /* APP_UTILS_H */

@@ -73,8 +73,9 @@ bool addCmdFsm(uint8_t* receivedNumber, uint8_t* smsText)
 {
     static addFsmStates currentState = ADD_FSM_CHECK_MASTER;
     bool isComplete = false;
-    uint8_t numberInMemory = SEARCH_FAILED;
+    uint8_t numberInMemory = 0;
     uint8_t masterOpResult = OP_FAILED;
+    uint8_t searchNumber = OP_FAILED;
 
     switch (currentState)
     {
@@ -91,26 +92,26 @@ bool addCmdFsm(uint8_t* receivedNumber, uint8_t* smsText)
         break;
 
     case ADD_FSM_CHECK_DUPLICATED:
-        numberInMemory = isNumberInMemory(smsText + TEXT_OFFSET);
-        if (numberInMemory == SEARCH_FAILED)
+        searchNumber = isNumberInMemory(smsText + TEXT_OFFSET, &numberInMemory);
+        if (searchNumber == SEARCH_FSM_NOT_FOUND)
         {
             currentState = ADD_FSM_SAVE_NEW;
         }
-        else if (numberInMemory != SEARCH_IN_PROGRESS && numberInMemory != SEARCH_FAILED)
+        else if (searchNumber == SEARCH_FSM_FOUND || searchNumber == SEARCH_FSM_ERROR)
         {
             currentState = ADD_FSM_COMPLETE;
         }
         break;
 
     case ADD_FSM_SAVE_NEW:
-        numberInMemory = findEmptySpot();
-        if (numberInMemory == SEARCH_FAILED)
-        {
-            currentState = ADD_FSM_COMPLETE;
-        }
-        else if (numberInMemory != SEARCH_IN_PROGRESS && numberInMemory != SEARCH_FAILED)
+        searchNumber = findEmptySpot(&numberInMemory);
+        if (searchNumber == SEARCH_FSM_NOT_FOUND)
         {
             saveNumberInMemory(numberInMemory, smsText + TEXT_OFFSET);
+            currentState = ADD_FSM_COMPLETE;
+        }
+        else if (searchNumber == SEARCH_FSM_FOUND || searchNumber == SEARCH_FSM_ERROR)
+        {
             currentState = ADD_FSM_COMPLETE;
         }
         break;

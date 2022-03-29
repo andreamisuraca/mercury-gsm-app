@@ -11221,7 +11221,17 @@ void Sch_SchmIntService (void);
 # 53 "../Source/h/04_App/app.h"
 void MyApp_Task (UINT8 Options);
 
-# 54 "../Source/h/04_App/app_utils.h"
+# 46 "../Source/h/04_App/app_utils.h"
+typedef enum _searchFsmStates
+{
+SEARCH_FSM_START = 0,
+SEARCH_FSM_CHECK_NUMBER,
+SEARCH_FSM_ERROR,
+SEARCH_FSM_FOUND,
+SEARCH_FSM_NOT_FOUND
+} searchFsmStates;
+
+# 62
 bool secondsAppTimer(uint8_t seconds, uint16_t* counter, bool isCyclic);
 
 void blinkForSeconds(uint8_t seconds, uint16_t* blinkTicks);
@@ -11229,8 +11239,10 @@ void blinkForSeconds(uint8_t seconds, uint16_t* blinkTicks);
 bool waitSetupCall(void);
 void saveNumberInMemory(UINT8 address, UINT8* phoneNumber);
 bool isNumberValid(uint8_t* phoneNumber);
-uint8_t isNumberInMemory(uint8_t* phoneNumber);
-uint8_t findEmptySpot();
+
+searchFsmStates isNumberInMemory(uint8_t* phoneNumber, uint8_t* positionInMemory);
+
+searchFsmStates findEmptySpot(uint8_t* positionInMemory);
 uint8_t isMasterNumber(uint8_t* phoneNumber);
 
 # 49 "../Source/h/04_App/app_addCmd.h"
@@ -11250,42 +11262,44 @@ bool addCmdFsm(uint8_t* receivedNumber, uint8_t* smsText)
 {
 static addFsmStates currentState = ADD_FSM_CHECK_MASTER;
 bool isComplete = 0;
-uint8_t numberInMemory = 1;
+uint8_t numberInMemory = 0;
+uint8_t masterOpResult = OP_FAILED;
+uint8_t searchNumber = OP_FAILED;
 
 switch (currentState)
 {
 case ADD_FSM_CHECK_MASTER:
-if (isMasterNumber(receivedNumber) == OP_SUCCESS)
+masterOpResult = isMasterNumber(receivedNumber);
+if (masterOpResult == OP_SUCCESS)
 {
 currentState = ADD_FSM_CHECK_DUPLICATED;
 }
-else
+else if (masterOpResult == OP_FAILED)
 {
 currentState = ADD_FSM_COMPLETE;
 }
 break;
 
 case ADD_FSM_CHECK_DUPLICATED:
-numberInMemory = isNumberInMemory(smsText + 4);
-if (numberInMemory == 1)
+searchNumber = isNumberInMemory(smsText + 4, &numberInMemory);
+if (searchNumber == SEARCH_FSM_NOT_FOUND)
 {
 currentState = ADD_FSM_SAVE_NEW;
 }
-else if (numberInMemory != 0 && numberInMemory != 1)
+else if (searchNumber == SEARCH_FSM_FOUND || searchNumber == SEARCH_FSM_ERROR)
 {
 currentState = ADD_FSM_COMPLETE;
 }
-break;
 
 case ADD_FSM_SAVE_NEW:
-numberInMemory = findEmptySpot();
-if (numberInMemory == 1)
-{
-currentState = ADD_FSM_COMPLETE;
-}
-else if (numberInMemory != 0 && numberInMemory != 1)
+searchNumber = findEmptySpot(&numberInMemory);
+if (searchNumber == SEARCH_FSM_NOT_FOUND)
 {
 saveNumberInMemory(numberInMemory, smsText + 4);
+currentState = ADD_FSM_COMPLETE;
+}
+else if (searchNumber == SEARCH_FSM_FOUND || searchNumber == SEARCH_FSM_ERROR)
+{
 currentState = ADD_FSM_COMPLETE;
 }
 break;

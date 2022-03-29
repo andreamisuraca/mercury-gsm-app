@@ -89,7 +89,7 @@ bool delCmdFsm(uint8_t* receivedNumber, uint8_t* smsText)
         break;
 
     case DEL_FSM_REMOVE_NUMBER:
-        numberInMemory = isNumberInMemory(receivedNumber);
+        //numberInMemory = isNumberInMemory(receivedNumber);
         if (numberInMemory == SEARCH_FAILED)
         {
             currentState = DEL_FSM_COMPLETE;

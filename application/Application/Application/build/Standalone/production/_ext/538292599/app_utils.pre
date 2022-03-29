@@ -11221,7 +11221,17 @@ void Sch_SchmIntService (void);
 # 53 "../Source/h/04_App/app.h"
 void MyApp_Task (UINT8 Options);
 
-# 54 "../Source/h/04_App/app_utils.h"
+# 46 "../Source/h/04_App/app_utils.h"
+typedef enum _searchFsmStates
+{
+SEARCH_FSM_START = 0,
+SEARCH_FSM_CHECK_NUMBER,
+SEARCH_FSM_ERROR,
+SEARCH_FSM_FOUND,
+SEARCH_FSM_NOT_FOUND
+} searchFsmStates;
+
+# 62
 bool secondsAppTimer(uint8_t seconds, uint16_t* counter, bool isCyclic);
 
 void blinkForSeconds(uint8_t seconds, uint16_t* blinkTicks);
@@ -11229,8 +11239,10 @@ void blinkForSeconds(uint8_t seconds, uint16_t* blinkTicks);
 bool waitSetupCall(void);
 void saveNumberInMemory(UINT8 address, UINT8* phoneNumber);
 bool isNumberValid(uint8_t* phoneNumber);
-uint8_t isNumberInMemory(uint8_t* phoneNumber);
-uint8_t findEmptySpot();
+
+searchFsmStates isNumberInMemory(uint8_t* phoneNumber, uint8_t* positionInMemory);
+
+searchFsmStates findEmptySpot(uint8_t* positionInMemory);
 uint8_t isMasterNumber(uint8_t* phoneNumber);
 
 # 67 "../Source/c/04_App/app_utils.c"
@@ -11299,26 +11311,45 @@ break;
 return isNumberOk;
 }
 
-uint8_t isNumberInMemory(uint8_t* phoneNumber)
+searchFsmStates isNumberInMemory(uint8_t* phoneNumber, uint8_t* positionInMemory)
 {
+static searchFsmStates currentState = SEARCH_FSM_START;
 static uint8_t currentPosition = 32;
-uint8_t positionInMemory = 0;
 uint8_t readBuffer[((UINT8)(13))];
 EepromStsType memoryOpResult = OP_PENDING;
 
-if (currentPosition >= 32 * 10)
+if (currentState > SEARCH_FSM_CHECK_NUMBER)
 {
+currentState = SEARCH_FSM_START;
 currentPosition = 32;
 }
-memoryOpResult = Eeprom_Read(currentPosition, readBuffer, ((UINT8)(13)));
-if (memoryOpResult != OP_PENDING)
+if (currentPosition >= 32 * 10)
 {
+currentState = SEARCH_FSM_NOT_FOUND;
+}
+
+switch (currentState)
+{
+case SEARCH_FSM_START:
+memoryOpResult = Eeprom_Read(currentPosition, readBuffer, ((UINT8)(13)));
+if (memoryOpResult == OP_FAILED)
+{
+currentState = SEARCH_FSM_ERROR;
+}
+else if (memoryOpResult == OP_SUCCESS)
+{
+currentState = SEARCH_FSM_CHECK_NUMBER;
+}
+break;
+
+case SEARCH_FSM_CHECK_NUMBER:
+currentState = SEARCH_FSM_NOT_FOUND;
 if (isNumberValid(readBuffer))
 {
 if (StringCompare(phoneNumber, readBuffer, ((UINT8)(13))))
 {
-positionInMemory = currentPosition;
-currentPosition = 32 * 10;
+*positionInMemory = currentPosition;
+currentState = SEARCH_FSM_FOUND;
 }
 else
 {
@@ -11326,14 +11357,15 @@ else
 }
 }
 currentPosition += 32;
+break;
+
+default:
+break;
 }
-if (positionInMemory == 0 && currentPosition >= 32 * 10)
-{
-positionInMemory = 1;
-}
-return positionInMemory;
+return currentState;
 }
 
+# 232
 uint8_t isMasterNumber(uint8_t* phoneNumber)
 {
 uint8_t readBuffer[((UINT8)(13))];
@@ -11342,6 +11374,7 @@ EepromStsType memoryOpResult = OP_PENDING;
 memoryOpResult = Eeprom_Read(16, readBuffer, ((UINT8)(13)));
 if (memoryOpResult != OP_PENDING)
 {
+memoryOpResult = OP_FAILED;
 if (isNumberValid(readBuffer))
 {
 if (StringCompare(phoneNumber, readBuffer, ((UINT8)(13))))
@@ -11353,33 +11386,53 @@ memoryOpResult = OP_SUCCESS;
 return memoryOpResult;
 }
 
-uint8_t findEmptySpot()
+# 283
+searchFsmStates findEmptySpot(uint8_t* positionInMemory)
 {
+static searchFsmStates currentState = SEARCH_FSM_START;
 static uint8_t currentPosition = 32;
-uint8_t positionInMemory = 0;
 uint8_t readBuffer[((UINT8)(13))];
 EepromStsType memoryOpResult = OP_PENDING;
 
-if (currentPosition >= 32 * 10)
+if (currentState > SEARCH_FSM_CHECK_NUMBER)
 {
+currentState = SEARCH_FSM_START;
 currentPosition = 32;
 }
-memoryOpResult = Eeprom_Read(currentPosition, readBuffer, ((UINT8)(13)));
-if (memoryOpResult != OP_PENDING)
+if (currentPosition >= 32 * 10)
 {
+currentState = SEARCH_FSM_NOT_FOUND;
+}
+
+switch (currentState)
+{
+case SEARCH_FSM_START:
+memoryOpResult = Eeprom_Read(currentPosition, readBuffer, ((UINT8)(13)));
+if (memoryOpResult == OP_FAILED)
+{
+currentState = SEARCH_FSM_ERROR;
+}
+else if (memoryOpResult == OP_SUCCESS)
+{
+currentState = SEARCH_FSM_CHECK_NUMBER;
+}
+break;
+
+case SEARCH_FSM_CHECK_NUMBER:
 if (isNumberValid(readBuffer))
 {
 currentPosition += 32;
+currentState = SEARCH_FSM_START;
 }
 else
 {
-positionInMemory = currentPosition;
-currentPosition = 32 * 10;
+currentState = SEARCH_FSM_NOT_FOUND;
+*positionInMemory = currentPosition;
 }
+break;
+
+default:
+break;
 }
-if (positionInMemory == 0 && currentPosition >= 32 * 10)
-{
-positionInMemory = 1;
-}
-return positionInMemory;
+return currentState;
 }

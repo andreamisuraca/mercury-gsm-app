@@ -42,6 +42,7 @@
 * LOCAL Variables
 ************************************************************************/
 
+uint8_t readBuffer[PHONE_NUMBER_LEN] = {0};
 /************************************************************************
 * GLOBAL Variables
 ************************************************************************/
@@ -140,44 +141,96 @@ bool isNumberValid(uint8_t* phoneNumber)
     return isNumberOk;
 }
 
-uint8_t isNumberInMemory(uint8_t* phoneNumber)
+searchFsmStates isNumberInMemory(uint8_t* phoneNumber, uint8_t* positionInMemory)
 {
+    static searchFsmStates currentState = SEARCH_FSM_START;
     static uint8_t currentPosition = INIT_NUMBER_ADDRESS;
-    uint8_t positionInMemory = SEARCH_IN_PROGRESS;
-    uint8_t readBuffer[PHONE_NUMBER_LEN];
     EepromStsType memoryOpResult = OP_PENDING;
 
-    if (currentPosition >= INIT_NUMBER_ADDRESS * MAX_NUMBERS_IN_MEM)
+    if (currentState > SEARCH_FSM_CHECK_NUMBER)
     {
+        currentState = SEARCH_FSM_START;
         currentPosition = INIT_NUMBER_ADDRESS;
     }
-    memoryOpResult = Eeprom_Read(currentPosition, readBuffer, PHONE_NUMBER_LEN);
-    if (memoryOpResult != OP_PENDING)
+    if (currentPosition >= (INIT_NUMBER_ADDRESS + (OFFSET_NUMBER_ADDRESS * MAX_NUMBERS_IN_MEM)))
     {
+        currentState = SEARCH_FSM_NOT_FOUND;
+    }
+
+    switch (currentState)
+    {
+    case SEARCH_FSM_START:
+        memoryOpResult = Eeprom_Read(currentPosition, readBuffer, PHONE_NUMBER_LEN);
+        if (memoryOpResult == OP_FAILED)
+        {
+            currentState = SEARCH_FSM_ERROR;
+        }
+        else if (memoryOpResult == OP_SUCCESS)
+        {
+            currentState = SEARCH_FSM_CHECK_NUMBER;
+        }
+        break;
+
+    case SEARCH_FSM_CHECK_NUMBER:
+        currentState = SEARCH_FSM_START;
         if (isNumberValid(readBuffer))
         {
             if (StringCompare(phoneNumber, readBuffer, PHONE_NUMBER_LEN))
             {
-                positionInMemory = currentPosition;
-                currentPosition = INIT_NUMBER_ADDRESS * MAX_NUMBERS_IN_MEM;
+                *positionInMemory = currentPosition;
+                currentState = SEARCH_FSM_FOUND;
             }
             else
             {
                 // add method to skip other reads if I have already read all the memorized numbers.
             }
         }
-        currentPosition += INIT_NUMBER_ADDRESS;
+        currentPosition += OFFSET_NUMBER_ADDRESS;
+        break;
+
+    default:
+        break;
     }
-    if (positionInMemory == 0 && currentPosition >= INIT_NUMBER_ADDRESS * MAX_NUMBERS_IN_MEM)
-    {
-        positionInMemory = SEARCH_FAILED;
-    }
-    return positionInMemory;
+    return currentState;
 }
+
+// uint8_t isNumberInMemory(uint8_t* phoneNumber)
+// {
+//     static uint8_t currentPosition = INIT_NUMBER_ADDRESS;
+//     uint8_t positionInMemory = SEARCH_IN_PROGRESS;
+//     uint8_t readBuffer[PHONE_NUMBER_LEN];
+//     EepromStsType memoryOpResult = OP_PENDING;
+
+//     if (currentPosition >= INIT_NUMBER_ADDRESS * MAX_NUMBERS_IN_MEM)
+//     {
+//         currentPosition = INIT_NUMBER_ADDRESS;
+//     }
+//     memoryOpResult = Eeprom_Read(currentPosition, readBuffer, PHONE_NUMBER_LEN);
+//     if (memoryOpResult != OP_PENDING)
+//     {
+//         if (isNumberValid(readBuffer))
+//         {
+//             if (StringCompare(phoneNumber, readBuffer, PHONE_NUMBER_LEN))
+//             {
+//                 positionInMemory = currentPosition;
+//                 currentPosition = INIT_NUMBER_ADDRESS * MAX_NUMBERS_IN_MEM;
+//             }
+//             else
+//             {
+//                 // add method to skip other reads if I have already read all the memorized numbers.
+//             }
+//         }
+//         currentPosition += INIT_NUMBER_ADDRESS;
+//     }
+//     if (positionInMemory == SEARCH_IN_PROGRESS && currentPosition >= INIT_NUMBER_ADDRESS * MAX_NUMBERS_IN_MEM)
+//     {
+//         positionInMemory = SEARCH_FAILED;
+//     }
+//     return positionInMemory;
+// }
 
 uint8_t isMasterNumber(uint8_t* phoneNumber)
 {
-    uint8_t readBuffer[PHONE_NUMBER_LEN];
     EepromStsType memoryOpResult = OP_PENDING;
 
     memoryOpResult = Eeprom_Read(MASTER_NUMBER_ADDRESS, readBuffer, PHONE_NUMBER_LEN);
@@ -195,33 +248,82 @@ uint8_t isMasterNumber(uint8_t* phoneNumber)
     return memoryOpResult;
 }
 
-uint8_t findEmptySpot()
+// uint8_t findEmptySpot()
+// {
+//     static uint8_t currentPosition = INIT_NUMBER_ADDRESS;
+//     uint8_t positionInMemory = SEARCH_IN_PROGRESS;
+//     uint8_t readBuffer[PHONE_NUMBER_LEN];
+//     EepromStsType memoryOpResult = OP_PENDING;
+
+//     if (currentPosition >= INIT_NUMBER_ADDRESS * MAX_NUMBERS_IN_MEM)
+//     {
+//         currentPosition = INIT_NUMBER_ADDRESS;
+//     }
+//     memoryOpResult = Eeprom_Read(currentPosition, readBuffer, PHONE_NUMBER_LEN);
+//     if (memoryOpResult != OP_PENDING)
+//     {
+//         if (isNumberValid(readBuffer))
+//         {
+//             currentPosition += INIT_NUMBER_ADDRESS;
+//         }
+//         else
+//         {
+//             positionInMemory = currentPosition;
+//             currentPosition = INIT_NUMBER_ADDRESS * MAX_NUMBERS_IN_MEM;
+//         }
+//     }
+//     if (positionInMemory == 0 && currentPosition >= INIT_NUMBER_ADDRESS * MAX_NUMBERS_IN_MEM)
+//     {
+//         positionInMemory = SEARCH_FAILED;
+//     }
+//     return positionInMemory;
+// }
+
+searchFsmStates findEmptySpot(uint8_t* positionInMemory)
 {
+    static searchFsmStates currentState = SEARCH_FSM_START;
     static uint8_t currentPosition = INIT_NUMBER_ADDRESS;
-    uint8_t positionInMemory = SEARCH_IN_PROGRESS;
-    uint8_t readBuffer[PHONE_NUMBER_LEN];
     EepromStsType memoryOpResult = OP_PENDING;
 
-    if (currentPosition >= INIT_NUMBER_ADDRESS * MAX_NUMBERS_IN_MEM)
+    if (currentState > SEARCH_FSM_CHECK_NUMBER)
     {
+        currentState = SEARCH_FSM_START;
         currentPosition = INIT_NUMBER_ADDRESS;
     }
-    memoryOpResult = Eeprom_Read(currentPosition, readBuffer, PHONE_NUMBER_LEN);
-    if (memoryOpResult != OP_PENDING)
+    if (currentPosition >= (INIT_NUMBER_ADDRESS + (OFFSET_NUMBER_ADDRESS * MAX_NUMBERS_IN_MEM)))
     {
+        currentState = SEARCH_FSM_NOT_FOUND;
+    }
+
+    switch (currentState)
+    {
+    case SEARCH_FSM_START:
+        memoryOpResult = Eeprom_Read(currentPosition, readBuffer, PHONE_NUMBER_LEN);
+        if (memoryOpResult == OP_FAILED)
+        {
+            currentState = SEARCH_FSM_ERROR;
+        }
+        else if (memoryOpResult == OP_SUCCESS)
+        {
+            currentState = SEARCH_FSM_CHECK_NUMBER;
+        }
+        break;
+
+    case SEARCH_FSM_CHECK_NUMBER:
         if (isNumberValid(readBuffer))
         {
-            currentPosition += INIT_NUMBER_ADDRESS;
+            currentPosition += OFFSET_NUMBER_ADDRESS;
+            currentState = SEARCH_FSM_START;
         }
         else
         {
-            positionInMemory = currentPosition;
-            currentPosition = INIT_NUMBER_ADDRESS * MAX_NUMBERS_IN_MEM;
+            currentState = SEARCH_FSM_NOT_FOUND;
+            *positionInMemory = currentPosition;
         }
+        break;
+
+    default:
+        break;
     }
-    if (positionInMemory == 0 && currentPosition >= INIT_NUMBER_ADDRESS * MAX_NUMBERS_IN_MEM)
-    {
-        positionInMemory = SEARCH_FAILED;
-    }
-    return positionInMemory;
+    return currentState;
 }

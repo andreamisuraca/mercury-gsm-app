@@ -4,10 +4,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 "88 ../../MercuryFwk/Source/h/03_Sml/01_Pml/02_SlvI2c/i2c_slv.h
 [v _I2cSlv_SendI2cMsg `(uc ~T0 @X0 0 ef3`*uc`uc`uc ]
 "85 ../Source/c/04_App/app_triggerCmd.c
-[c E8994 0 1 2 3 .. ]
-[n E8994 _triggerFsmStates TRIGGER_FSM_CHECK_NUMBER TRIGGER_FSM_ACTIVATE_RELAY TRIGGER_FSM_DEACTIVATE_RELAY TRIGGER_FSM_COMPLETE  ]
-"61 ../Source/h/04_App/app_utils.h
-[v _isNumberInMemory `(uc ~T0 @X0 0 ef1`*uc ]
+[c E9003 0 1 2 3 .. ]
+[n E9003 _triggerFsmStates TRIGGER_FSM_CHECK_NUMBER TRIGGER_FSM_ACTIVATE_RELAY TRIGGER_FSM_DEACTIVATE_RELAY TRIGGER_FSM_COMPLETE  ]
 "30 ../../MercuryFwk/Source/h/01_Hal/01_Sys/hal.h
 [p n 1510 ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
@@ -8232,14 +8230,22 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;os_sched.h: 86: void Sch_MainScheduler (void);
 [; ;os_sched.h: 88: void Sch_SchmIntService (void);
 [; ;app.h: 53: void MyApp_Task (UINT8 Options);
-[; ;app_utils.h: 54: bool secondsAppTimer(uint8_t seconds, uint16_t* counter, bool isCyclic);
-[; ;app_utils.h: 56: void blinkForSeconds(uint8_t seconds, uint16_t* blinkTicks);
-[; ;app_utils.h: 58: bool waitSetupCall(void);
-[; ;app_utils.h: 59: void saveNumberInMemory(UINT8 address, UINT8* phoneNumber);
-[; ;app_utils.h: 60: bool isNumberValid(uint8_t* phoneNumber);
-[; ;app_utils.h: 61: uint8_t isNumberInMemory(uint8_t* phoneNumber);
-[; ;app_utils.h: 62: uint8_t findEmptySpot();
-[; ;app_utils.h: 63: uint8_t isMasterNumber(uint8_t* phoneNumber);
+[; ;app_utils.h: 46: typedef enum _searchFsmStates
+[; ;app_utils.h: 47: {
+[; ;app_utils.h: 48: SEARCH_FSM_START = 0,
+[; ;app_utils.h: 49: SEARCH_FSM_CHECK_NUMBER,
+[; ;app_utils.h: 50: SEARCH_FSM_ERROR,
+[; ;app_utils.h: 51: SEARCH_FSM_FOUND,
+[; ;app_utils.h: 52: SEARCH_FSM_NOT_FOUND
+[; ;app_utils.h: 53: } searchFsmStates;
+[; ;app_utils.h: 62: bool secondsAppTimer(uint8_t seconds, uint16_t* counter, bool isCyclic);
+[; ;app_utils.h: 64: void blinkForSeconds(uint8_t seconds, uint16_t* blinkTicks);
+[; ;app_utils.h: 66: bool waitSetupCall(void);
+[; ;app_utils.h: 67: void saveNumberInMemory(UINT8 address, UINT8* phoneNumber);
+[; ;app_utils.h: 68: bool isNumberValid(uint8_t* phoneNumber);
+[; ;app_utils.h: 70: searchFsmStates isNumberInMemory(uint8_t* phoneNumber, uint8_t* positionInMemory);
+[; ;app_utils.h: 72: searchFsmStates findEmptySpot(uint8_t* positionInMemory);
+[; ;app_utils.h: 73: uint8_t isMasterNumber(uint8_t* phoneNumber);
 [; ;app_triggerCmd.h: 49: bool triggerCmdFsm(uint8_t* receivedNumber);
 [; ;app_triggerCmd.c: 41: typedef enum _triggerFsmStates
 [; ;app_triggerCmd.c: 42: {
@@ -8259,8 +8265,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _isRelayOn `uc ~T0 @X0 1 r1 ]
 "65
 [f ]
-[v F9003 `uc ~T0 @X0 -> 2 `i s ]
-[i F9003
+[v F9012 `uc ~T0 @X0 -> 2 `i s ]
+[i F9012
 :U ..
 "66
 -> -> 80 `i `uc
@@ -8269,7 +8275,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 ]
 [v _txBuffer `uc ~T0 @X0 -> 2 `i a ]
 [; ;app_triggerCmd.c: 66: uint8_t txBuffer[2] = {0x50, 0x00};
-[e = _txBuffer F9003 ]
+[e = _txBuffer F9012 ]
 "67
 [v _res `uc ~T0 @X0 1 a ]
 [; ;app_triggerCmd.c: 67: uint8_t res = 0u;
@@ -8310,9 +8316,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "84
 [f ]
 "85
-[v F9006 `E8994 ~T0 @X0 1 s currentState ]
-[i F9006
-. `E8994 0
+[v F9015 `E9003 ~T0 @X0 1 s currentState ]
+[i F9015
+. `E9003 0
 ]
 "86
 [v _isComplete `uc ~T0 @X0 1 a ]
@@ -8332,9 +8338,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;app_triggerCmd.c: 92: case TRIGGER_FSM_CHECK_NUMBER:
 "92
 [e :U 892 ]
-[; ;app_triggerCmd.c: 93: numberInMemory = isNumberInMemory(receivedNumber);
-"93
-[e = _numberInMemory ( _isNumberInMemory (1 _receivedNumber ]
 [; ;app_triggerCmd.c: 94: if (numberInMemory == 1)
 "94
 [e $ ! == -> _numberInMemory `i -> 1 `i 893  ]
@@ -8343,7 +8346,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;app_triggerCmd.c: 96: currentState = TRIGGER_FSM_COMPLETE;
 "96
-[e = F9006 . `E8994 3 ]
+[e = F9015 . `E9003 3 ]
 "97
 }
 [; ;app_triggerCmd.c: 97: }
@@ -8357,7 +8360,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;app_triggerCmd.c: 100: currentState = TRIGGER_FSM_ACTIVATE_RELAY;
 "100
-[e = F9006 . `E8994 1 ]
+[e = F9015 . `E9003 1 ]
 "101
 }
 [e :U 895 ]
@@ -8374,7 +8377,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _triggerRelay (1 -> -> 1 `i `uc ]
 [; ;app_triggerCmd.c: 106: currentState = TRIGGER_FSM_DEACTIVATE_RELAY;
 "106
-[e = F9006 . `E8994 2 ]
+[e = F9015 . `E9003 2 ]
 [; ;app_triggerCmd.c: 107: break;
 "107
 [e $U 890  ]
@@ -8386,7 +8389,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _triggerRelay (1 -> -> 0 `i `uc ]
 [; ;app_triggerCmd.c: 112: currentState = TRIGGER_FSM_COMPLETE;
 "112
-[e = F9006 . `E8994 3 ]
+[e = F9015 . `E9003 3 ]
 [; ;app_triggerCmd.c: 113: break;
 "113
 [e $U 890  ]
@@ -8398,7 +8401,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _isComplete -> -> 1 `i `uc ]
 [; ;app_triggerCmd.c: 117: currentState = TRIGGER_FSM_CHECK_NUMBER;
 "117
-[e = F9006 . `E8994 0 ]
+[e = F9015 . `E9003 0 ]
 [; ;app_triggerCmd.c: 118: break;
 "118
 [e $U 890  ]
@@ -8414,10 +8417,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $U 890  ]
 "89
 [e :U 891 ]
-[e [\ F9006 , $ . `E8994 0 892
- , $ . `E8994 1 896
- , $ . `E8994 2 897
- , $ . `E8994 3 898
+[e [\ F9015 , $ . `E9003 0 892
+ , $ . `E9003 1 896
+ , $ . `E9003 2 897
+ , $ . `E9003 3 898
  899 ]
 "122
 [e :U 890 ]

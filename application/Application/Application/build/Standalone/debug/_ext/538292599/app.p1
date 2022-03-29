@@ -2,11 +2,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v F7983 `(v ~T0 @X0 0 tf ]
 [v F8056 `(v ~T0 @X0 0 tf ]
 "75 ../Source/c/04_App/app.c
-[c E9003 0 1 2 3 4 5 .. ]
-[n E9003 _gateFsmStates GATE_INIT GATE_WAIT_EVENT GATE_ADD_CMD GATE_DEL_CMD GATE_TRIGGER_CMD GATE_RESET  ]
+[c E9012 0 1 2 3 4 5 .. ]
+[n E9012 _gateFsmStates GATE_INIT GATE_WAIT_EVENT GATE_ADD_CMD GATE_DEL_CMD GATE_TRIGGER_CMD GATE_RESET  ]
 "53 ../../MercuryFwk/Source/h/03_Sml/02_Ssl/sf.h
 [v _StringCompare `(uc ~T0 @X0 0 ef3`*uc`*uc`us ]
-"60 ../Source/h/04_App/app_utils.h
+"69 ../Source/h/04_App/app_utils.h
 [v _isNumberValid `(uc ~T0 @X0 0 ef1`*uc ]
 "117 ../Source/c/04_App/app.c
 [c E8203 0 1 .. ]
@@ -8276,14 +8276,22 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;os_sched.h: 86: void Sch_MainScheduler (void);
 [; ;os_sched.h: 88: void Sch_SchmIntService (void);
 [; ;app.h: 53: void MyApp_Task (UINT8 Options);
-[; ;app_utils.h: 54: bool secondsAppTimer(uint8_t seconds, uint16_t* counter, bool isCyclic);
-[; ;app_utils.h: 56: void blinkForSeconds(uint8_t seconds, uint16_t* blinkTicks);
-[; ;app_utils.h: 58: bool waitSetupCall(void);
-[; ;app_utils.h: 59: void saveNumberInMemory(UINT8 address, UINT8* phoneNumber);
-[; ;app_utils.h: 60: bool isNumberValid(uint8_t* phoneNumber);
-[; ;app_utils.h: 61: uint8_t isNumberInMemory(uint8_t* phoneNumber);
-[; ;app_utils.h: 62: uint8_t findEmptySpot();
-[; ;app_utils.h: 63: uint8_t isMasterNumber(uint8_t* phoneNumber);
+[; ;app_utils.h: 47: typedef enum _searchFsmStates
+[; ;app_utils.h: 48: {
+[; ;app_utils.h: 49: SEARCH_FSM_START = 0,
+[; ;app_utils.h: 50: SEARCH_FSM_CHECK_NUMBER,
+[; ;app_utils.h: 51: SEARCH_FSM_ERROR,
+[; ;app_utils.h: 52: SEARCH_FSM_FOUND,
+[; ;app_utils.h: 53: SEARCH_FSM_NOT_FOUND
+[; ;app_utils.h: 54: } searchFsmStates;
+[; ;app_utils.h: 63: bool secondsAppTimer(uint8_t seconds, uint16_t* counter, bool isCyclic);
+[; ;app_utils.h: 65: void blinkForSeconds(uint8_t seconds, uint16_t* blinkTicks);
+[; ;app_utils.h: 67: bool waitSetupCall(void);
+[; ;app_utils.h: 68: void saveNumberInMemory(UINT8 address, UINT8* phoneNumber);
+[; ;app_utils.h: 69: bool isNumberValid(uint8_t* phoneNumber);
+[; ;app_utils.h: 71: searchFsmStates isNumberInMemory(uint8_t* phoneNumber, uint8_t* positionInMemory);
+[; ;app_utils.h: 73: searchFsmStates findEmptySpot(uint8_t* positionInMemory);
+[; ;app_utils.h: 74: uint8_t isMasterNumber(uint8_t* phoneNumber);
 [; ;app_init.h: 51: bool initFsm(void);
 [; ;app_init.h: 53: uint8_t* initPreamble();
 [; ;app_addCmd.h: 49: bool addCmdFsm(uint8_t* receivedNumber, uint8_t* smsText);
@@ -8315,15 +8323,15 @@ Version 3.2 HI-TECH Software Intermediate Code
 ]
 [; ;app.c: 58: static uint8_t receivedNumber[((UINT8)(13))] = {0};
 "74
-[v _parseCommand `(E9003 ~T0 @X0 1 ef ]
+[v _parseCommand `(E9012 ~T0 @X0 1 ef ]
 "75
 {
 [; ;app.c: 74: gateFsmStates parseCommand()
 [; ;app.c: 75: {
 [e :U _parseCommand ]
 [f ]
-[v F9017 `Cuc ~T0 @X0 -> 0 `x s ]
-[i F9017
+[v F9026 `Cuc ~T0 @X0 -> 0 `x s ]
+[i F9026
 :U ..
 "76
 -> -> 65 `ui `uc
@@ -8334,9 +8342,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 ]
 [v _addNumberCmd `Cuc ~T0 @X0 4  a ]
 [; ;app.c: 76: const uint8_t addNumberCmd[] = {'A', 'D', 'D', ';'};
-[e = _addNumberCmd F9017 ]
-[v F9019 `Cuc ~T0 @X0 -> 0 `x s ]
-[i F9019
+[e = _addNumberCmd F9026 ]
+[v F9028 `Cuc ~T0 @X0 -> 0 `x s ]
+[i F9028
 :U ..
 "77
 -> -> 68 `ui `uc
@@ -8347,9 +8355,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 ]
 [v _deleteNumberCmd `Cuc ~T0 @X0 4  a ]
 [; ;app.c: 77: const uint8_t deleteNumberCmd[] = {'D', 'E', 'L', ';'};
-[e = _deleteNumberCmd F9019 ]
-[v F9021 `Cuc ~T0 @X0 -> 0 `x s ]
-[i F9021
+[e = _deleteNumberCmd F9028 ]
+[v F9030 `Cuc ~T0 @X0 -> 0 `x s ]
+[i F9030
 :U ..
 "78
 -> -> 82 `ui `uc
@@ -8360,11 +8368,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 ]
 [v _resetCmd `Cuc ~T0 @X0 4  a ]
 [; ;app.c: 78: const uint8_t resetCmd[] = {'R', 'E', 'S', ';'};
-[e = _resetCmd F9021 ]
+[e = _resetCmd F9030 ]
 "79
-[v _state `E9003 ~T0 @X0 1 a ]
+[v _state `E9012 ~T0 @X0 1 a ]
 [; ;app.c: 79: gateFsmStates state = GATE_WAIT_EVENT;
-[e = _state . `E9003 1 ]
+[e = _state . `E9012 1 ]
 [; ;app.c: 81: if (StringCompare(smsText, addNumberCmd, sizeof(addNumberCmd)))
 "81
 [e $ ! != -> ( _StringCompare (3 , , &U _smsText -> &U _addNumberCmd `*uc -> -> # _addNumberCmd `ui `us `i -> -> -> 0 `i `uc `i 888  ]
@@ -8379,7 +8387,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;app.c: 85: state = GATE_WAIT_EVENT;
 "85
-[e = _state . `E9003 1 ]
+[e = _state . `E9012 1 ]
 "86
 }
 [; ;app.c: 86: }
@@ -8392,7 +8400,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;app.c: 89: state = GATE_ADD_CMD;
 "89
-[e = _state . `E9003 2 ]
+[e = _state . `E9012 2 ]
 "90
 }
 [e :U 890 ]
@@ -8416,7 +8424,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;app.c: 96: state = GATE_WAIT_EVENT;
 "96
-[e = _state . `E9003 1 ]
+[e = _state . `E9012 1 ]
 "97
 }
 [; ;app.c: 97: }
@@ -8429,7 +8437,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;app.c: 100: state = GATE_DEL_CMD;
 "100
-[e = _state . `E9003 3 ]
+[e = _state . `E9012 3 ]
 "101
 }
 [e :U 894 ]
@@ -8447,7 +8455,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;app.c: 105: state = GATE_RESET;
 "105
-[e = _state . `E9003 5 ]
+[e = _state . `E9012 5 ]
 "106
 }
 [; ;app.c: 106: }
@@ -8473,7 +8481,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :UE 887 ]
 }
 "114
-[v _detectCmd `(E9003 ~T0 @X0 1 ef ]
+[v _detectCmd `(E9012 ~T0 @X0 1 ef ]
 "115
 {
 [; ;app.c: 114: gateFsmStates detectCmd()
@@ -8481,9 +8489,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U _detectCmd ]
 [f ]
 "116
-[v _currentState `E9003 ~T0 @X0 1 a ]
+[v _currentState `E9012 ~T0 @X0 1 a ]
 [; ;app.c: 116: gateFsmStates currentState = GATE_WAIT_EVENT;
-[e = _currentState . `E9003 1 ]
+[e = _currentState . `E9012 1 ]
 [; ;app.c: 117: if (Mdm_IsSmsReceived())
 "117
 [e $ ! != -> ( _Mdm_IsSmsReceived ..  `i -> -> -> 0 `i `E8203 `i 899  ]
@@ -8527,7 +8535,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _Mdm_HangPhoneCall ..  ]
 [; ;app.c: 130: currentState = GATE_TRIGGER_CMD;
 "130
-[e = _currentState . `E9003 4 ]
+[e = _currentState . `E9012 4 ]
 [; ;app.c: 131: StringCopy(GetCallerNumber(), receivedNumber, ((UINT8)(13)));
 "131
 [e ( _StringCopy (3 , , ( _GetCallerNumber ..  &U _receivedNumber -> -> -> 13 `i `uc `us ]
@@ -8555,9 +8563,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "149
 [f ]
 "150
-[v F9028 `E9003 ~T0 @X0 1 s currentState ]
-[i F9028
-. `E9003 0
+[v F9037 `E9012 ~T0 @X0 1 s currentState ]
+[i F9037
+. `E9012 0
 ]
 [; ;app.c: 150: static gateFsmStates currentState = GATE_INIT;
 [; ;app.c: 152: switch (SystemState)
@@ -8595,7 +8603,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;app.c: 167: currentState = GATE_WAIT_EVENT;
 "167
-[e = F9028 . `E9003 1 ]
+[e = F9037 . `E9012 1 ]
 "168
 }
 [e :U 910 ]
@@ -8608,7 +8616,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U 911 ]
 [; ;app.c: 172: currentState = detectCmd();
 "172
-[e = F9028 ( _detectCmd ..  ]
+[e = F9037 ( _detectCmd ..  ]
 [; ;app.c: 173: break;
 "173
 [e $U 907  ]
@@ -8623,7 +8631,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;app.c: 178: currentState = GATE_WAIT_EVENT;
 "178
-[e = F9028 . `E9003 1 ]
+[e = F9037 . `E9012 1 ]
 "179
 }
 [e :U 913 ]
@@ -8642,7 +8650,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;app.c: 185: currentState = GATE_WAIT_EVENT;
 "185
-[e = F9028 . `E9003 1 ]
+[e = F9037 . `E9012 1 ]
 "186
 }
 [e :U 915 ]
@@ -8661,7 +8669,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;app.c: 192: currentState = GATE_WAIT_EVENT;
 "192
-[e = F9028 . `E9003 1 ]
+[e = F9037 . `E9012 1 ]
 "193
 }
 [e :U 917 ]
@@ -8680,7 +8688,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;app.c: 199: currentState = GATE_INIT;
 "199
-[e = F9028 . `E9003 0 ]
+[e = F9037 . `E9012 0 ]
 "200
 }
 [e :U 919 ]
@@ -8700,12 +8708,12 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $U 907  ]
 "162
 [e :U 908 ]
-[e [\ F9028 , $ . `E9003 0 909
- , $ . `E9003 1 911
- , $ . `E9003 2 912
- , $ . `E9003 3 914
- , $ . `E9003 4 916
- , $ . `E9003 5 918
+[e [\ F9037 , $ . `E9012 0 909
+ , $ . `E9012 1 911
+ , $ . `E9012 2 912
+ , $ . `E9012 3 914
+ , $ . `E9012 4 916
+ , $ . `E9012 5 918
  920 ]
 "205
 [e :U 907 ]

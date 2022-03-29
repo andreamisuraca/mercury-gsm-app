@@ -2,22 +2,22 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v F7983 `(v ~T0 @X0 0 tf ]
 [v F8056 `(v ~T0 @X0 0 tf ]
 "89 ../Source/c/04_App/app_init.c
-[c E8995 0 1 2 3 .. ]
-[n E8995 _modemStates MODEM_INIT MODEM_DELETE_SMS MODEM_SET_CALLER_ID MODEM_INIT_COMPLETE  ]
+[c E9004 0 1 2 3 .. ]
+[n E9004 _modemStates MODEM_INIT MODEM_DELETE_SMS MODEM_SET_CALLER_ID MODEM_INIT_COMPLETE  ]
 "95
 [c E8188 0 1 2 3 4 .. ]
 [n E8188 _MdmStatus ModemOff ModemOn ModemReady ModemConfigured ModemSleep  ]
 "91 ../../MercuryFwk/Source/h/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.h
 [v _MdmStatus `E8188 ~T0 @X0 0 e ]
-"54 ../Source/h/04_App/app_utils.h
+"62 ../Source/h/04_App/app_utils.h
 [v _secondsAppTimer `(uc ~T0 @X0 0 ef3`uc`*ui`uc ]
 "124 ../../MercuryFwk/Source/h/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.h
 [v _Mdm_SetSmsFormat `(v ~T0 @X0 0 ef1`uc ]
 "216 ../../MercuryFwk/Source/h/01_Hal/02_Drv/uart_drv.h
 [v _Uart_WriteConstString `(v ~T0 @X0 0 ef2`uc`*Cuc ]
 "133 ../Source/c/04_App/app_init.c
-[c E9001 0 1 2 .. ]
-[n E9001 _eepromStates EEPROM_INIT EEPROM_EMPTY EEPROM_NOT_EMPTY  ]
+[c E9010 0 1 2 .. ]
+[n E9010 _eepromStates EEPROM_INIT EEPROM_EMPTY EEPROM_NOT_EMPTY  ]
 "134
 [c E8246 0 1 2 .. ]
 [n E8246 _EepromSts OP_SUCCESS OP_FAILED OP_PENDING  ]
@@ -40,9 +40,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "53 ../Source/h/04_App/app_init.h
 [v _initPreamble `(*uc ~T0 @X0 0 ef ]
 "226 ../Source/c/04_App/app_init.c
-[c E9006 0 1 2 3 4 .. ]
-[n E9006 _initFsmStates INIT_FSM_MODEM INIT_FSM_EEPROM INIT_FSM_WAIT_CMD INIT_FSM_PREAMBLE INIT_FSM_COMPLETE  ]
-"59 ../Source/h/04_App/app_utils.h
+[c E9015 0 1 2 3 4 .. ]
+[n E9015 _initFsmStates INIT_FSM_MODEM INIT_FSM_EEPROM INIT_FSM_WAIT_CMD INIT_FSM_PREAMBLE INIT_FSM_COMPLETE  ]
+"67 ../Source/h/04_App/app_utils.h
 [v _saveNumberInMemory `(v ~T0 @X0 0 ef2`uc`*uc ]
 "134 ../../MercuryFwk/Source/h/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.h
 [v _GetCallerNumber `(*uc ~T0 @X0 0 ef ]
@@ -8272,14 +8272,22 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;app.h: 53: void MyApp_Task (UINT8 Options);
 [; ;app_init.h: 51: bool initFsm(void);
 [; ;app_init.h: 53: uint8_t* initPreamble();
-[; ;app_utils.h: 54: bool secondsAppTimer(uint8_t seconds, uint16_t* counter, bool isCyclic);
-[; ;app_utils.h: 56: void blinkForSeconds(uint8_t seconds, uint16_t* blinkTicks);
-[; ;app_utils.h: 58: bool waitSetupCall(void);
-[; ;app_utils.h: 59: void saveNumberInMemory(UINT8 address, UINT8* phoneNumber);
-[; ;app_utils.h: 60: bool isNumberValid(uint8_t* phoneNumber);
-[; ;app_utils.h: 61: uint8_t isNumberInMemory(uint8_t* phoneNumber);
-[; ;app_utils.h: 62: uint8_t findEmptySpot();
-[; ;app_utils.h: 63: uint8_t isMasterNumber(uint8_t* phoneNumber);
+[; ;app_utils.h: 46: typedef enum _searchFsmStates
+[; ;app_utils.h: 47: {
+[; ;app_utils.h: 48: SEARCH_FSM_START = 0,
+[; ;app_utils.h: 49: SEARCH_FSM_CHECK_NUMBER,
+[; ;app_utils.h: 50: SEARCH_FSM_ERROR,
+[; ;app_utils.h: 51: SEARCH_FSM_FOUND,
+[; ;app_utils.h: 52: SEARCH_FSM_NOT_FOUND
+[; ;app_utils.h: 53: } searchFsmStates;
+[; ;app_utils.h: 62: bool secondsAppTimer(uint8_t seconds, uint16_t* counter, bool isCyclic);
+[; ;app_utils.h: 64: void blinkForSeconds(uint8_t seconds, uint16_t* blinkTicks);
+[; ;app_utils.h: 66: bool waitSetupCall(void);
+[; ;app_utils.h: 67: void saveNumberInMemory(UINT8 address, UINT8* phoneNumber);
+[; ;app_utils.h: 68: bool isNumberValid(uint8_t* phoneNumber);
+[; ;app_utils.h: 70: searchFsmStates isNumberInMemory(uint8_t* phoneNumber, uint8_t* positionInMemory);
+[; ;app_utils.h: 72: searchFsmStates findEmptySpot(uint8_t* positionInMemory);
+[; ;app_utils.h: 73: uint8_t isMasterNumber(uint8_t* phoneNumber);
 [; ;app_init.c: 42: typedef enum _modemStates
 [; ;app_init.c: 43: {
 [; ;app_init.c: 44: MODEM_INIT = 0,
@@ -8325,14 +8333,14 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U _initGprsModem ]
 [f ]
 "88
-[v F9018 `ui ~T0 @X0 1 s modemCounter ]
-[i F9018
+[v F9027 `ui ~T0 @X0 1 s modemCounter ]
+[i F9027
 -> -> 0 `i `ui
 ]
 "89
-[v F9019 `E8995 ~T0 @X0 1 s currentState ]
-[i F9019
-. `E8995 0
+[v F9028 `E9004 ~T0 @X0 1 s currentState ]
+[i F9028
+. `E9004 0
 ]
 "90
 [v _isInitialized `uc ~T0 @X0 1 a ]
@@ -8357,7 +8365,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;app_init.c: 97: if (secondsAppTimer(5, &modemCounter, 0))
 "97
-[e $ ! != -> ( _secondsAppTimer (3 , , -> -> 5 `i `uc &U F9018 -> -> 0 `i `uc `i -> -> -> 0 `i `uc `i 892  ]
+[e $ ! != -> ( _secondsAppTimer (3 , , -> -> 5 `i `uc &U F9027 -> -> 0 `i `uc `i -> -> -> 0 `i `uc `i 892  ]
 [; ;app_init.c: 98: {
 "98
 {
@@ -8366,7 +8374,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _Mdm_SetSmsFormat (1 -> -> 1 `i `uc ]
 [; ;app_init.c: 100: currentState = MODEM_DELETE_SMS;
 "100
-[e = F9019 . `E8995 1 ]
+[e = F9028 . `E9004 1 ]
 "101
 }
 [e :U 892 ]
@@ -8386,7 +8394,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _Uart_WriteConstString (2 , -> -> 1 `i `uc :s 1C ]
 [; ;app_init.c: 107: currentState = MODEM_SET_CALLER_ID;
 "107
-[e = F9019 . `E8995 2 ]
+[e = F9028 . `E9004 2 ]
 [; ;app_init.c: 108: break;
 "108
 [e $U 888  ]
@@ -8398,7 +8406,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _Uart_WriteConstString (2 , -> -> 1 `i `uc :s 2C ]
 [; ;app_init.c: 112: currentState = MODEM_INIT_COMPLETE;
 "112
-[e = F9019 . `E8995 3 ]
+[e = F9028 . `E9004 3 ]
 [; ;app_init.c: 113: break;
 "113
 [e $U 888  ]
@@ -8407,7 +8415,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U 895 ]
 [; ;app_init.c: 116: currentState = MODEM_INIT;
 "116
-[e = F9019 . `E8995 0 ]
+[e = F9028 . `E9004 0 ]
 [; ;app_init.c: 117: isInitialized = 1;
 "117
 [e = _isInitialized -> -> 1 `i `uc ]
@@ -8426,10 +8434,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $U 888  ]
 "92
 [e :U 889 ]
-[e [\ F9019 , $ . `E8995 0 890
- , $ . `E8995 1 893
- , $ . `E8995 2 894
- , $ . `E8995 3 895
+[e [\ F9028 , $ . `E9004 0 890
+ , $ . `E9004 1 893
+ , $ . `E9004 2 894
+ , $ . `E9004 3 895
  896 ]
 "122
 [e :U 888 ]
@@ -8454,9 +8462,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;app_init.c: 132: const uint8_t addressToRead = 0;
 [e = _addressToRead -> -> 0 `i `uc ]
 "133
-[v F9024 `E9001 ~T0 @X0 1 s currentState ]
-[i F9024
-. `E9001 0
+[v F9033 `E9010 ~T0 @X0 1 s currentState ]
+[i F9033
+. `E9010 0
 ]
 "134
 [v _memoryOpResult `E8246 ~T0 @X0 1 a ]
@@ -8496,7 +8504,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;app_init.c: 148: currentState = EEPROM_NOT_EMPTY;
 "148
-[e = F9024 . `E9001 2 ]
+[e = F9033 . `E9010 2 ]
 "149
 }
 [; ;app_init.c: 149: }
@@ -8509,7 +8517,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;app_init.c: 152: currentState = EEPROM_EMPTY;
 "152
-[e = F9024 . `E9001 1 ]
+[e = F9033 . `E9010 1 ]
 "153
 }
 [e :U 903 ]
@@ -8529,7 +8537,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _isInitialized -> -> 1 `i `uc ]
 [; ;app_init.c: 159: currentState = EEPROM_INIT;
 "159
-[e = F9024 . `E9001 0 ]
+[e = F9033 . `E9010 0 ]
 [; ;app_init.c: 160: break;
 "160
 [e $U 898  ]
@@ -8538,7 +8546,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U 905 ]
 [; ;app_init.c: 163: currentState = EEPROM_INIT;
 "163
-[e = F9024 . `E9001 0 ]
+[e = F9033 . `E9010 0 ]
 [; ;app_init.c: 164: isInitialized = 1;
 "164
 [e = _isInitialized -> -> 1 `i `uc ]
@@ -8560,9 +8568,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $U 898  ]
 "137
 [e :U 899 ]
-[e [\ F9024 , $ . `E9001 0 900
- , $ . `E9001 1 904
- , $ . `E9001 2 905
+[e [\ F9033 , $ . `E9010 0 900
+ , $ . `E9010 1 904
+ , $ . `E9010 2 905
  906 ]
 "170
 [e :U 898 ]
@@ -8693,9 +8701,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U _initFsm ]
 [f ]
 "226
-[v F9034 `E9006 ~T0 @X0 1 s currentState ]
-[i F9034
-. `E9006 0
+[v F9043 `E9015 ~T0 @X0 1 s currentState ]
+[i F9043
+. `E9015 0
 ]
 "227
 [v _isInitialized `uc ~T0 @X0 1 a ]
@@ -8719,7 +8727,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;app_init.c: 234: currentState = INIT_FSM_EEPROM;
 "234
-[e = F9034 . `E9006 1 ]
+[e = F9043 . `E9015 1 ]
 "235
 }
 [e :U 918 ]
@@ -8738,7 +8746,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;app_init.c: 241: currentState = INIT_FSM_WAIT_CMD;
 "241
-[e = F9034 . `E9006 2 ]
+[e = F9043 . `E9015 2 ]
 [; ;app_init.c: 242: setupCallTicks = 0;
 "242
 [e = _setupCallTicks -> -> 0 `i `ui ]
@@ -8769,7 +8777,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _saveNumberInMemory (2 , -> -> 16 `i `uc ( _GetCallerNumber ..  ]
 [; ;app_init.c: 252: currentState = INIT_FSM_PREAMBLE;
 "252
-[e = F9034 . `E9006 3 ]
+[e = F9043 . `E9015 3 ]
 "253
 }
 [e :U 923 ]
@@ -8786,7 +8794,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;app_init.c: 258: currentState = INIT_FSM_COMPLETE;
 "258
-[e = F9034 . `E9006 4 ]
+[e = F9043 . `E9015 4 ]
 "259
 }
 [e :U 924 ]
@@ -8802,7 +8810,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _savePreamble ..  ]
 [; ;app_init.c: 264: currentState = INIT_FSM_COMPLETE;
 "264
-[e = F9034 . `E9006 4 ]
+[e = F9043 . `E9015 4 ]
 [; ;app_init.c: 265: break;
 "265
 [e $U 915  ]
@@ -8814,7 +8822,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _Led_SetLedStatus (2 , -> -> 1 `ui `uc . `E8878 1 ]
 [; ;app_init.c: 269: currentState = INIT_FSM_MODEM;
 "269
-[e = F9034 . `E9006 0 ]
+[e = F9043 . `E9015 0 ]
 [; ;app_init.c: 270: isInitialized = 1;
 "270
 [e = _isInitialized -> -> 1 `i `uc ]
@@ -8833,11 +8841,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $U 915  ]
 "229
 [e :U 916 ]
-[e [\ F9034 , $ . `E9006 0 917
- , $ . `E9006 1 919
- , $ . `E9006 2 921
- , $ . `E9006 3 925
- , $ . `E9006 4 926
+[e [\ F9043 , $ . `E9015 0 917
+ , $ . `E9015 1 919
+ , $ . `E9015 2 921
+ , $ . `E9015 3 925
+ , $ . `E9015 4 926
  927 ]
 "275
 [e :U 915 ]

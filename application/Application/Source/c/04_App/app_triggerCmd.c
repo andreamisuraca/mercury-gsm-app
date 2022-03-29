@@ -90,7 +90,7 @@ bool triggerCmdFsm(uint8_t* receivedNumber)
     {
         //todo: check also master number, check call and hang up
     case TRIGGER_FSM_CHECK_NUMBER:
-        numberInMemory = isNumberInMemory(receivedNumber);
+        //numberInMemory = isNumberInMemory(receivedNumber);
         if (numberInMemory == SEARCH_FAILED)
         {
             currentState = TRIGGER_FSM_COMPLETE;

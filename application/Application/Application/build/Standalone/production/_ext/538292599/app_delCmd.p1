@@ -2,16 +2,14 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v F7983 `(v ~T0 @X0 0 tf ]
 [v F8056 `(v ~T0 @X0 0 tf ]
 "74 ../Source/c/04_App/app_delCmd.c
-[c E8995 0 1 2 .. ]
-[n E8995 _delFsmStates DEL_FSM_CHECK_MASTER DEL_FSM_REMOVE_NUMBER DEL_FSM_COMPLETE  ]
-"63 ../Source/h/04_App/app_utils.h
+[c E9004 0 1 2 .. ]
+[n E9004 _delFsmStates DEL_FSM_CHECK_MASTER DEL_FSM_REMOVE_NUMBER DEL_FSM_COMPLETE  ]
+"73 ../Source/h/04_App/app_utils.h
 [v _isMasterNumber `(uc ~T0 @X0 0 ef1`*uc ]
 "81 ../Source/c/04_App/app_delCmd.c
 [c E8246 0 1 2 .. ]
 [n E8246 _EepromSts OP_SUCCESS OP_FAILED OP_PENDING  ]
-"61 ../Source/h/04_App/app_utils.h
-[v _isNumberInMemory `(uc ~T0 @X0 0 ef1`*uc ]
-"59
+"67 ../Source/h/04_App/app_utils.h
 [v _saveNumberInMemory `(v ~T0 @X0 0 ef2`uc`*uc ]
 "30 ../../MercuryFwk/Source/h/01_Hal/01_Sys/hal.h
 [p n 1510 ]
@@ -8237,14 +8235,22 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;os_sched.h: 86: void Sch_MainScheduler (void);
 [; ;os_sched.h: 88: void Sch_SchmIntService (void);
 [; ;app.h: 53: void MyApp_Task (UINT8 Options);
-[; ;app_utils.h: 54: bool secondsAppTimer(uint8_t seconds, uint16_t* counter, bool isCyclic);
-[; ;app_utils.h: 56: void blinkForSeconds(uint8_t seconds, uint16_t* blinkTicks);
-[; ;app_utils.h: 58: bool waitSetupCall(void);
-[; ;app_utils.h: 59: void saveNumberInMemory(UINT8 address, UINT8* phoneNumber);
-[; ;app_utils.h: 60: bool isNumberValid(uint8_t* phoneNumber);
-[; ;app_utils.h: 61: uint8_t isNumberInMemory(uint8_t* phoneNumber);
-[; ;app_utils.h: 62: uint8_t findEmptySpot();
-[; ;app_utils.h: 63: uint8_t isMasterNumber(uint8_t* phoneNumber);
+[; ;app_utils.h: 46: typedef enum _searchFsmStates
+[; ;app_utils.h: 47: {
+[; ;app_utils.h: 48: SEARCH_FSM_START = 0,
+[; ;app_utils.h: 49: SEARCH_FSM_CHECK_NUMBER,
+[; ;app_utils.h: 50: SEARCH_FSM_ERROR,
+[; ;app_utils.h: 51: SEARCH_FSM_FOUND,
+[; ;app_utils.h: 52: SEARCH_FSM_NOT_FOUND
+[; ;app_utils.h: 53: } searchFsmStates;
+[; ;app_utils.h: 62: bool secondsAppTimer(uint8_t seconds, uint16_t* counter, bool isCyclic);
+[; ;app_utils.h: 64: void blinkForSeconds(uint8_t seconds, uint16_t* blinkTicks);
+[; ;app_utils.h: 66: bool waitSetupCall(void);
+[; ;app_utils.h: 67: void saveNumberInMemory(UINT8 address, UINT8* phoneNumber);
+[; ;app_utils.h: 68: bool isNumberValid(uint8_t* phoneNumber);
+[; ;app_utils.h: 70: searchFsmStates isNumberInMemory(uint8_t* phoneNumber, uint8_t* positionInMemory);
+[; ;app_utils.h: 72: searchFsmStates findEmptySpot(uint8_t* positionInMemory);
+[; ;app_utils.h: 73: uint8_t isMasterNumber(uint8_t* phoneNumber);
 [; ;app_delCmd.h: 49: bool delCmdFsm(uint8_t* receivedNumber, uint8_t* smsText);
 [; ;app_delCmd.c: 41: typedef enum _delFsmStates
 [; ;app_delCmd.c: 42: {
@@ -8264,8 +8270,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _smsText `*uc ~T0 @X0 1 r2 ]
 "72
 [f ]
-[v F9004 `Cuc ~T0 @X0 -> -> -> 13 `i `uc `ux s ]
-[i F9004
+[v F9013 `Cuc ~T0 @X0 -> -> -> 13 `i `uc `ux s ]
+[i F9013
 :U ..
 "73
 -> -> 0 `i `uc
@@ -8273,11 +8279,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 ]
 [v _emptyNumber `Cuc ~T0 @X0 -> -> -> 13 `i `uc `ux a ]
 [; ;app_delCmd.c: 73: const uint8_t emptyNumber[((UINT8)(13))] = {0};
-[e = _emptyNumber F9004 ]
+[e = _emptyNumber F9013 ]
 "74
-[v F9005 `E8995 ~T0 @X0 1 s currentState ]
-[i F9005
-. `E8995 0
+[v F9014 `E9004 ~T0 @X0 1 s currentState ]
+[i F9014
+. `E9004 0
 ]
 "75
 [v _isComplete `uc ~T0 @X0 1 a ]
@@ -8305,7 +8311,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;app_delCmd.c: 83: currentState = DEL_FSM_REMOVE_NUMBER;
 "83
-[e = F9005 . `E8995 1 ]
+[e = F9014 . `E9004 1 ]
 "84
 }
 [; ;app_delCmd.c: 84: }
@@ -8318,7 +8324,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;app_delCmd.c: 87: currentState = DEL_FSM_COMPLETE;
 "87
-[e = F9005 . `E8995 2 ]
+[e = F9014 . `E9004 2 ]
 "88
 }
 [e :U 892 ]
@@ -8329,9 +8335,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;app_delCmd.c: 91: case DEL_FSM_REMOVE_NUMBER:
 "91
 [e :U 893 ]
-[; ;app_delCmd.c: 92: numberInMemory = isNumberInMemory(receivedNumber);
-"92
-[e = _numberInMemory ( _isNumberInMemory (1 _receivedNumber ]
 [; ;app_delCmd.c: 93: if (numberInMemory == 1)
 "93
 [e $ ! == -> _numberInMemory `i -> 1 `i 894  ]
@@ -8340,7 +8343,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;app_delCmd.c: 95: currentState = DEL_FSM_COMPLETE;
 "95
-[e = F9005 . `E8995 2 ]
+[e = F9014 . `E9004 2 ]
 "96
 }
 [; ;app_delCmd.c: 96: }
@@ -8357,7 +8360,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _saveNumberInMemory (2 , _numberInMemory -> &U _emptyNumber `*uc ]
 [; ;app_delCmd.c: 100: currentState = DEL_FSM_COMPLETE;
 "100
-[e = F9005 . `E8995 2 ]
+[e = F9014 . `E9004 2 ]
 "101
 }
 [e :U 896 ]
@@ -8374,7 +8377,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _isComplete -> -> 1 `i `uc ]
 [; ;app_delCmd.c: 106: currentState = DEL_FSM_CHECK_MASTER;
 "106
-[e = F9005 . `E8995 0 ]
+[e = F9014 . `E9004 0 ]
 [; ;app_delCmd.c: 107: break;
 "107
 [e $U 888  ]
@@ -8390,9 +8393,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $U 888  ]
 "78
 [e :U 889 ]
-[e [\ F9005 , $ . `E8995 0 890
- , $ . `E8995 1 893
- , $ . `E8995 2 897
+[e [\ F9014 , $ . `E9004 0 890
+ , $ . `E9004 1 893
+ , $ . `E9004 2 897
  898 ]
 "111
 [e :U 888 ]

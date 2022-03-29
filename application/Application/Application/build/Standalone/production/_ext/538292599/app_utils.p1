@@ -8,7 +8,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _Led_SetLedStatus `(v ~T0 @X0 0 ef2`uc`E8878 ]
 "57 ../../MercuryFwk/Source/h/03_Sml/01_Pml/05_Eeprom/eeprom_if.h
 [v _Eeprom_Write `(uc ~T0 @X0 0 ef3`uc`*uc`uc ]
-"148 ../Source/c/04_App/app_utils.c
+"144 ../Source/c/04_App/app_utils.c
+[c E8973 0 1 2 3 4 .. ]
+[n E8973 _searchFsmStates SEARCH_FSM_START SEARCH_FSM_CHECK_NUMBER SEARCH_FSM_ERROR SEARCH_FSM_FOUND SEARCH_FSM_NOT_FOUND  ]
+"148
 [c E8246 0 1 2 .. ]
 [n E8246 _EepromSts OP_SUCCESS OP_FAILED OP_PENDING  ]
 "60 ../../MercuryFwk/Source/h/03_Sml/01_Pml/05_Eeprom/eeprom_if.h
@@ -8239,14 +8242,22 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;os_sched.h: 86: void Sch_MainScheduler (void);
 [; ;os_sched.h: 88: void Sch_SchmIntService (void);
 [; ;app.h: 53: void MyApp_Task (UINT8 Options);
-[; ;app_utils.h: 54: bool secondsAppTimer(uint8_t seconds, uint16_t* counter, bool isCyclic);
-[; ;app_utils.h: 56: void blinkForSeconds(uint8_t seconds, uint16_t* blinkTicks);
-[; ;app_utils.h: 58: bool waitSetupCall(void);
-[; ;app_utils.h: 59: void saveNumberInMemory(UINT8 address, UINT8* phoneNumber);
-[; ;app_utils.h: 60: bool isNumberValid(uint8_t* phoneNumber);
-[; ;app_utils.h: 61: uint8_t isNumberInMemory(uint8_t* phoneNumber);
-[; ;app_utils.h: 62: uint8_t findEmptySpot();
-[; ;app_utils.h: 63: uint8_t isMasterNumber(uint8_t* phoneNumber);
+[; ;app_utils.h: 46: typedef enum _searchFsmStates
+[; ;app_utils.h: 47: {
+[; ;app_utils.h: 48: SEARCH_FSM_START = 0,
+[; ;app_utils.h: 49: SEARCH_FSM_CHECK_NUMBER,
+[; ;app_utils.h: 50: SEARCH_FSM_ERROR,
+[; ;app_utils.h: 51: SEARCH_FSM_FOUND,
+[; ;app_utils.h: 52: SEARCH_FSM_NOT_FOUND
+[; ;app_utils.h: 53: } searchFsmStates;
+[; ;app_utils.h: 62: bool secondsAppTimer(uint8_t seconds, uint16_t* counter, bool isCyclic);
+[; ;app_utils.h: 64: void blinkForSeconds(uint8_t seconds, uint16_t* blinkTicks);
+[; ;app_utils.h: 66: bool waitSetupCall(void);
+[; ;app_utils.h: 67: void saveNumberInMemory(UINT8 address, UINT8* phoneNumber);
+[; ;app_utils.h: 68: bool isNumberValid(uint8_t* phoneNumber);
+[; ;app_utils.h: 70: searchFsmStates isNumberInMemory(uint8_t* phoneNumber, uint8_t* positionInMemory);
+[; ;app_utils.h: 72: searchFsmStates findEmptySpot(uint8_t* positionInMemory);
+[; ;app_utils.h: 73: uint8_t isMasterNumber(uint8_t* phoneNumber);
 "67 ../Source/c/04_App/app_utils.c
 [v _secondsAppTimer `(uc ~T0 @X0 1 ef3`uc`*ui`uc ]
 "68
@@ -8475,279 +8486,408 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :UE 896 ]
 }
 "143
-[v _isNumberInMemory `(uc ~T0 @X0 1 ef1`*uc ]
+[v _isNumberInMemory `(E8973 ~T0 @X0 1 ef2`*uc`*uc ]
 "144
 {
-[; ;app_utils.c: 143: uint8_t isNumberInMemory(uint8_t* phoneNumber)
+[; ;app_utils.c: 143: searchFsmStates isNumberInMemory(uint8_t* phoneNumber, uint8_t* positionInMemory)
 [; ;app_utils.c: 144: {
 [e :U _isNumberInMemory ]
 "143
 [v _phoneNumber `*uc ~T0 @X0 1 r1 ]
+[v _positionInMemory `*uc ~T0 @X0 1 r2 ]
 "144
 [f ]
 "145
-[v F9009 `uc ~T0 @X0 1 s currentPosition ]
-[i F9009
--> -> 32 `i `uc
+[v F9019 `E8973 ~T0 @X0 1 s currentState ]
+[i F9019
+. `E8973 0
 ]
 "146
-[v _positionInMemory `uc ~T0 @X0 1 a ]
-[; ;app_utils.c: 145: static uint8_t currentPosition = 32;
-[; ;app_utils.c: 146: uint8_t positionInMemory = 0;
-[e = _positionInMemory -> -> 0 `i `uc ]
+[v F9020 `uc ~T0 @X0 1 s currentPosition ]
+[i F9020
+-> -> 32 `i `uc
+]
 "147
 [v _readBuffer `uc ~T0 @X0 -> -> -> 13 `i `uc `ux a ]
 "148
 [v _memoryOpResult `E8246 ~T0 @X0 1 a ]
+[; ;app_utils.c: 145: static searchFsmStates currentState = SEARCH_FSM_START;
+[; ;app_utils.c: 146: static uint8_t currentPosition = 32;
 [; ;app_utils.c: 147: uint8_t readBuffer[((UINT8)(13))];
 [; ;app_utils.c: 148: EepromStsType memoryOpResult = OP_PENDING;
 [e = _memoryOpResult . `E8246 2 ]
-[; ;app_utils.c: 150: if (currentPosition >= 32 * 10)
+[; ;app_utils.c: 150: if (currentState > SEARCH_FSM_CHECK_NUMBER)
 "150
-[e $ ! >= -> F9009 `i * -> 32 `i -> 10 `i 904  ]
+[e $ ! > -> F9019 `i -> . `E8973 1 `i 904  ]
 [; ;app_utils.c: 151: {
 "151
 {
-[; ;app_utils.c: 152: currentPosition = 32;
+[; ;app_utils.c: 152: currentState = SEARCH_FSM_START;
 "152
-[e = F9009 -> -> 32 `i `uc ]
+[e = F9019 . `E8973 0 ]
+[; ;app_utils.c: 153: currentPosition = 32;
 "153
+[e = F9020 -> -> 32 `i `uc ]
+"154
 }
 [e :U 904 ]
-[; ;app_utils.c: 153: }
-[; ;app_utils.c: 154: memoryOpResult = Eeprom_Read(currentPosition, readBuffer, ((UINT8)(13)));
-"154
-[e = _memoryOpResult ( _Eeprom_Read (3 , , F9009 &U _readBuffer -> -> 13 `i `uc ]
-[; ;app_utils.c: 155: if (memoryOpResult != OP_PENDING)
+[; ;app_utils.c: 154: }
+[; ;app_utils.c: 155: if (currentPosition >= 32 * 10)
 "155
-[e $ ! != -> _memoryOpResult `i -> . `E8246 2 `i 905  ]
+[e $ ! >= -> F9020 `i * -> 32 `i -> 10 `i 905  ]
 [; ;app_utils.c: 156: {
 "156
 {
-[; ;app_utils.c: 157: if (isNumberValid(readBuffer))
+[; ;app_utils.c: 157: currentState = SEARCH_FSM_NOT_FOUND;
 "157
-[e $ ! != -> ( _isNumberValid (1 &U _readBuffer `i -> -> -> 0 `i `uc `i 906  ]
-[; ;app_utils.c: 158: {
+[e = F9019 . `E8973 4 ]
 "158
-{
-[; ;app_utils.c: 159: if (StringCompare(phoneNumber, readBuffer, ((UINT8)(13))))
-"159
-[e $ ! != -> ( _StringCompare (3 , , _phoneNumber &U _readBuffer -> -> -> 13 `i `uc `us `i -> -> -> 0 `i `uc `i 907  ]
-[; ;app_utils.c: 160: {
-"160
-{
-[; ;app_utils.c: 161: positionInMemory = currentPosition;
-"161
-[e = _positionInMemory F9009 ]
-[; ;app_utils.c: 162: currentPosition = 32 * 10;
-"162
-[e = F9009 -> * -> 32 `i -> 10 `i `uc ]
-"163
 }
-[; ;app_utils.c: 163: }
-[e $U 908  ]
+[e :U 905 ]
+[; ;app_utils.c: 158: }
+[; ;app_utils.c: 160: switch (currentState)
+"160
+[e $U 907  ]
+[; ;app_utils.c: 161: {
+"161
+{
+[; ;app_utils.c: 162: case SEARCH_FSM_START:
+"162
+[e :U 908 ]
+[; ;app_utils.c: 163: memoryOpResult = Eeprom_Read(currentPosition, readBuffer, ((UINT8)(13)));
+"163
+[e = _memoryOpResult ( _Eeprom_Read (3 , , F9020 &U _readBuffer -> -> 13 `i `uc ]
+[; ;app_utils.c: 164: if (memoryOpResult == OP_FAILED)
 "164
-[e :U 907 ]
-[; ;app_utils.c: 164: else
+[e $ ! == -> _memoryOpResult `i -> . `E8246 1 `i 909  ]
 [; ;app_utils.c: 165: {
 "165
 {
+[; ;app_utils.c: 166: currentState = SEARCH_FSM_ERROR;
+"166
+[e = F9019 . `E8973 2 ]
 "167
 }
-[e :U 908 ]
-"168
-}
-[e :U 906 ]
 [; ;app_utils.c: 167: }
-[; ;app_utils.c: 168: }
-[; ;app_utils.c: 169: currentPosition += 32;
-"169
-[e =+ F9009 -> -> 32 `i `uc ]
-"170
-}
-[e :U 905 ]
-[; ;app_utils.c: 170: }
-[; ;app_utils.c: 171: if (positionInMemory == 0 && currentPosition >= 32 * 10)
-"171
-[e $ ! && == -> _positionInMemory `i -> 0 `i >= -> F9009 `i * -> 32 `i -> 10 `i 909  ]
-[; ;app_utils.c: 172: {
-"172
-{
-[; ;app_utils.c: 173: positionInMemory = 1;
-"173
-[e = _positionInMemory -> -> 1 `i `uc ]
-"174
-}
+[e $U 910  ]
+"168
 [e :U 909 ]
-[; ;app_utils.c: 174: }
-[; ;app_utils.c: 175: return positionInMemory;
-"175
-[e ) _positionInMemory ]
-[e $UE 903  ]
-[; ;app_utils.c: 176: }
-"176
-[e :UE 903 ]
-}
-"178
-[v _isMasterNumber `(uc ~T0 @X0 1 ef1`*uc ]
-"179
+[; ;app_utils.c: 168: else if (memoryOpResult == OP_SUCCESS)
+[e $ ! == -> _memoryOpResult `i -> . `E8246 0 `i 911  ]
+[; ;app_utils.c: 169: {
+"169
 {
-[; ;app_utils.c: 178: uint8_t isMasterNumber(uint8_t* phoneNumber)
-[; ;app_utils.c: 179: {
-[e :U _isMasterNumber ]
-"178
-[v _phoneNumber `*uc ~T0 @X0 1 r1 ]
-"179
-[f ]
-"180
-[v _readBuffer `uc ~T0 @X0 -> -> -> 13 `i `uc `ux a ]
-"181
-[v _memoryOpResult `E8246 ~T0 @X0 1 a ]
-[; ;app_utils.c: 180: uint8_t readBuffer[((UINT8)(13))];
-[; ;app_utils.c: 181: EepromStsType memoryOpResult = OP_PENDING;
-[e = _memoryOpResult . `E8246 2 ]
-[; ;app_utils.c: 183: memoryOpResult = Eeprom_Read(16, readBuffer, ((UINT8)(13)));
-"183
-[e = _memoryOpResult ( _Eeprom_Read (3 , , -> -> 16 `i `uc &U _readBuffer -> -> 13 `i `uc ]
-[; ;app_utils.c: 184: if (memoryOpResult != OP_PENDING)
-"184
-[e $ ! != -> _memoryOpResult `i -> . `E8246 2 `i 911  ]
-[; ;app_utils.c: 185: {
-"185
-{
-[; ;app_utils.c: 186: if (isNumberValid(readBuffer))
-"186
-[e $ ! != -> ( _isNumberValid (1 &U _readBuffer `i -> -> -> 0 `i `uc `i 912  ]
-[; ;app_utils.c: 187: {
-"187
-{
-[; ;app_utils.c: 188: if (StringCompare(phoneNumber, readBuffer, ((UINT8)(13))))
-"188
-[e $ ! != -> ( _StringCompare (3 , , _phoneNumber &U _readBuffer -> -> -> 13 `i `uc `us `i -> -> -> 0 `i `uc `i 913  ]
-[; ;app_utils.c: 189: {
-"189
-{
-[; ;app_utils.c: 190: memoryOpResult = OP_SUCCESS;
-"190
-[e = _memoryOpResult . `E8246 0 ]
-"191
-}
-[e :U 913 ]
-"192
-}
-[e :U 912 ]
-"193
+[; ;app_utils.c: 170: currentState = SEARCH_FSM_CHECK_NUMBER;
+"170
+[e = F9019 . `E8973 1 ]
+"171
 }
 [e :U 911 ]
-[; ;app_utils.c: 191: }
-[; ;app_utils.c: 192: }
-[; ;app_utils.c: 193: }
-[; ;app_utils.c: 194: return memoryOpResult;
-"194
-[e ) -> _memoryOpResult `uc ]
-[e $UE 910  ]
-[; ;app_utils.c: 195: }
-"195
-[e :UE 910 ]
+"172
+[e :U 910 ]
+[; ;app_utils.c: 171: }
+[; ;app_utils.c: 172: break;
+[e $U 906  ]
+[; ;app_utils.c: 174: case SEARCH_FSM_CHECK_NUMBER:
+"174
+[e :U 912 ]
+[; ;app_utils.c: 175: currentState = SEARCH_FSM_NOT_FOUND;
+"175
+[e = F9019 . `E8973 4 ]
+[; ;app_utils.c: 176: if (isNumberValid(readBuffer))
+"176
+[e $ ! != -> ( _isNumberValid (1 &U _readBuffer `i -> -> -> 0 `i `uc `i 913  ]
+[; ;app_utils.c: 177: {
+"177
+{
+[; ;app_utils.c: 178: if (StringCompare(phoneNumber, readBuffer, ((UINT8)(13))))
+"178
+[e $ ! != -> ( _StringCompare (3 , , _phoneNumber &U _readBuffer -> -> -> 13 `i `uc `us `i -> -> -> 0 `i `uc `i 914  ]
+[; ;app_utils.c: 179: {
+"179
+{
+[; ;app_utils.c: 180: *positionInMemory = currentPosition;
+"180
+[e = *U _positionInMemory F9020 ]
+[; ;app_utils.c: 181: currentState = SEARCH_FSM_FOUND;
+"181
+[e = F9019 . `E8973 3 ]
+"182
 }
-"197
-[v _findEmptySpot `(uc ~T0 @X0 1 ef ]
-"198
+[; ;app_utils.c: 182: }
+[e $U 915  ]
+"183
+[e :U 914 ]
+[; ;app_utils.c: 183: else
+[; ;app_utils.c: 184: {
+"184
 {
-[; ;app_utils.c: 197: uint8_t findEmptySpot()
-[; ;app_utils.c: 198: {
-[e :U _findEmptySpot ]
-[f ]
-"199
-[v F9022 `uc ~T0 @X0 1 s currentPosition ]
-[i F9022
--> -> 32 `i `uc
-]
-"200
-[v _positionInMemory `uc ~T0 @X0 1 a ]
-[; ;app_utils.c: 199: static uint8_t currentPosition = 32;
-[; ;app_utils.c: 200: uint8_t positionInMemory = 0;
-[e = _positionInMemory -> -> 0 `i `uc ]
-"201
-[v _readBuffer `uc ~T0 @X0 -> -> -> 13 `i `uc `ux a ]
-"202
-[v _memoryOpResult `E8246 ~T0 @X0 1 a ]
-[; ;app_utils.c: 201: uint8_t readBuffer[((UINT8)(13))];
-[; ;app_utils.c: 202: EepromStsType memoryOpResult = OP_PENDING;
-[e = _memoryOpResult . `E8246 2 ]
-[; ;app_utils.c: 204: if (currentPosition >= 32 * 10)
-"204
-[e $ ! >= -> F9022 `i * -> 32 `i -> 10 `i 915  ]
-[; ;app_utils.c: 205: {
-"205
-{
-[; ;app_utils.c: 206: currentPosition = 32;
-"206
-[e = F9022 -> -> 32 `i `uc ]
-"207
+"186
 }
 [e :U 915 ]
-[; ;app_utils.c: 207: }
-[; ;app_utils.c: 208: memoryOpResult = Eeprom_Read(currentPosition, readBuffer, ((UINT8)(13)));
-"208
-[e = _memoryOpResult ( _Eeprom_Read (3 , , F9022 &U _readBuffer -> -> 13 `i `uc ]
-[; ;app_utils.c: 209: if (memoryOpResult != OP_PENDING)
-"209
-[e $ ! != -> _memoryOpResult `i -> . `E8246 2 `i 916  ]
-[; ;app_utils.c: 210: {
-"210
-{
-[; ;app_utils.c: 211: if (isNumberValid(readBuffer))
-"211
-[e $ ! != -> ( _isNumberValid (1 &U _readBuffer `i -> -> -> 0 `i `uc `i 917  ]
-[; ;app_utils.c: 212: {
-"212
-{
-[; ;app_utils.c: 213: currentPosition += 32;
-"213
-[e =+ F9022 -> -> 32 `i `uc ]
-"214
+"187
 }
-[; ;app_utils.c: 214: }
-[e $U 918  ]
-"215
-[e :U 917 ]
-[; ;app_utils.c: 215: else
-[; ;app_utils.c: 216: {
-"216
-{
-[; ;app_utils.c: 217: positionInMemory = currentPosition;
-"217
-[e = _positionInMemory F9022 ]
-[; ;app_utils.c: 218: currentPosition = 32 * 10;
-"218
-[e = F9022 -> * -> 32 `i -> 10 `i `uc ]
-"219
-}
-[e :U 918 ]
-"220
-}
+[e :U 913 ]
+[; ;app_utils.c: 186: }
+[; ;app_utils.c: 187: }
+[; ;app_utils.c: 188: currentPosition += 32;
+"188
+[e =+ F9020 -> -> 32 `i `uc ]
+[; ;app_utils.c: 189: break;
+"189
+[e $U 906  ]
+[; ;app_utils.c: 191: default:
+"191
 [e :U 916 ]
-[; ;app_utils.c: 219: }
-[; ;app_utils.c: 220: }
-[; ;app_utils.c: 221: if (positionInMemory == 0 && currentPosition >= 32 * 10)
-"221
-[e $ ! && == -> _positionInMemory `i -> 0 `i >= -> F9022 `i * -> 32 `i -> 10 `i 919  ]
-[; ;app_utils.c: 222: {
-"222
+[; ;app_utils.c: 192: break;
+"192
+[e $U 906  ]
+"193
+}
+[; ;app_utils.c: 193: }
+[e $U 906  ]
+"160
+[e :U 907 ]
+[e [\ F9019 , $ . `E8973 0 908
+ , $ . `E8973 1 912
+ 916 ]
+"193
+[e :U 906 ]
+[; ;app_utils.c: 194: return currentState;
+"194
+[e ) F9019 ]
+[e $UE 903  ]
+[; ;app_utils.c: 195: }
+"195
+[e :UE 903 ]
+}
+"232
+[v _isMasterNumber `(uc ~T0 @X0 1 ef1`*uc ]
+"233
 {
-[; ;app_utils.c: 223: positionInMemory = 1;
-"223
-[e = _positionInMemory -> -> 1 `i `uc ]
-"224
+[; ;app_utils.c: 232: uint8_t isMasterNumber(uint8_t* phoneNumber)
+[; ;app_utils.c: 233: {
+[e :U _isMasterNumber ]
+"232
+[v _phoneNumber `*uc ~T0 @X0 1 r1 ]
+"233
+[f ]
+"234
+[v _readBuffer `uc ~T0 @X0 -> -> -> 13 `i `uc `ux a ]
+"235
+[v _memoryOpResult `E8246 ~T0 @X0 1 a ]
+[; ;app_utils.c: 234: uint8_t readBuffer[((UINT8)(13))];
+[; ;app_utils.c: 235: EepromStsType memoryOpResult = OP_PENDING;
+[e = _memoryOpResult . `E8246 2 ]
+[; ;app_utils.c: 237: memoryOpResult = Eeprom_Read(16, readBuffer, ((UINT8)(13)));
+"237
+[e = _memoryOpResult ( _Eeprom_Read (3 , , -> -> 16 `i `uc &U _readBuffer -> -> 13 `i `uc ]
+[; ;app_utils.c: 238: if (memoryOpResult != OP_PENDING)
+"238
+[e $ ! != -> _memoryOpResult `i -> . `E8246 2 `i 918  ]
+[; ;app_utils.c: 239: {
+"239
+{
+[; ;app_utils.c: 240: memoryOpResult = OP_FAILED;
+"240
+[e = _memoryOpResult . `E8246 1 ]
+[; ;app_utils.c: 241: if (isNumberValid(readBuffer))
+"241
+[e $ ! != -> ( _isNumberValid (1 &U _readBuffer `i -> -> -> 0 `i `uc `i 919  ]
+[; ;app_utils.c: 242: {
+"242
+{
+[; ;app_utils.c: 243: if (StringCompare(phoneNumber, readBuffer, ((UINT8)(13))))
+"243
+[e $ ! != -> ( _StringCompare (3 , , _phoneNumber &U _readBuffer -> -> -> 13 `i `uc `us `i -> -> -> 0 `i `uc `i 920  ]
+[; ;app_utils.c: 244: {
+"244
+{
+[; ;app_utils.c: 245: memoryOpResult = OP_SUCCESS;
+"245
+[e = _memoryOpResult . `E8246 0 ]
+"246
+}
+[e :U 920 ]
+"247
 }
 [e :U 919 ]
-[; ;app_utils.c: 224: }
-[; ;app_utils.c: 225: return positionInMemory;
-"225
-[e ) _positionInMemory ]
-[e $UE 914  ]
-[; ;app_utils.c: 226: }
-"226
-[e :UE 914 ]
+"248
+}
+[e :U 918 ]
+[; ;app_utils.c: 246: }
+[; ;app_utils.c: 247: }
+[; ;app_utils.c: 248: }
+[; ;app_utils.c: 249: return memoryOpResult;
+"249
+[e ) -> _memoryOpResult `uc ]
+[e $UE 917  ]
+[; ;app_utils.c: 250: }
+"250
+[e :UE 917 ]
+}
+"283
+[v _findEmptySpot `(E8973 ~T0 @X0 1 ef1`*uc ]
+"284
+{
+[; ;app_utils.c: 283: searchFsmStates findEmptySpot(uint8_t* positionInMemory)
+[; ;app_utils.c: 284: {
+[e :U _findEmptySpot ]
+"283
+[v _positionInMemory `*uc ~T0 @X0 1 r1 ]
+"284
+[f ]
+"285
+[v F9033 `E8973 ~T0 @X0 1 s currentState ]
+[i F9033
+. `E8973 0
+]
+"286
+[v F9034 `uc ~T0 @X0 1 s currentPosition ]
+[i F9034
+-> -> 32 `i `uc
+]
+"287
+[v _readBuffer `uc ~T0 @X0 -> -> -> 13 `i `uc `ux a ]
+"288
+[v _memoryOpResult `E8246 ~T0 @X0 1 a ]
+[; ;app_utils.c: 285: static searchFsmStates currentState = SEARCH_FSM_START;
+[; ;app_utils.c: 286: static uint8_t currentPosition = 32;
+[; ;app_utils.c: 287: uint8_t readBuffer[((UINT8)(13))];
+[; ;app_utils.c: 288: EepromStsType memoryOpResult = OP_PENDING;
+[e = _memoryOpResult . `E8246 2 ]
+[; ;app_utils.c: 290: if (currentState > SEARCH_FSM_CHECK_NUMBER)
+"290
+[e $ ! > -> F9033 `i -> . `E8973 1 `i 922  ]
+[; ;app_utils.c: 291: {
+"291
+{
+[; ;app_utils.c: 292: currentState = SEARCH_FSM_START;
+"292
+[e = F9033 . `E8973 0 ]
+[; ;app_utils.c: 293: currentPosition = 32;
+"293
+[e = F9034 -> -> 32 `i `uc ]
+"294
+}
+[e :U 922 ]
+[; ;app_utils.c: 294: }
+[; ;app_utils.c: 295: if (currentPosition >= 32 * 10)
+"295
+[e $ ! >= -> F9034 `i * -> 32 `i -> 10 `i 923  ]
+[; ;app_utils.c: 296: {
+"296
+{
+[; ;app_utils.c: 297: currentState = SEARCH_FSM_NOT_FOUND;
+"297
+[e = F9033 . `E8973 4 ]
+"298
+}
+[e :U 923 ]
+[; ;app_utils.c: 298: }
+[; ;app_utils.c: 300: switch (currentState)
+"300
+[e $U 925  ]
+[; ;app_utils.c: 301: {
+"301
+{
+[; ;app_utils.c: 302: case SEARCH_FSM_START:
+"302
+[e :U 926 ]
+[; ;app_utils.c: 303: memoryOpResult = Eeprom_Read(currentPosition, readBuffer, ((UINT8)(13)));
+"303
+[e = _memoryOpResult ( _Eeprom_Read (3 , , F9034 &U _readBuffer -> -> 13 `i `uc ]
+[; ;app_utils.c: 304: if (memoryOpResult == OP_FAILED)
+"304
+[e $ ! == -> _memoryOpResult `i -> . `E8246 1 `i 927  ]
+[; ;app_utils.c: 305: {
+"305
+{
+[; ;app_utils.c: 306: currentState = SEARCH_FSM_ERROR;
+"306
+[e = F9033 . `E8973 2 ]
+"307
+}
+[; ;app_utils.c: 307: }
+[e $U 928  ]
+"308
+[e :U 927 ]
+[; ;app_utils.c: 308: else if (memoryOpResult == OP_SUCCESS)
+[e $ ! == -> _memoryOpResult `i -> . `E8246 0 `i 929  ]
+[; ;app_utils.c: 309: {
+"309
+{
+[; ;app_utils.c: 310: currentState = SEARCH_FSM_CHECK_NUMBER;
+"310
+[e = F9033 . `E8973 1 ]
+"311
+}
+[e :U 929 ]
+"312
+[e :U 928 ]
+[; ;app_utils.c: 311: }
+[; ;app_utils.c: 312: break;
+[e $U 924  ]
+[; ;app_utils.c: 314: case SEARCH_FSM_CHECK_NUMBER:
+"314
+[e :U 930 ]
+[; ;app_utils.c: 315: if (isNumberValid(readBuffer))
+"315
+[e $ ! != -> ( _isNumberValid (1 &U _readBuffer `i -> -> -> 0 `i `uc `i 931  ]
+[; ;app_utils.c: 316: {
+"316
+{
+[; ;app_utils.c: 317: currentPosition += 32;
+"317
+[e =+ F9034 -> -> 32 `i `uc ]
+[; ;app_utils.c: 318: currentState = SEARCH_FSM_START;
+"318
+[e = F9033 . `E8973 0 ]
+"319
+}
+[; ;app_utils.c: 319: }
+[e $U 932  ]
+"320
+[e :U 931 ]
+[; ;app_utils.c: 320: else
+[; ;app_utils.c: 321: {
+"321
+{
+[; ;app_utils.c: 322: currentState = SEARCH_FSM_NOT_FOUND;
+"322
+[e = F9033 . `E8973 4 ]
+[; ;app_utils.c: 323: *positionInMemory = currentPosition;
+"323
+[e = *U _positionInMemory F9034 ]
+"324
+}
+[e :U 932 ]
+[; ;app_utils.c: 324: }
+[; ;app_utils.c: 325: break;
+"325
+[e $U 924  ]
+[; ;app_utils.c: 327: default:
+"327
+[e :U 933 ]
+[; ;app_utils.c: 328: break;
+"328
+[e $U 924  ]
+"329
+}
+[; ;app_utils.c: 329: }
+[e $U 924  ]
+"300
+[e :U 925 ]
+[e [\ F9033 , $ . `E8973 0 926
+ , $ . `E8973 1 930
+ 933 ]
+"329
+[e :U 924 ]
+[; ;app_utils.c: 330: return currentState;
+"330
+[e ) F9033 ]
+[e $UE 921  ]
+[; ;app_utils.c: 331: }
+"331
+[e :UE 921 ]
 }

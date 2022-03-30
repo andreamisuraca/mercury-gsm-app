@@ -133,13 +133,18 @@ UINT8 Eeprom_Reset (void)
     const UINT8 SlaveAddress = 0x50;
     static UINT8 memoryAddress = 0;
 
+    if (memoryAddress == 0)
+    {
+        ClearBuffer(EepromBuffer, MAX_EEPROM_BUFFER);
+    }
+
     EepromBuffer[0] = memoryAddress;
     I2cSlv_SendI2cMsg(EepromBuffer, SlaveAddress, MAX_EEPROM_BUFFER);
 
     memoryAddress += 16;
     if (memoryAddress >= 224)
     {
-        ClearBuffer(EepromBuffer, MAX_EEPROM_BUFFER);
+        EepromBuffer[0] = 0;
         memoryAddress = 0;
     }
     return memoryAddress;

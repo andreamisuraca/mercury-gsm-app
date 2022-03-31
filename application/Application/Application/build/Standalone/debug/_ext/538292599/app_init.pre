@@ -11350,8 +11350,9 @@ currentState = EEPROM_EMPTY;
 break;
 
 case EEPROM_EMPTY:
-isInitialized = 1;
 currentState = EEPROM_INIT;
+isInitialized = 1;
+isMemoryEmpty = 1;
 break;
 
 case EEPROM_NOT_EMPTY:
@@ -11366,7 +11367,7 @@ break;
 return isInitialized;
 }
 
-# 178
+# 179
 bool getSetupCall(void)
 {
 bool isCalledReceived = 0;
@@ -11379,7 +11380,7 @@ isCalledReceived = 1;
 return isCalledReceived;
 }
 
-# 194
+# 195
 bool waitSetupCall(void)
 {
 bool isCallArrived = 0;
@@ -11403,7 +11404,7 @@ void savePreamble()
 Eeprom_Write(0, initPreamble(), 4);
 }
 
-# 224
+# 225
 bool initFsm(void)
 {
 static initFsmStates currentState = INIT_FSM_MODEM;
@@ -11459,7 +11460,7 @@ break;
 return isInitialized;
 }
 
-# 284
+# 285
 uint8_t* initPreamble()
 {
 memoryPreamble[0] = 'U';

@@ -155,8 +155,9 @@ bool initEeprom(void)
         break;
 
     case EEPROM_EMPTY:
-        isInitialized = true;
         currentState = EEPROM_INIT;
+        isInitialized = true;
+        isMemoryEmpty = true;
         break;
 
     case EEPROM_NOT_EMPTY:

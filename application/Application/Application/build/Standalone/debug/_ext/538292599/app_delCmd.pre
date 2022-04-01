@@ -11262,30 +11262,33 @@ bool delCmdFsm(uint8_t* receivedNumber, uint8_t* smsText)
 const uint8_t emptyNumber[((UINT8)(13))] = {0};
 static delFsmStates currentState = DEL_FSM_CHECK_MASTER;
 bool isComplete = 0;
-uint8_t numberInMemory = 1;
+uint8_t numberInMemory = 0;
+uint8_t masterOpResult = OP_FAILED;
+uint8_t searchNumber = OP_FAILED;
 
 switch (currentState)
 {
 case DEL_FSM_CHECK_MASTER:
-if (isMasterNumber(receivedNumber) == OP_SUCCESS)
+masterOpResult = isMasterNumber(receivedNumber);
+if (masterOpResult == OP_SUCCESS)
 {
 currentState = DEL_FSM_REMOVE_NUMBER;
 }
-else
+else if (masterOpResult == OP_FAILED)
 {
 currentState = DEL_FSM_COMPLETE;
 }
 break;
 
 case DEL_FSM_REMOVE_NUMBER:
-
-if (numberInMemory == 1)
-{
-currentState = DEL_FSM_COMPLETE;
-}
-else if (numberInMemory != 0 && numberInMemory != 1 && numberInMemory != 32)
+searchNumber = isNumberInMemory(smsText + 4, &numberInMemory);
+if (searchNumber == SEARCH_FSM_FOUND)
 {
 saveNumberInMemory(numberInMemory, emptyNumber);
+currentState = DEL_FSM_COMPLETE;
+}
+else if (searchNumber == SEARCH_FSM_NOT_FOUND || searchNumber == SEARCH_FSM_ERROR)
+{
 currentState = DEL_FSM_COMPLETE;
 }
 break;

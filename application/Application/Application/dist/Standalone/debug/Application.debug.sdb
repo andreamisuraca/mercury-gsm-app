@@ -945,11 +945,19 @@ DEL_FSM_CHECK_MASTER 0
 DEL_FSM_REMOVE_NUMBER 1
 DEL_FSM_COMPLETE 2
 ]
-"81
+"77
 [e E8246 _EepromSts `uc
 OP_SUCCESS 0
 OP_FAILED 1
 OP_PENDING 2
+]
+"95
+[e E8973 _searchFsmStates `uc
+SEARCH_FSM_START 0
+SEARCH_FSM_CHECK_NUMBER 1
+SEARCH_FSM_ERROR 2
+SEARCH_FSM_FOUND 3
+SEARCH_FSM_NOT_FOUND 4
 ]
 "85 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app_triggerCmd.c
 [e E9003 _triggerFsmStates `uc
@@ -3570,19 +3578,23 @@ TRIGGER_FSM_COMPLETE 3
 [v _delCmdFsm delCmdFsm `(uc  1 e 1 0 ]
 {
 "73
-[v delCmdFsm@emptyNumber emptyNumber `C[13]uc  1 a 13 7 ]
+[v delCmdFsm@emptyNumber emptyNumber `C[13]uc  1 a 13 9 ]
+"78
+[v delCmdFsm@searchNumber searchNumber `uc  1 a 1 25 ]
 "76
-[v delCmdFsm@numberInMemory numberInMemory `uc  1 a 1 21 ]
+[v delCmdFsm@numberInMemory numberInMemory `uc  1 a 1 24 ]
+"77
+[v delCmdFsm@masterOpResult masterOpResult `uc  1 a 1 23 ]
 "75
-[v delCmdFsm@isComplete isComplete `uc  1 a 1 20 ]
+[v delCmdFsm@isComplete isComplete `uc  1 a 1 22 ]
 "71
-[v delCmdFsm@receivedNumber receivedNumber `*.39uc  1 p 2 3 ]
-[v delCmdFsm@smsText smsText `*.39uc  1 p 2 5 ]
+[v delCmdFsm@receivedNumber receivedNumber `*.39uc  1 p 2 5 ]
+[v delCmdFsm@smsText smsText `*.39uc  1 p 2 7 ]
 "72
 [v delCmdFsm@F9013 F9013 `C[13]uc  1 s 13 F9013 ]
 "74
 [v delCmdFsm@currentState currentState `E9004  1 s 1 currentState ]
-"113
+"116
 } 0
 "72 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app_addCmd.c
 [v _addCmdFsm addCmdFsm `(uc  1 e 1 0 ]

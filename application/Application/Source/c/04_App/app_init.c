@@ -62,6 +62,7 @@ typedef enum _initFsmStates
     INIT_FSM_PREAMBLE,
     INIT_FSM_COMPLETE
 } initFsmStates;
+
 /************************************************************************
 * LOCAL Variables
 ************************************************************************/
@@ -222,7 +223,7 @@ void savePreamble()
  * @brief 
  * 
  */
-bool initFsm(void)
+bool initFsm(bool* isCmdSuccessfull)
 {
     static initFsmStates currentState = INIT_FSM_MODEM;
     bool isInitialized = false;
@@ -252,7 +253,10 @@ bool initFsm(void)
                 saveNumberInMemory(MASTER_NUMBER_ADDRESS, GetCallerNumber());
                 currentState = INIT_FSM_PREAMBLE;
             }
-            // todo: add wait for usb command
+            if (detectUsbNumber(isCmdSuccessfull))
+            {
+                currentState = INIT_FSM_PREAMBLE;
+            }
         }
         else
         {
@@ -289,4 +293,18 @@ uint8_t* initPreamble()
     memoryPreamble[2] = 'I';
     memoryPreamble[3] = 'M';
     return memoryPreamble;
+}
+
+bool detectUsbNumber(bool* isCmdSuccessfull)
+{
+    bool isActionPerformed = false;
+
+    if (IsUsbNumberReceived == TRUE)
+    {
+        saveNumberInMemory(MASTER_NUMBER_ADDRESS, UsbMasterPhoneNumber);
+        *isCmdSuccessfull = true;
+        isActionPerformed = true;
+        IsUsbNumberReceived = FALSE;
+    }
+    return isActionPerformed;
 }

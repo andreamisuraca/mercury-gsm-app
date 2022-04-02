@@ -92,6 +92,7 @@
         <itemPath>../Source/h/04_App/app_addCmd.h</itemPath>
         <itemPath>../Source/h/04_App/app_delCmd.h</itemPath>
         <itemPath>../Source/h/04_App/app_triggerCmd.h</itemPath>
+        <itemPath>../Source/h/04_App/app_resCmd.h</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
@@ -174,6 +175,7 @@
         <itemPath>../Source/c/04_App/app_addCmd.c</itemPath>
         <itemPath>../Source/c/04_App/app_delCmd.c</itemPath>
         <itemPath>../Source/c/04_App/app_triggerCmd.c</itemPath>
+        <itemPath>../Source/c/04_App/app_resCmd.c</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"

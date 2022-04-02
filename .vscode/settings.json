@@ -5,6 +5,7 @@
         "cstdlib": "c",
         "memory": "c",
         "new": "c",
-        "app_gate.h": "c"
+        "app_gate.h": "c",
+        "hal.h": "c"
     }
 }

@@ -11184,7 +11184,9 @@ extern UINT16 UsbMasterPhoneNumberLen;
 
 extern char UsbMasterPhoneNumber[((UINT16)(15))];
 
-# 58
+extern UINT8 IsUsbNumberReceived;
+
+# 59
 void Term_MainTask (UINT8 Options);
 
 # 52 "../../MercuryFwk/Source/h/03_Sml/02_Ssl/ext_int.h"
@@ -11222,9 +11224,11 @@ void Sch_SchmIntService (void);
 void MyApp_Task (UINT8 Options);
 
 # 51 "../Source/h/04_App/app_init.h"
-bool initFsm(void);
+bool initFsm(bool* isCmdSuccessfull);
 
 uint8_t* initPreamble();
+
+bool detectUsbNumber(bool* isCmdSuccessfull);
 
 # 47 "../Source/h/04_App/app_utils.h"
 typedef enum _searchFsmStates
@@ -11274,12 +11278,12 @@ INIT_FSM_PREAMBLE,
 INIT_FSM_COMPLETE
 } initFsmStates;
 
-# 69
+# 70
 static uint8_t memoryPreamble[4];
 static uint16_t setupCallTicks = 0;
 static bool isMemoryEmpty = 1;
 
-# 86
+# 87
 bool initGprsModem(void)
 {
 static uint16_t modemCounter = 0;
@@ -11320,7 +11324,7 @@ break;
 return isInitialized;
 }
 
-# 130
+# 131
 bool initEeprom(void)
 {
 const uint8_t addressToRead = 0;
@@ -11366,7 +11370,7 @@ break;
 return isInitialized;
 }
 
-# 179
+# 180
 bool getSetupCall(void)
 {
 bool isCalledReceived = 0;
@@ -11379,7 +11383,7 @@ isCalledReceived = 1;
 return isCalledReceived;
 }
 
-# 195
+# 196
 bool waitSetupCall(void)
 {
 bool isCallArrived = 0;
@@ -11403,8 +11407,8 @@ void savePreamble()
 Eeprom_Write(0, initPreamble(), 4);
 }
 
-# 225
-bool initFsm(void)
+# 226
+bool initFsm(bool* isCmdSuccessfull)
 {
 static initFsmStates currentState = INIT_FSM_MODEM;
 bool isInitialized = 0;
@@ -11434,7 +11438,10 @@ if (waitSetupCall())
 saveNumberInMemory(16, GetCallerNumber());
 currentState = INIT_FSM_PREAMBLE;
 }
-
+if (detectUsbNumber(isCmdSuccessfull))
+{
+currentState = INIT_FSM_PREAMBLE;
+}
 }
 else
 {
@@ -11459,7 +11466,7 @@ break;
 return isInitialized;
 }
 
-# 285
+# 289
 uint8_t* initPreamble()
 {
 memoryPreamble[0] = 'U';
@@ -11467,4 +11474,18 @@ memoryPreamble[1] = 'S';
 memoryPreamble[2] = 'I';
 memoryPreamble[3] = 'M';
 return memoryPreamble;
+}
+
+bool detectUsbNumber(bool* isCmdSuccessfull)
+{
+bool isActionPerformed = 0;
+
+if (IsUsbNumberReceived == 1)
+{
+saveNumberInMemory(16, UsbMasterPhoneNumber);
+*isCmdSuccessfull = 1;
+isActionPerformed = 1;
+IsUsbNumberReceived = 0;
+}
+return isActionPerformed;
 }

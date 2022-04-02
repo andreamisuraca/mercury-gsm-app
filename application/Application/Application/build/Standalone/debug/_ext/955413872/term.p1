@@ -1,7 +1,7 @@
 Version 3.2 HI-TECH Software Intermediate Code
 [v F7983 `(v ~T0 @X0 0 tf ]
 [v F8056 `(v ~T0 @X0 0 tf ]
-"330 ../../MercuryFwk/Source/c/03_Sml/02_Ssl/term.c
+"331 ../../MercuryFwk/Source/c/03_Sml/02_Ssl/term.c
 [c E8330 0 1 2 4 8 16 32 .. ]
 [n E8330 . DETACHED_STATE ATTACHED_STATE POWERED_STATE DEFAULT_STATE ADR_PENDING_STATE ADDRESS_STATE CONFIGURED_STATE  ]
 "2053 ../../MercuryFwk/Source/h/03_Sml/01_Pml/04_Usb/usb_device.h
@@ -20,7 +20,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _Uart_WriteStringLen `(v ~T0 @X0 0 ef3`uc`*uc`uc ]
 "55 ../../MercuryFwk/Source/h/03_Sml/02_Ssl/sf.h
 [v _ClearBuffer `(v ~T0 @X0 0 ef2`*uc`us ]
-"368 ../../MercuryFwk/Source/c/03_Sml/02_Ssl/term.c
+"369 ../../MercuryFwk/Source/c/03_Sml/02_Ssl/term.c
 [c E7699 0 1 2 3 .. ]
 [n E7699 EventStatusEnum EventIdle EventReceived EventSent EventNotSent  ]
 "52 ../../MercuryFwk/Source/h/02_Osl/os_ser.h
@@ -38,13 +38,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _cdc_trf_state `uc ~T0 @X0 0 e ]
 "695
 [v _putUSBUSART `(v ~T0 @X0 0 ef2`*uc`uc ]
-"430 ../../MercuryFwk/Source/c/03_Sml/02_Ssl/term.c
-[c E8984 0 1 2 3 .. ]
-[n E8984 _TermStateType Term_GetData Term_PrepSlvI2cResp Term_ReadSlvI2cData Term_ReadSlvUartData  ]
+"431 ../../MercuryFwk/Source/c/03_Sml/02_Ssl/term.c
+[c E8985 0 1 2 3 .. ]
+[n E8985 _TermStateType Term_GetData Term_PrepSlvI2cResp Term_ReadSlvI2cData Term_ReadSlvUartData  ]
 "94
 [s S887 `uc -> 4 `i ]
 [n S887 _PayloadType Byte ]
-"445
+"446
 [c E7757 0 1 2 .. ]
 [n E7757 _SwTimerStatusType SwTmrNotExpired SwTimerExpired SwTimerDisabled  ]
 [c E7762 0 1 .. ]
@@ -62,23 +62,23 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _I2cSlv_SendI2cMsg `(uc ~T0 @X0 0 ef3`*uc`uc`uc ]
 "90
 [v _I2cSlv_ReceiveI2cMsg `(uc ~T0 @X0 0 ef3`*uc`uc`uc ]
-"637 ../../MercuryFwk/Source/c/03_Sml/02_Ssl/term.c
+"639 ../../MercuryFwk/Source/c/03_Sml/02_Ssl/term.c
 [c E8102 0 1 .. ]
 [n E8102 _I2cReadMsgSts MessageNotReceived MessageReceived  ]
 "92 ../../MercuryFwk/Source/h/03_Sml/01_Pml/02_SlvI2c/i2c_slv.h
 [v _I2cSlv_I2cReadMsgSts `(E8102 ~T0 @X0 0 ef ]
 "95 /opt/microchip/xc8/v1.45/include/stdlib.h
 [v _itoa `(*uc ~T0 @X0 0 ef3`*uc`i`i ]
-"674 ../../MercuryFwk/Source/c/03_Sml/02_Ssl/term.c
+"676 ../../MercuryFwk/Source/c/03_Sml/02_Ssl/term.c
 [c E7766 0 1 .. ]
 [n E7766 _DelayStatusType DelayNotExpired DelayExpired  ]
 "108 ../../MercuryFwk/Source/h/02_Osl/os_timers.h
 [v _OsTmr_Wait `(E7766 ~T0 @X0 0 ef2`*S804`ul ]
 "37 /opt/microchip/xc8/v1.45/include/string.h
 [v _strcpy `(*uc ~T0 @X0 0 ef2`*uc`*Cuc ]
-"709 ../../MercuryFwk/Source/c/03_Sml/02_Ssl/term.c
-[c E8973 0 1 2 3 4 5 6 7 8 .. ]
-[n E8973 _TermMainSmStateType Term_StartTmr Term_InitDelay Term_InitState Term_WelcomeState Term_InstDescState Term_FwkVerState Term_FwkBuildDateState Term_SysInitState Term_FinalState  ]
+"711 ../../MercuryFwk/Source/c/03_Sml/02_Ssl/term.c
+[c E8974 0 1 2 3 4 5 6 7 8 .. ]
+[n E8974 _TermMainSmStateType Term_StartTmr Term_InitDelay Term_InitState Term_WelcomeState Term_InstDescState Term_FwkVerState Term_FwkBuildDateState Term_SysInitState Term_FinalState  ]
 "104 ../../MercuryFwk/Source/h/02_Osl/os_timers.h
 [v _OsTmr_StartTimer `(v ~T0 @X0 0 ef2`*S804`ul ]
 "110
@@ -93,7 +93,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _strlen `(ui ~T0 @X0 0 ef1`*Cuc ]
 "194 /opt/microchip/xc8/v1.45/include/stdio.h
 [v _sprintf `(i ~T0 @X0 0 e1v`*uc`*Cuc ]
-"847 ../../MercuryFwk/Source/c/03_Sml/02_Ssl/term.c
+"849 ../../MercuryFwk/Source/c/03_Sml/02_Ssl/term.c
 [c E8958 0 1 .. ]
 [n E8958 SystemStateEnum InitializationState RunningState  ]
 "79 ../../MercuryFwk/Source/h/02_Osl/os_sched.h
@@ -8321,7 +8321,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;os_sched.h: 88: void Sch_SchmIntService (void);
 [; ;term.h: 51: extern UINT16 UsbMasterPhoneNumberLen;
 [; ;term.h: 53: extern char UsbMasterPhoneNumber[((UINT16)(15))];
-[; ;term.h: 58: void Term_MainTask (UINT8 Options);
+[; ;term.h: 55: extern UINT8 IsUsbNumberReceived;
+[; ;term.h: 59: void Term_MainTask (UINT8 Options);
 [; ;term.c: 71: typedef enum _TermMainSmStateType
 [; ;term.c: 72: {
 [; ;term.c: 73: Term_StartTmr,
@@ -8791,831 +8792,840 @@ Version 3.2 HI-TECH Software Intermediate Code
 "145
 [v _UsbMasterPhoneNumber `uc ~T0 @X0 -> -> -> 15 `i `us `ux e ]
 [; ;term.c: 145: UINT8 UsbMasterPhoneNumber[((UINT16)(15))];
-"319
-[v _GsmGprsTerminal `(v ~T0 @X0 1 ef ]
-"320
-{
-[; ;term.c: 319: void GsmGprsTerminal (void)
-[; ;term.c: 320: {
-[e :U _GsmGprsTerminal ]
-[f ]
-"321
-[v F8999 `uc ~T0 @X0 -> 200 `ui s UsbBuffer ]
-"322
-[v F9000 `uc ~T0 @X0 -> 200 `ui s UartBuffer ]
-"323
-[v F9001 `uc ~T0 @X0 1 s FirstRecFlag ]
-[i F9001
+"146
+[v _IsUsbNumberReceived `uc ~T0 @X0 1 e ]
+[i _IsUsbNumberReceived
 -> -> 0 `i `uc
 ]
+[; ;term.c: 146: UINT8 IsUsbNumberReceived = 0;
+"320
+[v _GsmGprsTerminal `(v ~T0 @X0 1 ef ]
+"321
+{
+[; ;term.c: 320: void GsmGprsTerminal (void)
+[; ;term.c: 321: {
+[e :U _GsmGprsTerminal ]
+[f ]
+"322
+[v F9000 `uc ~T0 @X0 -> 200 `ui s UsbBuffer ]
+"323
+[v F9001 `uc ~T0 @X0 -> 200 `ui s UartBuffer ]
 "324
-[v F9002 `uc ~T0 @X0 1 s SMS ]
+[v F9002 `uc ~T0 @X0 1 s FirstRecFlag ]
 [i F9002
 -> -> 0 `i `uc
 ]
 "325
-[v _UartIndex `uc ~T0 @X0 1 a ]
-[; ;term.c: 321: static UINT8 UsbBuffer[200u];
-[; ;term.c: 322: static UINT8 UartBuffer[200u];
-[; ;term.c: 323: static UINT8 FirstRecFlag = 0;
-[; ;term.c: 324: static UINT8 SMS = 0;
-[; ;term.c: 325: UINT8 UartIndex = 0;
-[e = _UartIndex -> -> 0 `i `uc ]
+[v F9003 `uc ~T0 @X0 1 s SMS ]
+[i F9003
+-> -> 0 `i `uc
+]
 "326
-[v _ReceivedBytes `uc ~T0 @X0 1 a ]
-[; ;term.c: 326: UINT8 ReceivedBytes = 0;
-[e = _ReceivedBytes -> -> 0 `i `uc ]
+[v _UartIndex `uc ~T0 @X0 1 a ]
+[; ;term.c: 322: static UINT8 UsbBuffer[200u];
+[; ;term.c: 323: static UINT8 UartBuffer[200u];
+[; ;term.c: 324: static UINT8 FirstRecFlag = 0;
+[; ;term.c: 325: static UINT8 SMS = 0;
+[; ;term.c: 326: UINT8 UartIndex = 0;
+[e = _UartIndex -> -> 0 `i `uc ]
 "327
+[v _ReceivedBytes `uc ~T0 @X0 1 a ]
+[; ;term.c: 327: UINT8 ReceivedBytes = 0;
+[e = _ReceivedBytes -> -> 0 `i `uc ]
+"328
 [v _Index `uc ~T0 @X0 1 a ]
-[; ;term.c: 327: UINT8 Index;
-[; ;term.c: 330: if((USBDeviceState < CONFIGURED_STATE)||(UCONbits.SUSPND == 1))
-"330
-[e $ ! || < -> _USBDeviceState `i -> . `E8330 6 `i == -> . . _UCONbits 0 1 `i -> 1 `i 889  ]
-[; ;term.c: 331: {
+[; ;term.c: 328: UINT8 Index;
+[; ;term.c: 331: if((USBDeviceState < CONFIGURED_STATE)||(UCONbits.SUSPND == 1))
 "331
-{
-[; ;term.c: 332: return;
+[e $ ! || < -> _USBDeviceState `i -> . `E8330 6 `i == -> . . _UCONbits 0 1 `i -> 1 `i 889  ]
+[; ;term.c: 332: {
 "332
-[e $UE 888  ]
+{
+[; ;term.c: 333: return;
 "333
+[e $UE 888  ]
+"334
 }
 [e :U 889 ]
-[; ;term.c: 333: }
-[; ;term.c: 336: ReceivedBytes = getsUSBUSART(UsbBuffer,200u);
-"336
-[e = _ReceivedBytes ( _getsUSBUSART (2 , &U F8999 -> -> 200 `ui `uc ]
-[; ;term.c: 338: if (ReceivedBytes > 0)
-"338
-[e $ ! > -> _ReceivedBytes `i -> 0 `i 890  ]
-[; ;term.c: 339: {
+[; ;term.c: 334: }
+[; ;term.c: 337: ReceivedBytes = getsUSBUSART(UsbBuffer,200u);
+"337
+[e = _ReceivedBytes ( _getsUSBUSART (2 , &U F9000 -> -> 200 `ui `uc ]
+[; ;term.c: 339: if (ReceivedBytes > 0)
 "339
+[e $ ! > -> _ReceivedBytes `i -> 0 `i 890  ]
+[; ;term.c: 340: {
+"340
 {
-[; ;term.c: 341: if (UsbBuffer[0] == '#')
-"341
-[e $ ! == -> *U + &U F8999 * -> -> -> 0 `i `ui `ux -> -> # *U &U F8999 `ui `ux `ui -> 35 `ui 891  ]
-[; ;term.c: 342: {
+[; ;term.c: 342: if (UsbBuffer[0] == '#')
 "342
-{
-[; ;term.c: 343: if (UsbBuffer[1] == 'S')
+[e $ ! == -> *U + &U F9000 * -> -> -> 0 `i `ui `ux -> -> # *U &U F9000 `ui `ux `ui -> 35 `ui 891  ]
+[; ;term.c: 343: {
 "343
-[e $ ! == -> *U + &U F8999 * -> -> -> 1 `i `ui `ux -> -> # *U &U F8999 `ui `ux `ui -> 83 `ui 892  ]
-[; ;term.c: 344: {
-"344
 {
-[; ;term.c: 345: SMS = 1;
+[; ;term.c: 344: if (UsbBuffer[1] == 'S')
+"344
+[e $ ! == -> *U + &U F9000 * -> -> -> 1 `i `ui `ux -> -> # *U &U F9000 `ui `ux `ui -> 83 `ui 892  ]
+[; ;term.c: 345: {
 "345
-[e = F9002 -> -> 1 `i `uc ]
+{
+[; ;term.c: 346: SMS = 1;
 "346
-}
-[e :U 892 ]
+[e = F9003 -> -> 1 `i `uc ]
 "347
 }
-[; ;term.c: 346: }
-[; ;term.c: 347: }
-[e $U 893  ]
+[e :U 892 ]
 "348
-[e :U 891 ]
-[; ;term.c: 348: else
-[; ;term.c: 349: {
+}
+[; ;term.c: 347: }
+[; ;term.c: 348: }
+[e $U 893  ]
 "349
+[e :U 891 ]
+[; ;term.c: 349: else
+[; ;term.c: 350: {
+"350
 {
-[; ;term.c: 351: for (Index = 0; Index < ReceivedBytes; Index++)
-"351
+[; ;term.c: 352: for (Index = 0; Index < ReceivedBytes; Index++)
+"352
 {
 [e = _Index -> -> 0 `i `uc ]
 [e $U 897  ]
-"352
-[e :U 894 ]
-[; ;term.c: 352: {
-{
-[; ;term.c: 353: UartBuffer[UartIndex] = UsbBuffer[UartIndex];
 "353
-[e = *U + &U F9000 * -> _UartIndex `ux -> -> # *U &U F9000 `ui `ux *U + &U F8999 * -> _UartIndex `ux -> -> # *U &U F8999 `ui `ux ]
-[; ;term.c: 354: UartIndex++;
+[e :U 894 ]
+[; ;term.c: 353: {
+{
+[; ;term.c: 354: UartBuffer[UartIndex] = UsbBuffer[UartIndex];
 "354
-[e ++ _UartIndex -> -> 1 `i `uc ]
+[e = *U + &U F9001 * -> _UartIndex `ux -> -> # *U &U F9001 `ui `ux *U + &U F9000 * -> _UartIndex `ux -> -> # *U &U F9000 `ui `ux ]
+[; ;term.c: 355: UartIndex++;
 "355
+[e ++ _UartIndex -> -> 1 `i `uc ]
+"356
 }
-"351
+"352
 [e ++ _Index -> -> 1 `i `uc ]
 [e :U 897 ]
 [e $ < -> _Index `i -> _ReceivedBytes `i 894  ]
 [e :U 895 ]
-"355
+"356
 }
-[; ;term.c: 355: }
-[; ;term.c: 357: if (SMS == 1)
-"357
-[e $ ! == -> F9002 `i -> 1 `i 898  ]
-[; ;term.c: 358: {
+[; ;term.c: 356: }
+[; ;term.c: 358: if (SMS == 1)
 "358
-{
-[; ;term.c: 359: SMS = 0;
+[e $ ! == -> F9003 `i -> 1 `i 898  ]
+[; ;term.c: 359: {
 "359
-[e = F9002 -> -> 0 `i `uc ]
-[; ;term.c: 360: UartBuffer[UartIndex - 1] = 0x1A;
+{
+[; ;term.c: 360: SMS = 0;
 "360
-[e = *U + &U F9000 * -> -> - -> _UartIndex `i -> 1 `i `ui `ux -> -> # *U &U F9000 `ui `ux -> -> 26 `i `uc ]
+[e = F9003 -> -> 0 `i `uc ]
+[; ;term.c: 361: UartBuffer[UartIndex - 1] = 0x1A;
 "361
+[e = *U + &U F9001 * -> -> - -> _UartIndex `i -> 1 `i `ui `ux -> -> # *U &U F9001 `ui `ux -> -> 26 `i `uc ]
+"362
 }
 [e :U 898 ]
-[; ;term.c: 361: }
-[; ;term.c: 362: Uart_WriteStringLen(((UINT8)(1)),UartBuffer,UartIndex);
-"362
-[e ( _Uart_WriteStringLen (3 , , -> -> 1 `i `uc &U F9000 _UartIndex ]
-[; ;term.c: 363: ClearBuffer(UartBuffer, sizeof(UartBuffer));
+[; ;term.c: 362: }
+[; ;term.c: 363: Uart_WriteStringLen(((UINT8)(1)),UartBuffer,UartIndex);
 "363
-[e ( _ClearBuffer (2 , &U F9000 -> -> # F9000 `ui `us ]
+[e ( _Uart_WriteStringLen (3 , , -> -> 1 `i `uc &U F9001 _UartIndex ]
+[; ;term.c: 364: ClearBuffer(UartBuffer, sizeof(UartBuffer));
 "364
-}
-[e :U 893 ]
+[e ( _ClearBuffer (2 , &U F9001 -> -> # F9001 `ui `us ]
 "365
 }
-[e :U 890 ]
-[; ;term.c: 364: }
-[; ;term.c: 365: }
-[; ;term.c: 368: if (ReceiveEvt(&NewStringMdmTerminal))
-"368
-[e $ ! != -> ( _ReceiveEvt (1 &U _NewStringMdmTerminal `i -> -> -> 0 `i `E7699 `i 899  ]
-[; ;term.c: 369: {
-"369
-{
-[; ;term.c: 371: RxBuffer[RxLen] = '\r';
-"371
-[e = *U + &U _RxBuffer * -> _RxLen `ux -> -> # *U &U _RxBuffer `ui `ux -> -> 13 `ui `uc ]
-[; ;term.c: 372: RxBuffer[RxLen + 1] = '\n';
-"372
-[e = *U + &U _RxBuffer * -> + -> _RxLen `ui -> -> 1 `i `ui `ux -> -> # *U &U _RxBuffer `ui `ux -> -> 10 `ui `uc ]
-[; ;term.c: 374: if((cdc_trf_state == 0))
-"374
-[e $ ! == -> _cdc_trf_state `i -> 0 `i 900  ]
-[; ;term.c: 375: {
-"375
-{
-[; ;term.c: 376: putUSBUSART(RxBuffer,(RxLen + 2));
-"376
-[e ( _putUSBUSART (2 , &U _RxBuffer -> + -> _RxLen `ui -> -> 2 `i `ui `uc ]
-"377
+[e :U 893 ]
+"366
 }
-[e :U 900 ]
+[e :U 890 ]
+[; ;term.c: 365: }
+[; ;term.c: 366: }
+[; ;term.c: 369: if (ReceiveEvt(&NewStringMdmTerminal))
+"369
+[e $ ! != -> ( _ReceiveEvt (1 &U _NewStringMdmTerminal `i -> -> -> 0 `i `E7699 `i 899  ]
+[; ;term.c: 370: {
+"370
+{
+[; ;term.c: 372: RxBuffer[RxLen] = '\r';
+"372
+[e = *U + &U _RxBuffer * -> _RxLen `ux -> -> # *U &U _RxBuffer `ui `ux -> -> 13 `ui `uc ]
+[; ;term.c: 373: RxBuffer[RxLen + 1] = '\n';
+"373
+[e = *U + &U _RxBuffer * -> + -> _RxLen `ui -> -> 1 `i `ui `ux -> -> # *U &U _RxBuffer `ui `ux -> -> 10 `ui `uc ]
+[; ;term.c: 375: if((cdc_trf_state == 0))
+"375
+[e $ ! == -> _cdc_trf_state `i -> 0 `i 900  ]
+[; ;term.c: 376: {
+"376
+{
+[; ;term.c: 377: putUSBUSART(RxBuffer,(RxLen + 2));
+"377
+[e ( _putUSBUSART (2 , &U _RxBuffer -> + -> _RxLen `ui -> -> 2 `i `ui `uc ]
 "378
 }
+[e :U 900 ]
+"379
+}
 [e :U 899 ]
-[; ;term.c: 377: }
 [; ;term.c: 378: }
 [; ;term.c: 379: }
-"379
+[; ;term.c: 380: }
+"380
 [e :UE 888 ]
 }
-"428
-[v _Terminal `(v ~T0 @X0 1 ef ]
 "429
+[v _Terminal `(v ~T0 @X0 1 ef ]
+"430
 {
-[; ;term.c: 428: void Terminal (void)
-[; ;term.c: 429: {
+[; ;term.c: 429: void Terminal (void)
+[; ;term.c: 430: {
 [e :U _Terminal ]
 [f ]
-"430
-[v F9009 `E8984 ~T0 @X0 1 s TermState ]
-[i F9009
-. `E8984 0
-]
 "431
-[v _UsbRxBuffer `uc ~T0 @X0 -> 200 `ui a ]
+[v F9010 `E8985 ~T0 @X0 1 s TermState ]
+[i F9010
+. `E8985 0
+]
 "432
-[v _UsbTxBuffer `uc ~T0 @X0 -> 200 `ui a ]
+[v _UsbRxBuffer `uc ~T0 @X0 -> 200 `ui a ]
 "433
-[v _TermTxBuffer `uc ~T0 @X0 -> 50 `ui a ]
+[v _UsbTxBuffer `uc ~T0 @X0 -> 200 `ui a ]
 "434
-[v F9013 `uc ~T0 @X0 -> 50 `ui s TermRxBuffer ]
+[v _TermTxBuffer `uc ~T0 @X0 -> 50 `ui a ]
 "435
-[v _Index `uc ~T0 @X0 1 a ]
+[v F9014 `uc ~T0 @X0 -> 50 `ui s TermRxBuffer ]
 "436
-[v F9015 `uc ~T0 @X0 -> 4 `i s Len ]
+[v _Index `uc ~T0 @X0 1 a ]
 "437
-[v F9016 `uc ~T0 @X0 1 s PackageLen ]
+[v F9016 `uc ~T0 @X0 -> 4 `i s Len ]
 "438
-[v F9017 `uc ~T0 @X0 -> 4 `i s Addr ]
+[v F9017 `uc ~T0 @X0 1 s PackageLen ]
 "439
-[v F9018 `uc ~T0 @X0 1 s SlaveAddr ]
+[v F9018 `uc ~T0 @X0 -> 4 `i s Addr ]
 "440
-[v F9019 `S887 ~T0 @X0 -> 20 `ui s Payload ]
+[v F9019 `uc ~T0 @X0 1 s SlaveAddr ]
 "441
+[v F9020 `S887 ~T0 @X0 -> 20 `ui s Payload ]
+"442
 [v _ReceivedBytes `uc ~T0 @X0 1 a ]
-[; ;term.c: 430: static TermStateType TermState = Term_GetData;
-[; ;term.c: 431: UINT8 UsbRxBuffer[200u];
-[; ;term.c: 432: UINT8 UsbTxBuffer[200u];
-[; ;term.c: 433: UINT8 TermTxBuffer[50u];
-[; ;term.c: 434: static UINT8 TermRxBuffer[50u];
-[; ;term.c: 435: UINT8 Index;
-[; ;term.c: 436: static UINT8 Len[4];
-[; ;term.c: 437: static UINT8 PackageLen;
-[; ;term.c: 438: static UINT8 Addr[4];
-[; ;term.c: 439: static UINT8 SlaveAddr;
-[; ;term.c: 440: static PayloadType Payload[20u];
-[; ;term.c: 441: UINT8 ReceivedBytes = 0;
+[; ;term.c: 431: static TermStateType TermState = Term_GetData;
+[; ;term.c: 432: UINT8 UsbRxBuffer[200u];
+[; ;term.c: 433: UINT8 UsbTxBuffer[200u];
+[; ;term.c: 434: UINT8 TermTxBuffer[50u];
+[; ;term.c: 435: static UINT8 TermRxBuffer[50u];
+[; ;term.c: 436: UINT8 Index;
+[; ;term.c: 437: static UINT8 Len[4];
+[; ;term.c: 438: static UINT8 PackageLen;
+[; ;term.c: 439: static UINT8 Addr[4];
+[; ;term.c: 440: static UINT8 SlaveAddr;
+[; ;term.c: 441: static PayloadType Payload[20u];
+[; ;term.c: 442: UINT8 ReceivedBytes = 0;
 [e = _ReceivedBytes -> -> 0 `i `uc ]
-"443
-[v F9021 `uc ~T0 @X0 1 s FormatOption ]
-[i F9021
+"444
+[v F9022 `uc ~T0 @X0 1 s FormatOption ]
+[i F9022
 -> -> 0 `ui `uc
 ]
-"444
-[v F9022 `uc ~T0 @X0 1 s EchoOption ]
-[i F9022
+"445
+[v F9023 `uc ~T0 @X0 1 s EchoOption ]
+[i F9023
 -> -> 1 `ui `uc
 ]
-"445
-[v F9023 `S804 ~T0 @X0 1 s SwTimer ]
-[; ;term.c: 443: static UINT8 FormatOption = 0u;
-[; ;term.c: 444: static UINT8 EchoOption = 1u;
-[; ;term.c: 445: static SwTimerType SwTimer;
-[; ;term.c: 448: if((USBDeviceState < CONFIGURED_STATE)||(UCONbits.SUSPND==1)) return;
-"448
+"446
+[v F9024 `S804 ~T0 @X0 1 s SwTimer ]
+[; ;term.c: 444: static UINT8 FormatOption = 0u;
+[; ;term.c: 445: static UINT8 EchoOption = 1u;
+[; ;term.c: 446: static SwTimerType SwTimer;
+[; ;term.c: 449: if((USBDeviceState < CONFIGURED_STATE)||(UCONbits.SUSPND==1)) return;
+"449
 [e $ ! || < -> _USBDeviceState `i -> . `E8330 6 `i == -> . . _UCONbits 0 1 `i -> 1 `i 902  ]
 [e $UE 901  ]
 [e :U 902 ]
-[; ;term.c: 451: switch (TermState)
-"451
-[e $U 904  ]
-[; ;term.c: 452: {
+[; ;term.c: 452: switch (TermState)
 "452
-{
-[; ;term.c: 453: case Term_GetData:
+[e $U 904  ]
+[; ;term.c: 453: {
 "453
+{
+[; ;term.c: 454: case Term_GetData:
+"454
 [e :U 905 ]
-[; ;term.c: 455: ReceivedBytes = getsUSBUSART(UsbRxBuffer,200u);
-"455
+[; ;term.c: 456: ReceivedBytes = getsUSBUSART(UsbRxBuffer,200u);
+"456
 [e = _ReceivedBytes ( _getsUSBUSART (2 , &U _UsbRxBuffer -> -> 200 `ui `uc ]
-[; ;term.c: 458: if (ReceivedBytes > 0)
-"458
-[e $ ! > -> _ReceivedBytes `i -> 0 `i 906  ]
-[; ;term.c: 459: {
+[; ;term.c: 459: if (ReceivedBytes > 0)
 "459
+[e $ ! > -> _ReceivedBytes `i -> 0 `i 906  ]
+[; ;term.c: 460: {
+"460
 {
-[; ;term.c: 461: if (EchoOption == 1u)
-"461
-[e $ ! == -> F9022 `ui -> 1 `ui 907  ]
-[; ;term.c: 462: {
+[; ;term.c: 462: if (EchoOption == 1u)
 "462
+[e $ ! == -> F9023 `ui -> 1 `ui 907  ]
+[; ;term.c: 463: {
+"463
 {
-[; ;term.c: 464: if((cdc_trf_state == 0))
-"464
-[e $ ! == -> _cdc_trf_state `i -> 0 `i 908  ]
-[; ;term.c: 465: {
+[; ;term.c: 465: if((cdc_trf_state == 0))
 "465
-{
-[; ;term.c: 466: UsbRxBuffer[ReceivedBytes] = '\r';
+[e $ ! == -> _cdc_trf_state `i -> 0 `i 908  ]
+[; ;term.c: 466: {
 "466
-[e = *U + &U _UsbRxBuffer * -> _ReceivedBytes `ux -> -> # *U &U _UsbRxBuffer `ui `ux -> -> 13 `ui `uc ]
-[; ;term.c: 467: UsbRxBuffer[ReceivedBytes + 1] = '\n';
+{
+[; ;term.c: 467: UsbRxBuffer[ReceivedBytes] = '\r';
 "467
-[e = *U + &U _UsbRxBuffer * -> -> + -> _ReceivedBytes `i -> 1 `i `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux -> -> 10 `ui `uc ]
-[; ;term.c: 468: putUSBUSART(UsbRxBuffer,ReceivedBytes + 2);
+[e = *U + &U _UsbRxBuffer * -> _ReceivedBytes `ux -> -> # *U &U _UsbRxBuffer `ui `ux -> -> 13 `ui `uc ]
+[; ;term.c: 468: UsbRxBuffer[ReceivedBytes + 1] = '\n';
 "468
-[e ( _putUSBUSART (2 , &U _UsbRxBuffer -> + -> _ReceivedBytes `i -> 2 `i `uc ]
+[e = *U + &U _UsbRxBuffer * -> -> + -> _ReceivedBytes `i -> 1 `i `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux -> -> 10 `ui `uc ]
+[; ;term.c: 469: putUSBUSART(UsbRxBuffer,ReceivedBytes + 2);
 "469
-}
-[e :U 908 ]
+[e ( _putUSBUSART (2 , &U _UsbRxBuffer -> + -> _ReceivedBytes `i -> 2 `i `uc ]
 "470
 }
-[e :U 907 ]
-[; ;term.c: 469: }
-[; ;term.c: 470: }
-[; ;term.c: 473: if ((UsbRxBuffer[0u] == 'S') &&
-[; ;term.c: 474: (UsbRxBuffer[0u + 1u] == 'O') &&
-[; ;term.c: 475: (UsbRxBuffer[0u + 1u + 1u] == ':'))
-"475
-[e $ ! && && == -> *U + &U _UsbRxBuffer * -> -> 0 `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux `ui -> 83 `ui == -> *U + &U _UsbRxBuffer * -> + -> 0 `ui -> 1 `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux `ui -> 79 `ui == -> *U + &U _UsbRxBuffer * -> + + -> 0 `ui -> 1 `ui -> 1 `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux `ui -> 58 `ui 909  ]
-[; ;term.c: 476: {
-"476
-{
-[; ;term.c: 478: if ((UsbRxBuffer[0u + 1u + 1u + 1u] == 'G') && (UsbRxBuffer[0u + 1u + 1u + 1u + 1] == ':'))
-"478
-[e $ ! && == -> *U + &U _UsbRxBuffer * -> + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux `ui -> 71 `ui == -> *U + &U _UsbRxBuffer * -> + + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> -> 1 `i `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux `ui -> 58 `ui 910  ]
-[; ;term.c: 479: {
-"479
-{
-[; ;term.c: 481: if ((UsbRxBuffer[0u + 1u + 1u + 1u + 2u] == 'D') && (UsbRxBuffer[0u + 1u + 1u + 1u + 2u + 1] == 'F'))
-"481
-[e $ ! && == -> *U + &U _UsbRxBuffer * -> + + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> 2 `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux `ui -> 68 `ui == -> *U + &U _UsbRxBuffer * -> + + + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> 2 `ui -> -> 1 `i `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux `ui -> 70 `ui 911  ]
-[; ;term.c: 482: {
-"482
-{
-[; ;term.c: 483: if (UsbRxBuffer[0u + 1u + 1u + 1u + 2u + 3u] == 'A')
-"483
-[e $ ! == -> *U + &U _UsbRxBuffer * -> + + + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> 2 `ui -> 3 `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux `ui -> 65 `ui 912  ]
-[; ;term.c: 484: {
-"484
-{
-[; ;term.c: 485: FormatOption = 1u;
-"485
-[e = F9021 -> -> 1 `ui `uc ]
-"486
+[e :U 908 ]
+"471
 }
-[; ;term.c: 486: }
-[e $U 913  ]
-"487
-[e :U 912 ]
-[; ;term.c: 487: else if (UsbRxBuffer[0u + 1u + 1u + 1u + 2u + 3u] == 'B')
-[e $ ! == -> *U + &U _UsbRxBuffer * -> + + + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> 2 `ui -> 3 `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux `ui -> 66 `ui 914  ]
-[; ;term.c: 488: {
-"488
+[e :U 907 ]
+[; ;term.c: 470: }
+[; ;term.c: 471: }
+[; ;term.c: 474: if ((UsbRxBuffer[0u] == 'S') &&
+[; ;term.c: 475: (UsbRxBuffer[0u + 1u] == 'O') &&
+[; ;term.c: 476: (UsbRxBuffer[0u + 1u + 1u] == ':'))
+"476
+[e $ ! && && == -> *U + &U _UsbRxBuffer * -> -> 0 `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux `ui -> 83 `ui == -> *U + &U _UsbRxBuffer * -> + -> 0 `ui -> 1 `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux `ui -> 79 `ui == -> *U + &U _UsbRxBuffer * -> + + -> 0 `ui -> 1 `ui -> 1 `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux `ui -> 58 `ui 909  ]
+[; ;term.c: 477: {
+"477
 {
-[; ;term.c: 489: FormatOption = 0u;
+[; ;term.c: 479: if ((UsbRxBuffer[0u + 1u + 1u + 1u] == 'G') && (UsbRxBuffer[0u + 1u + 1u + 1u + 1] == ':'))
+"479
+[e $ ! && == -> *U + &U _UsbRxBuffer * -> + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux `ui -> 71 `ui == -> *U + &U _UsbRxBuffer * -> + + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> -> 1 `i `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux `ui -> 58 `ui 910  ]
+[; ;term.c: 480: {
+"480
+{
+[; ;term.c: 482: if ((UsbRxBuffer[0u + 1u + 1u + 1u + 2u] == 'D') && (UsbRxBuffer[0u + 1u + 1u + 1u + 2u + 1] == 'F'))
+"482
+[e $ ! && == -> *U + &U _UsbRxBuffer * -> + + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> 2 `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux `ui -> 68 `ui == -> *U + &U _UsbRxBuffer * -> + + + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> 2 `ui -> -> 1 `i `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux `ui -> 70 `ui 911  ]
+[; ;term.c: 483: {
+"483
+{
+[; ;term.c: 484: if (UsbRxBuffer[0u + 1u + 1u + 1u + 2u + 3u] == 'A')
+"484
+[e $ ! == -> *U + &U _UsbRxBuffer * -> + + + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> 2 `ui -> 3 `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux `ui -> 65 `ui 912  ]
+[; ;term.c: 485: {
+"485
+{
+[; ;term.c: 486: FormatOption = 1u;
+"486
+[e = F9022 -> -> 1 `ui `uc ]
+"487
+}
+[; ;term.c: 487: }
+[e $U 913  ]
+"488
+[e :U 912 ]
+[; ;term.c: 488: else if (UsbRxBuffer[0u + 1u + 1u + 1u + 2u + 3u] == 'B')
+[e $ ! == -> *U + &U _UsbRxBuffer * -> + + + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> 2 `ui -> 3 `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux `ui -> 66 `ui 914  ]
+[; ;term.c: 489: {
 "489
-[e = F9021 -> -> 0 `ui `uc ]
+{
+[; ;term.c: 490: FormatOption = 0u;
 "490
+[e = F9022 -> -> 0 `ui `uc ]
+"491
 }
 [e :U 914 ]
-"491
+"492
 [e :U 913 ]
 }
-[; ;term.c: 490: }
 [; ;term.c: 491: }
+[; ;term.c: 492: }
 [e $U 915  ]
-"493
-[e :U 911 ]
-[; ;term.c: 493: else if ((UsbRxBuffer[0u + 1u + 1u + 1u + 2u] == 'E') && (UsbRxBuffer[0u + 1u + 1u + 1u + 2u + 1] == 'M'))
-[e $ ! && == -> *U + &U _UsbRxBuffer * -> + + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> 2 `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux `ui -> 69 `ui == -> *U + &U _UsbRxBuffer * -> + + + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> 2 `ui -> -> 1 `i `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux `ui -> 77 `ui 916  ]
-[; ;term.c: 494: {
 "494
-{
-[; ;term.c: 495: if (UsbRxBuffer[0u + 1u + 1u + 1u + 2u + 3u] == '1')
+[e :U 911 ]
+[; ;term.c: 494: else if ((UsbRxBuffer[0u + 1u + 1u + 1u + 2u] == 'E') && (UsbRxBuffer[0u + 1u + 1u + 1u + 2u + 1] == 'M'))
+[e $ ! && == -> *U + &U _UsbRxBuffer * -> + + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> 2 `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux `ui -> 69 `ui == -> *U + &U _UsbRxBuffer * -> + + + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> 2 `ui -> -> 1 `i `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux `ui -> 77 `ui 916  ]
+[; ;term.c: 495: {
 "495
-[e $ ! == -> *U + &U _UsbRxBuffer * -> + + + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> 2 `ui -> 3 `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux `ui -> 49 `ui 917  ]
-[; ;term.c: 496: {
+{
+[; ;term.c: 496: if (UsbRxBuffer[0u + 1u + 1u + 1u + 2u + 3u] == '1')
 "496
-{
-[; ;term.c: 497: EchoOption = 1u;
+[e $ ! == -> *U + &U _UsbRxBuffer * -> + + + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> 2 `ui -> 3 `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux `ui -> 49 `ui 917  ]
+[; ;term.c: 497: {
 "497
-[e = F9022 -> -> 1 `ui `uc ]
-"498
-}
-[; ;term.c: 498: }
-[e $U 918  ]
-"499
-[e :U 917 ]
-[; ;term.c: 499: else if (UsbRxBuffer[0u + 1u + 1u + 1u + 2u + 3u] == '0')
-[e $ ! == -> *U + &U _UsbRxBuffer * -> + + + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> 2 `ui -> 3 `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux `ui -> 48 `ui 919  ]
-[; ;term.c: 500: {
-"500
 {
-[; ;term.c: 501: EchoOption = 0u;
+[; ;term.c: 498: EchoOption = 1u;
+"498
+[e = F9023 -> -> 1 `ui `uc ]
+"499
+}
+[; ;term.c: 499: }
+[e $U 918  ]
+"500
+[e :U 917 ]
+[; ;term.c: 500: else if (UsbRxBuffer[0u + 1u + 1u + 1u + 2u + 3u] == '0')
+[e $ ! == -> *U + &U _UsbRxBuffer * -> + + + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> 2 `ui -> 3 `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux `ui -> 48 `ui 919  ]
+[; ;term.c: 501: {
 "501
-[e = F9022 -> -> 0 `ui `uc ]
+{
+[; ;term.c: 502: EchoOption = 0u;
 "502
+[e = F9023 -> -> 0 `ui `uc ]
+"503
 }
 [e :U 919 ]
-"503
+"504
 [e :U 918 ]
 }
-[; ;term.c: 502: }
 [; ;term.c: 503: }
+[; ;term.c: 504: }
 [e $U 920  ]
-"504
-[e :U 916 ]
-[; ;term.c: 504: else
-[; ;term.c: 505: {
 "505
+[e :U 916 ]
+[; ;term.c: 505: else
+[; ;term.c: 506: {
+"506
 {
-"507
+"508
 }
 [e :U 920 ]
 [e :U 915 ]
-"508
-}
-[e :U 910 ]
 "509
 }
-[; ;term.c: 507: }
+[e :U 910 ]
+"510
+}
 [; ;term.c: 508: }
 [; ;term.c: 509: }
+[; ;term.c: 510: }
 [e $U 921  ]
-"510
+"511
 [e :U 909 ]
-[; ;term.c: 510: else if ((UsbRxBuffer[0u] == 'S') &&
-[; ;term.c: 511: (UsbRxBuffer[0u + 1u] == 'B') &&
-[; ;term.c: 512: (UsbRxBuffer[0u + 1u + 1u] == ':'))
-"512
-[e $ ! && && == -> *U + &U _UsbRxBuffer * -> -> 0 `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux `ui -> 83 `ui == -> *U + &U _UsbRxBuffer * -> + -> 0 `ui -> 1 `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux `ui -> 66 `ui == -> *U + &U _UsbRxBuffer * -> + + -> 0 `ui -> 1 `ui -> 1 `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux `ui -> 58 `ui 922  ]
-[; ;term.c: 513: {
+[; ;term.c: 511: else if ((UsbRxBuffer[0u] == 'S') &&
+[; ;term.c: 512: (UsbRxBuffer[0u + 1u] == 'B') &&
+[; ;term.c: 513: (UsbRxBuffer[0u + 1u + 1u] == ':'))
 "513
-{
-[; ;term.c: 514: if ((UsbRxBuffer[0u + 1u + 1u + 1u] == 'W') && (UsbRxBuffer[0u + 1u + 1u + 1u + 1] == ':'))
+[e $ ! && && == -> *U + &U _UsbRxBuffer * -> -> 0 `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux `ui -> 83 `ui == -> *U + &U _UsbRxBuffer * -> + -> 0 `ui -> 1 `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux `ui -> 66 `ui == -> *U + &U _UsbRxBuffer * -> + + -> 0 `ui -> 1 `ui -> 1 `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux `ui -> 58 `ui 922  ]
+[; ;term.c: 514: {
 "514
-[e $ ! && == -> *U + &U _UsbRxBuffer * -> + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux `ui -> 87 `ui == -> *U + &U _UsbRxBuffer * -> + + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> -> 1 `i `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux `ui -> 58 `ui 923  ]
-[; ;term.c: 515: {
-"515
 {
-[; ;term.c: 517: Len[0] = UsbRxBuffer[0u + 1u + 1u + 1u + 2u];
-"517
-[e = *U + &U F9015 * -> -> -> 0 `i `ui `ux -> -> # *U &U F9015 `ui `ux *U + &U _UsbRxBuffer * -> + + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> 2 `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux ]
-[; ;term.c: 518: Len[1] = UsbRxBuffer[0u + 1u + 1u + 1u + 2u + 1];
+[; ;term.c: 515: if ((UsbRxBuffer[0u + 1u + 1u + 1u] == 'W') && (UsbRxBuffer[0u + 1u + 1u + 1u + 1] == ':'))
+"515
+[e $ ! && == -> *U + &U _UsbRxBuffer * -> + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux `ui -> 87 `ui == -> *U + &U _UsbRxBuffer * -> + + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> -> 1 `i `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux `ui -> 58 `ui 923  ]
+[; ;term.c: 516: {
+"516
+{
+[; ;term.c: 518: Len[0] = UsbRxBuffer[0u + 1u + 1u + 1u + 2u];
 "518
-[e = *U + &U F9015 * -> -> -> 1 `i `ui `ux -> -> # *U &U F9015 `ui `ux *U + &U _UsbRxBuffer * -> + + + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> 2 `ui -> -> 1 `i `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux ]
-[; ;term.c: 520: Addr[0] = UsbRxBuffer[0u + 1u + 1u + 1u + 2u + 3u];
-"520
-[e = *U + &U F9017 * -> -> -> 0 `i `ui `ux -> -> # *U &U F9017 `ui `ux *U + &U _UsbRxBuffer * -> + + + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> 2 `ui -> 3 `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux ]
-[; ;term.c: 521: Addr[1] = UsbRxBuffer[0u + 1u + 1u + 1u + 2u + 3u + 1];
+[e = *U + &U F9016 * -> -> -> 0 `i `ui `ux -> -> # *U &U F9016 `ui `ux *U + &U _UsbRxBuffer * -> + + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> 2 `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux ]
+[; ;term.c: 519: Len[1] = UsbRxBuffer[0u + 1u + 1u + 1u + 2u + 1];
+"519
+[e = *U + &U F9016 * -> -> -> 1 `i `ui `ux -> -> # *U &U F9016 `ui `ux *U + &U _UsbRxBuffer * -> + + + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> 2 `ui -> -> 1 `i `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux ]
+[; ;term.c: 521: Addr[0] = UsbRxBuffer[0u + 1u + 1u + 1u + 2u + 3u];
 "521
-[e = *U + &U F9017 * -> -> -> 1 `i `ui `ux -> -> # *U &U F9017 `ui `ux *U + &U _UsbRxBuffer * -> + + + + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> 2 `ui -> 3 `ui -> -> 1 `i `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux ]
-[; ;term.c: 523: PackageLen = atoi((void*)Len);
-"523
-[e = F9016 -> ( _atoi (1 -> -> &U F9015 `*v `*Cuc `uc ]
-[; ;term.c: 524: SlaveAddr = xtoi((void*)Addr);
+[e = *U + &U F9018 * -> -> -> 0 `i `ui `ux -> -> # *U &U F9018 `ui `ux *U + &U _UsbRxBuffer * -> + + + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> 2 `ui -> 3 `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux ]
+[; ;term.c: 522: Addr[1] = UsbRxBuffer[0u + 1u + 1u + 1u + 2u + 3u + 1];
+"522
+[e = *U + &U F9018 * -> -> -> 1 `i `ui `ux -> -> # *U &U F9018 `ui `ux *U + &U _UsbRxBuffer * -> + + + + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> 2 `ui -> 3 `ui -> -> 1 `i `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux ]
+[; ;term.c: 524: PackageLen = atoi((void*)Len);
 "524
-[e = F9018 -> ( _xtoi (1 -> -> &U F9017 `*v `*Cuc `uc ]
-[; ;term.c: 526: for (Index = 0; Index <= PackageLen; Index++)
-"526
+[e = F9017 -> ( _atoi (1 -> -> &U F9016 `*v `*Cuc `uc ]
+[; ;term.c: 525: SlaveAddr = xtoi((void*)Addr);
+"525
+[e = F9019 -> ( _xtoi (1 -> -> &U F9018 `*v `*Cuc `uc ]
+[; ;term.c: 527: for (Index = 0; Index <= PackageLen; Index++)
+"527
 {
 [e = _Index -> -> 0 `i `uc ]
 [e $U 927  ]
-"527
-[e :U 924 ]
-[; ;term.c: 527: {
-{
-[; ;term.c: 528: Payload[Index].Byte[0] = UsbRxBuffer[2*Index + 0u + 1u + 1u + 1u + 2u + 3u + 3u];
 "528
-[e = *U + &U . *U + &U F9019 * -> _Index `ux -> -> # *U &U F9019 `ui `ux 0 * -> -> -> 0 `i `ui `ux -> -> # *U &U . *U + &U F9019 * -> _Index `ux -> -> # *U &U F9019 `ui `ux 0 `ui `ux *U + &U _UsbRxBuffer * -> + + + + + + + -> * -> 2 `i -> _Index `i `ui -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> 2 `ui -> 3 `ui -> 3 `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux ]
-[; ;term.c: 529: Payload[Index].Byte[1] = UsbRxBuffer[2*Index + 0u + 1u + 1u + 1u + 2u + 3u + 3u + 1];
+[e :U 924 ]
+[; ;term.c: 528: {
+{
+[; ;term.c: 529: Payload[Index].Byte[0] = UsbRxBuffer[2*Index + 0u + 1u + 1u + 1u + 2u + 3u + 3u];
 "529
-[e = *U + &U . *U + &U F9019 * -> _Index `ux -> -> # *U &U F9019 `ui `ux 0 * -> -> -> 1 `i `ui `ux -> -> # *U &U . *U + &U F9019 * -> _Index `ux -> -> # *U &U F9019 `ui `ux 0 `ui `ux *U + &U _UsbRxBuffer * -> + + + + + + + + -> * -> 2 `i -> _Index `i `ui -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> 2 `ui -> 3 `ui -> 3 `ui -> -> 1 `i `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux ]
+[e = *U + &U . *U + &U F9020 * -> _Index `ux -> -> # *U &U F9020 `ui `ux 0 * -> -> -> 0 `i `ui `ux -> -> # *U &U . *U + &U F9020 * -> _Index `ux -> -> # *U &U F9020 `ui `ux 0 `ui `ux *U + &U _UsbRxBuffer * -> + + + + + + + -> * -> 2 `i -> _Index `i `ui -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> 2 `ui -> 3 `ui -> 3 `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux ]
+[; ;term.c: 530: Payload[Index].Byte[1] = UsbRxBuffer[2*Index + 0u + 1u + 1u + 1u + 2u + 3u + 3u + 1];
 "530
+[e = *U + &U . *U + &U F9020 * -> _Index `ux -> -> # *U &U F9020 `ui `ux 0 * -> -> -> 1 `i `ui `ux -> -> # *U &U . *U + &U F9020 * -> _Index `ux -> -> # *U &U F9020 `ui `ux 0 `ui `ux *U + &U _UsbRxBuffer * -> + + + + + + + + -> * -> 2 `i -> _Index `i `ui -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> 2 `ui -> 3 `ui -> 3 `ui -> -> 1 `i `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux ]
+"531
 }
-"526
+"527
 [e ++ _Index -> -> 1 `i `uc ]
 [e :U 927 ]
-[e $ <= -> _Index `i -> F9016 `i 924  ]
+[e $ <= -> _Index `i -> F9017 `i 924  ]
 [e :U 925 ]
-"530
+"531
 }
-[; ;term.c: 530: }
-[; ;term.c: 532: for (Index = 0; Index <= PackageLen; Index++)
-"532
+[; ;term.c: 531: }
+[; ;term.c: 533: for (Index = 0; Index <= PackageLen; Index++)
+"533
 {
 [e = _Index -> -> 0 `i `uc ]
 [e $U 931  ]
-"533
+"534
 [e :U 928 ]
-[; ;term.c: 533: {
+[; ;term.c: 534: {
 {
-[; ;term.c: 537: TermTxBuffer[Index] = strtol((void*)&(Payload[Index]), (0), 16);
-"537
-[e = *U + &U _TermTxBuffer * -> _Index `ux -> -> # *U &U _TermTxBuffer `ui `ux -> ( _strtol (3 , , -> -> &U *U + &U F9019 * -> _Index `ux -> -> # *U &U F9019 `ui `ux `*v `*Cuc -> -> 0 `i `**uc -> 16 `i `uc ]
-"539
+[; ;term.c: 538: TermTxBuffer[Index] = strtol((void*)&(Payload[Index]), (0), 16);
+"538
+[e = *U + &U _TermTxBuffer * -> _Index `ux -> -> # *U &U _TermTxBuffer `ui `ux -> ( _strtol (3 , , -> -> &U *U + &U F9020 * -> _Index `ux -> -> # *U &U F9020 `ui `ux `*v `*Cuc -> -> 0 `i `**uc -> 16 `i `uc ]
+"540
 }
-"532
+"533
 [e ++ _Index -> -> 1 `i `uc ]
 [e :U 931 ]
-[e $ <= -> _Index `i -> F9016 `i 928  ]
+[e $ <= -> _Index `i -> F9017 `i 928  ]
 [e :U 929 ]
-"539
+"540
 }
-[; ;term.c: 539: }
-[; ;term.c: 542: I2cSlv_SendI2cMsg(TermTxBuffer, SlaveAddr, PackageLen);
-"542
-[e ( _I2cSlv_SendI2cMsg (3 , , &U _TermTxBuffer F9018 F9016 ]
+[; ;term.c: 540: }
+[; ;term.c: 543: I2cSlv_SendI2cMsg(TermTxBuffer, SlaveAddr, PackageLen);
 "543
-}
-[; ;term.c: 543: }
-[e $U 932  ]
+[e ( _I2cSlv_SendI2cMsg (3 , , &U _TermTxBuffer F9019 F9017 ]
 "544
-[e :U 923 ]
-[; ;term.c: 544: else if ((UsbRxBuffer[0u + 1u + 1u + 1u] == 'R') && (UsbRxBuffer[0u + 1u + 1u + 1u + 1] == ':'))
-[e $ ! && == -> *U + &U _UsbRxBuffer * -> + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux `ui -> 82 `ui == -> *U + &U _UsbRxBuffer * -> + + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> -> 1 `i `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux `ui -> 58 `ui 933  ]
-[; ;term.c: 545: {
+}
+[; ;term.c: 544: }
+[e $U 932  ]
 "545
+[e :U 923 ]
+[; ;term.c: 545: else if ((UsbRxBuffer[0u + 1u + 1u + 1u] == 'R') && (UsbRxBuffer[0u + 1u + 1u + 1u + 1] == ':'))
+[e $ ! && == -> *U + &U _UsbRxBuffer * -> + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux `ui -> 82 `ui == -> *U + &U _UsbRxBuffer * -> + + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> -> 1 `i `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux `ui -> 58 `ui 933  ]
+[; ;term.c: 546: {
+"546
 {
-[; ;term.c: 547: Len[0] = UsbRxBuffer[0u + 1u + 1u + 1u + 2u];
-"547
-[e = *U + &U F9015 * -> -> -> 0 `i `ui `ux -> -> # *U &U F9015 `ui `ux *U + &U _UsbRxBuffer * -> + + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> 2 `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux ]
-[; ;term.c: 548: Len[1] = UsbRxBuffer[0u + 1u + 1u + 1u + 2u + 1];
+[; ;term.c: 548: Len[0] = UsbRxBuffer[0u + 1u + 1u + 1u + 2u];
 "548
-[e = *U + &U F9015 * -> -> -> 1 `i `ui `ux -> -> # *U &U F9015 `ui `ux *U + &U _UsbRxBuffer * -> + + + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> 2 `ui -> -> 1 `i `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux ]
-[; ;term.c: 550: Addr[0] = UsbRxBuffer[0u + 1u + 1u + 1u + 2u + 3u];
-"550
-[e = *U + &U F9017 * -> -> -> 0 `i `ui `ux -> -> # *U &U F9017 `ui `ux *U + &U _UsbRxBuffer * -> + + + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> 2 `ui -> 3 `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux ]
-[; ;term.c: 551: Addr[1] = UsbRxBuffer[0u + 1u + 1u + 1u + 2u + 3u + 1];
+[e = *U + &U F9016 * -> -> -> 0 `i `ui `ux -> -> # *U &U F9016 `ui `ux *U + &U _UsbRxBuffer * -> + + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> 2 `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux ]
+[; ;term.c: 549: Len[1] = UsbRxBuffer[0u + 1u + 1u + 1u + 2u + 1];
+"549
+[e = *U + &U F9016 * -> -> -> 1 `i `ui `ux -> -> # *U &U F9016 `ui `ux *U + &U _UsbRxBuffer * -> + + + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> 2 `ui -> -> 1 `i `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux ]
+[; ;term.c: 551: Addr[0] = UsbRxBuffer[0u + 1u + 1u + 1u + 2u + 3u];
 "551
-[e = *U + &U F9017 * -> -> -> 1 `i `ui `ux -> -> # *U &U F9017 `ui `ux *U + &U _UsbRxBuffer * -> + + + + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> 2 `ui -> 3 `ui -> -> 1 `i `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux ]
-[; ;term.c: 553: PackageLen = atoi((void*)Len);
-"553
-[e = F9016 -> ( _atoi (1 -> -> &U F9015 `*v `*Cuc `uc ]
-[; ;term.c: 554: SlaveAddr = xtoi((void*)Addr);
+[e = *U + &U F9018 * -> -> -> 0 `i `ui `ux -> -> # *U &U F9018 `ui `ux *U + &U _UsbRxBuffer * -> + + + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> 2 `ui -> 3 `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux ]
+[; ;term.c: 552: Addr[1] = UsbRxBuffer[0u + 1u + 1u + 1u + 2u + 3u + 1];
+"552
+[e = *U + &U F9018 * -> -> -> 1 `i `ui `ux -> -> # *U &U F9018 `ui `ux *U + &U _UsbRxBuffer * -> + + + + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> 2 `ui -> 3 `ui -> -> 1 `i `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux ]
+[; ;term.c: 554: PackageLen = atoi((void*)Len);
 "554
-[e = F9018 -> ( _xtoi (1 -> -> &U F9017 `*v `*Cuc `uc ]
-[; ;term.c: 557: I2cSlv_ReceiveI2cMsg(TermRxBuffer, SlaveAddr, PackageLen);
-"557
-[e ( _I2cSlv_ReceiveI2cMsg (3 , , &U F9013 F9018 F9016 ]
-[; ;term.c: 560: TermState = Term_PrepSlvI2cResp;
-"560
-[e = F9009 . `E8984 1 ]
+[e = F9017 -> ( _atoi (1 -> -> &U F9016 `*v `*Cuc `uc ]
+[; ;term.c: 555: SlaveAddr = xtoi((void*)Addr);
+"555
+[e = F9019 -> ( _xtoi (1 -> -> &U F9018 `*v `*Cuc `uc ]
+[; ;term.c: 558: I2cSlv_ReceiveI2cMsg(TermRxBuffer, SlaveAddr, PackageLen);
+"558
+[e ( _I2cSlv_ReceiveI2cMsg (3 , , &U F9014 F9019 F9017 ]
+[; ;term.c: 561: TermState = Term_PrepSlvI2cResp;
 "561
+[e = F9010 . `E8985 1 ]
+"562
 }
 [e :U 933 ]
-"562
+"563
 [e :U 932 ]
 }
-[; ;term.c: 561: }
 [; ;term.c: 562: }
+[; ;term.c: 563: }
 [e $U 934  ]
-"563
+"564
 [e :U 922 ]
-[; ;term.c: 563: else if ((UsbRxBuffer[0u] == 'T') &&
-[; ;term.c: 564: (UsbRxBuffer[0u + 1u] == 'E') &&
-[; ;term.c: 565: (UsbRxBuffer[0u + 1u + 1u] == 'L'))
-"565
-[e $ ! && && == -> *U + &U _UsbRxBuffer * -> -> 0 `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux `ui -> 84 `ui == -> *U + &U _UsbRxBuffer * -> + -> 0 `ui -> 1 `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux `ui -> 69 `ui == -> *U + &U _UsbRxBuffer * -> + + -> 0 `ui -> 1 `ui -> 1 `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux `ui -> 76 `ui 935  ]
-[; ;term.c: 566: {
+[; ;term.c: 564: else if ((UsbRxBuffer[0u] == 'T') &&
+[; ;term.c: 565: (UsbRxBuffer[0u + 1u] == 'E') &&
+[; ;term.c: 566: (UsbRxBuffer[0u + 1u + 1u] == 'L'))
 "566
+[e $ ! && && == -> *U + &U _UsbRxBuffer * -> -> 0 `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux `ui -> 84 `ui == -> *U + &U _UsbRxBuffer * -> + -> 0 `ui -> 1 `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux `ui -> 69 `ui == -> *U + &U _UsbRxBuffer * -> + + -> 0 `ui -> 1 `ui -> 1 `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux `ui -> 76 `ui 935  ]
+[; ;term.c: 567: {
+"567
 {
-[; ;term.c: 568: Len[0] = UsbRxBuffer[0u + 1u + 1u + 1u];
-"568
-[e = *U + &U F9015 * -> -> -> 0 `i `ui `ux -> -> # *U &U F9015 `ui `ux *U + &U _UsbRxBuffer * -> + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux ]
-[; ;term.c: 569: Len[1] = UsbRxBuffer[0u + 1u + 1u + 1u + 1];
+[; ;term.c: 569: Len[0] = UsbRxBuffer[0u + 1u + 1u + 1u];
 "569
-[e = *U + &U F9015 * -> -> -> 1 `i `ui `ux -> -> # *U &U F9015 `ui `ux *U + &U _UsbRxBuffer * -> + + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> -> 1 `i `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux ]
-[; ;term.c: 570: UsbMasterPhoneNumberLen = atoi(Len);
+[e = *U + &U F9016 * -> -> -> 0 `i `ui `ux -> -> # *U &U F9016 `ui `ux *U + &U _UsbRxBuffer * -> + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux ]
+[; ;term.c: 570: Len[1] = UsbRxBuffer[0u + 1u + 1u + 1u + 1];
 "570
-[e = _UsbMasterPhoneNumberLen -> ( _atoi (1 -> &U F9015 `*Cuc `us ]
-[; ;term.c: 572: for (UINT8 i = 0; i < UsbMasterPhoneNumberLen; i++)
-"572
+[e = *U + &U F9016 * -> -> -> 1 `i `ui `ux -> -> # *U &U F9016 `ui `ux *U + &U _UsbRxBuffer * -> + + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> -> 1 `i `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux ]
+[; ;term.c: 571: UsbMasterPhoneNumberLen = atoi(Len);
+"571
+[e = _UsbMasterPhoneNumberLen -> ( _atoi (1 -> &U F9016 `*Cuc `us ]
+[; ;term.c: 573: for (UINT8 i = 0; i < UsbMasterPhoneNumberLen; i++)
+"573
 {
 [v _i `uc ~T0 @X0 1 a ]
 [e = _i -> -> 0 `i `uc ]
 [e $U 939  ]
-"573
-[e :U 936 ]
-[; ;term.c: 573: {
-{
-[; ;term.c: 574: UsbMasterPhoneNumber[i] = UsbRxBuffer[0u + 1u + 1u + 1u + 2u + i];
 "574
-[e = *U + &U _UsbMasterPhoneNumber * -> _i `ux -> -> # *U &U _UsbMasterPhoneNumber `ui `ux *U + &U _UsbRxBuffer * -> + + + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> 2 `ui -> _i `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux ]
+[e :U 936 ]
+[; ;term.c: 574: {
+{
+[; ;term.c: 575: UsbMasterPhoneNumber[i] = UsbRxBuffer[0u + 1u + 1u + 1u + 2u + i];
 "575
+[e = *U + &U _UsbMasterPhoneNumber * -> _i `ux -> -> # *U &U _UsbMasterPhoneNumber `ui `ux *U + &U _UsbRxBuffer * -> + + + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> 2 `ui -> _i `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux ]
+"576
 }
-"572
+"573
 [e ++ _i -> -> 1 `i `uc ]
 [e :U 939 ]
 [e $ < -> _i `ui -> _UsbMasterPhoneNumberLen `ui 936  ]
 [e :U 937 ]
-"575
-}
 "576
 }
-[; ;term.c: 575: }
 [; ;term.c: 576: }
-[e $U 940  ]
+[; ;term.c: 577: IsUsbNumberReceived = 1;
 "577
-[e :U 935 ]
-[; ;term.c: 577: else if ((UsbRxBuffer[0u] == 'M') &&
-[; ;term.c: 578: (UsbRxBuffer[0u + 1u] == 'B') &&
-[; ;term.c: 579: (UsbRxBuffer[0u + 1u + 1u] == ':'))
+[e = _IsUsbNumberReceived -> -> 1 `i `uc ]
+"578
+}
+[; ;term.c: 578: }
+[e $U 940  ]
 "579
+[e :U 935 ]
+[; ;term.c: 579: else if ((UsbRxBuffer[0u] == 'M') &&
+[; ;term.c: 580: (UsbRxBuffer[0u + 1u] == 'B') &&
+[; ;term.c: 581: (UsbRxBuffer[0u + 1u + 1u] == ':'))
+"581
 [e $ ! && && == -> *U + &U _UsbRxBuffer * -> -> 0 `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux `ui -> 77 `ui == -> *U + &U _UsbRxBuffer * -> + -> 0 `ui -> 1 `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux `ui -> 66 `ui == -> *U + &U _UsbRxBuffer * -> + + -> 0 `ui -> 1 `ui -> 1 `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux `ui -> 58 `ui 941  ]
-[; ;term.c: 580: {
-"580
-{
+[; ;term.c: 582: {
 "582
+{
+"584
 }
 [e :U 941 ]
-"614
+"616
 [e :U 940 ]
 [e :U 934 ]
 [e :U 921 ]
 }
 [e :U 906 ]
-[; ;term.c: 582: }
-[; ;term.c: 614: }
-[; ;term.c: 615: break;
-"615
-[e $U 903  ]
-[; ;term.c: 617: case Term_PrepSlvI2cResp:
+[; ;term.c: 584: }
+[; ;term.c: 616: }
+[; ;term.c: 617: break;
 "617
-[e :U 942 ]
-[; ;term.c: 619: if((cdc_trf_state == 0))
+[e $U 903  ]
+[; ;term.c: 619: case Term_PrepSlvI2cResp:
 "619
-[e $ ! == -> _cdc_trf_state `i -> 0 `i 943  ]
-[; ;term.c: 620: {
-"620
-{
-[; ;term.c: 621: UsbTxBuffer[0] = 'S';
+[e :U 942 ]
+[; ;term.c: 621: if((cdc_trf_state == 0))
 "621
-[e = *U + &U _UsbTxBuffer * -> -> -> 0 `i `ui `ux -> -> # *U &U _UsbTxBuffer `ui `ux -> -> 83 `ui `uc ]
-[; ;term.c: 622: UsbTxBuffer[1] = 'B';
+[e $ ! == -> _cdc_trf_state `i -> 0 `i 943  ]
+[; ;term.c: 622: {
 "622
-[e = *U + &U _UsbTxBuffer * -> -> -> 1 `i `ui `ux -> -> # *U &U _UsbTxBuffer `ui `ux -> -> 66 `ui `uc ]
-[; ;term.c: 623: UsbTxBuffer[2] = '[';
+{
+[; ;term.c: 623: UsbTxBuffer[0] = 'S';
 "623
-[e = *U + &U _UsbTxBuffer * -> -> -> 2 `i `ui `ux -> -> # *U &U _UsbTxBuffer `ui `ux -> -> 91 `ui `uc ]
-[; ;term.c: 624: UsbTxBuffer[3] = Addr[0];
+[e = *U + &U _UsbTxBuffer * -> -> -> 0 `i `ui `ux -> -> # *U &U _UsbTxBuffer `ui `ux -> -> 83 `ui `uc ]
+[; ;term.c: 624: UsbTxBuffer[1] = 'B';
 "624
-[e = *U + &U _UsbTxBuffer * -> -> -> 3 `i `ui `ux -> -> # *U &U _UsbTxBuffer `ui `ux *U + &U F9017 * -> -> -> 0 `i `ui `ux -> -> # *U &U F9017 `ui `ux ]
-[; ;term.c: 625: UsbTxBuffer[4] = Addr[1];
+[e = *U + &U _UsbTxBuffer * -> -> -> 1 `i `ui `ux -> -> # *U &U _UsbTxBuffer `ui `ux -> -> 66 `ui `uc ]
+[; ;term.c: 625: UsbTxBuffer[2] = '[';
 "625
-[e = *U + &U _UsbTxBuffer * -> -> -> 4 `i `ui `ux -> -> # *U &U _UsbTxBuffer `ui `ux *U + &U F9017 * -> -> -> 1 `i `ui `ux -> -> # *U &U F9017 `ui `ux ]
-[; ;term.c: 626: UsbTxBuffer[5] = ']';
+[e = *U + &U _UsbTxBuffer * -> -> -> 2 `i `ui `ux -> -> # *U &U _UsbTxBuffer `ui `ux -> -> 91 `ui `uc ]
+[; ;term.c: 626: UsbTxBuffer[3] = Addr[0];
 "626
-[e = *U + &U _UsbTxBuffer * -> -> -> 5 `i `ui `ux -> -> # *U &U _UsbTxBuffer `ui `ux -> -> 93 `ui `uc ]
-[; ;term.c: 627: UsbTxBuffer[6] = ':';
+[e = *U + &U _UsbTxBuffer * -> -> -> 3 `i `ui `ux -> -> # *U &U _UsbTxBuffer `ui `ux *U + &U F9018 * -> -> -> 0 `i `ui `ux -> -> # *U &U F9018 `ui `ux ]
+[; ;term.c: 627: UsbTxBuffer[4] = Addr[1];
 "627
-[e = *U + &U _UsbTxBuffer * -> -> -> 6 `i `ui `ux -> -> # *U &U _UsbTxBuffer `ui `ux -> -> 58 `ui `uc ]
-[; ;term.c: 628: putUSBUSART(UsbTxBuffer,7);
+[e = *U + &U _UsbTxBuffer * -> -> -> 4 `i `ui `ux -> -> # *U &U _UsbTxBuffer `ui `ux *U + &U F9018 * -> -> -> 1 `i `ui `ux -> -> # *U &U F9018 `ui `ux ]
+[; ;term.c: 628: UsbTxBuffer[5] = ']';
 "628
+[e = *U + &U _UsbTxBuffer * -> -> -> 5 `i `ui `ux -> -> # *U &U _UsbTxBuffer `ui `ux -> -> 93 `ui `uc ]
+[; ;term.c: 629: UsbTxBuffer[6] = ':';
+"629
+[e = *U + &U _UsbTxBuffer * -> -> -> 6 `i `ui `ux -> -> # *U &U _UsbTxBuffer `ui `ux -> -> 58 `ui `uc ]
+[; ;term.c: 630: putUSBUSART(UsbTxBuffer,7);
+"630
 [e ( _putUSBUSART (2 , &U _UsbTxBuffer -> -> 7 `i `uc ]
-[; ;term.c: 631: TermState = Term_ReadSlvI2cData;
-"631
-[e = F9009 . `E8984 2 ]
-"632
+[; ;term.c: 633: TermState = Term_ReadSlvI2cData;
+"633
+[e = F9010 . `E8985 2 ]
+"634
 }
 [e :U 943 ]
-[; ;term.c: 632: }
-[; ;term.c: 633: break;
-"633
-[e $U 903  ]
-[; ;term.c: 635: case Term_ReadSlvI2cData:
+[; ;term.c: 634: }
+[; ;term.c: 635: break;
 "635
-[e :U 944 ]
-[; ;term.c: 637: if (I2cSlv_I2cReadMsgSts() == MessageReceived)
+[e $U 903  ]
+[; ;term.c: 637: case Term_ReadSlvI2cData:
 "637
+[e :U 944 ]
+[; ;term.c: 639: if (I2cSlv_I2cReadMsgSts() == MessageReceived)
+"639
 [e $ ! == -> ( _I2cSlv_I2cReadMsgSts ..  `i -> . `E8102 1 `i 945  ]
-[; ;term.c: 638: {
-"638
-{
-[; ;term.c: 640: if (FormatOption == 1u)
+[; ;term.c: 640: {
 "640
-[e $ ! == -> F9021 `ui -> 1 `ui 946  ]
-[; ;term.c: 641: {
-"641
 {
-[; ;term.c: 643: for (Index = 0; Index <= PackageLen; Index++)
+[; ;term.c: 642: if (FormatOption == 1u)
+"642
+[e $ ! == -> F9022 `ui -> 1 `ui 946  ]
+[; ;term.c: 643: {
 "643
+{
+[; ;term.c: 645: for (Index = 0; Index <= PackageLen; Index++)
+"645
 {
 [e = _Index -> -> 0 `i `uc ]
 [e $U 950  ]
-"644
-[e :U 947 ]
-[; ;term.c: 644: {
-{
-[; ;term.c: 645: itoa(((void*)&(Payload[Index])),TermRxBuffer[Index],10);
-"645
-[e ( _itoa (3 , , -> -> &U *U + &U F9019 * -> _Index `ux -> -> # *U &U F9019 `ui `ux `*v `*uc -> *U + &U F9013 * -> _Index `ux -> -> # *U &U F9013 `ui `ux `i -> 10 `i ]
 "646
+[e :U 947 ]
+[; ;term.c: 646: {
+{
+[; ;term.c: 647: itoa(((void*)&(Payload[Index])),TermRxBuffer[Index],10);
+"647
+[e ( _itoa (3 , , -> -> &U *U + &U F9020 * -> _Index `ux -> -> # *U &U F9020 `ui `ux `*v `*uc -> *U + &U F9014 * -> _Index `ux -> -> # *U &U F9014 `ui `ux `i -> 10 `i ]
+"648
 }
-"643
+"645
 [e ++ _Index -> -> 1 `i `uc ]
 [e :U 950 ]
-[e $ <= -> _Index `i -> F9016 `i 947  ]
+[e $ <= -> _Index `i -> F9017 `i 947  ]
 [e :U 948 ]
-"646
+"648
 }
-"647
+"649
 }
 [e :U 946 ]
-[; ;term.c: 646: }
-[; ;term.c: 647: }
-[; ;term.c: 650: if((cdc_trf_state == 0))
-"650
+[; ;term.c: 648: }
+[; ;term.c: 649: }
+[; ;term.c: 652: if((cdc_trf_state == 0))
+"652
 [e $ ! == -> _cdc_trf_state `i -> 0 `i 951  ]
-[; ;term.c: 651: {
-"651
-{
-[; ;term.c: 653: if (FormatOption == 1u)
+[; ;term.c: 653: {
 "653
-[e $ ! == -> F9021 `ui -> 1 `ui 952  ]
-[; ;term.c: 654: {
-"654
 {
-[; ;term.c: 655: Payload[(2*PackageLen)].Byte[3] = '\r';
+[; ;term.c: 655: if (FormatOption == 1u)
 "655
-[e = *U + &U . *U + &U F9019 * -> -> * -> 2 `i -> F9016 `i `ui `ux -> -> # *U &U F9019 `ui `ux 0 * -> -> -> 3 `i `ui `ux -> -> # *U &U . *U + &U F9019 * -> -> * -> 2 `i -> F9016 `i `ui `ux -> -> # *U &U F9019 `ui `ux 0 `ui `ux -> -> 13 `ui `uc ]
-[; ;term.c: 656: Payload[(2*PackageLen)].Byte[2] = '\n';
+[e $ ! == -> F9022 `ui -> 1 `ui 952  ]
+[; ;term.c: 656: {
 "656
-[e = *U + &U . *U + &U F9019 * -> -> * -> 2 `i -> F9016 `i `ui `ux -> -> # *U &U F9019 `ui `ux 0 * -> -> -> 2 `i `ui `ux -> -> # *U &U . *U + &U F9019 * -> -> * -> 2 `i -> F9016 `i `ui `ux -> -> # *U &U F9019 `ui `ux 0 `ui `ux -> -> 10 `ui `uc ]
-[; ;term.c: 658: putUSBUSART((void*)Payload,(2*PackageLen) + 4);
-"658
-[e ( _putUSBUSART (2 , -> -> &U F9019 `*v `*uc -> + * -> 2 `i -> F9016 `i -> 4 `i `uc ]
-"659
-}
-[; ;term.c: 659: }
-[e $U 953  ]
-"660
-[e :U 952 ]
-[; ;term.c: 660: else
-[; ;term.c: 661: {
-"661
 {
-[; ;term.c: 662: TermRxBuffer[PackageLen] = '\r';
+[; ;term.c: 657: Payload[(2*PackageLen)].Byte[3] = '\r';
+"657
+[e = *U + &U . *U + &U F9020 * -> -> * -> 2 `i -> F9017 `i `ui `ux -> -> # *U &U F9020 `ui `ux 0 * -> -> -> 3 `i `ui `ux -> -> # *U &U . *U + &U F9020 * -> -> * -> 2 `i -> F9017 `i `ui `ux -> -> # *U &U F9020 `ui `ux 0 `ui `ux -> -> 13 `ui `uc ]
+[; ;term.c: 658: Payload[(2*PackageLen)].Byte[2] = '\n';
+"658
+[e = *U + &U . *U + &U F9020 * -> -> * -> 2 `i -> F9017 `i `ui `ux -> -> # *U &U F9020 `ui `ux 0 * -> -> -> 2 `i `ui `ux -> -> # *U &U . *U + &U F9020 * -> -> * -> 2 `i -> F9017 `i `ui `ux -> -> # *U &U F9020 `ui `ux 0 `ui `ux -> -> 10 `ui `uc ]
+[; ;term.c: 660: putUSBUSART((void*)Payload,(2*PackageLen) + 4);
+"660
+[e ( _putUSBUSART (2 , -> -> &U F9020 `*v `*uc -> + * -> 2 `i -> F9017 `i -> 4 `i `uc ]
+"661
+}
+[; ;term.c: 661: }
+[e $U 953  ]
 "662
-[e = *U + &U F9013 * -> F9016 `ux -> -> # *U &U F9013 `ui `ux -> -> 13 `ui `uc ]
-[; ;term.c: 663: TermRxBuffer[PackageLen + 1] = '\n';
+[e :U 952 ]
+[; ;term.c: 662: else
+[; ;term.c: 663: {
 "663
-[e = *U + &U F9013 * -> -> + -> F9016 `i -> 1 `i `ui `ux -> -> # *U &U F9013 `ui `ux -> -> 10 `ui `uc ]
-[; ;term.c: 665: putUSBUSART(TermRxBuffer,PackageLen + 2);
+{
+[; ;term.c: 664: TermRxBuffer[PackageLen] = '\r';
+"664
+[e = *U + &U F9014 * -> F9017 `ux -> -> # *U &U F9014 `ui `ux -> -> 13 `ui `uc ]
+[; ;term.c: 665: TermRxBuffer[PackageLen + 1] = '\n';
 "665
-[e ( _putUSBUSART (2 , &U F9013 -> + -> F9016 `i -> 2 `i `uc ]
-"666
+[e = *U + &U F9014 * -> -> + -> F9017 `i -> 1 `i `ui `ux -> -> # *U &U F9014 `ui `ux -> -> 10 `ui `uc ]
+[; ;term.c: 667: putUSBUSART(TermRxBuffer,PackageLen + 2);
+"667
+[e ( _putUSBUSART (2 , &U F9014 -> + -> F9017 `i -> 2 `i `uc ]
+"668
 }
 [e :U 953 ]
-[; ;term.c: 666: }
-[; ;term.c: 668: TermState = Term_GetData;
-"668
-[e = F9009 . `E8984 0 ]
-"669
+[; ;term.c: 668: }
+[; ;term.c: 670: TermState = Term_GetData;
+"670
+[e = F9010 . `E8985 0 ]
+"671
 }
 [e :U 951 ]
-"670
-}
-[; ;term.c: 669: }
-[; ;term.c: 670: }
-[e $U 954  ]
-"671
-[e :U 945 ]
-[; ;term.c: 671: else
-[; ;term.c: 672: {
 "672
-{
-[; ;term.c: 674: if (OsTmr_Wait(&SwTimer,3000u) == DelayExpired)
+}
+[; ;term.c: 671: }
+[; ;term.c: 672: }
+[e $U 954  ]
+"673
+[e :U 945 ]
+[; ;term.c: 673: else
+[; ;term.c: 674: {
 "674
-[e $ ! == -> ( _OsTmr_Wait (2 , &U F9023 -> -> 3000 `ui `ul `i -> . `E7766 1 `i 955  ]
-[; ;term.c: 675: {
-"675
 {
-[; ;term.c: 677: if((cdc_trf_state == 0))
+[; ;term.c: 676: if (OsTmr_Wait(&SwTimer,3000u) == DelayExpired)
+"676
+[e $ ! == -> ( _OsTmr_Wait (2 , &U F9024 -> -> 3000 `ui `ul `i -> . `E7766 1 `i 955  ]
+[; ;term.c: 677: {
 "677
-[e $ ! == -> _cdc_trf_state `i -> 0 `i 956  ]
-[; ;term.c: 678: {
-"678
 {
-[; ;term.c: 679: strcpy(UsbTxBuffer," Lazy device...you've been timed-out!!!\r\n");
+[; ;term.c: 679: if((cdc_trf_state == 0))
 "679
-[e ( _strcpy (2 , &U _UsbTxBuffer :s 1C ]
-[; ;term.c: 680: putUSBUSART(UsbTxBuffer,sizeof(" Lazy device...you've been timed-out!!!\r\n")-1);
+[e $ ! == -> _cdc_trf_state `i -> 0 `i 956  ]
+[; ;term.c: 680: {
 "680
-[e ( _putUSBUSART (2 , &U _UsbTxBuffer -> - -> 42 `ui -> -> 1 `i `ui `uc ]
-[; ;term.c: 682: TermState = Term_GetData;
+{
+[; ;term.c: 681: strcpy(UsbTxBuffer," Lazy device...you've been timed-out!!!\r\n");
+"681
+[e ( _strcpy (2 , &U _UsbTxBuffer :s 1C ]
+[; ;term.c: 682: putUSBUSART(UsbTxBuffer,sizeof(" Lazy device...you've been timed-out!!!\r\n")-1);
 "682
-[e = F9009 . `E8984 0 ]
-"683
-}
-[e :U 956 ]
+[e ( _putUSBUSART (2 , &U _UsbTxBuffer -> - -> 42 `ui -> -> 1 `i `ui `uc ]
+[; ;term.c: 684: TermState = Term_GetData;
 "684
-}
-[e :U 955 ]
+[e = F9010 . `E8985 0 ]
 "685
 }
-[e :U 954 ]
-[; ;term.c: 683: }
-[; ;term.c: 684: }
-[; ;term.c: 685: }
-[; ;term.c: 686: break;
+[e :U 956 ]
 "686
-[e $U 903  ]
-[; ;term.c: 688: case Term_ReadSlvUartData:
-"688
-[e :U 957 ]
-[; ;term.c: 689: break;
-"689
-[e $U 903  ]
-[; ;term.c: 691: default:
-"691
-[e :U 958 ]
-[; ;term.c: 692: break;
-"692
-[e $U 903  ]
-"693
 }
-[; ;term.c: 693: }
+[e :U 955 ]
+"687
+}
+[e :U 954 ]
+[; ;term.c: 685: }
+[; ;term.c: 686: }
+[; ;term.c: 687: }
+[; ;term.c: 688: break;
+"688
 [e $U 903  ]
-"451
-[e :U 904 ]
-[e [\ F9009 , $ . `E8984 0 905
- , $ . `E8984 1 942
- , $ . `E8984 2 944
- , $ . `E8984 3 957
- 958 ]
+[; ;term.c: 690: case Term_ReadSlvUartData:
+"690
+[e :U 957 ]
+[; ;term.c: 691: break;
+"691
+[e $U 903  ]
+[; ;term.c: 693: default:
 "693
-[e :U 903 ]
-[; ;term.c: 694: }
+[e :U 958 ]
+[; ;term.c: 694: break;
 "694
+[e $U 903  ]
+"695
+}
+[; ;term.c: 695: }
+[e $U 903  ]
+"452
+[e :U 904 ]
+[e [\ F9010 , $ . `E8985 0 905
+ , $ . `E8985 1 942
+ , $ . `E8985 2 944
+ , $ . `E8985 3 957
+ 958 ]
+"695
+[e :U 903 ]
+[; ;term.c: 696: }
+"696
 [e :UE 901 ]
 }
-"707
+"709
 [v _Term_MainSm `(v ~T0 @X0 1 ef ]
-"708
+"710
 {
-[; ;term.c: 707: void Term_MainSm (void)
-[; ;term.c: 708: {
+[; ;term.c: 709: void Term_MainSm (void)
+[; ;term.c: 710: {
 [e :U _Term_MainSm ]
 [f ]
-"709
-[v F9034 `E8973 ~T0 @X0 1 s TermMainSmState ]
-[i F9034
-. `E8973 0
-]
-"710
-[v F9035 `S804 ~T0 @X0 1 s TermDelay ]
+"711
+[v F9035 `E8974 ~T0 @X0 1 s TermMainSmState ]
 [i F9035
+. `E8974 0
+]
+"712
+[v F9036 `S804 ~T0 @X0 1 s TermDelay ]
+[i F9036
 :U ..
 :U ..
 -> -> 1 `ui `uc
@@ -9626,332 +9636,332 @@ Version 3.2 HI-TECH Software Intermediate Code
 ..
 ..
 ]
-"711
-[v F9036 `uc ~T0 @X0 -> 50 `i s Data ]
-"712
-[v _FwkMajorStr `uc ~T0 @X0 -> 4 `i a ]
 "713
-[v _FwkMinorStr `uc ~T0 @X0 -> 4 `i a ]
+[v F9037 `uc ~T0 @X0 -> 50 `i s Data ]
 "714
-[v _FwkBuildStr `uc ~T0 @X0 -> 4 `i a ]
+[v _FwkMajorStr `uc ~T0 @X0 -> 4 `i a ]
 "715
-[v _FwkBuildDayStr `uc ~T0 @X0 -> 4 `i a ]
+[v _FwkMinorStr `uc ~T0 @X0 -> 4 `i a ]
 "716
-[v _FwkBuildMonthStr `uc ~T0 @X0 -> 4 `i a ]
+[v _FwkBuildStr `uc ~T0 @X0 -> 4 `i a ]
 "717
-[v _FwkBuildYearStr `uc ~T0 @X0 -> 4 `i a ]
-[; ;term.c: 709: static TermMainSmStateType TermMainSmState = Term_StartTmr;
-[; ;term.c: 710: static SwTimerType TermDelay = { 1u, SwTimerExpired, 0, 0, DelayNotExpired, };
-[; ;term.c: 711: static UINT8 Data[50];
-[; ;term.c: 712: UINT8 FwkMajorStr[4];
-[; ;term.c: 713: UINT8 FwkMinorStr[4];
-[; ;term.c: 714: UINT8 FwkBuildStr[4];
-[; ;term.c: 715: UINT8 FwkBuildDayStr[4];
-[; ;term.c: 716: UINT8 FwkBuildMonthStr[4];
-[; ;term.c: 717: UINT8 FwkBuildYearStr[4];
-[; ;term.c: 719: switch (TermMainSmState)
+[v _FwkBuildDayStr `uc ~T0 @X0 -> 4 `i a ]
+"718
+[v _FwkBuildMonthStr `uc ~T0 @X0 -> 4 `i a ]
 "719
-[e $U 961  ]
-[; ;term.c: 720: {
-"720
-{
-[; ;term.c: 721: case Term_StartTmr:
+[v _FwkBuildYearStr `uc ~T0 @X0 -> 4 `i a ]
+[; ;term.c: 711: static TermMainSmStateType TermMainSmState = Term_StartTmr;
+[; ;term.c: 712: static SwTimerType TermDelay = { 1u, SwTimerExpired, 0, 0, DelayNotExpired, };
+[; ;term.c: 713: static UINT8 Data[50];
+[; ;term.c: 714: UINT8 FwkMajorStr[4];
+[; ;term.c: 715: UINT8 FwkMinorStr[4];
+[; ;term.c: 716: UINT8 FwkBuildStr[4];
+[; ;term.c: 717: UINT8 FwkBuildDayStr[4];
+[; ;term.c: 718: UINT8 FwkBuildMonthStr[4];
+[; ;term.c: 719: UINT8 FwkBuildYearStr[4];
+[; ;term.c: 721: switch (TermMainSmState)
 "721
-[e :U 962 ]
-[; ;term.c: 723: OsTmr_StartTimer(&TermDelay,2000);
-"723
-[e ( _OsTmr_StartTimer (2 , &U F9035 -> -> -> 2000 `i `l `ul ]
-[; ;term.c: 725: TermMainSmState = Term_InitDelay;
-"725
-[e = F9034 . `E8973 1 ]
-[; ;term.c: 726: break;
-"726
-[e $U 960  ]
-[; ;term.c: 728: case Term_InitDelay:
-"728
-[e :U 963 ]
-[; ;term.c: 730: if (OsTmr_GetTimerStatus(&TermDelay) == SwTimerExpired)
-"730
-[e $ ! == -> ( _OsTmr_GetTimerStatus (1 &U F9035 `i -> . `E7757 1 `i 964  ]
-[; ;term.c: 731: {
-"731
+[e $U 961  ]
+[; ;term.c: 722: {
+"722
 {
-[; ;term.c: 733: TermMainSmState = Term_InitState;
+[; ;term.c: 723: case Term_StartTmr:
+"723
+[e :U 962 ]
+[; ;term.c: 725: OsTmr_StartTimer(&TermDelay,2000);
+"725
+[e ( _OsTmr_StartTimer (2 , &U F9036 -> -> -> 2000 `i `l `ul ]
+[; ;term.c: 727: TermMainSmState = Term_InitDelay;
+"727
+[e = F9035 . `E8974 1 ]
+[; ;term.c: 728: break;
+"728
+[e $U 960  ]
+[; ;term.c: 730: case Term_InitDelay:
+"730
+[e :U 963 ]
+[; ;term.c: 732: if (OsTmr_GetTimerStatus(&TermDelay) == SwTimerExpired)
+"732
+[e $ ! == -> ( _OsTmr_GetTimerStatus (1 &U F9036 `i -> . `E7757 1 `i 964  ]
+[; ;term.c: 733: {
 "733
-[e = F9034 . `E8973 2 ]
-"734
+{
+[; ;term.c: 735: TermMainSmState = Term_InitState;
+"735
+[e = F9035 . `E8974 2 ]
+"736
 }
 [e :U 964 ]
-[; ;term.c: 734: }
-[; ;term.c: 735: break;
-"735
-[e $U 960  ]
-[; ;term.c: 737: case Term_InitState:
+[; ;term.c: 736: }
+[; ;term.c: 737: break;
 "737
-[e :U 965 ]
-[; ;term.c: 739: if((USBDeviceState < CONFIGURED_STATE)||(UCONbits.SUSPND == 1))
+[e $U 960  ]
+[; ;term.c: 739: case Term_InitState:
 "739
+[e :U 965 ]
+[; ;term.c: 741: if((USBDeviceState < CONFIGURED_STATE)||(UCONbits.SUSPND == 1))
+"741
 [e $ ! || < -> _USBDeviceState `i -> . `E8330 6 `i == -> . . _UCONbits 0 1 `i -> 1 `i 966  ]
-[; ;term.c: 740: {
-"740
-{
+[; ;term.c: 742: {
 "742
-}
-[; ;term.c: 742: }
-[e $U 967  ]
-"743
-[e :U 966 ]
-[; ;term.c: 743: else
-[; ;term.c: 744: {
-"744
 {
-[; ;term.c: 746: TermMainSmState = Term_WelcomeState;
+"744
+}
+[; ;term.c: 744: }
+[e $U 967  ]
+"745
+[e :U 966 ]
+[; ;term.c: 745: else
+[; ;term.c: 746: {
 "746
-[e = F9034 . `E8973 3 ]
-"747
+{
+[; ;term.c: 748: TermMainSmState = Term_WelcomeState;
+"748
+[e = F9035 . `E8974 3 ]
+"749
 }
 [e :U 967 ]
-[; ;term.c: 747: }
-[; ;term.c: 748: break;
-"748
-[e $U 960  ]
-[; ;term.c: 750: case Term_WelcomeState:
+[; ;term.c: 749: }
+[; ;term.c: 750: break;
 "750
-[e :U 968 ]
-[; ;term.c: 752: if((cdc_trf_state == 0))
+[e $U 960  ]
+[; ;term.c: 752: case Term_WelcomeState:
 "752
+[e :U 968 ]
+[; ;term.c: 754: if((cdc_trf_state == 0))
+"754
 [e $ ! == -> _cdc_trf_state `i -> 0 `i 969  ]
-[; ;term.c: 753: {
-"753
-{
-[; ;term.c: 755: putUSBUSART((void*)Welcome,(sizeof(Welcome) - 1));
+[; ;term.c: 755: {
 "755
-[e ( _putUSBUSART (2 , -> -> &U _Welcome `*v `*uc -> - -> # _Welcome `ui -> -> 1 `i `ui `uc ]
-[; ;term.c: 757: TermMainSmState = Term_InstDescState;
+{
+[; ;term.c: 757: putUSBUSART((void*)Welcome,(sizeof(Welcome) - 1));
 "757
-[e = F9034 . `E8973 4 ]
-"758
+[e ( _putUSBUSART (2 , -> -> &U _Welcome `*v `*uc -> - -> # _Welcome `ui -> -> 1 `i `ui `uc ]
+[; ;term.c: 759: TermMainSmState = Term_InstDescState;
+"759
+[e = F9035 . `E8974 4 ]
+"760
 }
 [e :U 969 ]
-[; ;term.c: 758: }
-[; ;term.c: 759: break;
-"759
-[e $U 960  ]
-[; ;term.c: 761: case Term_InstDescState:
+[; ;term.c: 760: }
+[; ;term.c: 761: break;
 "761
-[e :U 970 ]
-[; ;term.c: 763: if((cdc_trf_state == 0))
+[e $U 960  ]
+[; ;term.c: 763: case Term_InstDescState:
 "763
+[e :U 970 ]
+[; ;term.c: 765: if((cdc_trf_state == 0))
+"765
 [e $ ! == -> _cdc_trf_state `i -> 0 `i 971  ]
-[; ;term.c: 764: {
-"764
-{
-[; ;term.c: 766: putUSBUSART((void*)MsgFormat,(sizeof(MsgFormat) - 1));
+[; ;term.c: 766: {
 "766
-[e ( _putUSBUSART (2 , -> -> &U _MsgFormat `*v `*uc -> - -> # _MsgFormat `ui -> -> 1 `i `ui `uc ]
-[; ;term.c: 768: TermMainSmState = Term_FwkVerState;
+{
+[; ;term.c: 768: putUSBUSART((void*)MsgFormat,(sizeof(MsgFormat) - 1));
 "768
-[e = F9034 . `E8973 5 ]
-"769
+[e ( _putUSBUSART (2 , -> -> &U _MsgFormat `*v `*uc -> - -> # _MsgFormat `ui -> -> 1 `i `ui `uc ]
+[; ;term.c: 770: TermMainSmState = Term_FwkVerState;
+"770
+[e = F9035 . `E8974 5 ]
+"771
 }
 [e :U 971 ]
-[; ;term.c: 769: }
-[; ;term.c: 770: break;
-"770
-[e $U 960  ]
-[; ;term.c: 772: case Term_FwkVerState:
+[; ;term.c: 771: }
+[; ;term.c: 772: break;
 "772
-[e :U 972 ]
-[; ;term.c: 774: if((cdc_trf_state == 0))
+[e $U 960  ]
+[; ;term.c: 774: case Term_FwkVerState:
 "774
+[e :U 972 ]
+[; ;term.c: 776: if((cdc_trf_state == 0))
+"776
 [e $ ! == -> _cdc_trf_state `i -> 0 `i 973  ]
-[; ;term.c: 775: {
-"775
-{
-[; ;term.c: 777: memset(Data,0,50);
+[; ;term.c: 777: {
 "777
-[e ( _memset (3 , , -> &U F9036 `*v -> 0 `i -> -> 50 `i `ui ]
-[; ;term.c: 779: utoa(FwkMajorStr,1,10);
+{
+[; ;term.c: 779: memset(Data,0,50);
 "779
-[e ( _utoa (3 , , &U _FwkMajorStr -> -> 1 `i `ui -> 10 `i ]
-[; ;term.c: 780: utoa(FwkMinorStr,2,10);
-"780
-[e ( _utoa (3 , , &U _FwkMinorStr -> -> 2 `i `ui -> 10 `i ]
-[; ;term.c: 781: utoa(FwkBuildStr,0,10);
+[e ( _memset (3 , , -> &U F9037 `*v -> 0 `i -> -> 50 `i `ui ]
+[; ;term.c: 781: utoa(FwkMajorStr,1,10);
 "781
-[e ( _utoa (3 , , &U _FwkBuildStr -> -> 0 `i `ui -> 10 `i ]
-[; ;term.c: 782: strcpy(Data,"Framework Version: ");
+[e ( _utoa (3 , , &U _FwkMajorStr -> -> 1 `i `ui -> 10 `i ]
+[; ;term.c: 782: utoa(FwkMinorStr,2,10);
 "782
-[e ( _strcpy (2 , &U F9036 :s 3C ]
-[; ;term.c: 783: strcat(Data,FwkMajorStr);
+[e ( _utoa (3 , , &U _FwkMinorStr -> -> 2 `i `ui -> 10 `i ]
+[; ;term.c: 783: utoa(FwkBuildStr,0,10);
 "783
-[e ( _strcat (2 , &U F9036 -> &U _FwkMajorStr `*Cuc ]
-[; ;term.c: 784: strcat(Data,".");
+[e ( _utoa (3 , , &U _FwkBuildStr -> -> 0 `i `ui -> 10 `i ]
+[; ;term.c: 784: strcpy(Data,"Framework Version: ");
 "784
-[e ( _strcat (2 , &U F9036 :s 4C ]
-[; ;term.c: 785: strcat(Data,FwkMinorStr);
+[e ( _strcpy (2 , &U F9037 :s 3C ]
+[; ;term.c: 785: strcat(Data,FwkMajorStr);
 "785
-[e ( _strcat (2 , &U F9036 -> &U _FwkMinorStr `*Cuc ]
+[e ( _strcat (2 , &U F9037 -> &U _FwkMajorStr `*Cuc ]
 [; ;term.c: 786: strcat(Data,".");
 "786
-[e ( _strcat (2 , &U F9036 :s 5C ]
-[; ;term.c: 787: strcat(Data,FwkBuildStr);
+[e ( _strcat (2 , &U F9037 :s 4C ]
+[; ;term.c: 787: strcat(Data,FwkMinorStr);
 "787
-[e ( _strcat (2 , &U F9036 -> &U _FwkBuildStr `*Cuc ]
-[; ;term.c: 788: strcat(Data,"\r\n");
+[e ( _strcat (2 , &U F9037 -> &U _FwkMinorStr `*Cuc ]
+[; ;term.c: 788: strcat(Data,".");
 "788
-[e ( _strcat (2 , &U F9036 :s 6C ]
-[; ;term.c: 790: putUSBUSART((void*)Data,strlen(Data));
+[e ( _strcat (2 , &U F9037 :s 5C ]
+[; ;term.c: 789: strcat(Data,FwkBuildStr);
+"789
+[e ( _strcat (2 , &U F9037 -> &U _FwkBuildStr `*Cuc ]
+[; ;term.c: 790: strcat(Data,"\r\n");
 "790
-[e ( _putUSBUSART (2 , -> -> &U F9036 `*v `*uc -> ( _strlen (1 -> &U F9036 `*Cuc `uc ]
-[; ;term.c: 792: TermMainSmState = Term_FwkBuildDateState;
+[e ( _strcat (2 , &U F9037 :s 6C ]
+[; ;term.c: 792: putUSBUSART((void*)Data,strlen(Data));
 "792
-[e = F9034 . `E8973 6 ]
-"793
+[e ( _putUSBUSART (2 , -> -> &U F9037 `*v `*uc -> ( _strlen (1 -> &U F9037 `*Cuc `uc ]
+[; ;term.c: 794: TermMainSmState = Term_FwkBuildDateState;
+"794
+[e = F9035 . `E8974 6 ]
+"795
 }
 [e :U 973 ]
-[; ;term.c: 793: }
-[; ;term.c: 794: break;
-"794
-[e $U 960  ]
-[; ;term.c: 796: case Term_FwkBuildDateState:
+[; ;term.c: 795: }
+[; ;term.c: 796: break;
 "796
-[e :U 974 ]
-[; ;term.c: 798: if((cdc_trf_state == 0))
+[e $U 960  ]
+[; ;term.c: 798: case Term_FwkBuildDateState:
 "798
+[e :U 974 ]
+[; ;term.c: 800: if((cdc_trf_state == 0))
+"800
 [e $ ! == -> _cdc_trf_state `i -> 0 `i 975  ]
-[; ;term.c: 799: {
-"799
-{
-[; ;term.c: 801: memset(Data,0,50);
+[; ;term.c: 801: {
 "801
-[e ( _memset (3 , , -> &U F9036 `*v -> 0 `i -> -> 50 `i `ui ]
-[; ;term.c: 803: sprintf(Data,"Build Date: %s\r\n","Apr  2 2022");
+{
+[; ;term.c: 803: memset(Data,0,50);
 "803
-[e ( _sprintf (1 , (. , &U F9036 :s 7C :s 8C ]
-[; ;term.c: 805: putUSBUSART((void*)Data,strlen(Data));
+[e ( _memset (3 , , -> &U F9037 `*v -> 0 `i -> -> 50 `i `ui ]
+[; ;term.c: 805: sprintf(Data,"Build Date: %s\r\n","Apr  2 2022");
 "805
-[e ( _putUSBUSART (2 , -> -> &U F9036 `*v `*uc -> ( _strlen (1 -> &U F9036 `*Cuc `uc ]
-[; ;term.c: 807: TermMainSmState = Term_SysInitState;
+[e ( _sprintf (1 , (. , &U F9037 :s 7C :s 8C ]
+[; ;term.c: 807: putUSBUSART((void*)Data,strlen(Data));
 "807
-[e = F9034 . `E8973 7 ]
-"808
+[e ( _putUSBUSART (2 , -> -> &U F9037 `*v `*uc -> ( _strlen (1 -> &U F9037 `*Cuc `uc ]
+[; ;term.c: 809: TermMainSmState = Term_SysInitState;
+"809
+[e = F9035 . `E8974 7 ]
+"810
 }
 [e :U 975 ]
-[; ;term.c: 808: }
-[; ;term.c: 809: break;
-"809
-[e $U 960  ]
-[; ;term.c: 811: case Term_SysInitState:
+[; ;term.c: 810: }
+[; ;term.c: 811: break;
 "811
-[e :U 976 ]
-[; ;term.c: 813: if((cdc_trf_state == 0))
+[e $U 960  ]
+[; ;term.c: 813: case Term_SysInitState:
 "813
+[e :U 976 ]
+[; ;term.c: 815: if((cdc_trf_state == 0))
+"815
 [e $ ! == -> _cdc_trf_state `i -> 0 `i 977  ]
-[; ;term.c: 814: {
-"814
-{
-[; ;term.c: 816: putUSBUSART((void*)MsgReady,(sizeof(MsgReady) - 1));
+[; ;term.c: 816: {
 "816
-[e ( _putUSBUSART (2 , -> -> &U _MsgReady `*v `*uc -> - -> # _MsgReady `ui -> -> 1 `i `ui `uc ]
-[; ;term.c: 818: TermMainSmState = Term_FinalState;
+{
+[; ;term.c: 818: putUSBUSART((void*)MsgReady,(sizeof(MsgReady) - 1));
 "818
-[e = F9034 . `E8973 8 ]
-"819
+[e ( _putUSBUSART (2 , -> -> &U _MsgReady `*v `*uc -> - -> # _MsgReady `ui -> -> 1 `i `ui `uc ]
+[; ;term.c: 820: TermMainSmState = Term_FinalState;
+"820
+[e = F9035 . `E8974 8 ]
+"821
 }
 [e :U 977 ]
-[; ;term.c: 819: }
-[; ;term.c: 820: break;
-"820
-[e $U 960  ]
-[; ;term.c: 822: case Term_FinalState:
+[; ;term.c: 821: }
+[; ;term.c: 822: break;
 "822
-[e :U 978 ]
-[; ;term.c: 824: Terminal();
+[e $U 960  ]
+[; ;term.c: 824: case Term_FinalState:
 "824
+[e :U 978 ]
+[; ;term.c: 826: Terminal();
+"826
 [e ( _Terminal ..  ]
-[; ;term.c: 825: break;
-"825
-[e $U 960  ]
-[; ;term.c: 827: default:
+[; ;term.c: 827: break;
 "827
+[e $U 960  ]
+[; ;term.c: 829: default:
+"829
 [e :U 979 ]
-[; ;term.c: 828: break;
-"828
-[e $U 960  ]
-"829
-}
-[; ;term.c: 829: }
-[e $U 960  ]
-"719
-[e :U 961 ]
-[e [\ F9034 , $ . `E8973 0 962
- , $ . `E8973 1 963
- , $ . `E8973 2 965
- , $ . `E8973 3 968
- , $ . `E8973 4 970
- , $ . `E8973 5 972
- , $ . `E8973 6 974
- , $ . `E8973 7 976
- , $ . `E8973 8 978
- 979 ]
-"829
-[e :U 960 ]
-[; ;term.c: 830: }
+[; ;term.c: 830: break;
 "830
+[e $U 960  ]
+"831
+}
+[; ;term.c: 831: }
+[e $U 960  ]
+"721
+[e :U 961 ]
+[e [\ F9035 , $ . `E8974 0 962
+ , $ . `E8974 1 963
+ , $ . `E8974 2 965
+ , $ . `E8974 3 968
+ , $ . `E8974 4 970
+ , $ . `E8974 5 972
+ , $ . `E8974 6 974
+ , $ . `E8974 7 976
+ , $ . `E8974 8 978
+ 979 ]
+"831
+[e :U 960 ]
+[; ;term.c: 832: }
+"832
 [e :UE 959 ]
 }
-"845
-[v _Term_MainTask `(v ~T0 @X0 1 ef1`uc ]
-"846
-{
-[; ;term.c: 845: void Term_MainTask (UINT8 Options)
-[; ;term.c: 846: {
-[e :U _Term_MainTask ]
-"845
-[v _Options `uc ~T0 @X0 1 r1 ]
-"846
-[f ]
-[; ;term.c: 847: switch (SystemState)
 "847
-[e $U 982  ]
-[; ;term.c: 848: {
+[v _Term_MainTask `(v ~T0 @X0 1 ef1`uc ]
 "848
 {
-[; ;term.c: 850: case InitializationState:
-"850
-[e :U 983 ]
-[; ;term.c: 852: break;
-"852
-[e $U 981  ]
-[; ;term.c: 855: case RunningState:
-"855
-[e :U 984 ]
-[; ;term.c: 858: Term_MainSm();
-"858
-[e ( _Term_MainSm ..  ]
-[; ;term.c: 860: break;
-"860
-[e $U 981  ]
-[; ;term.c: 863: default:
-"863
-[e :U 985 ]
-[; ;term.c: 864: break;
-"864
-[e $U 981  ]
-"865
-}
-[; ;term.c: 865: }
-[e $U 981  ]
+[; ;term.c: 847: void Term_MainTask (UINT8 Options)
+[; ;term.c: 848: {
+[e :U _Term_MainTask ]
 "847
+[v _Options `uc ~T0 @X0 1 r1 ]
+"848
+[f ]
+[; ;term.c: 849: switch (SystemState)
+"849
+[e $U 982  ]
+[; ;term.c: 850: {
+"850
+{
+[; ;term.c: 852: case InitializationState:
+"852
+[e :U 983 ]
+[; ;term.c: 854: break;
+"854
+[e $U 981  ]
+[; ;term.c: 857: case RunningState:
+"857
+[e :U 984 ]
+[; ;term.c: 860: Term_MainSm();
+"860
+[e ( _Term_MainSm ..  ]
+[; ;term.c: 862: break;
+"862
+[e $U 981  ]
+[; ;term.c: 865: default:
+"865
+[e :U 985 ]
+[; ;term.c: 866: break;
+"866
+[e $U 981  ]
+"867
+}
+[; ;term.c: 867: }
+[e $U 981  ]
+"849
 [e :U 982 ]
 [e [\ _SystemState , $ . `E8958 0 983
  , $ . `E8958 1 984
  985 ]
-"865
+"867
 [e :U 981 ]
-[; ;term.c: 866: }
-"866
+[; ;term.c: 868: }
+"868
 [e :UE 980 ]
 }
 [p f _sprintf 8650752 ]

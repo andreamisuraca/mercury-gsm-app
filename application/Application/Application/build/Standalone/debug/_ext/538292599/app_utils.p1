@@ -9,8 +9,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 "57 ../../MercuryFwk/Source/h/03_Sml/01_Pml/05_Eeprom/eeprom_if.h
 [v _Eeprom_Write `(uc ~T0 @X0 0 ef3`uc`*uc`uc ]
 "149 ../Source/c/04_App/app_utils.c
-[c E8973 0 1 2 3 4 .. ]
-[n E8973 _searchFsmStates SEARCH_FSM_START SEARCH_FSM_CHECK_NUMBER SEARCH_FSM_ERROR SEARCH_FSM_FOUND SEARCH_FSM_NOT_FOUND  ]
+[c E8974 0 1 2 3 4 .. ]
+[n E8974 _searchFsmStates SEARCH_FSM_START SEARCH_FSM_CHECK_NUMBER SEARCH_FSM_ERROR SEARCH_FSM_FOUND SEARCH_FSM_NOT_FOUND  ]
 "152
 [c E8246 0 1 2 .. ]
 [n E8246 _EepromSts OP_SUCCESS OP_FAILED OP_PENDING  ]
@@ -8223,7 +8223,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;sf.h: 55: void ClearBuffer (UINT8 *Buffer, UINT16 Len);
 [; ;term.h: 51: extern UINT16 UsbMasterPhoneNumberLen;
 [; ;term.h: 53: extern char UsbMasterPhoneNumber[((UINT16)(15))];
-[; ;term.h: 58: void Term_MainTask (UINT8 Options);
+[; ;term.h: 55: extern UINT8 IsUsbNumberReceived;
+[; ;term.h: 59: void Term_MainTask (UINT8 Options);
 [; ;ext_int.h: 52: void ExtInt_SetInt0Action (ExtInt_CallbackType Callback);
 [; ;ext_int.h: 53: void ExtInt_SetInt1Action (ExtInt_CallbackType Callback);
 [; ;wdg.h: 53: void Wdg_MainTask (UINT8 Options);
@@ -8532,7 +8533,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :UE 898 ]
 }
 "148
-[v _isNumberInMemory `(E8973 ~T0 @X0 1 ef2`*uc`*uc ]
+[v _isNumberInMemory `(E8974 ~T0 @X0 1 ef2`*uc`*uc ]
 "149
 {
 [; ;app_utils.c: 148: searchFsmStates isNumberInMemory(uint8_t* phoneNumber, uint8_t* positionInMemory)
@@ -8544,13 +8545,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 "149
 [f ]
 "150
-[v F9022 `E8973 ~T0 @X0 1 s currentState ]
-[i F9022
-. `E8973 0
+[v F9023 `E8974 ~T0 @X0 1 s currentState ]
+[i F9023
+. `E8974 0
 ]
 "151
-[v F9023 `uc ~T0 @X0 1 s currentPosition ]
-[i F9023
+[v F9024 `uc ~T0 @X0 1 s currentPosition ]
+[i F9024
 -> -> 32 `i `uc
 ]
 "152
@@ -8561,29 +8562,29 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _memoryOpResult . `E8246 2 ]
 [; ;app_utils.c: 154: if (currentState > SEARCH_FSM_CHECK_NUMBER)
 "154
-[e $ ! > -> F9022 `i -> . `E8973 1 `i 906  ]
+[e $ ! > -> F9023 `i -> . `E8974 1 `i 906  ]
 [; ;app_utils.c: 155: {
 "155
 {
 [; ;app_utils.c: 156: currentState = SEARCH_FSM_START;
 "156
-[e = F9022 . `E8973 0 ]
+[e = F9023 . `E8974 0 ]
 [; ;app_utils.c: 157: currentPosition = 32;
 "157
-[e = F9023 -> -> 32 `i `uc ]
+[e = F9024 -> -> 32 `i `uc ]
 "158
 }
 [e :U 906 ]
 [; ;app_utils.c: 158: }
 [; ;app_utils.c: 159: if (currentPosition >= (32 + (16 * 10)))
 "159
-[e $ ! >= -> F9023 `i + -> 32 `i * -> 16 `i -> 10 `i 907  ]
+[e $ ! >= -> F9024 `i + -> 32 `i * -> 16 `i -> 10 `i 907  ]
 [; ;app_utils.c: 160: {
 "160
 {
 [; ;app_utils.c: 161: currentState = SEARCH_FSM_NOT_FOUND;
 "161
-[e = F9022 . `E8973 4 ]
+[e = F9023 . `E8974 4 ]
 "162
 }
 [e :U 907 ]
@@ -8599,7 +8600,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U 910 ]
 [; ;app_utils.c: 167: memoryOpResult = Eeprom_Read(currentPosition, readBuffer, ((UINT8)(13)));
 "167
-[e = _memoryOpResult ( _Eeprom_Read (3 , , F9023 &U _readBuffer -> -> 13 `i `uc ]
+[e = _memoryOpResult ( _Eeprom_Read (3 , , F9024 &U _readBuffer -> -> 13 `i `uc ]
 [; ;app_utils.c: 168: if (memoryOpResult == OP_FAILED)
 "168
 [e $ ! == -> _memoryOpResult `i -> . `E8246 1 `i 911  ]
@@ -8608,7 +8609,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;app_utils.c: 170: currentState = SEARCH_FSM_ERROR;
 "170
-[e = F9022 . `E8973 2 ]
+[e = F9023 . `E8974 2 ]
 "171
 }
 [; ;app_utils.c: 171: }
@@ -8622,7 +8623,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;app_utils.c: 174: currentState = SEARCH_FSM_CHECK_NUMBER;
 "174
-[e = F9022 . `E8973 1 ]
+[e = F9023 . `E8974 1 ]
 "175
 }
 [e :U 913 ]
@@ -8636,7 +8637,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U 914 ]
 [; ;app_utils.c: 179: currentState = SEARCH_FSM_START;
 "179
-[e = F9022 . `E8973 0 ]
+[e = F9023 . `E8974 0 ]
 [; ;app_utils.c: 180: if (isNumberValid(readBuffer))
 "180
 [e $ ! != -> ( _isNumberValid (1 &U _readBuffer `i -> -> -> 0 `i `uc `i 915  ]
@@ -8651,10 +8652,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;app_utils.c: 184: *positionInMemory = currentPosition;
 "184
-[e = *U _positionInMemory F9023 ]
+[e = *U _positionInMemory F9024 ]
 [; ;app_utils.c: 185: currentState = SEARCH_FSM_FOUND;
 "185
-[e = F9022 . `E8973 3 ]
+[e = F9023 . `E8974 3 ]
 "186
 }
 [; ;app_utils.c: 186: }
@@ -8675,7 +8676,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;app_utils.c: 191: }
 [; ;app_utils.c: 192: currentPosition += 16;
 "192
-[e =+ F9023 -> -> 16 `i `uc ]
+[e =+ F9024 -> -> 16 `i `uc ]
 [; ;app_utils.c: 193: break;
 "193
 [e $U 908  ]
@@ -8691,14 +8692,14 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $U 908  ]
 "164
 [e :U 909 ]
-[e [\ F9022 , $ . `E8973 0 910
- , $ . `E8973 1 914
+[e [\ F9023 , $ . `E8974 0 910
+ , $ . `E8974 1 914
  918 ]
 "197
 [e :U 908 ]
 [; ;app_utils.c: 198: return currentState;
 "198
-[e ) F9022 ]
+[e ) F9023 ]
 [e $UE 905  ]
 [; ;app_utils.c: 199: }
 "199
@@ -8767,7 +8768,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :UE 919 ]
 }
 "286
-[v _findEmptySpot `(E8973 ~T0 @X0 1 ef1`*uc ]
+[v _findEmptySpot `(E8974 ~T0 @X0 1 ef1`*uc ]
 "287
 {
 [; ;app_utils.c: 286: searchFsmStates findEmptySpot(uint8_t* positionInMemory)
@@ -8778,13 +8779,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 "287
 [f ]
 "288
-[v F9032 `E8973 ~T0 @X0 1 s currentState ]
-[i F9032
-. `E8973 0
+[v F9033 `E8974 ~T0 @X0 1 s currentState ]
+[i F9033
+. `E8974 0
 ]
 "289
-[v F9033 `uc ~T0 @X0 1 s currentPosition ]
-[i F9033
+[v F9034 `uc ~T0 @X0 1 s currentPosition ]
+[i F9034
 -> -> 32 `i `uc
 ]
 "290
@@ -8795,29 +8796,29 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _memoryOpResult . `E8246 2 ]
 [; ;app_utils.c: 292: if (currentState > SEARCH_FSM_CHECK_NUMBER)
 "292
-[e $ ! > -> F9032 `i -> . `E8973 1 `i 924  ]
+[e $ ! > -> F9033 `i -> . `E8974 1 `i 924  ]
 [; ;app_utils.c: 293: {
 "293
 {
 [; ;app_utils.c: 294: currentState = SEARCH_FSM_START;
 "294
-[e = F9032 . `E8973 0 ]
+[e = F9033 . `E8974 0 ]
 [; ;app_utils.c: 295: currentPosition = 32;
 "295
-[e = F9033 -> -> 32 `i `uc ]
+[e = F9034 -> -> 32 `i `uc ]
 "296
 }
 [e :U 924 ]
 [; ;app_utils.c: 296: }
 [; ;app_utils.c: 297: if (currentPosition >= (32 + (16 * 10)))
 "297
-[e $ ! >= -> F9033 `i + -> 32 `i * -> 16 `i -> 10 `i 925  ]
+[e $ ! >= -> F9034 `i + -> 32 `i * -> 16 `i -> 10 `i 925  ]
 [; ;app_utils.c: 298: {
 "298
 {
 [; ;app_utils.c: 299: currentState = SEARCH_FSM_NOT_FOUND;
 "299
-[e = F9032 . `E8973 4 ]
+[e = F9033 . `E8974 4 ]
 "300
 }
 [e :U 925 ]
@@ -8833,7 +8834,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U 928 ]
 [; ;app_utils.c: 305: memoryOpResult = Eeprom_Read(currentPosition, readBuffer, ((UINT8)(13)));
 "305
-[e = _memoryOpResult ( _Eeprom_Read (3 , , F9033 &U _readBuffer -> -> 13 `i `uc ]
+[e = _memoryOpResult ( _Eeprom_Read (3 , , F9034 &U _readBuffer -> -> 13 `i `uc ]
 [; ;app_utils.c: 306: if (memoryOpResult == OP_FAILED)
 "306
 [e $ ! == -> _memoryOpResult `i -> . `E8246 1 `i 929  ]
@@ -8842,7 +8843,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;app_utils.c: 308: currentState = SEARCH_FSM_ERROR;
 "308
-[e = F9032 . `E8973 2 ]
+[e = F9033 . `E8974 2 ]
 "309
 }
 [; ;app_utils.c: 309: }
@@ -8856,7 +8857,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;app_utils.c: 312: currentState = SEARCH_FSM_CHECK_NUMBER;
 "312
-[e = F9032 . `E8973 1 ]
+[e = F9033 . `E8974 1 ]
 "313
 }
 [e :U 931 ]
@@ -8876,10 +8877,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;app_utils.c: 319: currentPosition += 16;
 "319
-[e =+ F9033 -> -> 16 `i `uc ]
+[e =+ F9034 -> -> 16 `i `uc ]
 [; ;app_utils.c: 320: currentState = SEARCH_FSM_START;
 "320
-[e = F9032 . `E8973 0 ]
+[e = F9033 . `E8974 0 ]
 "321
 }
 [; ;app_utils.c: 321: }
@@ -8892,10 +8893,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;app_utils.c: 324: currentState = SEARCH_FSM_NOT_FOUND;
 "324
-[e = F9032 . `E8973 4 ]
+[e = F9033 . `E8974 4 ]
 [; ;app_utils.c: 325: *positionInMemory = currentPosition;
 "325
-[e = *U _positionInMemory F9033 ]
+[e = *U _positionInMemory F9034 ]
 "326
 }
 [e :U 934 ]
@@ -8915,14 +8916,14 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $U 926  ]
 "302
 [e :U 927 ]
-[e [\ F9032 , $ . `E8973 0 928
- , $ . `E8973 1 932
+[e [\ F9033 , $ . `E8974 0 928
+ , $ . `E8974 1 932
  935 ]
 "331
 [e :U 926 ]
 [; ;app_utils.c: 332: return currentState;
 "332
-[e ) F9032 ]
+[e ) F9033 ]
 [e $UE 923  ]
 [; ;app_utils.c: 333: }
 "333

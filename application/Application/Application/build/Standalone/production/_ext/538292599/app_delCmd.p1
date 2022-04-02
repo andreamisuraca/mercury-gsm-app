@@ -2,18 +2,18 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v F7983 `(v ~T0 @X0 0 tf ]
 [v F8056 `(v ~T0 @X0 0 tf ]
 "74 ../Source/c/04_App/app_delCmd.c
-[c E9005 0 1 2 .. ]
-[n E9005 _delFsmStates DEL_FSM_CHECK_MASTER DEL_FSM_REMOVE_NUMBER DEL_FSM_COMPLETE  ]
+[c E9006 0 1 2 .. ]
+[n E9006 _delFsmStates DEL_FSM_CHECK_MASTER DEL_FSM_REMOVE_NUMBER DEL_FSM_COMPLETE  ]
 "77
 [c E8246 0 1 2 .. ]
 [n E8246 _EepromSts OP_SUCCESS OP_FAILED OP_PENDING  ]
 "73 ../Source/h/04_App/app_utils.h
 [v _isMasterNumber `(uc ~T0 @X0 0 ef1`*uc ]
 "96 ../Source/c/04_App/app_delCmd.c
-[c E8973 0 1 2 3 4 .. ]
-[n E8973 _searchFsmStates SEARCH_FSM_START SEARCH_FSM_CHECK_NUMBER SEARCH_FSM_ERROR SEARCH_FSM_FOUND SEARCH_FSM_NOT_FOUND  ]
+[c E8974 0 1 2 3 4 .. ]
+[n E8974 _searchFsmStates SEARCH_FSM_START SEARCH_FSM_CHECK_NUMBER SEARCH_FSM_ERROR SEARCH_FSM_FOUND SEARCH_FSM_NOT_FOUND  ]
 "71 ../Source/h/04_App/app_utils.h
-[v _isNumberInMemory `(E8973 ~T0 @X0 0 ef2`*uc`*uc ]
+[v _isNumberInMemory `(E8974 ~T0 @X0 0 ef2`*uc`*uc ]
 "69
 [v _saveNumberInMemory `(v ~T0 @X0 0 ef2`uc`*uc ]
 "30 ../../MercuryFwk/Source/h/01_Hal/01_Sys/hal.h
@@ -8221,7 +8221,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;sf.h: 55: void ClearBuffer (UINT8 *Buffer, UINT16 Len);
 [; ;term.h: 51: extern UINT16 UsbMasterPhoneNumberLen;
 [; ;term.h: 53: extern char UsbMasterPhoneNumber[((UINT16)(15))];
-[; ;term.h: 58: void Term_MainTask (UINT8 Options);
+[; ;term.h: 55: extern UINT8 IsUsbNumberReceived;
+[; ;term.h: 59: void Term_MainTask (UINT8 Options);
 [; ;ext_int.h: 52: void ExtInt_SetInt0Action (ExtInt_CallbackType Callback);
 [; ;ext_int.h: 53: void ExtInt_SetInt1Action (ExtInt_CallbackType Callback);
 [; ;wdg.h: 53: void Wdg_MainTask (UINT8 Options);
@@ -8277,8 +8278,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _isCmdSuccessfull `*uc ~T0 @X0 1 r3 ]
 "72
 [f ]
-[v F9015 `Cuc ~T0 @X0 -> -> -> 13 `i `uc `ux s ]
-[i F9015
+[v F9016 `Cuc ~T0 @X0 -> -> -> 13 `i `uc `ux s ]
+[i F9016
 :U ..
 "73
 -> -> 0 `i `uc
@@ -8286,11 +8287,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 ]
 [v _emptyNumber `Cuc ~T0 @X0 -> -> -> 13 `i `uc `ux a ]
 [; ;app_delCmd.c: 73: const uint8_t emptyNumber[((UINT8)(13))] = {0};
-[e = _emptyNumber F9015 ]
+[e = _emptyNumber F9016 ]
 "74
-[v F9016 `E9005 ~T0 @X0 1 s currentState ]
-[i F9016
-. `E9005 0
+[v F9017 `E9006 ~T0 @X0 1 s currentState ]
+[i F9017
+. `E9006 0
 ]
 "75
 [v _isComplete `uc ~T0 @X0 1 a ]
@@ -8332,7 +8333,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;app_delCmd.c: 87: currentState = DEL_FSM_REMOVE_NUMBER;
 "87
-[e = F9016 . `E9005 1 ]
+[e = F9017 . `E9006 1 ]
 "88
 }
 [; ;app_delCmd.c: 88: }
@@ -8346,7 +8347,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;app_delCmd.c: 91: currentState = DEL_FSM_COMPLETE;
 "91
-[e = F9016 . `E9005 2 ]
+[e = F9017 . `E9006 2 ]
 "92
 }
 [e :U 893 ]
@@ -8363,7 +8364,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _searchNumber -> ( _isNumberInMemory (2 , + _smsText * -> -> 4 `i `x -> -> # *U _smsText `i `x &U _numberInMemory `uc ]
 [; ;app_delCmd.c: 97: if (searchNumber == SEARCH_FSM_FOUND)
 "97
-[e $ ! == -> _searchNumber `i -> . `E8973 3 `i 895  ]
+[e $ ! == -> _searchNumber `i -> . `E8974 3 `i 895  ]
 [; ;app_delCmd.c: 98: {
 "98
 {
@@ -8372,7 +8373,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _saveNumberInMemory (2 , _numberInMemory -> &U _emptyNumber `*uc ]
 [; ;app_delCmd.c: 100: currentState = DEL_FSM_COMPLETE;
 "100
-[e = F9016 . `E9005 2 ]
+[e = F9017 . `E9006 2 ]
 [; ;app_delCmd.c: 101: *isCmdSuccessfull = 1;
 "101
 [e = *U _isCmdSuccessfull -> -> 1 `i `uc ]
@@ -8383,13 +8384,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 "103
 [e :U 895 ]
 [; ;app_delCmd.c: 103: else if (searchNumber == SEARCH_FSM_NOT_FOUND || searchNumber == SEARCH_FSM_ERROR)
-[e $ ! || == -> _searchNumber `i -> . `E8973 4 `i == -> _searchNumber `i -> . `E8973 2 `i 897  ]
+[e $ ! || == -> _searchNumber `i -> . `E8974 4 `i == -> _searchNumber `i -> . `E8974 2 `i 897  ]
 [; ;app_delCmd.c: 104: {
 "104
 {
 [; ;app_delCmd.c: 105: currentState = DEL_FSM_COMPLETE;
 "105
-[e = F9016 . `E9005 2 ]
+[e = F9017 . `E9006 2 ]
 "106
 }
 [e :U 897 ]
@@ -8406,7 +8407,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _isComplete -> -> 1 `i `uc ]
 [; ;app_delCmd.c: 111: currentState = DEL_FSM_CHECK_MASTER;
 "111
-[e = F9016 . `E9005 0 ]
+[e = F9017 . `E9006 0 ]
 [; ;app_delCmd.c: 112: break;
 "112
 [e $U 888  ]
@@ -8422,9 +8423,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $U 888  ]
 "80
 [e :U 889 ]
-[e [\ F9016 , $ . `E9005 0 890
- , $ . `E9005 1 894
- , $ . `E9005 2 898
+[e [\ F9017 , $ . `E9006 0 890
+ , $ . `E9006 1 894
+ , $ . `E9006 2 898
  899 ]
 "116
 [e :U 888 ]

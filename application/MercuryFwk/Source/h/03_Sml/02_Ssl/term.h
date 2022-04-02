@@ -51,7 +51,8 @@
 extern UINT16 UsbMasterPhoneNumberLen;
 /* Global phone number sent via USB */
 extern char UsbMasterPhoneNumber[USB_PHONE_NUMBER_LEN];
-
+/* Global variable to detect new number received via USB */
+extern UINT8 IsUsbNumberReceived;
 /************************************************************************
 * EXPORTED Functions
 ************************************************************************/

@@ -1,5 +1,5 @@
 
-# 1 "../Source/c/04_App/app.c"
+# 1 "../Source/c/04_App/app_resCmd.c"
 
 
 # 30 "../../MercuryFwk/Source/h/01_Hal/01_Sys/hal.h"
@@ -11246,177 +11246,54 @@ searchFsmStates isNumberInMemory(uint8_t* phoneNumber, uint8_t* positionInMemory
 searchFsmStates findEmptySpot(uint8_t* positionInMemory);
 uint8_t isMasterNumber(uint8_t* phoneNumber);
 
-# 51 "../Source/h/04_App/app_init.h"
-bool initFsm(bool* isCmdSuccessfull);
-
-uint8_t* initPreamble();
-
-bool detectUsbNumber(bool* isCmdSuccessfull);
-
-# 49 "../Source/h/04_App/app_addCmd.h"
-bool addCmdFsm(uint8_t* receivedNumber, uint8_t* smsText, bool* isCmdSuccessfull);
-
-# 49 "../Source/h/04_App/app_delCmd.h"
-bool delCmdFsm(uint8_t* receivedNumber, uint8_t* smsText, bool* isCmdSuccessfull);
-
-# 49 "../Source/h/04_App/app_triggerCmd.h"
-bool triggerCmdFsm(uint8_t* receivedNumber);
-
 # 49 "../Source/h/04_App/app_resCmd.h"
 bool resCmdFsm(uint8_t* receivedNumber, bool* isCmdSuccessfull);
 
-# 45 "../Source/c/04_App/app.c"
-typedef enum _gateFsmStates
+# 41 "../Source/c/04_App/app_resCmd.c"
+typedef enum _resFsmStates
 {
-GATE_INIT = 0,
-GATE_WAIT_EVENT,
-GATE_ADD_CMD,
-GATE_DEL_CMD,
-GATE_TRIGGER_CMD,
-GATE_RESET
-} gateFsmStates;
+RES_FSM_CHECK_MASTER = 0,
+RES_FSM_RESET,
+RES_FSM_COMPLETE
+} resFsmStates;
 
-# 58
-static uint8_t smsText[((UINT8)(20))] = {0};
-static uint8_t receivedNumber[((UINT8)(13))] = {0};
+# 71
+bool resCmdFsm(uint8_t* receivedNumber, bool* isCmdSuccessfull)
+{
+static resFsmStates currentState = RES_FSM_CHECK_MASTER;
+bool isComplete = 0;
+uint8_t masterOpResult = OP_FAILED;
 
-# 75
-gateFsmStates parseCommand()
-{
-const uint8_t addNumberCmd[] = {'A', 'D', 'D', ';'};
-const uint8_t deleteNumberCmd[] = {'D', 'E', 'L', ';'};
-const uint8_t resetCmd[] = {'R', 'E', 'S', ';'};
-gateFsmStates state = GATE_WAIT_EVENT;
-
-if (StringCompare(smsText, addNumberCmd, sizeof(addNumberCmd)))
-{
-if (!isNumberValid(smsText + 4))
-{
-state = GATE_WAIT_EVENT;
-}
-else
-{
-state = GATE_ADD_CMD;
-}
-}
-else if (StringCompare(smsText, deleteNumberCmd, sizeof(deleteNumberCmd)))
-{
-if (!isNumberValid(smsText + 4))
-{
-state = GATE_WAIT_EVENT;
-}
-else
-{
-state = GATE_DEL_CMD;
-}
-}
-else if (StringCompare(smsText, resetCmd, sizeof(resetCmd)))
-{
-state = GATE_RESET;
-}
-else
-{
-
-}
-return state;
-}
-
-gateFsmStates detectCmd()
-{
-gateFsmStates currentState = GATE_WAIT_EVENT;
-if (Mdm_IsSmsReceived())
-{
-Mdm_RequestSmsData();
-}
-if (Mdm_GetSmsData(smsText) == SmsDataReady)
-{
-Uart_WriteConstString(1,"AT+CMGD=1,0\r\n");
-currentState = parseCommand();
-StringCopy(GetLastInteractionNumber(), receivedNumber, ((UINT8)(13)));
-}
-if (Mdm_IsRinging())
-{
-Mdm_HangPhoneCall();
-currentState = GATE_TRIGGER_CMD;
-StringCopy(GetCallerNumber(), receivedNumber, ((UINT8)(13)));
-}
-return currentState;
-}
-
-# 149
-void MyApp_Task (UINT8 Options)
-{
-static gateFsmStates currentState = GATE_INIT;
-static bool isCmdSuccessfull = 1;
-
-cmdVisualEffet(isCmdSuccessfull);
-
-switch (SystemState)
-{
-
-case InitializationState:
-
-Led_SetLedBlinkTime(1u,100,900);
-Led_SetLedBlinkTime(2u,100,900);
-break;
-
-
-case RunningState:
 switch (currentState)
 {
-case GATE_INIT:
-if (initFsm(&isCmdSuccessfull))
+case RES_FSM_CHECK_MASTER:
+*isCmdSuccessfull = 0;
+masterOpResult = isMasterNumber(receivedNumber);
+if (masterOpResult == OP_SUCCESS)
 {
-currentState = GATE_WAIT_EVENT;
+currentState = RES_FSM_RESET;
+}
+else if (masterOpResult == OP_FAILED)
+{
+currentState = RES_FSM_COMPLETE;
 }
 break;
 
-case GATE_WAIT_EVENT:
-if (detectUsbNumber(&isCmdSuccessfull))
+case RES_FSM_RESET:
+if (Eeprom_Reset() == 0)
 {
-triggerVisualEffect();
-}
-currentState = detectCmd();
-break;
-
-case GATE_ADD_CMD:
-if (addCmdFsm(receivedNumber, smsText, &isCmdSuccessfull))
-{
-currentState = GATE_WAIT_EVENT;
-triggerVisualEffect();
+currentState = RES_FSM_COMPLETE;
+*isCmdSuccessfull = 1;
 }
 break;
 
-case GATE_DEL_CMD:
-if (delCmdFsm(receivedNumber, smsText, &isCmdSuccessfull))
-{
-currentState = GATE_WAIT_EVENT;
-triggerVisualEffect();
-}
-break;
-
-case GATE_TRIGGER_CMD:
-if (triggerCmdFsm(receivedNumber))
-{
-currentState = GATE_WAIT_EVENT;
-}
-break;
-
-case GATE_RESET:
-if (resCmdFsm(receivedNumber, &isCmdSuccessfull))
-{
-currentState = GATE_INIT;
-triggerVisualEffect();
-}
+case RES_FSM_COMPLETE:
+isComplete = 1;
+currentState = RES_FSM_CHECK_MASTER;
 break;
 
 default:
 break;
 }
-break;
-
-
-default:
-break;
-}
+return isComplete;
 }

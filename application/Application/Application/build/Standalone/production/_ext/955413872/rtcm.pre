@@ -11141,7 +11141,9 @@ extern UINT16 UsbMasterPhoneNumberLen;
 
 extern char UsbMasterPhoneNumber[((UINT16)(15))];
 
-# 58
+extern UINT8 IsUsbNumberReceived;
+
+# 59
 void Term_MainTask (UINT8 Options);
 
 # 52 "../../MercuryFwk/Source/h/03_Sml/02_Ssl/ext_int.h"

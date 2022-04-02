@@ -4,18 +4,18 @@ Version 3.2 HI-TECH Software Intermediate Code
 "88 ../../MercuryFwk/Source/h/03_Sml/01_Pml/02_SlvI2c/i2c_slv.h
 [v _I2cSlv_SendI2cMsg `(uc ~T0 @X0 0 ef3`*uc`uc`uc ]
 "91 ../Source/c/04_App/app_triggerCmd.c
-[c E9003 0 1 2 3 4 .. ]
-[n E9003 _triggerFsmStates TRIGGER_FSM_CHECK_MASTER TRIGGER_FSM_CHECK_NUMBER TRIGGER_FSM_ACTIVATE_RELAY TRIGGER_FSM_DEACTIVATE_RELAY TRIGGER_FSM_COMPLETE  ]
+[c E9004 0 1 2 3 4 .. ]
+[n E9004 _triggerFsmStates TRIGGER_FSM_CHECK_MASTER TRIGGER_FSM_CHECK_NUMBER TRIGGER_FSM_ACTIVATE_RELAY TRIGGER_FSM_DEACTIVATE_RELAY TRIGGER_FSM_COMPLETE  ]
 "94
 [c E8246 0 1 2 .. ]
 [n E8246 _EepromSts OP_SUCCESS OP_FAILED OP_PENDING  ]
 "73 ../Source/h/04_App/app_utils.h
 [v _isMasterNumber `(uc ~T0 @X0 0 ef1`*uc ]
 "112 ../Source/c/04_App/app_triggerCmd.c
-[c E8973 0 1 2 3 4 .. ]
-[n E8973 _searchFsmStates SEARCH_FSM_START SEARCH_FSM_CHECK_NUMBER SEARCH_FSM_ERROR SEARCH_FSM_FOUND SEARCH_FSM_NOT_FOUND  ]
+[c E8974 0 1 2 3 4 .. ]
+[n E8974 _searchFsmStates SEARCH_FSM_START SEARCH_FSM_CHECK_NUMBER SEARCH_FSM_ERROR SEARCH_FSM_FOUND SEARCH_FSM_NOT_FOUND  ]
 "71 ../Source/h/04_App/app_utils.h
-[v _isNumberInMemory `(E8973 ~T0 @X0 0 ef2`*uc`*uc ]
+[v _isNumberInMemory `(E8974 ~T0 @X0 0 ef2`*uc`*uc ]
 "63
 [v _secondsAppTimer `(uc ~T0 @X0 0 ef3`uc`*ui`uc ]
 "30 ../../MercuryFwk/Source/h/01_Hal/01_Sys/hal.h
@@ -8223,7 +8223,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;sf.h: 55: void ClearBuffer (UINT8 *Buffer, UINT16 Len);
 [; ;term.h: 51: extern UINT16 UsbMasterPhoneNumberLen;
 [; ;term.h: 53: extern char UsbMasterPhoneNumber[((UINT16)(15))];
-[; ;term.h: 58: void Term_MainTask (UINT8 Options);
+[; ;term.h: 55: extern UINT8 IsUsbNumberReceived;
+[; ;term.h: 59: void Term_MainTask (UINT8 Options);
 [; ;ext_int.h: 52: void ExtInt_SetInt0Action (ExtInt_CallbackType Callback);
 [; ;ext_int.h: 53: void ExtInt_SetInt1Action (ExtInt_CallbackType Callback);
 [; ;wdg.h: 53: void Wdg_MainTask (UINT8 Options);
@@ -8347,9 +8348,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "90
 [f ]
 "91
-[v F9016 `E9003 ~T0 @X0 1 s currentState ]
-[i F9016
-. `E9003 0
+[v F9017 `E9004 ~T0 @X0 1 s currentState ]
+[i F9017
+. `E9004 0
 ]
 "92
 [v _isComplete `uc ~T0 @X0 1 a ]
@@ -8388,7 +8389,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;app_triggerCmd.c: 103: currentState = TRIGGER_FSM_ACTIVATE_RELAY;
 "103
-[e = F9016 . `E9003 2 ]
+[e = F9017 . `E9004 2 ]
 "104
 }
 [; ;app_triggerCmd.c: 104: }
@@ -8402,7 +8403,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;app_triggerCmd.c: 107: currentState = TRIGGER_FSM_CHECK_NUMBER;
 "107
-[e = F9016 . `E9003 1 ]
+[e = F9017 . `E9004 1 ]
 "108
 }
 [e :U 896 ]
@@ -8419,13 +8420,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _searchNumber -> ( _isNumberInMemory (2 , _receivedNumber &U _numberInMemory `uc ]
 [; ;app_triggerCmd.c: 113: if (searchNumber == SEARCH_FSM_FOUND)
 "113
-[e $ ! == -> _searchNumber `i -> . `E8973 3 `i 898  ]
+[e $ ! == -> _searchNumber `i -> . `E8974 3 `i 898  ]
 [; ;app_triggerCmd.c: 114: {
 "114
 {
 [; ;app_triggerCmd.c: 115: currentState = TRIGGER_FSM_ACTIVATE_RELAY;
 "115
-[e = F9016 . `E9003 2 ]
+[e = F9017 . `E9004 2 ]
 "116
 }
 [; ;app_triggerCmd.c: 116: }
@@ -8433,13 +8434,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 "117
 [e :U 898 ]
 [; ;app_triggerCmd.c: 117: else if (searchNumber == SEARCH_FSM_NOT_FOUND || searchNumber == SEARCH_FSM_ERROR)
-[e $ ! || == -> _searchNumber `i -> . `E8973 4 `i == -> _searchNumber `i -> . `E8973 2 `i 900  ]
+[e $ ! || == -> _searchNumber `i -> . `E8974 4 `i == -> _searchNumber `i -> . `E8974 2 `i 900  ]
 [; ;app_triggerCmd.c: 118: {
 "118
 {
 [; ;app_triggerCmd.c: 119: currentState = TRIGGER_FSM_COMPLETE;
 "119
-[e = F9016 . `E9003 4 ]
+[e = F9017 . `E9004 4 ]
 "120
 }
 [e :U 900 ]
@@ -8459,7 +8460,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _secondCounter -> -> 0 `i `ui ]
 [; ;app_triggerCmd.c: 126: currentState = TRIGGER_FSM_DEACTIVATE_RELAY;
 "126
-[e = F9016 . `E9003 3 ]
+[e = F9017 . `E9004 3 ]
 [; ;app_triggerCmd.c: 127: break;
 "127
 [e $U 891  ]
@@ -8477,7 +8478,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _triggerRelay (1 -> -> 0 `i `uc ]
 [; ;app_triggerCmd.c: 133: currentState = TRIGGER_FSM_COMPLETE;
 "133
-[e = F9016 . `E9003 4 ]
+[e = F9017 . `E9004 4 ]
 "134
 }
 [e :U 903 ]
@@ -8493,7 +8494,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _isComplete -> -> 1 `i `uc ]
 [; ;app_triggerCmd.c: 139: currentState = TRIGGER_FSM_CHECK_MASTER;
 "139
-[e = F9016 . `E9003 0 ]
+[e = F9017 . `E9004 0 ]
 [; ;app_triggerCmd.c: 140: break;
 "140
 [e $U 891  ]
@@ -8509,11 +8510,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $U 891  ]
 "97
 [e :U 892 ]
-[e [\ F9016 , $ . `E9003 0 893
- , $ . `E9003 1 897
- , $ . `E9003 2 901
- , $ . `E9003 3 902
- , $ . `E9003 4 904
+[e [\ F9017 , $ . `E9004 0 893
+ , $ . `E9004 1 897
+ , $ . `E9004 2 901
+ , $ . `E9004 3 902
+ , $ . `E9004 4 904
  905 ]
 "144
 [e :U 891 ]

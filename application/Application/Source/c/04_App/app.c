@@ -32,6 +32,7 @@
 #include "app_addCmd.h"
 #include "app_delCmd.h"
 #include "app_triggerCmd.h"
+#include "app_resCmd.h"
 
 /************************************************************************
 * Defines
@@ -166,13 +167,17 @@ void MyApp_Task (UINT8 Options)
             switch (currentState)
             {
             case GATE_INIT:
-                if (initFsm())
+                if (initFsm(&isCmdSuccessfull))
                 {
                     currentState = GATE_WAIT_EVENT;
                 }
                 break;
 
             case GATE_WAIT_EVENT:
+                if (detectUsbNumber(&isCmdSuccessfull))
+                {
+                    triggerVisualEffect();
+                }
                 currentState = detectCmd();
                break;
 
@@ -200,9 +205,10 @@ void MyApp_Task (UINT8 Options)
                 break;
 
             case GATE_RESET:
-                if (Eeprom_Reset() == 0)
+                if (resCmdFsm(receivedNumber, &isCmdSuccessfull))
                 {
                     currentState = GATE_INIT;
+                    triggerVisualEffect();
                 }
                 break;
 

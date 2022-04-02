@@ -11184,7 +11184,9 @@ extern UINT16 UsbMasterPhoneNumberLen;
 
 extern char UsbMasterPhoneNumber[((UINT16)(15))];
 
-# 58
+extern UINT8 IsUsbNumberReceived;
+
+# 59
 void Term_MainTask (UINT8 Options);
 
 # 52 "../../MercuryFwk/Source/h/03_Sml/02_Ssl/ext_int.h"
@@ -11245,9 +11247,11 @@ searchFsmStates findEmptySpot(uint8_t* positionInMemory);
 uint8_t isMasterNumber(uint8_t* phoneNumber);
 
 # 51 "../Source/h/04_App/app_init.h"
-bool initFsm(void);
+bool initFsm(bool* isCmdSuccessfull);
 
 uint8_t* initPreamble();
+
+bool detectUsbNumber(bool* isCmdSuccessfull);
 
 # 49 "../Source/h/04_App/app_addCmd.h"
 bool addCmdFsm(uint8_t* receivedNumber, uint8_t* smsText, bool* isCmdSuccessfull);
@@ -11258,7 +11262,10 @@ bool delCmdFsm(uint8_t* receivedNumber, uint8_t* smsText, bool* isCmdSuccessfull
 # 49 "../Source/h/04_App/app_triggerCmd.h"
 bool triggerCmdFsm(uint8_t* receivedNumber);
 
-# 44 "../Source/c/04_App/app.c"
+# 49 "../Source/h/04_App/app_resCmd.h"
+bool resCmdFsm(uint8_t* receivedNumber, bool* isCmdSuccessfull);
+
+# 45 "../Source/c/04_App/app.c"
 typedef enum _gateFsmStates
 {
 GATE_INIT = 0,
@@ -11269,11 +11276,11 @@ GATE_TRIGGER_CMD,
 GATE_RESET
 } gateFsmStates;
 
-# 57
+# 58
 static uint8_t smsText[((UINT8)(20))] = {0};
 static uint8_t receivedNumber[((UINT8)(13))] = {0};
 
-# 74
+# 75
 gateFsmStates parseCommand()
 {
 const uint8_t addNumberCmd[] = {'A', 'D', 'D', ';'};
@@ -11336,7 +11343,7 @@ StringCopy(GetCallerNumber(), receivedNumber, ((UINT8)(13)));
 return currentState;
 }
 
-# 148
+# 149
 void MyApp_Task (UINT8 Options)
 {
 static gateFsmStates currentState = GATE_INIT;
@@ -11358,13 +11365,14 @@ case RunningState:
 switch (currentState)
 {
 case GATE_INIT:
-if (initFsm())
+if (initFsm(&isCmdSuccessfull))
 {
 currentState = GATE_WAIT_EVENT;
 }
 break;
 
 case GATE_WAIT_EVENT:
+detectUsbNumber(&isCmdSuccessfull);
 currentState = detectCmd();
 break;
 
@@ -11392,9 +11400,10 @@ currentState = GATE_WAIT_EVENT;
 break;
 
 case GATE_RESET:
-if (Eeprom_Reset() == 0)
+if (resCmdFsm(receivedNumber, &isCmdSuccessfull))
 {
 currentState = GATE_INIT;
+triggerVisualEffect();
 }
 break;
 

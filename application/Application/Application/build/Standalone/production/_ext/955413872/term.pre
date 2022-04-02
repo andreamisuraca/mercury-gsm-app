@@ -11218,7 +11218,9 @@ extern UINT16 UsbMasterPhoneNumberLen;
 
 extern char UsbMasterPhoneNumber[((UINT16)(15))];
 
-# 58
+extern UINT8 IsUsbNumberReceived;
+
+# 59
 void Term_MainTask (UINT8 Options);
 
 # 71 "../../MercuryFwk/Source/c/03_Sml/02_Ssl/term.c"
@@ -11285,8 +11287,9 @@ static const UINT8 MsgReady[] = {
 # 144
 UINT16 UsbMasterPhoneNumberLen;
 UINT8 UsbMasterPhoneNumber[((UINT16)(15))];
+UINT8 IsUsbNumberReceived = 0;
 
-# 319
+# 320
 void GsmGprsTerminal (void)
 {
 static UINT8 UsbBuffer[200u];
@@ -11349,7 +11352,7 @@ putUSBUSART(RxBuffer,(RxLen + 2));
 }
 }
 
-# 428
+# 429
 void Terminal (void)
 {
 static TermStateType TermState = Term_GetData;
@@ -11498,6 +11501,7 @@ for (UINT8 i = 0; i < UsbMasterPhoneNumberLen; i++)
 {
 UsbMasterPhoneNumber[i] = UsbRxBuffer[0u + 1u + 1u + 1u + 2u + i];
 }
+IsUsbNumberReceived = 1;
 }
 else if ((UsbRxBuffer[0u] == 'M') &&
 (UsbRxBuffer[0u + 1u] == 'B') &&
@@ -11506,7 +11510,7 @@ else if ((UsbRxBuffer[0u] == 'M') &&
 
 }
 
-# 614
+# 616
 }
 break;
 
@@ -11589,7 +11593,7 @@ break;
 }
 }
 
-# 707
+# 709
 void Term_MainSm (void)
 {
 static TermMainSmStateType TermMainSmState = Term_StartTmr;
@@ -11715,7 +11719,7 @@ break;
 }
 }
 
-# 845
+# 847
 void Term_MainTask (UINT8 Options)
 {
 switch (SystemState)

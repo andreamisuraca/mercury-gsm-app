@@ -1,10 +1,10 @@
 Version 3.2 HI-TECH Software Intermediate Code
 [v F7983 `(v ~T0 @X0 0 tf ]
 [v F8056 `(v ~T0 @X0 0 tf ]
-"89 ../Source/c/04_App/app_init.c
-[c E9004 0 1 2 3 .. ]
-[n E9004 _modemStates MODEM_INIT MODEM_DELETE_SMS MODEM_SET_CALLER_ID MODEM_INIT_COMPLETE  ]
-"95
+"90 ../Source/c/04_App/app_init.c
+[c E9007 0 1 2 3 .. ]
+[n E9007 _modemStates MODEM_INIT MODEM_DELETE_SMS MODEM_SET_CALLER_ID MODEM_INIT_COMPLETE  ]
+"96
 [c E8188 0 1 2 3 4 .. ]
 [n E8188 _MdmStatus ModemOff ModemOn ModemReady ModemConfigured ModemSleep  ]
 "91 ../../MercuryFwk/Source/h/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.h
@@ -15,22 +15,22 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _Mdm_SetSmsFormat `(v ~T0 @X0 0 ef1`uc ]
 "216 ../../MercuryFwk/Source/h/01_Hal/02_Drv/uart_drv.h
 [v _Uart_WriteConstString `(v ~T0 @X0 0 ef2`uc`*Cuc ]
-"133 ../Source/c/04_App/app_init.c
-[c E9010 0 1 2 .. ]
-[n E9010 _eepromStates EEPROM_INIT EEPROM_EMPTY EEPROM_NOT_EMPTY  ]
-"134
+"134 ../Source/c/04_App/app_init.c
+[c E9013 0 1 2 .. ]
+[n E9013 _eepromStates EEPROM_INIT EEPROM_EMPTY EEPROM_NOT_EMPTY  ]
+"135
 [c E8246 0 1 2 .. ]
 [n E8246 _EepromSts OP_SUCCESS OP_FAILED OP_PENDING  ]
 "60 ../../MercuryFwk/Source/h/03_Sml/01_Pml/05_Eeprom/eeprom_if.h
 [v _Eeprom_Read `(E8246 ~T0 @X0 0 ef3`uc`*uc`uc ]
-"183 ../Source/c/04_App/app_init.c
+"184 ../Source/c/04_App/app_init.c
 [c E8199 0 1 .. ]
 [n E8199 _RingStsType PhoneNotRinging PhoneRinging  ]
 "120 ../../MercuryFwk/Source/h/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.h
 [v _Mdm_IsRinging `(E8199 ~T0 @X0 0 ef ]
 "116
 [v _Mdm_HangPhoneCall `(v ~T0 @X0 0 ef ]
-"200 ../Source/c/04_App/app_init.c
+"201 ../Source/c/04_App/app_init.c
 [c E8878 0 1 2 3 4 .. ]
 [n E8878 _LedStsType LED_STS_OFF LED_STS_ON LED_STS_TOGGLE LED_STS_BLINK LED_STS_PULSE  ]
 "102 ../../MercuryFwk/Source/h/03_Sml/02_Ssl/led.h
@@ -39,13 +39,21 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _Eeprom_Write `(uc ~T0 @X0 0 ef3`uc`*uc`uc ]
 "53 ../Source/h/04_App/app_init.h
 [v _initPreamble `(*uc ~T0 @X0 0 ef ]
-"227 ../Source/c/04_App/app_init.c
-[c E9015 0 1 2 3 4 .. ]
-[n E9015 _initFsmStates INIT_FSM_MODEM INIT_FSM_EEPROM INIT_FSM_WAIT_CMD INIT_FSM_PREAMBLE INIT_FSM_COMPLETE  ]
+"228 ../Source/c/04_App/app_init.c
+[c E9018 0 1 2 3 4 .. ]
+[n E9018 _initFsmStates INIT_FSM_MODEM INIT_FSM_EEPROM INIT_FSM_WAIT_CMD INIT_FSM_PREAMBLE INIT_FSM_COMPLETE  ]
 "69 ../Source/h/04_App/app_utils.h
 [v _saveNumberInMemory `(v ~T0 @X0 0 ef2`uc`*uc ]
 "134 ../../MercuryFwk/Source/h/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.h
 [v _GetCallerNumber `(*uc ~T0 @X0 0 ef ]
+"55 ../Source/h/04_App/app_init.h
+[v _detectUsbNumber `(uc ~T0 @X0 0 ef1`*uc ]
+"55 ../../MercuryFwk/Source/h/03_Sml/02_Ssl/term.h
+[v _IsUsbNumberReceived `uc ~T0 @X0 0 e ]
+"53
+[v _UsbMasterPhoneNumber `uc ~T0 @X0 -> 0 `x e ]
+"67 ../Source/h/04_App/app_utils.h
+[v _triggerVisualEffect `(v ~T0 @X0 0 ef ]
 "30 ../../MercuryFwk/Source/h/01_Hal/01_Sys/hal.h
 [p n 1510 ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
@@ -8251,7 +8259,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;sf.h: 55: void ClearBuffer (UINT8 *Buffer, UINT16 Len);
 [; ;term.h: 51: extern UINT16 UsbMasterPhoneNumberLen;
 [; ;term.h: 53: extern char UsbMasterPhoneNumber[((UINT16)(15))];
-[; ;term.h: 58: void Term_MainTask (UINT8 Options);
+[; ;term.h: 55: extern UINT8 IsUsbNumberReceived;
+[; ;term.h: 59: void Term_MainTask (UINT8 Options);
 [; ;ext_int.h: 52: void ExtInt_SetInt0Action (ExtInt_CallbackType Callback);
 [; ;ext_int.h: 53: void ExtInt_SetInt1Action (ExtInt_CallbackType Callback);
 [; ;wdg.h: 53: void Wdg_MainTask (UINT8 Options);
@@ -8270,8 +8279,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;os_sched.h: 86: void Sch_MainScheduler (void);
 [; ;os_sched.h: 88: void Sch_SchmIntService (void);
 [; ;app.h: 53: void MyApp_Task (UINT8 Options);
-[; ;app_init.h: 51: bool initFsm(void);
+[; ;app_init.h: 51: bool initFsm(bool* isCmdSuccessfull);
 [; ;app_init.h: 53: uint8_t* initPreamble();
+[; ;app_init.h: 55: bool detectUsbNumber(bool* isCmdSuccessfull);
 [; ;app_utils.h: 47: typedef enum _searchFsmStates
 [; ;app_utils.h: 48: {
 [; ;app_utils.h: 49: SEARCH_FSM_START = 0,
@@ -8310,584 +8320,648 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;app_init.c: 62: INIT_FSM_PREAMBLE,
 [; ;app_init.c: 63: INIT_FSM_COMPLETE
 [; ;app_init.c: 64: } initFsmStates;
-"69 ../Source/c/04_App/app_init.c
+"70 ../Source/c/04_App/app_init.c
 [v _memoryPreamble `uc ~T0 @X0 -> 4 `i s ]
-[; ;app_init.c: 69: static uint8_t memoryPreamble[4];
-"70
+[; ;app_init.c: 70: static uint8_t memoryPreamble[4];
+"71
 [v _setupCallTicks `ui ~T0 @X0 1 s ]
 [i _setupCallTicks
 -> -> 0 `i `ui
 ]
-[; ;app_init.c: 70: static uint16_t setupCallTicks = 0;
-"71
+[; ;app_init.c: 71: static uint16_t setupCallTicks = 0;
+"72
 [v _isMemoryEmpty `uc ~T0 @X0 1 s ]
 [i _isMemoryEmpty
 -> -> 1 `i `uc
 ]
-[; ;app_init.c: 71: static bool isMemoryEmpty = 1;
-"86
-[v _initGprsModem `(uc ~T0 @X0 1 ef ]
+[; ;app_init.c: 72: static bool isMemoryEmpty = 1;
 "87
+[v _initGprsModem `(uc ~T0 @X0 1 ef ]
+"88
 {
-[; ;app_init.c: 86: bool initGprsModem(void)
-[; ;app_init.c: 87: {
+[; ;app_init.c: 87: bool initGprsModem(void)
+[; ;app_init.c: 88: {
 [e :U _initGprsModem ]
 [f ]
-"88
-[v F9027 `ui ~T0 @X0 1 s modemCounter ]
-[i F9027
+"89
+[v F9030 `ui ~T0 @X0 1 s modemCounter ]
+[i F9030
 -> -> 0 `i `ui
 ]
-"89
-[v F9028 `E9004 ~T0 @X0 1 s currentState ]
-[i F9028
-. `E9004 0
-]
 "90
+[v F9031 `E9007 ~T0 @X0 1 s currentState ]
+[i F9031
+. `E9007 0
+]
+"91
 [v _isInitialized `uc ~T0 @X0 1 a ]
-[; ;app_init.c: 88: static uint16_t modemCounter = 0;
-[; ;app_init.c: 89: static modemStates currentState = MODEM_INIT;
-[; ;app_init.c: 90: bool isInitialized = 0;
+[; ;app_init.c: 89: static uint16_t modemCounter = 0;
+[; ;app_init.c: 90: static modemStates currentState = MODEM_INIT;
+[; ;app_init.c: 91: bool isInitialized = 0;
 [e = _isInitialized -> -> 0 `i `uc ]
-[; ;app_init.c: 92: switch(currentState)
-"92
-[e $U 889  ]
-[; ;app_init.c: 93: {
+[; ;app_init.c: 93: switch(currentState)
 "93
-{
-[; ;app_init.c: 94: case MODEM_INIT:
+[e $U 889  ]
+[; ;app_init.c: 94: {
 "94
-[e :U 890 ]
-[; ;app_init.c: 95: if (MdmStatus == ModemConfigured || MdmStatus == ModemOn)
+{
+[; ;app_init.c: 95: case MODEM_INIT:
 "95
-[e $ ! || == -> _MdmStatus `i -> . `E8188 3 `i == -> _MdmStatus `i -> . `E8188 1 `i 891  ]
-[; ;app_init.c: 96: {
+[e :U 890 ]
+[; ;app_init.c: 96: if (MdmStatus == ModemConfigured || MdmStatus == ModemOn)
 "96
-{
-[; ;app_init.c: 97: if (secondsAppTimer(5, &modemCounter, 0))
+[e $ ! || == -> _MdmStatus `i -> . `E8188 3 `i == -> _MdmStatus `i -> . `E8188 1 `i 891  ]
+[; ;app_init.c: 97: {
 "97
-[e $ ! != -> ( _secondsAppTimer (3 , , -> -> 5 `i `uc &U F9027 -> -> 0 `i `uc `i -> -> -> 0 `i `uc `i 892  ]
-[; ;app_init.c: 98: {
-"98
 {
-[; ;app_init.c: 99: Mdm_SetSmsFormat(1);
+[; ;app_init.c: 98: if (secondsAppTimer(5, &modemCounter, 0))
+"98
+[e $ ! != -> ( _secondsAppTimer (3 , , -> -> 5 `i `uc &U F9030 -> -> 0 `i `uc `i -> -> -> 0 `i `uc `i 892  ]
+[; ;app_init.c: 99: {
 "99
-[e ( _Mdm_SetSmsFormat (1 -> -> 1 `i `uc ]
-[; ;app_init.c: 100: currentState = MODEM_DELETE_SMS;
+{
+[; ;app_init.c: 100: Mdm_SetSmsFormat(1);
 "100
-[e = F9028 . `E9004 1 ]
+[e ( _Mdm_SetSmsFormat (1 -> -> 1 `i `uc ]
+[; ;app_init.c: 101: currentState = MODEM_DELETE_SMS;
 "101
-}
-[e :U 892 ]
+[e = F9031 . `E9007 1 ]
 "102
 }
-[e :U 891 ]
-[; ;app_init.c: 101: }
-[; ;app_init.c: 102: }
-[; ;app_init.c: 103: break;
+[e :U 892 ]
 "103
-[e $U 888  ]
-[; ;app_init.c: 105: case MODEM_DELETE_SMS:
-"105
-[e :U 893 ]
-[; ;app_init.c: 106: Uart_WriteConstString(1,"AT+CMGDA=DEL ALL\r\n");
-"106
-[e ( _Uart_WriteConstString (2 , -> -> 1 `i `uc :s 1C ]
-[; ;app_init.c: 107: currentState = MODEM_SET_CALLER_ID;
-"107
-[e = F9028 . `E9004 2 ]
-[; ;app_init.c: 108: break;
-"108
-[e $U 888  ]
-[; ;app_init.c: 110: case MODEM_SET_CALLER_ID:
-"110
-[e :U 894 ]
-[; ;app_init.c: 111: Uart_WriteConstString(1,"AT+CLIP=1\r\n");
-"111
-[e ( _Uart_WriteConstString (2 , -> -> 1 `i `uc :s 2C ]
-[; ;app_init.c: 112: currentState = MODEM_INIT_COMPLETE;
-"112
-[e = F9028 . `E9004 3 ]
-[; ;app_init.c: 113: break;
-"113
-[e $U 888  ]
-[; ;app_init.c: 115: case MODEM_INIT_COMPLETE:
-"115
-[e :U 895 ]
-[; ;app_init.c: 116: currentState = MODEM_INIT;
-"116
-[e = F9028 . `E9004 0 ]
-[; ;app_init.c: 117: isInitialized = 1;
-"117
-[e = _isInitialized -> -> 1 `i `uc ]
-[; ;app_init.c: 118: break;
-"118
-[e $U 888  ]
-[; ;app_init.c: 120: default:
-"120
-[e :U 896 ]
-[; ;app_init.c: 121: break;
-"121
-[e $U 888  ]
-"122
 }
-[; ;app_init.c: 122: }
+[e :U 891 ]
+[; ;app_init.c: 102: }
+[; ;app_init.c: 103: }
+[; ;app_init.c: 104: break;
+"104
 [e $U 888  ]
-"92
-[e :U 889 ]
-[e [\ F9028 , $ . `E9004 0 890
- , $ . `E9004 1 893
- , $ . `E9004 2 894
- , $ . `E9004 3 895
- 896 ]
+[; ;app_init.c: 106: case MODEM_DELETE_SMS:
+"106
+[e :U 893 ]
+[; ;app_init.c: 107: Uart_WriteConstString(1,"AT+CMGDA=DEL ALL\r\n");
+"107
+[e ( _Uart_WriteConstString (2 , -> -> 1 `i `uc :s 1C ]
+[; ;app_init.c: 108: currentState = MODEM_SET_CALLER_ID;
+"108
+[e = F9031 . `E9007 2 ]
+[; ;app_init.c: 109: break;
+"109
+[e $U 888  ]
+[; ;app_init.c: 111: case MODEM_SET_CALLER_ID:
+"111
+[e :U 894 ]
+[; ;app_init.c: 112: Uart_WriteConstString(1,"AT+CLIP=1\r\n");
+"112
+[e ( _Uart_WriteConstString (2 , -> -> 1 `i `uc :s 2C ]
+[; ;app_init.c: 113: currentState = MODEM_INIT_COMPLETE;
+"113
+[e = F9031 . `E9007 3 ]
+[; ;app_init.c: 114: break;
+"114
+[e $U 888  ]
+[; ;app_init.c: 116: case MODEM_INIT_COMPLETE:
+"116
+[e :U 895 ]
+[; ;app_init.c: 117: currentState = MODEM_INIT;
+"117
+[e = F9031 . `E9007 0 ]
+[; ;app_init.c: 118: isInitialized = 1;
+"118
+[e = _isInitialized -> -> 1 `i `uc ]
+[; ;app_init.c: 119: break;
+"119
+[e $U 888  ]
+[; ;app_init.c: 121: default:
+"121
+[e :U 896 ]
+[; ;app_init.c: 122: break;
 "122
-[e :U 888 ]
-[; ;app_init.c: 123: return isInitialized;
+[e $U 888  ]
 "123
+}
+[; ;app_init.c: 123: }
+[e $U 888  ]
+"93
+[e :U 889 ]
+[e [\ F9031 , $ . `E9007 0 890
+ , $ . `E9007 1 893
+ , $ . `E9007 2 894
+ , $ . `E9007 3 895
+ 896 ]
+"123
+[e :U 888 ]
+[; ;app_init.c: 124: return isInitialized;
+"124
 [e ) _isInitialized ]
 [e $UE 887  ]
-[; ;app_init.c: 124: }
-"124
+[; ;app_init.c: 125: }
+"125
 [e :UE 887 ]
 }
-"130
-[v _initEeprom `(uc ~T0 @X0 1 ef ]
 "131
+[v _initEeprom `(uc ~T0 @X0 1 ef ]
+"132
 {
-[; ;app_init.c: 130: bool initEeprom(void)
-[; ;app_init.c: 131: {
+[; ;app_init.c: 131: bool initEeprom(void)
+[; ;app_init.c: 132: {
 [e :U _initEeprom ]
 [f ]
-"132
-[v _addressToRead `Cuc ~T0 @X0 1 a ]
-[; ;app_init.c: 132: const uint8_t addressToRead = 0;
-[e = _addressToRead -> -> 0 `i `uc ]
 "133
-[v F9033 `E9010 ~T0 @X0 1 s currentState ]
-[i F9033
-. `E9010 0
-]
+[v _addressToRead `Cuc ~T0 @X0 1 a ]
+[; ;app_init.c: 133: const uint8_t addressToRead = 0;
+[e = _addressToRead -> -> 0 `i `uc ]
 "134
-[v _memoryOpResult `E8246 ~T0 @X0 1 a ]
-[; ;app_init.c: 133: static eepromStates currentState = EEPROM_INIT;
-[; ;app_init.c: 134: EepromStsType memoryOpResult = OP_PENDING;
-[e = _memoryOpResult . `E8246 2 ]
+[v F9036 `E9013 ~T0 @X0 1 s currentState ]
+[i F9036
+. `E9013 0
+]
 "135
+[v _memoryOpResult `E8246 ~T0 @X0 1 a ]
+[; ;app_init.c: 134: static eepromStates currentState = EEPROM_INIT;
+[; ;app_init.c: 135: EepromStsType memoryOpResult = OP_PENDING;
+[e = _memoryOpResult . `E8246 2 ]
+"136
 [v _isInitialized `uc ~T0 @X0 1 a ]
-[; ;app_init.c: 135: bool isInitialized = 0;
+[; ;app_init.c: 136: bool isInitialized = 0;
 [e = _isInitialized -> -> 0 `i `uc ]
-[; ;app_init.c: 137: switch (currentState)
-"137
-[e $U 899  ]
-[; ;app_init.c: 138: {
+[; ;app_init.c: 138: switch (currentState)
 "138
-{
-[; ;app_init.c: 139: case EEPROM_INIT:
+[e $U 899  ]
+[; ;app_init.c: 139: {
 "139
-[e :U 900 ]
-[; ;app_init.c: 140: memoryOpResult = Eeprom_Read(0, memoryPreamble, 4);
+{
+[; ;app_init.c: 140: case EEPROM_INIT:
 "140
-[e = _memoryOpResult ( _Eeprom_Read (3 , , -> -> 0 `i `uc &U _memoryPreamble -> -> 4 `i `uc ]
-[; ;app_init.c: 141: if (memoryOpResult != OP_PENDING)
+[e :U 900 ]
+[; ;app_init.c: 141: memoryOpResult = Eeprom_Read(0, memoryPreamble, 4);
 "141
-[e $ ! != -> _memoryOpResult `i -> . `E8246 2 `i 901  ]
-[; ;app_init.c: 142: {
+[e = _memoryOpResult ( _Eeprom_Read (3 , , -> -> 0 `i `uc &U _memoryPreamble -> -> 4 `i `uc ]
+[; ;app_init.c: 142: if (memoryOpResult != OP_PENDING)
 "142
+[e $ ! != -> _memoryOpResult `i -> . `E8246 2 `i 901  ]
+[; ;app_init.c: 143: {
+"143
 {
-[; ;app_init.c: 143: if (memoryPreamble[0] == 'U' &&
-[; ;app_init.c: 144: memoryPreamble[1] == 'S' &&
-[; ;app_init.c: 145: memoryPreamble[2] == 'I' &&
-[; ;app_init.c: 146: memoryPreamble[3] == 'M')
-"146
-[e $ ! && && && == -> *U + &U _memoryPreamble * -> -> -> 0 `i `ui `ux -> -> # *U &U _memoryPreamble `ui `ux `ui -> 85 `ui == -> *U + &U _memoryPreamble * -> -> -> 1 `i `ui `ux -> -> # *U &U _memoryPreamble `ui `ux `ui -> 83 `ui == -> *U + &U _memoryPreamble * -> -> -> 2 `i `ui `ux -> -> # *U &U _memoryPreamble `ui `ux `ui -> 73 `ui == -> *U + &U _memoryPreamble * -> -> -> 3 `i `ui `ux -> -> # *U &U _memoryPreamble `ui `ux `ui -> 77 `ui 902  ]
-[; ;app_init.c: 147: {
+[; ;app_init.c: 144: if (memoryPreamble[0] == 'U' &&
+[; ;app_init.c: 145: memoryPreamble[1] == 'S' &&
+[; ;app_init.c: 146: memoryPreamble[2] == 'I' &&
+[; ;app_init.c: 147: memoryPreamble[3] == 'M')
 "147
-{
-[; ;app_init.c: 148: currentState = EEPROM_NOT_EMPTY;
+[e $ ! && && && == -> *U + &U _memoryPreamble * -> -> -> 0 `i `ui `ux -> -> # *U &U _memoryPreamble `ui `ux `ui -> 85 `ui == -> *U + &U _memoryPreamble * -> -> -> 1 `i `ui `ux -> -> # *U &U _memoryPreamble `ui `ux `ui -> 83 `ui == -> *U + &U _memoryPreamble * -> -> -> 2 `i `ui `ux -> -> # *U &U _memoryPreamble `ui `ux `ui -> 73 `ui == -> *U + &U _memoryPreamble * -> -> -> 3 `i `ui `ux -> -> # *U &U _memoryPreamble `ui `ux `ui -> 77 `ui 902  ]
+[; ;app_init.c: 148: {
 "148
-[e = F9033 . `E9010 2 ]
-"149
-}
-[; ;app_init.c: 149: }
-[e $U 903  ]
-"150
-[e :U 902 ]
-[; ;app_init.c: 150: else
-[; ;app_init.c: 151: {
-"151
 {
-[; ;app_init.c: 152: currentState = EEPROM_EMPTY;
-"152
-[e = F9033 . `E9010 1 ]
-"153
+[; ;app_init.c: 149: currentState = EEPROM_NOT_EMPTY;
+"149
+[e = F9036 . `E9013 2 ]
+"150
 }
-[e :U 903 ]
+[; ;app_init.c: 150: }
+[e $U 903  ]
+"151
+[e :U 902 ]
+[; ;app_init.c: 151: else
+[; ;app_init.c: 152: {
+"152
+{
+[; ;app_init.c: 153: currentState = EEPROM_EMPTY;
+"153
+[e = F9036 . `E9013 1 ]
 "154
 }
-[e :U 901 ]
-[; ;app_init.c: 153: }
-[; ;app_init.c: 154: }
-[; ;app_init.c: 155: break;
+[e :U 903 ]
 "155
-[e $U 898  ]
-[; ;app_init.c: 157: case EEPROM_EMPTY:
-"157
-[e :U 904 ]
-[; ;app_init.c: 158: currentState = EEPROM_INIT;
-"158
-[e = F9033 . `E9010 0 ]
-[; ;app_init.c: 159: isInitialized = 1;
-"159
-[e = _isInitialized -> -> 1 `i `uc ]
-[; ;app_init.c: 160: isMemoryEmpty = 1;
-"160
-[e = _isMemoryEmpty -> -> 1 `i `uc ]
-[; ;app_init.c: 161: break;
-"161
-[e $U 898  ]
-[; ;app_init.c: 163: case EEPROM_NOT_EMPTY:
-"163
-[e :U 905 ]
-[; ;app_init.c: 164: currentState = EEPROM_INIT;
-"164
-[e = F9033 . `E9010 0 ]
-[; ;app_init.c: 165: isInitialized = 1;
-"165
-[e = _isInitialized -> -> 1 `i `uc ]
-[; ;app_init.c: 166: isMemoryEmpty = 0;
-"166
-[e = _isMemoryEmpty -> -> 0 `i `uc ]
-[; ;app_init.c: 167: break;
-"167
-[e $U 898  ]
-[; ;app_init.c: 169: default:
-"169
-[e :U 906 ]
-[; ;app_init.c: 170: break;
-"170
-[e $U 898  ]
-"171
 }
-[; ;app_init.c: 171: }
+[e :U 901 ]
+[; ;app_init.c: 154: }
+[; ;app_init.c: 155: }
+[; ;app_init.c: 156: break;
+"156
 [e $U 898  ]
-"137
-[e :U 899 ]
-[e [\ F9033 , $ . `E9010 0 900
- , $ . `E9010 1 904
- , $ . `E9010 2 905
- 906 ]
+[; ;app_init.c: 158: case EEPROM_EMPTY:
+"158
+[e :U 904 ]
+[; ;app_init.c: 159: currentState = EEPROM_INIT;
+"159
+[e = F9036 . `E9013 0 ]
+[; ;app_init.c: 160: isInitialized = 1;
+"160
+[e = _isInitialized -> -> 1 `i `uc ]
+[; ;app_init.c: 161: isMemoryEmpty = 1;
+"161
+[e = _isMemoryEmpty -> -> 1 `i `uc ]
+[; ;app_init.c: 162: break;
+"162
+[e $U 898  ]
+[; ;app_init.c: 164: case EEPROM_NOT_EMPTY:
+"164
+[e :U 905 ]
+[; ;app_init.c: 165: currentState = EEPROM_INIT;
+"165
+[e = F9036 . `E9013 0 ]
+[; ;app_init.c: 166: isInitialized = 1;
+"166
+[e = _isInitialized -> -> 1 `i `uc ]
+[; ;app_init.c: 167: isMemoryEmpty = 0;
+"167
+[e = _isMemoryEmpty -> -> 0 `i `uc ]
+[; ;app_init.c: 168: break;
+"168
+[e $U 898  ]
+[; ;app_init.c: 170: default:
+"170
+[e :U 906 ]
+[; ;app_init.c: 171: break;
 "171
-[e :U 898 ]
-[; ;app_init.c: 172: return isInitialized;
+[e $U 898  ]
 "172
+}
+[; ;app_init.c: 172: }
+[e $U 898  ]
+"138
+[e :U 899 ]
+[e [\ F9036 , $ . `E9013 0 900
+ , $ . `E9013 1 904
+ , $ . `E9013 2 905
+ 906 ]
+"172
+[e :U 898 ]
+[; ;app_init.c: 173: return isInitialized;
+"173
 [e ) _isInitialized ]
 [e $UE 897  ]
-[; ;app_init.c: 173: }
-"173
+[; ;app_init.c: 174: }
+"174
 [e :UE 897 ]
 }
-"179
-[v _getSetupCall `(uc ~T0 @X0 1 ef ]
 "180
+[v _getSetupCall `(uc ~T0 @X0 1 ef ]
+"181
 {
-[; ;app_init.c: 179: bool getSetupCall(void)
-[; ;app_init.c: 180: {
+[; ;app_init.c: 180: bool getSetupCall(void)
+[; ;app_init.c: 181: {
 [e :U _getSetupCall ]
 [f ]
-"181
+"182
 [v _isCalledReceived `uc ~T0 @X0 1 a ]
-[; ;app_init.c: 181: bool isCalledReceived = 0;
+[; ;app_init.c: 182: bool isCalledReceived = 0;
 [e = _isCalledReceived -> -> 0 `i `uc ]
-[; ;app_init.c: 183: if (Mdm_IsRinging())
-"183
-[e $ ! != -> ( _Mdm_IsRinging ..  `i -> -> -> 0 `i `E8199 `i 908  ]
-[; ;app_init.c: 184: {
+[; ;app_init.c: 184: if (Mdm_IsRinging())
 "184
-{
-[; ;app_init.c: 185: Mdm_HangPhoneCall();
+[e $ ! != -> ( _Mdm_IsRinging ..  `i -> -> -> 0 `i `E8199 `i 908  ]
+[; ;app_init.c: 185: {
 "185
-[e ( _Mdm_HangPhoneCall ..  ]
-[; ;app_init.c: 186: isCalledReceived = 1;
+{
+[; ;app_init.c: 186: Mdm_HangPhoneCall();
 "186
-[e = _isCalledReceived -> -> 1 `i `uc ]
+[e ( _Mdm_HangPhoneCall ..  ]
+[; ;app_init.c: 187: isCalledReceived = 1;
 "187
+[e = _isCalledReceived -> -> 1 `i `uc ]
+"188
 }
 [e :U 908 ]
-[; ;app_init.c: 187: }
-[; ;app_init.c: 188: return isCalledReceived;
-"188
+[; ;app_init.c: 188: }
+[; ;app_init.c: 189: return isCalledReceived;
+"189
 [e ) _isCalledReceived ]
 [e $UE 907  ]
-[; ;app_init.c: 189: }
-"189
+[; ;app_init.c: 190: }
+"190
 [e :UE 907 ]
 }
-"195
-[v _waitSetupCall `(uc ~T0 @X0 1 ef ]
 "196
+[v _waitSetupCall `(uc ~T0 @X0 1 ef ]
+"197
 {
-[; ;app_init.c: 195: bool waitSetupCall(void)
-[; ;app_init.c: 196: {
+[; ;app_init.c: 196: bool waitSetupCall(void)
+[; ;app_init.c: 197: {
 [e :U _waitSetupCall ]
 [f ]
-"197
-[v _isCallArrived `uc ~T0 @X0 1 a ]
-[; ;app_init.c: 197: bool isCallArrived = 0;
-[e = _isCallArrived -> -> 0 `i `uc ]
-[; ;app_init.c: 198: if (!secondsAppTimer(30, &setupCallTicks, 0))
 "198
-[e $ ! ! != -> ( _secondsAppTimer (3 , , -> -> 30 `i `uc &U _setupCallTicks -> -> 0 `i `uc `i -> -> -> 0 `i `uc `i 910  ]
-[; ;app_init.c: 199: {
+[v _isCallArrived `uc ~T0 @X0 1 a ]
+[; ;app_init.c: 198: bool isCallArrived = 0;
+[e = _isCallArrived -> -> 0 `i `uc ]
+[; ;app_init.c: 199: if (!secondsAppTimer(30, &setupCallTicks, 0))
 "199
-{
-[; ;app_init.c: 200: Led_SetLedStatus(1u, LED_STS_BLINK);
+[e $ ! ! != -> ( _secondsAppTimer (3 , , -> -> 30 `i `uc &U _setupCallTicks -> -> 0 `i `uc `i -> -> -> 0 `i `uc `i 910  ]
+[; ;app_init.c: 200: {
 "200
-[e ( _Led_SetLedStatus (2 , -> -> 1 `ui `uc . `E8878 3 ]
-[; ;app_init.c: 201: if (getSetupCall())
-"201
-[e $ ! != -> ( _getSetupCall ..  `i -> -> -> 0 `i `uc `i 911  ]
-[; ;app_init.c: 202: {
-"202
 {
-[; ;app_init.c: 203: isCallArrived = 1;
+[; ;app_init.c: 201: Led_SetLedStatus(1u, LED_STS_BLINK);
+"201
+[e ( _Led_SetLedStatus (2 , -> -> 1 `ui `uc . `E8878 3 ]
+[; ;app_init.c: 202: if (getSetupCall())
+"202
+[e $ ! != -> ( _getSetupCall ..  `i -> -> -> 0 `i `uc `i 911  ]
+[; ;app_init.c: 203: {
 "203
-[e = _isCallArrived -> -> 1 `i `uc ]
+{
+[; ;app_init.c: 204: isCallArrived = 1;
 "204
-}
-[e :U 911 ]
+[e = _isCallArrived -> -> 1 `i `uc ]
 "205
 }
-[; ;app_init.c: 204: }
-[; ;app_init.c: 205: }
-[e $U 912  ]
+[e :U 911 ]
 "206
-[e :U 910 ]
-[; ;app_init.c: 206: else
-[; ;app_init.c: 207: {
+}
+[; ;app_init.c: 205: }
+[; ;app_init.c: 206: }
+[e $U 912  ]
 "207
-{
-[; ;app_init.c: 208: Led_SetLedStatus(1u, LED_STS_ON);
+[e :U 910 ]
+[; ;app_init.c: 207: else
+[; ;app_init.c: 208: {
 "208
-[e ( _Led_SetLedStatus (2 , -> -> 1 `ui `uc . `E8878 1 ]
+{
+[; ;app_init.c: 209: Led_SetLedStatus(1u, LED_STS_ON);
 "209
+[e ( _Led_SetLedStatus (2 , -> -> 1 `ui `uc . `E8878 1 ]
+"210
 }
 [e :U 912 ]
-[; ;app_init.c: 209: }
-[; ;app_init.c: 210: return isCallArrived;
-"210
+[; ;app_init.c: 210: }
+[; ;app_init.c: 211: return isCallArrived;
+"211
 [e ) _isCallArrived ]
 [e $UE 909  ]
-[; ;app_init.c: 211: }
-"211
+[; ;app_init.c: 212: }
+"212
 [e :UE 909 ]
 }
-"213
-[v _savePreamble `(v ~T0 @X0 1 ef ]
 "214
+[v _savePreamble `(v ~T0 @X0 1 ef ]
+"215
 {
-[; ;app_init.c: 213: void savePreamble()
-[; ;app_init.c: 214: {
+[; ;app_init.c: 214: void savePreamble()
+[; ;app_init.c: 215: {
 [e :U _savePreamble ]
 [f ]
-[; ;app_init.c: 215: Eeprom_Write(0, initPreamble(), 4);
-"215
-[e ( _Eeprom_Write (3 , , -> -> 0 `i `uc ( _initPreamble ..  -> -> 4 `i `uc ]
-[; ;app_init.c: 216: }
+[; ;app_init.c: 216: Eeprom_Write(0, initPreamble(), 4);
 "216
+[e ( _Eeprom_Write (3 , , -> -> 0 `i `uc ( _initPreamble ..  -> -> 4 `i `uc ]
+[; ;app_init.c: 217: }
+"217
 [e :UE 913 ]
 }
-"225
-[v _initFsm `(uc ~T0 @X0 1 ef ]
 "226
-{
-[; ;app_init.c: 225: bool initFsm(void)
-[; ;app_init.c: 226: {
-[e :U _initFsm ]
-[f ]
+[v _initFsm `(uc ~T0 @X0 1 ef1`*uc ]
 "227
-[v F9043 `E9015 ~T0 @X0 1 s currentState ]
-[i F9043
-. `E9015 0
-]
+{
+[; ;app_init.c: 226: bool initFsm(bool* isCmdSuccessfull)
+[; ;app_init.c: 227: {
+[e :U _initFsm ]
+"226
+[v _isCmdSuccessfull `*uc ~T0 @X0 1 r1 ]
+"227
+[f ]
 "228
+[v F9046 `E9018 ~T0 @X0 1 s currentState ]
+[i F9046
+. `E9018 0
+]
+"229
 [v _isInitialized `uc ~T0 @X0 1 a ]
-[; ;app_init.c: 227: static initFsmStates currentState = INIT_FSM_MODEM;
-[; ;app_init.c: 228: bool isInitialized = 0;
+[; ;app_init.c: 228: static initFsmStates currentState = INIT_FSM_MODEM;
+[; ;app_init.c: 229: bool isInitialized = 0;
 [e = _isInitialized -> -> 0 `i `uc ]
-[; ;app_init.c: 230: switch (currentState)
-"230
-[e $U 916  ]
-[; ;app_init.c: 231: {
+[; ;app_init.c: 231: switch (currentState)
 "231
-{
-[; ;app_init.c: 232: case INIT_FSM_MODEM:
+[e $U 916  ]
+[; ;app_init.c: 232: {
 "232
-[e :U 917 ]
-[; ;app_init.c: 233: if (initGprsModem())
-"233
-[e $ ! != -> ( _initGprsModem ..  `i -> -> -> 0 `i `uc `i 918  ]
-[; ;app_init.c: 234: {
-"234
 {
-[; ;app_init.c: 235: currentState = INIT_FSM_EEPROM;
+[; ;app_init.c: 233: case INIT_FSM_MODEM:
+"233
+[e :U 917 ]
+[; ;app_init.c: 234: if (initGprsModem())
+"234
+[e $ ! != -> ( _initGprsModem ..  `i -> -> -> 0 `i `uc `i 918  ]
+[; ;app_init.c: 235: {
 "235
-[e = F9043 . `E9015 1 ]
+{
+[; ;app_init.c: 236: currentState = INIT_FSM_EEPROM;
 "236
+[e = F9046 . `E9018 1 ]
+"237
 }
 [e :U 918 ]
-[; ;app_init.c: 236: }
-[; ;app_init.c: 237: break;
-"237
+[; ;app_init.c: 237: }
+[; ;app_init.c: 238: break;
+"238
 [e $U 915  ]
-[; ;app_init.c: 239: case INIT_FSM_EEPROM:
-"239
-[e :U 919 ]
-[; ;app_init.c: 240: if (initEeprom())
+[; ;app_init.c: 240: case INIT_FSM_EEPROM:
 "240
-[e $ ! != -> ( _initEeprom ..  `i -> -> -> 0 `i `uc `i 920  ]
-[; ;app_init.c: 241: {
+[e :U 919 ]
+[; ;app_init.c: 241: if (initEeprom())
 "241
-{
-[; ;app_init.c: 242: currentState = INIT_FSM_WAIT_CMD;
+[e $ ! != -> ( _initEeprom ..  `i -> -> -> 0 `i `uc `i 920  ]
+[; ;app_init.c: 242: {
 "242
-[e = F9043 . `E9015 2 ]
-[; ;app_init.c: 243: setupCallTicks = 0;
+{
+[; ;app_init.c: 243: currentState = INIT_FSM_WAIT_CMD;
 "243
-[e = _setupCallTicks -> -> 0 `i `ui ]
+[e = F9046 . `E9018 2 ]
+[; ;app_init.c: 244: setupCallTicks = 0;
 "244
+[e = _setupCallTicks -> -> 0 `i `ui ]
+"245
 }
 [e :U 920 ]
-[; ;app_init.c: 244: }
-[; ;app_init.c: 245: break;
-"245
+[; ;app_init.c: 245: }
+[; ;app_init.c: 246: break;
+"246
 [e $U 915  ]
-[; ;app_init.c: 247: case INIT_FSM_WAIT_CMD:
-"247
-[e :U 921 ]
-[; ;app_init.c: 248: if (isMemoryEmpty)
+[; ;app_init.c: 248: case INIT_FSM_WAIT_CMD:
 "248
-[e $ ! != -> _isMemoryEmpty `i -> -> -> 0 `i `uc `i 922  ]
-[; ;app_init.c: 249: {
+[e :U 921 ]
+[; ;app_init.c: 249: if (isMemoryEmpty)
 "249
-{
-[; ;app_init.c: 250: if (waitSetupCall())
+[e $ ! != -> _isMemoryEmpty `i -> -> -> 0 `i `uc `i 922  ]
+[; ;app_init.c: 250: {
 "250
-[e $ ! != -> ( _waitSetupCall ..  `i -> -> -> 0 `i `uc `i 923  ]
-[; ;app_init.c: 251: {
-"251
 {
-[; ;app_init.c: 252: saveNumberInMemory(16, GetCallerNumber());
+[; ;app_init.c: 251: if (waitSetupCall())
+"251
+[e $ ! != -> ( _waitSetupCall ..  `i -> -> -> 0 `i `uc `i 923  ]
+[; ;app_init.c: 252: {
 "252
-[e ( _saveNumberInMemory (2 , -> -> 16 `i `uc ( _GetCallerNumber ..  ]
-[; ;app_init.c: 253: currentState = INIT_FSM_PREAMBLE;
+{
+[; ;app_init.c: 253: saveNumberInMemory(16, GetCallerNumber());
 "253
-[e = F9043 . `E9015 3 ]
+[e ( _saveNumberInMemory (2 , -> -> 16 `i `uc ( _GetCallerNumber ..  ]
+[; ;app_init.c: 254: currentState = INIT_FSM_PREAMBLE;
 "254
+[e = F9046 . `E9018 3 ]
+"255
 }
 [e :U 923 ]
+[; ;app_init.c: 255: }
+[; ;app_init.c: 256: if (detectUsbNumber(isCmdSuccessfull))
 "256
-}
-[; ;app_init.c: 254: }
-[; ;app_init.c: 256: }
-[e $U 924  ]
+[e $ ! != -> ( _detectUsbNumber (1 _isCmdSuccessfull `i -> -> -> 0 `i `uc `i 924  ]
+[; ;app_init.c: 257: {
 "257
-[e :U 922 ]
-[; ;app_init.c: 257: else
-[; ;app_init.c: 258: {
-"258
 {
-[; ;app_init.c: 259: currentState = INIT_FSM_COMPLETE;
+[; ;app_init.c: 258: currentState = INIT_FSM_PREAMBLE;
+"258
+[e = F9046 . `E9018 3 ]
 "259
-[e = F9043 . `E9015 4 ]
-"260
 }
 [e :U 924 ]
-[; ;app_init.c: 260: }
-[; ;app_init.c: 261: break;
-"261
-[e $U 915  ]
-[; ;app_init.c: 263: case INIT_FSM_PREAMBLE:
-"263
-[e :U 925 ]
-[; ;app_init.c: 264: savePreamble();
-"264
-[e ( _savePreamble ..  ]
-[; ;app_init.c: 265: currentState = INIT_FSM_COMPLETE;
-"265
-[e = F9043 . `E9015 4 ]
-[; ;app_init.c: 266: break;
-"266
-[e $U 915  ]
-[; ;app_init.c: 268: case INIT_FSM_COMPLETE:
-"268
-[e :U 926 ]
-[; ;app_init.c: 269: Led_SetLedStatus(1u, LED_STS_ON);
-"269
-[e ( _Led_SetLedStatus (2 , -> -> 1 `ui `uc . `E8878 1 ]
-[; ;app_init.c: 270: currentState = INIT_FSM_MODEM;
-"270
-[e = F9043 . `E9015 0 ]
-[; ;app_init.c: 271: isInitialized = 1;
-"271
-[e = _isInitialized -> -> 1 `i `uc ]
-[; ;app_init.c: 272: break;
-"272
-[e $U 915  ]
-[; ;app_init.c: 274: default:
-"274
-[e :U 927 ]
-[; ;app_init.c: 275: break;
-"275
-[e $U 915  ]
-"276
+"260
 }
-[; ;app_init.c: 276: }
+[; ;app_init.c: 259: }
+[; ;app_init.c: 260: }
+[e $U 925  ]
+"261
+[e :U 922 ]
+[; ;app_init.c: 261: else
+[; ;app_init.c: 262: {
+"262
+{
+[; ;app_init.c: 263: currentState = INIT_FSM_COMPLETE;
+"263
+[e = F9046 . `E9018 4 ]
+"264
+}
+[e :U 925 ]
+[; ;app_init.c: 264: }
+[; ;app_init.c: 265: break;
+"265
 [e $U 915  ]
-"230
-[e :U 916 ]
-[e [\ F9043 , $ . `E9015 0 917
- , $ . `E9015 1 919
- , $ . `E9015 2 921
- , $ . `E9015 3 925
- , $ . `E9015 4 926
- 927 ]
+[; ;app_init.c: 267: case INIT_FSM_PREAMBLE:
+"267
+[e :U 926 ]
+[; ;app_init.c: 268: savePreamble();
+"268
+[e ( _savePreamble ..  ]
+[; ;app_init.c: 269: currentState = INIT_FSM_COMPLETE;
+"269
+[e = F9046 . `E9018 4 ]
+[; ;app_init.c: 270: break;
+"270
+[e $U 915  ]
+[; ;app_init.c: 272: case INIT_FSM_COMPLETE:
+"272
+[e :U 927 ]
+[; ;app_init.c: 273: Led_SetLedStatus(1u, LED_STS_ON);
+"273
+[e ( _Led_SetLedStatus (2 , -> -> 1 `ui `uc . `E8878 1 ]
+[; ;app_init.c: 274: currentState = INIT_FSM_MODEM;
+"274
+[e = F9046 . `E9018 0 ]
+[; ;app_init.c: 275: isInitialized = 1;
+"275
+[e = _isInitialized -> -> 1 `i `uc ]
+[; ;app_init.c: 276: break;
 "276
+[e $U 915  ]
+[; ;app_init.c: 278: default:
+"278
+[e :U 928 ]
+[; ;app_init.c: 279: break;
+"279
+[e $U 915  ]
+"280
+}
+[; ;app_init.c: 280: }
+[e $U 915  ]
+"231
+[e :U 916 ]
+[e [\ F9046 , $ . `E9018 0 917
+ , $ . `E9018 1 919
+ , $ . `E9018 2 921
+ , $ . `E9018 3 926
+ , $ . `E9018 4 927
+ 928 ]
+"280
 [e :U 915 ]
-[; ;app_init.c: 277: return isInitialized;
-"277
+[; ;app_init.c: 281: return isInitialized;
+"281
 [e ) _isInitialized ]
 [e $UE 914  ]
-[; ;app_init.c: 278: }
-"278
+[; ;app_init.c: 282: }
+"282
 [e :UE 914 ]
 }
-"285
+"289
 [v _initPreamble `(*uc ~T0 @X0 1 ef ]
-"286
+"290
 {
-[; ;app_init.c: 285: uint8_t* initPreamble()
-[; ;app_init.c: 286: {
+[; ;app_init.c: 289: uint8_t* initPreamble()
+[; ;app_init.c: 290: {
 [e :U _initPreamble ]
 [f ]
-[; ;app_init.c: 287: memoryPreamble[0] = 'U';
-"287
-[e = *U + &U _memoryPreamble * -> -> -> 0 `i `ui `ux -> -> # *U &U _memoryPreamble `ui `ux -> -> 85 `ui `uc ]
-[; ;app_init.c: 288: memoryPreamble[1] = 'S';
-"288
-[e = *U + &U _memoryPreamble * -> -> -> 1 `i `ui `ux -> -> # *U &U _memoryPreamble `ui `ux -> -> 83 `ui `uc ]
-[; ;app_init.c: 289: memoryPreamble[2] = 'I';
-"289
-[e = *U + &U _memoryPreamble * -> -> -> 2 `i `ui `ux -> -> # *U &U _memoryPreamble `ui `ux -> -> 73 `ui `uc ]
-[; ;app_init.c: 290: memoryPreamble[3] = 'M';
-"290
-[e = *U + &U _memoryPreamble * -> -> -> 3 `i `ui `ux -> -> # *U &U _memoryPreamble `ui `ux -> -> 77 `ui `uc ]
-[; ;app_init.c: 291: return memoryPreamble;
+[; ;app_init.c: 291: memoryPreamble[0] = 'U';
 "291
-[e ) &U _memoryPreamble ]
-[e $UE 928  ]
-[; ;app_init.c: 292: }
+[e = *U + &U _memoryPreamble * -> -> -> 0 `i `ui `ux -> -> # *U &U _memoryPreamble `ui `ux -> -> 85 `ui `uc ]
+[; ;app_init.c: 292: memoryPreamble[1] = 'S';
 "292
-[e :UE 928 ]
+[e = *U + &U _memoryPreamble * -> -> -> 1 `i `ui `ux -> -> # *U &U _memoryPreamble `ui `ux -> -> 83 `ui `uc ]
+[; ;app_init.c: 293: memoryPreamble[2] = 'I';
+"293
+[e = *U + &U _memoryPreamble * -> -> -> 2 `i `ui `ux -> -> # *U &U _memoryPreamble `ui `ux -> -> 73 `ui `uc ]
+[; ;app_init.c: 294: memoryPreamble[3] = 'M';
+"294
+[e = *U + &U _memoryPreamble * -> -> -> 3 `i `ui `ux -> -> # *U &U _memoryPreamble `ui `ux -> -> 77 `ui `uc ]
+[; ;app_init.c: 295: return memoryPreamble;
+"295
+[e ) &U _memoryPreamble ]
+[e $UE 929  ]
+[; ;app_init.c: 296: }
+"296
+[e :UE 929 ]
+}
+"298
+[v _detectUsbNumber `(uc ~T0 @X0 1 ef1`*uc ]
+"299
+{
+[; ;app_init.c: 298: bool detectUsbNumber(bool* isCmdSuccessfull)
+[; ;app_init.c: 299: {
+[e :U _detectUsbNumber ]
+"298
+[v _isCmdSuccessfull `*uc ~T0 @X0 1 r1 ]
+"299
+[f ]
+"300
+[v _isActionPerformed `uc ~T0 @X0 1 a ]
+[; ;app_init.c: 300: bool isActionPerformed = 0;
+[e = _isActionPerformed -> -> 0 `i `uc ]
+[; ;app_init.c: 302: if (IsUsbNumberReceived == 1)
+"302
+[e $ ! == -> _IsUsbNumberReceived `i -> 1 `i 931  ]
+[; ;app_init.c: 303: {
+"303
+{
+[; ;app_init.c: 304: saveNumberInMemory(16, UsbMasterPhoneNumber);
+"304
+[e ( _saveNumberInMemory (2 , -> -> 16 `i `uc &U _UsbMasterPhoneNumber ]
+[; ;app_init.c: 305: *isCmdSuccessfull = 1;
+"305
+[e = *U _isCmdSuccessfull -> -> 1 `i `uc ]
+[; ;app_init.c: 306: triggerVisualEffect();
+"306
+[e ( _triggerVisualEffect ..  ]
+[; ;app_init.c: 307: isActionPerformed = 1;
+"307
+[e = _isActionPerformed -> -> 1 `i `uc ]
+[; ;app_init.c: 308: IsUsbNumberReceived = 0;
+"308
+[e = _IsUsbNumberReceived -> -> 0 `i `uc ]
+"309
+}
+[e :U 931 ]
+[; ;app_init.c: 309: }
+[; ;app_init.c: 310: return isActionPerformed;
+"310
+[e ) _isActionPerformed ]
+[e $UE 930  ]
+[; ;app_init.c: 311: }
+"311
+[e :UE 930 ]
 }
 [a 1C 65 84 43 67 77 71 68 65 61 68 69 76 32 65 76 76 13 10 0 ]
 [a 2C 65 84 43 67 76 73 80 61 49 13 10 0 ]

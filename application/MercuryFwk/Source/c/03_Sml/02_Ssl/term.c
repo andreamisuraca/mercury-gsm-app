@@ -143,6 +143,7 @@ static const UINT8 MsgReady[] =  {
 ************************************************************************/
 UINT16 UsbMasterPhoneNumberLen;
 UINT8 UsbMasterPhoneNumber[USB_PHONE_NUMBER_LEN];
+UINT8 IsUsbNumberReceived = FALSE;
 
 /************************************************************************
 * LOCAL Function Prototypes
@@ -573,6 +574,7 @@ void Terminal (void)
                   {
                      UsbMasterPhoneNumber[i] = UsbRxBuffer[OP_OFF_BYTE + 2u + i];
                   }
+                  IsUsbNumberReceived = TRUE;
             }
             else if ((UsbRxBuffer[OP_TYPE_OFF_BYTE_0] == 'M')  && 
                      (UsbRxBuffer[OP_TYPE_OFF_BYTE_1] == 'B')  && 

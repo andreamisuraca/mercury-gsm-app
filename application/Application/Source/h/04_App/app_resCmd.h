@@ -1,7 +1,7 @@
 /************************************************************************
 *                          EEPROM Interface                             *
 *************************************************************************
-* FileName:         app_init.h                                          *
+* FileName:         app_gate.h                                          *
 * HW:               Mercury System                                      *
 * Author:           A.Misuraca                                          *
 *                                                                       *
@@ -20,11 +20,11 @@
 * --------------------------------------------------------------------- *
 * Author       Date        Version      Comment                         *
 * ---------------------------------------------------------------------	*
-* A.Misuraca   19/03/21    1.0          First release                   *
+* A.Misuraca   20/03/21    1.0          First release                   *
 ************************************************************************/
 
-#ifndef APP_INIT_H
-#define	APP_INIT_H
+#ifndef APP_REL_CMD_H
+#define	APP_REL_CMD_H
 
 /************************************************************************
 * Includes
@@ -34,8 +34,6 @@
 * EXPORTED Defines
 ************************************************************************/
 
-#define PREAMBLE_LENGTH         4
-#define COUNTER_POSITION_IN_MEM 4
 /************************************************************************
 * EXPORTED Typedef
 ************************************************************************/
@@ -48,10 +46,6 @@
 * EXPORTED Functions
 ************************************************************************/
 
-bool initFsm(bool* isCmdSuccessfull);
+bool resCmdFsm(uint8_t* receivedNumber, bool* isCmdSuccessfull);
 
-uint8_t* initPreamble();
-
-bool detectUsbNumber(bool* isCmdSuccessfull);
-
-#endif    /* APP_INIT_H */
+#endif    /* APP_REL_CMD_H */

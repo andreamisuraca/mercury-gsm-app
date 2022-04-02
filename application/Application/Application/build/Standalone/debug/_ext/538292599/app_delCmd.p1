@@ -2,19 +2,19 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v F7983 `(v ~T0 @X0 0 tf ]
 [v F8056 `(v ~T0 @X0 0 tf ]
 "74 ../Source/c/04_App/app_delCmd.c
-[c E9004 0 1 2 .. ]
-[n E9004 _delFsmStates DEL_FSM_CHECK_MASTER DEL_FSM_REMOVE_NUMBER DEL_FSM_COMPLETE  ]
+[c E9005 0 1 2 .. ]
+[n E9005 _delFsmStates DEL_FSM_CHECK_MASTER DEL_FSM_REMOVE_NUMBER DEL_FSM_COMPLETE  ]
 "77
 [c E8246 0 1 2 .. ]
 [n E8246 _EepromSts OP_SUCCESS OP_FAILED OP_PENDING  ]
-"74 ../Source/h/04_App/app_utils.h
+"73 ../Source/h/04_App/app_utils.h
 [v _isMasterNumber `(uc ~T0 @X0 0 ef1`*uc ]
-"95 ../Source/c/04_App/app_delCmd.c
+"96 ../Source/c/04_App/app_delCmd.c
 [c E8973 0 1 2 3 4 .. ]
 [n E8973 _searchFsmStates SEARCH_FSM_START SEARCH_FSM_CHECK_NUMBER SEARCH_FSM_ERROR SEARCH_FSM_FOUND SEARCH_FSM_NOT_FOUND  ]
 "71 ../Source/h/04_App/app_utils.h
 [v _isNumberInMemory `(E8973 ~T0 @X0 0 ef2`*uc`*uc ]
-"68
+"69
 [v _saveNumberInMemory `(v ~T0 @X0 0 ef2`uc`*uc ]
 "30 ../../MercuryFwk/Source/h/01_Hal/01_Sys/hal.h
 [p n 1510 ]
@@ -8249,14 +8249,15 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;app_utils.h: 53: SEARCH_FSM_NOT_FOUND
 [; ;app_utils.h: 54: } searchFsmStates;
 [; ;app_utils.h: 63: bool secondsAppTimer(uint8_t seconds, uint16_t* counter, bool isCyclic);
-[; ;app_utils.h: 65: void blinkForSeconds(uint8_t seconds, uint16_t* blinkTicks);
-[; ;app_utils.h: 67: bool waitSetupCall(void);
-[; ;app_utils.h: 68: void saveNumberInMemory(UINT8 address, UINT8* phoneNumber);
-[; ;app_utils.h: 69: bool isNumberValid(uint8_t* phoneNumber);
+[; ;app_utils.h: 66: void cmdVisualEffet(bool isCmdSuccessfull);
+[; ;app_utils.h: 67: void triggerVisualEffect();
+[; ;app_utils.h: 68: bool waitSetupCall(void);
+[; ;app_utils.h: 69: void saveNumberInMemory(UINT8 address, UINT8* phoneNumber);
+[; ;app_utils.h: 70: bool isNumberValid(uint8_t* phoneNumber);
 [; ;app_utils.h: 71: searchFsmStates isNumberInMemory(uint8_t* phoneNumber, uint8_t* positionInMemory);
-[; ;app_utils.h: 73: searchFsmStates findEmptySpot(uint8_t* positionInMemory);
-[; ;app_utils.h: 74: uint8_t isMasterNumber(uint8_t* phoneNumber);
-[; ;app_delCmd.h: 49: bool delCmdFsm(uint8_t* receivedNumber, uint8_t* smsText);
+[; ;app_utils.h: 72: searchFsmStates findEmptySpot(uint8_t* positionInMemory);
+[; ;app_utils.h: 73: uint8_t isMasterNumber(uint8_t* phoneNumber);
+[; ;app_delCmd.h: 49: bool delCmdFsm(uint8_t* receivedNumber, uint8_t* smsText, bool* isCmdSuccessfull);
 [; ;app_delCmd.c: 41: typedef enum _delFsmStates
 [; ;app_delCmd.c: 42: {
 [; ;app_delCmd.c: 43: DEL_FSM_CHECK_MASTER = 0,
@@ -8264,19 +8265,20 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;app_delCmd.c: 45: DEL_FSM_COMPLETE
 [; ;app_delCmd.c: 46: } delFsmStates;
 "71 ../Source/c/04_App/app_delCmd.c
-[v _delCmdFsm `(uc ~T0 @X0 1 ef2`*uc`*uc ]
+[v _delCmdFsm `(uc ~T0 @X0 1 ef3`*uc`*uc`*uc ]
 "72
 {
-[; ;app_delCmd.c: 71: bool delCmdFsm(uint8_t* receivedNumber, uint8_t* smsText)
+[; ;app_delCmd.c: 71: bool delCmdFsm(uint8_t* receivedNumber, uint8_t* smsText, bool* isCmdSuccessfull)
 [; ;app_delCmd.c: 72: {
 [e :U _delCmdFsm ]
 "71
 [v _receivedNumber `*uc ~T0 @X0 1 r1 ]
 [v _smsText `*uc ~T0 @X0 1 r2 ]
+[v _isCmdSuccessfull `*uc ~T0 @X0 1 r3 ]
 "72
 [f ]
-[v F9013 `Cuc ~T0 @X0 -> -> -> 13 `i `uc `ux s ]
-[i F9013
+[v F9015 `Cuc ~T0 @X0 -> -> -> 13 `i `uc `ux s ]
+[i F9015
 :U ..
 "73
 -> -> 0 `i `uc
@@ -8284,11 +8286,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 ]
 [v _emptyNumber `Cuc ~T0 @X0 -> -> -> 13 `i `uc `ux a ]
 [; ;app_delCmd.c: 73: const uint8_t emptyNumber[((UINT8)(13))] = {0};
-[e = _emptyNumber F9013 ]
+[e = _emptyNumber F9015 ]
 "74
-[v F9014 `E9004 ~T0 @X0 1 s currentState ]
-[i F9014
-. `E9004 0
+[v F9016 `E9005 ~T0 @X0 1 s currentState ]
+[i F9016
+. `E9005 0
 ]
 "75
 [v _isComplete `uc ~T0 @X0 1 a ]
@@ -8316,115 +8318,121 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;app_delCmd.c: 82: case DEL_FSM_CHECK_MASTER:
 "82
 [e :U 890 ]
-[; ;app_delCmd.c: 83: masterOpResult = isMasterNumber(receivedNumber);
+[; ;app_delCmd.c: 83: *isCmdSuccessfull = 0;
 "83
-[e = _masterOpResult ( _isMasterNumber (1 _receivedNumber ]
-[; ;app_delCmd.c: 84: if (masterOpResult == OP_SUCCESS)
+[e = *U _isCmdSuccessfull -> -> 0 `i `uc ]
+[; ;app_delCmd.c: 84: masterOpResult = isMasterNumber(receivedNumber);
 "84
-[e $ ! == -> _masterOpResult `i -> . `E8246 0 `i 891  ]
-[; ;app_delCmd.c: 85: {
+[e = _masterOpResult ( _isMasterNumber (1 _receivedNumber ]
+[; ;app_delCmd.c: 85: if (masterOpResult == OP_SUCCESS)
 "85
-{
-[; ;app_delCmd.c: 86: currentState = DEL_FSM_REMOVE_NUMBER;
+[e $ ! == -> _masterOpResult `i -> . `E8246 0 `i 891  ]
+[; ;app_delCmd.c: 86: {
 "86
-[e = F9014 . `E9004 1 ]
-"87
-}
-[; ;app_delCmd.c: 87: }
-[e $U 892  ]
-"88
-[e :U 891 ]
-[; ;app_delCmd.c: 88: else if (masterOpResult == OP_FAILED)
-[e $ ! == -> _masterOpResult `i -> . `E8246 1 `i 893  ]
-[; ;app_delCmd.c: 89: {
-"89
 {
-[; ;app_delCmd.c: 90: currentState = DEL_FSM_COMPLETE;
+[; ;app_delCmd.c: 87: currentState = DEL_FSM_REMOVE_NUMBER;
+"87
+[e = F9016 . `E9005 1 ]
+"88
+}
+[; ;app_delCmd.c: 88: }
+[e $U 892  ]
+"89
+[e :U 891 ]
+[; ;app_delCmd.c: 89: else if (masterOpResult == OP_FAILED)
+[e $ ! == -> _masterOpResult `i -> . `E8246 1 `i 893  ]
+[; ;app_delCmd.c: 90: {
 "90
-[e = F9014 . `E9004 2 ]
+{
+[; ;app_delCmd.c: 91: currentState = DEL_FSM_COMPLETE;
 "91
+[e = F9016 . `E9005 2 ]
+"92
 }
 [e :U 893 ]
-"92
+"93
 [e :U 892 ]
-[; ;app_delCmd.c: 91: }
-[; ;app_delCmd.c: 92: break;
+[; ;app_delCmd.c: 92: }
+[; ;app_delCmd.c: 93: break;
 [e $U 888  ]
-[; ;app_delCmd.c: 94: case DEL_FSM_REMOVE_NUMBER:
-"94
-[e :U 894 ]
-[; ;app_delCmd.c: 95: searchNumber = isNumberInMemory(smsText + 4, &numberInMemory);
+[; ;app_delCmd.c: 95: case DEL_FSM_REMOVE_NUMBER:
 "95
-[e = _searchNumber -> ( _isNumberInMemory (2 , + _smsText * -> -> 4 `i `x -> -> # *U _smsText `i `x &U _numberInMemory `uc ]
-[; ;app_delCmd.c: 96: if (searchNumber == SEARCH_FSM_FOUND)
+[e :U 894 ]
+[; ;app_delCmd.c: 96: searchNumber = isNumberInMemory(smsText + 4, &numberInMemory);
 "96
-[e $ ! == -> _searchNumber `i -> . `E8973 3 `i 895  ]
-[; ;app_delCmd.c: 97: {
+[e = _searchNumber -> ( _isNumberInMemory (2 , + _smsText * -> -> 4 `i `x -> -> # *U _smsText `i `x &U _numberInMemory `uc ]
+[; ;app_delCmd.c: 97: if (searchNumber == SEARCH_FSM_FOUND)
 "97
-{
-[; ;app_delCmd.c: 98: saveNumberInMemory(numberInMemory, emptyNumber);
+[e $ ! == -> _searchNumber `i -> . `E8973 3 `i 895  ]
+[; ;app_delCmd.c: 98: {
 "98
-[e ( _saveNumberInMemory (2 , _numberInMemory -> &U _emptyNumber `*uc ]
-[; ;app_delCmd.c: 99: currentState = DEL_FSM_COMPLETE;
-"99
-[e = F9014 . `E9004 2 ]
-"100
-}
-[; ;app_delCmd.c: 100: }
-[e $U 896  ]
-"101
-[e :U 895 ]
-[; ;app_delCmd.c: 101: else if (searchNumber == SEARCH_FSM_NOT_FOUND || searchNumber == SEARCH_FSM_ERROR)
-[e $ ! || == -> _searchNumber `i -> . `E8973 4 `i == -> _searchNumber `i -> . `E8973 2 `i 897  ]
-[; ;app_delCmd.c: 102: {
-"102
 {
-[; ;app_delCmd.c: 103: currentState = DEL_FSM_COMPLETE;
+[; ;app_delCmd.c: 99: saveNumberInMemory(numberInMemory, emptyNumber);
+"99
+[e ( _saveNumberInMemory (2 , _numberInMemory -> &U _emptyNumber `*uc ]
+[; ;app_delCmd.c: 100: currentState = DEL_FSM_COMPLETE;
+"100
+[e = F9016 . `E9005 2 ]
+[; ;app_delCmd.c: 101: *isCmdSuccessfull = 1;
+"101
+[e = *U _isCmdSuccessfull -> -> 1 `i `uc ]
+"102
+}
+[; ;app_delCmd.c: 102: }
+[e $U 896  ]
 "103
-[e = F9014 . `E9004 2 ]
+[e :U 895 ]
+[; ;app_delCmd.c: 103: else if (searchNumber == SEARCH_FSM_NOT_FOUND || searchNumber == SEARCH_FSM_ERROR)
+[e $ ! || == -> _searchNumber `i -> . `E8973 4 `i == -> _searchNumber `i -> . `E8973 2 `i 897  ]
+[; ;app_delCmd.c: 104: {
 "104
+{
+[; ;app_delCmd.c: 105: currentState = DEL_FSM_COMPLETE;
+"105
+[e = F9016 . `E9005 2 ]
+"106
 }
 [e :U 897 ]
-"105
-[e :U 896 ]
-[; ;app_delCmd.c: 104: }
-[; ;app_delCmd.c: 105: break;
-[e $U 888  ]
-[; ;app_delCmd.c: 107: case DEL_FSM_COMPLETE:
 "107
-[e :U 898 ]
-[; ;app_delCmd.c: 108: isComplete = 1;
-"108
-[e = _isComplete -> -> 1 `i `uc ]
-[; ;app_delCmd.c: 109: currentState = DEL_FSM_CHECK_MASTER;
+[e :U 896 ]
+[; ;app_delCmd.c: 106: }
+[; ;app_delCmd.c: 107: break;
+[e $U 888  ]
+[; ;app_delCmd.c: 109: case DEL_FSM_COMPLETE:
 "109
-[e = F9014 . `E9004 0 ]
-[; ;app_delCmd.c: 110: break;
+[e :U 898 ]
+[; ;app_delCmd.c: 110: isComplete = 1;
 "110
-[e $U 888  ]
-[; ;app_delCmd.c: 112: default:
+[e = _isComplete -> -> 1 `i `uc ]
+[; ;app_delCmd.c: 111: currentState = DEL_FSM_CHECK_MASTER;
+"111
+[e = F9016 . `E9005 0 ]
+[; ;app_delCmd.c: 112: break;
 "112
-[e :U 899 ]
-[; ;app_delCmd.c: 113: break;
-"113
 [e $U 888  ]
+[; ;app_delCmd.c: 114: default:
 "114
+[e :U 899 ]
+[; ;app_delCmd.c: 115: break;
+"115
+[e $U 888  ]
+"116
 }
-[; ;app_delCmd.c: 114: }
+[; ;app_delCmd.c: 116: }
 [e $U 888  ]
 "80
 [e :U 889 ]
-[e [\ F9014 , $ . `E9004 0 890
- , $ . `E9004 1 894
- , $ . `E9004 2 898
+[e [\ F9016 , $ . `E9005 0 890
+ , $ . `E9005 1 894
+ , $ . `E9005 2 898
  899 ]
-"114
+"116
 [e :U 888 ]
-[; ;app_delCmd.c: 115: return isComplete;
-"115
+[; ;app_delCmd.c: 117: return isComplete;
+"117
 [e ) _isComplete ]
 [e $UE 887  ]
-[; ;app_delCmd.c: 116: }
-"116
+[; ;app_delCmd.c: 118: }
+"118
 [e :UE 887 ]
 }

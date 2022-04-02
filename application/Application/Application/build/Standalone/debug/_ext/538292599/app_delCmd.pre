@@ -11234,19 +11234,18 @@ SEARCH_FSM_NOT_FOUND
 # 63
 bool secondsAppTimer(uint8_t seconds, uint16_t* counter, bool isCyclic);
 
-void blinkForSeconds(uint8_t seconds, uint16_t* blinkTicks);
 
+void cmdVisualEffet(bool isCmdSuccessfull);
+void triggerVisualEffect();
 bool waitSetupCall(void);
 void saveNumberInMemory(UINT8 address, UINT8* phoneNumber);
 bool isNumberValid(uint8_t* phoneNumber);
-
 searchFsmStates isNumberInMemory(uint8_t* phoneNumber, uint8_t* positionInMemory);
-
 searchFsmStates findEmptySpot(uint8_t* positionInMemory);
 uint8_t isMasterNumber(uint8_t* phoneNumber);
 
 # 49 "../Source/h/04_App/app_delCmd.h"
-bool delCmdFsm(uint8_t* receivedNumber, uint8_t* smsText);
+bool delCmdFsm(uint8_t* receivedNumber, uint8_t* smsText, bool* isCmdSuccessfull);
 
 # 41 "../Source/c/04_App/app_delCmd.c"
 typedef enum _delFsmStates
@@ -11257,7 +11256,7 @@ DEL_FSM_COMPLETE
 } delFsmStates;
 
 # 71
-bool delCmdFsm(uint8_t* receivedNumber, uint8_t* smsText)
+bool delCmdFsm(uint8_t* receivedNumber, uint8_t* smsText, bool* isCmdSuccessfull)
 {
 const uint8_t emptyNumber[((UINT8)(13))] = {0};
 static delFsmStates currentState = DEL_FSM_CHECK_MASTER;
@@ -11269,6 +11268,7 @@ uint8_t searchNumber = OP_FAILED;
 switch (currentState)
 {
 case DEL_FSM_CHECK_MASTER:
+*isCmdSuccessfull = 0;
 masterOpResult = isMasterNumber(receivedNumber);
 if (masterOpResult == OP_SUCCESS)
 {
@@ -11286,6 +11286,7 @@ if (searchNumber == SEARCH_FSM_FOUND)
 {
 saveNumberInMemory(numberInMemory, emptyNumber);
 currentState = DEL_FSM_COMPLETE;
+*isCmdSuccessfull = 1;
 }
 else if (searchNumber == SEARCH_FSM_NOT_FOUND || searchNumber == SEARCH_FSM_ERROR)
 {

@@ -11686,7 +11686,7 @@ if((cdc_trf_state == 0))
 
 memset(Data,0,50);
 
-sprintf(Data,"Build Date: %s\r\n","Mar 27 2022");
+sprintf(Data,"Build Date: %s\r\n","Apr  2 2022");
 
 putUSBUSART((void*)Data,strlen(Data));
 

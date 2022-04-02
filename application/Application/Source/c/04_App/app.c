@@ -148,6 +148,9 @@ gateFsmStates detectCmd()
 void MyApp_Task (UINT8 Options)
 {
     static gateFsmStates currentState = GATE_INIT;
+    static bool isCmdSuccessfull = true;
+
+    cmdVisualEffet(isCmdSuccessfull);
 
     switch (SystemState)
     {
@@ -155,6 +158,7 @@ void MyApp_Task (UINT8 Options)
         case InitializationState:
             /* Make app init. if necesary */ 
             Led_SetLedBlinkTime(LED_1,100,900);
+            Led_SetLedBlinkTime(LED_2,100,900);
             break;
 
         /* System Normal operation Phase */
@@ -173,16 +177,18 @@ void MyApp_Task (UINT8 Options)
                break;
 
             case GATE_ADD_CMD:
-                if (addCmdFsm(receivedNumber, smsText))
+                if (addCmdFsm(receivedNumber, smsText, &isCmdSuccessfull))
                 {
                     currentState = GATE_WAIT_EVENT;
+                    triggerVisualEffect();
                 }
                 break;
 
             case GATE_DEL_CMD:
-                if (delCmdFsm(receivedNumber, smsText))
+                if (delCmdFsm(receivedNumber, smsText, &isCmdSuccessfull))
                 {
                     currentState = GATE_WAIT_EVENT;
+                    triggerVisualEffect();
                 }
                 break;
 

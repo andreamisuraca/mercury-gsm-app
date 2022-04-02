@@ -8382,36 +8382,49 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ]
 [; ;eeprom_if.c: 134: static UINT8 memoryAddress = 0;
-[; ;eeprom_if.c: 136: EepromBuffer[0] = memoryAddress;
+[; ;eeprom_if.c: 136: if (memoryAddress == 0)
 "136
-[e = *U + &U _EepromBuffer * -> -> -> 0 `i `ui `ux -> -> # *U &U _EepromBuffer `ui `ux F8989 ]
-[; ;eeprom_if.c: 137: I2cSlv_SendI2cMsg(EepromBuffer, SlaveAddress, 15);
+[e $ ! == -> F8989 `i -> 0 `i 894  ]
+[; ;eeprom_if.c: 137: {
 "137
-[e ( _I2cSlv_SendI2cMsg (3 , , &U _EepromBuffer _SlaveAddress -> -> 15 `i `uc ]
-[; ;eeprom_if.c: 139: memoryAddress += 16;
-"139
-[e =+ F8989 -> -> 16 `i `uc ]
-[; ;eeprom_if.c: 140: if (memoryAddress >= 224)
-"140
-[e $ ! >= -> F8989 `i -> 224 `i 894  ]
-[; ;eeprom_if.c: 141: {
-"141
 {
-[; ;eeprom_if.c: 142: ClearBuffer(EepromBuffer, 15);
-"142
+[; ;eeprom_if.c: 138: ClearBuffer(EepromBuffer, 15);
+"138
 [e ( _ClearBuffer (2 , &U _EepromBuffer -> -> 15 `i `us ]
-[; ;eeprom_if.c: 143: memoryAddress = 0;
-"143
-[e = F8989 -> -> 0 `i `uc ]
-"144
+"139
 }
 [e :U 894 ]
-[; ;eeprom_if.c: 144: }
-[; ;eeprom_if.c: 145: return memoryAddress;
+[; ;eeprom_if.c: 139: }
+[; ;eeprom_if.c: 141: EepromBuffer[0] = memoryAddress;
+"141
+[e = *U + &U _EepromBuffer * -> -> -> 0 `i `ui `ux -> -> # *U &U _EepromBuffer `ui `ux F8989 ]
+[; ;eeprom_if.c: 142: I2cSlv_SendI2cMsg(EepromBuffer, SlaveAddress, 15);
+"142
+[e ( _I2cSlv_SendI2cMsg (3 , , &U _EepromBuffer _SlaveAddress -> -> 15 `i `uc ]
+[; ;eeprom_if.c: 144: memoryAddress += 16;
+"144
+[e =+ F8989 -> -> 16 `i `uc ]
+[; ;eeprom_if.c: 145: if (memoryAddress >= 224)
 "145
+[e $ ! >= -> F8989 `i -> 224 `i 895  ]
+[; ;eeprom_if.c: 146: {
+"146
+{
+[; ;eeprom_if.c: 147: EepromBuffer[0] = 0;
+"147
+[e = *U + &U _EepromBuffer * -> -> -> 0 `i `ui `ux -> -> # *U &U _EepromBuffer `ui `ux -> -> 0 `i `uc ]
+[; ;eeprom_if.c: 148: memoryAddress = 0;
+"148
+[e = F8989 -> -> 0 `i `uc ]
+"149
+}
+[e :U 895 ]
+[; ;eeprom_if.c: 149: }
+[; ;eeprom_if.c: 150: return memoryAddress;
+"150
 [e ) F8989 ]
 [e $UE 893  ]
-[; ;eeprom_if.c: 146: }
-"146
+[; ;eeprom_if.c: 151: }
+"151
 [e :UE 893 ]
 }

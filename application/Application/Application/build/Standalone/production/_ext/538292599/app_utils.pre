@@ -11221,7 +11221,7 @@ void Sch_SchmIntService (void);
 # 53 "../Source/h/04_App/app.h"
 void MyApp_Task (UINT8 Options);
 
-# 46 "../Source/h/04_App/app_utils.h"
+# 47 "../Source/h/04_App/app_utils.h"
 typedef enum _searchFsmStates
 {
 SEARCH_FSM_START = 0,
@@ -11231,21 +11231,24 @@ SEARCH_FSM_FOUND,
 SEARCH_FSM_NOT_FOUND
 } searchFsmStates;
 
-# 62
+# 63
 bool secondsAppTimer(uint8_t seconds, uint16_t* counter, bool isCyclic);
 
-void blinkForSeconds(uint8_t seconds, uint16_t* blinkTicks);
 
+void cmdVisualEffet(bool isCmdSuccessfull);
+void triggerVisualEffect();
 bool waitSetupCall(void);
 void saveNumberInMemory(UINT8 address, UINT8* phoneNumber);
 bool isNumberValid(uint8_t* phoneNumber);
-
 searchFsmStates isNumberInMemory(uint8_t* phoneNumber, uint8_t* positionInMemory);
-
 searchFsmStates findEmptySpot(uint8_t* positionInMemory);
 uint8_t isMasterNumber(uint8_t* phoneNumber);
 
-# 67 "../Source/c/04_App/app_utils.c"
+# 45 "../Source/c/04_App/app_utils.c"
+static uint8_t readBuffer[((UINT8)(13))] = {0};
+static uint16_t blinkInSeconds = 0xFFFF;
+
+# 69
 bool secondsAppTimer(uint8_t seconds, uint16_t* counter, bool isCyclic)
 {
 bool isExpired = 1;
@@ -11270,20 +11273,29 @@ else
 return isExpired;
 }
 
-# 97
-void blinkForSeconds(uint8_t seconds, uint16_t* blinkTicks)
+void triggerVisualEffect()
 {
-if (secondsAppTimer(seconds, blinkTicks, 0))
+blinkInSeconds = 0;
+}
+
+void cmdVisualEffet(bool isCmdSuccessfull)
 {
-Led_SetLedStatus(1u, LED_STS_ON);
+uint8_t seconds = 7;
+if (isCmdSuccessfull)
+{
+seconds = 3;
+}
+if (secondsAppTimer(seconds, blinkInSeconds, 0))
+{
+Led_SetLedStatus(2u, LED_STS_OFF);
 }
 else
 {
-Led_SetLedStatus(1u, LED_STS_BLINK);
+Led_SetLedStatus(2u, LED_STS_BLINK);
 }
 }
 
-# 116
+# 121
 void saveNumberInMemory(UINT8 address, UINT8* phoneNumber)
 {
 Eeprom_Write(address, phoneNumber, ((UINT8)(13)));
@@ -11315,7 +11327,6 @@ searchFsmStates isNumberInMemory(uint8_t* phoneNumber, uint8_t* positionInMemory
 {
 static searchFsmStates currentState = SEARCH_FSM_START;
 static uint8_t currentPosition = 32;
-uint8_t readBuffer[((UINT8)(13))];
 EepromStsType memoryOpResult = OP_PENDING;
 
 if (currentState > SEARCH_FSM_CHECK_NUMBER)
@@ -11323,7 +11334,7 @@ if (currentState > SEARCH_FSM_CHECK_NUMBER)
 currentState = SEARCH_FSM_START;
 currentPosition = 32;
 }
-if (currentPosition >= 32 * 10)
+if (currentPosition >= (32 + (16 * 10)))
 {
 currentState = SEARCH_FSM_NOT_FOUND;
 }
@@ -11343,7 +11354,7 @@ currentState = SEARCH_FSM_CHECK_NUMBER;
 break;
 
 case SEARCH_FSM_CHECK_NUMBER:
-currentState = SEARCH_FSM_NOT_FOUND;
+currentState = SEARCH_FSM_START;
 if (isNumberValid(readBuffer))
 {
 if (StringCompare(phoneNumber, readBuffer, ((UINT8)(13))))
@@ -11356,7 +11367,7 @@ else
 
 }
 }
-currentPosition += 32;
+currentPosition += 16;
 break;
 
 default:
@@ -11365,10 +11376,9 @@ break;
 return currentState;
 }
 
-# 232
+# 236
 uint8_t isMasterNumber(uint8_t* phoneNumber)
 {
-uint8_t readBuffer[((UINT8)(13))];
 EepromStsType memoryOpResult = OP_PENDING;
 
 memoryOpResult = Eeprom_Read(16, readBuffer, ((UINT8)(13)));
@@ -11386,12 +11396,11 @@ memoryOpResult = OP_SUCCESS;
 return memoryOpResult;
 }
 
-# 283
+# 286
 searchFsmStates findEmptySpot(uint8_t* positionInMemory)
 {
 static searchFsmStates currentState = SEARCH_FSM_START;
 static uint8_t currentPosition = 32;
-uint8_t readBuffer[((UINT8)(13))];
 EepromStsType memoryOpResult = OP_PENDING;
 
 if (currentState > SEARCH_FSM_CHECK_NUMBER)
@@ -11399,7 +11408,7 @@ if (currentState > SEARCH_FSM_CHECK_NUMBER)
 currentState = SEARCH_FSM_START;
 currentPosition = 32;
 }
-if (currentPosition >= 32 * 10)
+if (currentPosition >= (32 + (16 * 10)))
 {
 currentState = SEARCH_FSM_NOT_FOUND;
 }
@@ -11421,7 +11430,7 @@ break;
 case SEARCH_FSM_CHECK_NUMBER:
 if (isNumberValid(readBuffer))
 {
-currentPosition += 32;
+currentPosition += 16;
 currentState = SEARCH_FSM_START;
 }
 else

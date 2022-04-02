@@ -11226,7 +11226,7 @@ bool initFsm(void);
 
 uint8_t* initPreamble();
 
-# 46 "../Source/h/04_App/app_utils.h"
+# 47 "../Source/h/04_App/app_utils.h"
 typedef enum _searchFsmStates
 {
 SEARCH_FSM_START = 0,
@@ -11236,17 +11236,16 @@ SEARCH_FSM_FOUND,
 SEARCH_FSM_NOT_FOUND
 } searchFsmStates;
 
-# 62
+# 63
 bool secondsAppTimer(uint8_t seconds, uint16_t* counter, bool isCyclic);
 
-void blinkForSeconds(uint8_t seconds, uint16_t* blinkTicks);
 
+void cmdVisualEffet(bool isCmdSuccessfull);
+void triggerVisualEffect();
 bool waitSetupCall(void);
 void saveNumberInMemory(UINT8 address, UINT8* phoneNumber);
 bool isNumberValid(uint8_t* phoneNumber);
-
 searchFsmStates isNumberInMemory(uint8_t* phoneNumber, uint8_t* positionInMemory);
-
 searchFsmStates findEmptySpot(uint8_t* positionInMemory);
 uint8_t isMasterNumber(uint8_t* phoneNumber);
 
@@ -11350,8 +11349,9 @@ currentState = EEPROM_EMPTY;
 break;
 
 case EEPROM_EMPTY:
-isInitialized = 1;
 currentState = EEPROM_INIT;
+isInitialized = 1;
+isMemoryEmpty = 1;
 break;
 
 case EEPROM_NOT_EMPTY:
@@ -11366,7 +11366,7 @@ break;
 return isInitialized;
 }
 
-# 178
+# 179
 bool getSetupCall(void)
 {
 bool isCalledReceived = 0;
@@ -11379,7 +11379,7 @@ isCalledReceived = 1;
 return isCalledReceived;
 }
 
-# 194
+# 195
 bool waitSetupCall(void)
 {
 bool isCallArrived = 0;
@@ -11403,7 +11403,7 @@ void savePreamble()
 Eeprom_Write(0, initPreamble(), 4);
 }
 
-# 224
+# 225
 bool initFsm(void)
 {
 static initFsmStates currentState = INIT_FSM_MODEM;
@@ -11459,7 +11459,7 @@ break;
 return isInitialized;
 }
 
-# 284
+# 285
 uint8_t* initPreamble()
 {
 memoryPreamble[0] = 'U';

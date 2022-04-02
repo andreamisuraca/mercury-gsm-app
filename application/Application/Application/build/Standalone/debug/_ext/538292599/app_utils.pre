@@ -11234,21 +11234,21 @@ SEARCH_FSM_NOT_FOUND
 # 63
 bool secondsAppTimer(uint8_t seconds, uint16_t* counter, bool isCyclic);
 
-void blinkForSeconds(uint8_t seconds, uint16_t* blinkTicks);
 
+void cmdVisualEffet(bool isCmdSuccessfull);
+void triggerVisualEffect();
 bool waitSetupCall(void);
 void saveNumberInMemory(UINT8 address, UINT8* phoneNumber);
 bool isNumberValid(uint8_t* phoneNumber);
-
 searchFsmStates isNumberInMemory(uint8_t* phoneNumber, uint8_t* positionInMemory);
-
 searchFsmStates findEmptySpot(uint8_t* positionInMemory);
 uint8_t isMasterNumber(uint8_t* phoneNumber);
 
 # 45 "../Source/c/04_App/app_utils.c"
-uint8_t readBuffer[((UINT8)(13))] = {0};
+static uint8_t readBuffer[((UINT8)(13))] = {0};
+static uint16_t blinkInSeconds = 0xFFFF;
 
-# 68
+# 69
 bool secondsAppTimer(uint8_t seconds, uint16_t* counter, bool isCyclic)
 {
 bool isExpired = 1;
@@ -11273,20 +11273,29 @@ else
 return isExpired;
 }
 
-# 98
-void blinkForSeconds(uint8_t seconds, uint16_t* blinkTicks)
+void triggerVisualEffect()
 {
-if (secondsAppTimer(seconds, blinkTicks, 0))
+blinkInSeconds = 0;
+}
+
+void cmdVisualEffet(bool isCmdSuccessfull)
 {
-Led_SetLedStatus(1u, LED_STS_ON);
+uint8_t seconds = 7;
+if (isCmdSuccessfull)
+{
+seconds = 3;
+}
+if (secondsAppTimer(seconds, &blinkInSeconds, 0))
+{
+Led_SetLedStatus(2u, LED_STS_OFF);
 }
 else
 {
-Led_SetLedStatus(1u, LED_STS_BLINK);
+Led_SetLedStatus(2u, LED_STS_BLINK);
 }
 }
 
-# 117
+# 121
 void saveNumberInMemory(UINT8 address, UINT8* phoneNumber)
 {
 Eeprom_Write(address, phoneNumber, ((UINT8)(13)));
@@ -11367,7 +11376,7 @@ break;
 return currentState;
 }
 
-# 232
+# 236
 uint8_t isMasterNumber(uint8_t* phoneNumber)
 {
 EepromStsType memoryOpResult = OP_PENDING;
@@ -11387,7 +11396,7 @@ memoryOpResult = OP_SUCCESS;
 return memoryOpResult;
 }
 
-# 282
+# 286
 searchFsmStates findEmptySpot(uint8_t* positionInMemory)
 {
 static searchFsmStates currentState = SEARCH_FSM_START;

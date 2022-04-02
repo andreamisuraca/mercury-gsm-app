@@ -46,6 +46,6 @@
 * EXPORTED Functions
 ************************************************************************/
 
-bool delCmdFsm(uint8_t* receivedNumber, uint8_t* smsText);
+bool delCmdFsm(uint8_t* receivedNumber, uint8_t* smsText, bool* isCmdSuccessfull);
 
 #endif    /* APP_DEL_CMD_H */

@@ -68,7 +68,7 @@ typedef enum _delFsmStates
  * @brief 
  * 
  */
-bool delCmdFsm(uint8_t* receivedNumber, uint8_t* smsText)
+bool delCmdFsm(uint8_t* receivedNumber, uint8_t* smsText, bool* isCmdSuccessfull)
 {
     const uint8_t emptyNumber[PHONE_NUMBER_LEN] = {0};
     static delFsmStates currentState = DEL_FSM_CHECK_MASTER;
@@ -80,6 +80,7 @@ bool delCmdFsm(uint8_t* receivedNumber, uint8_t* smsText)
     switch (currentState)
     {
     case DEL_FSM_CHECK_MASTER:
+        *isCmdSuccessfull = false;
         masterOpResult = isMasterNumber(receivedNumber);
         if (masterOpResult == OP_SUCCESS)
         {
@@ -97,6 +98,7 @@ bool delCmdFsm(uint8_t* receivedNumber, uint8_t* smsText)
         {
             saveNumberInMemory(numberInMemory, emptyNumber);
             currentState = DEL_FSM_COMPLETE;
+            *isCmdSuccessfull = true;
         }
         else if (searchNumber == SEARCH_FSM_NOT_FOUND || searchNumber == SEARCH_FSM_ERROR)
         {

@@ -69,7 +69,7 @@ typedef enum _addFsmStates
  * @brief 
  * 
  */
-bool addCmdFsm(uint8_t* receivedNumber, uint8_t* smsText)
+bool addCmdFsm(uint8_t* receivedNumber, uint8_t* smsText, bool* isCmdSuccessfull)
 {
     static addFsmStates currentState = ADD_FSM_CHECK_MASTER;
     bool isComplete = false;
@@ -80,6 +80,7 @@ bool addCmdFsm(uint8_t* receivedNumber, uint8_t* smsText)
     switch (currentState)
     {
     case ADD_FSM_CHECK_MASTER:
+        *isCmdSuccessfull = false;
         masterOpResult = isMasterNumber(receivedNumber);
         if (masterOpResult == OP_SUCCESS)
         {
@@ -109,6 +110,7 @@ bool addCmdFsm(uint8_t* receivedNumber, uint8_t* smsText)
         {
             saveNumberInMemory(numberInMemory, smsText + TEXT_OFFSET);
             currentState = ADD_FSM_COMPLETE;
+            *isCmdSuccessfull = true;
         }
         else if (searchNumber == SEARCH_FSM_FOUND || searchNumber == SEARCH_FSM_ERROR)
         {

@@ -9,7 +9,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 "94
 [c E8246 0 1 2 .. ]
 [n E8246 _EepromSts OP_SUCCESS OP_FAILED OP_PENDING  ]
-"74 ../Source/h/04_App/app_utils.h
+"73 ../Source/h/04_App/app_utils.h
 [v _isMasterNumber `(uc ~T0 @X0 0 ef1`*uc ]
 "112 ../Source/c/04_App/app_triggerCmd.c
 [c E8973 0 1 2 3 4 .. ]
@@ -8251,13 +8251,14 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;app_utils.h: 53: SEARCH_FSM_NOT_FOUND
 [; ;app_utils.h: 54: } searchFsmStates;
 [; ;app_utils.h: 63: bool secondsAppTimer(uint8_t seconds, uint16_t* counter, bool isCyclic);
-[; ;app_utils.h: 65: void blinkForSeconds(uint8_t seconds, uint16_t* blinkTicks);
-[; ;app_utils.h: 67: bool waitSetupCall(void);
-[; ;app_utils.h: 68: void saveNumberInMemory(UINT8 address, UINT8* phoneNumber);
-[; ;app_utils.h: 69: bool isNumberValid(uint8_t* phoneNumber);
+[; ;app_utils.h: 66: void cmdVisualEffet(bool isCmdSuccessfull);
+[; ;app_utils.h: 67: void triggerVisualEffect();
+[; ;app_utils.h: 68: bool waitSetupCall(void);
+[; ;app_utils.h: 69: void saveNumberInMemory(UINT8 address, UINT8* phoneNumber);
+[; ;app_utils.h: 70: bool isNumberValid(uint8_t* phoneNumber);
 [; ;app_utils.h: 71: searchFsmStates isNumberInMemory(uint8_t* phoneNumber, uint8_t* positionInMemory);
-[; ;app_utils.h: 73: searchFsmStates findEmptySpot(uint8_t* positionInMemory);
-[; ;app_utils.h: 74: uint8_t isMasterNumber(uint8_t* phoneNumber);
+[; ;app_utils.h: 72: searchFsmStates findEmptySpot(uint8_t* positionInMemory);
+[; ;app_utils.h: 73: uint8_t isMasterNumber(uint8_t* phoneNumber);
 [; ;app_triggerCmd.h: 49: bool triggerCmdFsm(uint8_t* receivedNumber);
 [; ;app_triggerCmd.c: 41: typedef enum _triggerFsmStates
 [; ;app_triggerCmd.c: 42: {

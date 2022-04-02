@@ -11221,7 +11221,7 @@ void Sch_SchmIntService (void);
 # 53 "../Source/h/04_App/app.h"
 void MyApp_Task (UINT8 Options);
 
-# 46 "../Source/h/04_App/app_utils.h"
+# 47 "../Source/h/04_App/app_utils.h"
 typedef enum _searchFsmStates
 {
 SEARCH_FSM_START = 0,
@@ -11231,22 +11231,21 @@ SEARCH_FSM_FOUND,
 SEARCH_FSM_NOT_FOUND
 } searchFsmStates;
 
-# 62
+# 63
 bool secondsAppTimer(uint8_t seconds, uint16_t* counter, bool isCyclic);
 
-void blinkForSeconds(uint8_t seconds, uint16_t* blinkTicks);
 
+void cmdVisualEffet(bool isCmdSuccessfull);
+void triggerVisualEffect();
 bool waitSetupCall(void);
 void saveNumberInMemory(UINT8 address, UINT8* phoneNumber);
 bool isNumberValid(uint8_t* phoneNumber);
-
 searchFsmStates isNumberInMemory(uint8_t* phoneNumber, uint8_t* positionInMemory);
-
 searchFsmStates findEmptySpot(uint8_t* positionInMemory);
 uint8_t isMasterNumber(uint8_t* phoneNumber);
 
 # 49 "../Source/h/04_App/app_delCmd.h"
-bool delCmdFsm(uint8_t* receivedNumber, uint8_t* smsText);
+bool delCmdFsm(uint8_t* receivedNumber, uint8_t* smsText, bool* isCmdSuccessfull);
 
 # 41 "../Source/c/04_App/app_delCmd.c"
 typedef enum _delFsmStates
@@ -11257,35 +11256,40 @@ DEL_FSM_COMPLETE
 } delFsmStates;
 
 # 71
-bool delCmdFsm(uint8_t* receivedNumber, uint8_t* smsText)
+bool delCmdFsm(uint8_t* receivedNumber, uint8_t* smsText, bool* isCmdSuccessfull)
 {
 const uint8_t emptyNumber[((UINT8)(13))] = {0};
 static delFsmStates currentState = DEL_FSM_CHECK_MASTER;
 bool isComplete = 0;
-uint8_t numberInMemory = 1;
+uint8_t numberInMemory = 0;
+uint8_t masterOpResult = OP_FAILED;
+uint8_t searchNumber = OP_FAILED;
 
 switch (currentState)
 {
 case DEL_FSM_CHECK_MASTER:
-if (isMasterNumber(receivedNumber) == OP_SUCCESS)
+*isCmdSuccessfull = 0;
+masterOpResult = isMasterNumber(receivedNumber);
+if (masterOpResult == OP_SUCCESS)
 {
 currentState = DEL_FSM_REMOVE_NUMBER;
 }
-else
+else if (masterOpResult == OP_FAILED)
 {
 currentState = DEL_FSM_COMPLETE;
 }
 break;
 
 case DEL_FSM_REMOVE_NUMBER:
-
-if (numberInMemory == 1)
-{
-currentState = DEL_FSM_COMPLETE;
-}
-else if (numberInMemory != 0 && numberInMemory != 1 && numberInMemory != 32)
+searchNumber = isNumberInMemory(smsText + 4, &numberInMemory);
+if (searchNumber == SEARCH_FSM_FOUND)
 {
 saveNumberInMemory(numberInMemory, emptyNumber);
+currentState = DEL_FSM_COMPLETE;
+*isCmdSuccessfull = 1;
+}
+else if (searchNumber == SEARCH_FSM_NOT_FOUND || searchNumber == SEARCH_FSM_ERROR)
+{
 currentState = DEL_FSM_COMPLETE;
 }
 break;

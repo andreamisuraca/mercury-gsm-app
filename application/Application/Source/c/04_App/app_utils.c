@@ -42,7 +42,8 @@
 * LOCAL Variables
 ************************************************************************/
 
-uint8_t readBuffer[PHONE_NUMBER_LEN] = {0};
+static uint8_t readBuffer[PHONE_NUMBER_LEN] = {0};
+static uint16_t blinkInSeconds = 0xFFFF;
 /************************************************************************
 * GLOBAL Variables
 ************************************************************************/
@@ -89,24 +90,27 @@ bool secondsAppTimer(uint8_t seconds, uint16_t* counter, bool isCyclic)
     return isExpired;
 }
 
-/**
- * @brief 
- * 
- * @param seconds 
- * @param blinkTicks 
- */
-void blinkForSeconds(uint8_t seconds, uint16_t* blinkTicks)
+void triggerVisualEffect()
 {
-    if (secondsAppTimer(seconds, blinkTicks, false))
+    blinkInSeconds = 0;
+}
+
+void cmdVisualEffet(bool isCmdSuccessfull)
+{
+    uint8_t seconds = 7;
+    if (isCmdSuccessfull)
     {
-        Led_SetLedStatus(LED_1, LED_STS_ON);
+        seconds = 3;
+    }
+    if (secondsAppTimer(seconds, &blinkInSeconds, false))
+    {
+        Led_SetLedStatus(LED_2, LED_STS_OFF);
     }
     else
     {
-       Led_SetLedStatus(LED_1, LED_STS_BLINK); 
+       Led_SetLedStatus(LED_2, LED_STS_BLINK);
     }
 }
-
 
 /**
  * @brief 

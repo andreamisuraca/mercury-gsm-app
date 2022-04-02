@@ -820,7 +820,7 @@ InitializationState 0
 RunningState 1
 ]
 "75 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app.c
-[e E9012 _gateFsmStates `uc
+[e E9014 _gateFsmStates `uc
 GATE_INIT 0
 GATE_WAIT_EVENT 1
 GATE_ADD_CMD 2
@@ -843,7 +843,7 @@ SmsDataReady 1
 PhoneNotRinging 0
 PhoneRinging 1
 ]
-"152
+"155
 [e E8961 SystemStateEnum `uc
 InitializationState 0
 RunningState 1
@@ -896,7 +896,7 @@ INIT_FSM_WAIT_CMD 2
 INIT_FSM_PREAMBLE 3
 INIT_FSM_COMPLETE 4
 ]
-"102 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app_utils.c
+"107 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app_utils.c
 [e E8878 _LedStsType `uc
 LED_STS_OFF 0
 LED_STS_ON 1
@@ -904,7 +904,7 @@ LED_STS_TOGGLE 2
 LED_STS_BLINK 3
 LED_STS_PULSE 4
 ]
-"145
+"149
 [e E8973 _searchFsmStates `uc
 SEARCH_FSM_START 0
 SEARCH_FSM_CHECK_NUMBER 1
@@ -912,14 +912,14 @@ SEARCH_FSM_ERROR 2
 SEARCH_FSM_FOUND 3
 SEARCH_FSM_NOT_FOUND 4
 ]
-"148
+"152
 [e E8246 _EepromSts `uc
 OP_SUCCESS 0
 OP_FAILED 1
 OP_PENDING 2
 ]
 "74 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app_addCmd.c
-[e E9004 _addFsmStates `uc
+[e E9005 _addFsmStates `uc
 ADD_FSM_CHECK_MASTER 0
 ADD_FSM_CHECK_DUPLICATED 1
 ADD_FSM_SAVE_NEW 2
@@ -931,7 +931,7 @@ OP_SUCCESS 0
 OP_FAILED 1
 OP_PENDING 2
 ]
-"95
+"96
 [e E8973 _searchFsmStates `uc
 SEARCH_FSM_START 0
 SEARCH_FSM_CHECK_NUMBER 1
@@ -940,7 +940,7 @@ SEARCH_FSM_FOUND 3
 SEARCH_FSM_NOT_FOUND 4
 ]
 "74 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app_delCmd.c
-[e E9004 _delFsmStates `uc
+[e E9005 _delFsmStates `uc
 DEL_FSM_CHECK_MASTER 0
 DEL_FSM_REMOVE_NUMBER 1
 DEL_FSM_COMPLETE 2
@@ -951,7 +951,7 @@ OP_SUCCESS 0
 OP_FAILED 1
 OP_PENDING 2
 ]
-"95
+"96
 [e E8973 _searchFsmStates `uc
 SEARCH_FSM_START 0
 SEARCH_FSM_CHECK_NUMBER 1
@@ -1295,9 +1295,9 @@ SEARCH_FSM_NOT_FOUND 4
 "73 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/02_Ssl/wdg.c
 [v _Wdg_MainTask Wdg_MainTask `(v  1 e 1 0 ]
 "74 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app.c
-[v _parseCommand parseCommand `(E9012  1 e 1 0 ]
+[v _parseCommand parseCommand `(E9014  1 e 1 0 ]
 "114
-[v _detectCmd detectCmd `(E9012  1 e 1 0 ]
+[v _detectCmd detectCmd `(E9014  1 e 1 0 ]
 "148
 [v _MyApp_Task MyApp_Task `(v  1 e 1 0 ]
 "72 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app_addCmd.c
@@ -1322,17 +1322,21 @@ SEARCH_FSM_NOT_FOUND 4
 [v _triggerRelay triggerRelay `(uc  1 e 1 0 ]
 "89
 [v _triggerCmdFsm triggerCmdFsm `(uc  1 e 1 0 ]
-"68 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app_utils.c
+"69 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app_utils.c
 [v _secondsAppTimer secondsAppTimer `(uc  1 e 1 0 ]
-"117
+"93
+[v _triggerVisualEffect triggerVisualEffect `(v  1 e 1 0 ]
+"98
+[v _cmdVisualEffet cmdVisualEffet `(v  1 e 1 0 ]
+"121
 [v _saveNumberInMemory saveNumberInMemory `(v  1 e 1 0 ]
-"122
+"126
 [v _isNumberValid isNumberValid `(uc  1 e 1 0 ]
-"144
+"148
 [v _isNumberInMemory isNumberInMemory `(E8973  1 e 1 0 ]
-"232
+"236
 [v _isMasterNumber isMasterNumber `(uc  1 e 1 0 ]
-"282
+"286
 [v _findEmptySpot findEmptySpot `(E8973  1 e 1 0 ]
 "5 /opt/microchip/xc8/v1.45/sources/common/atoi.c
 [v _atoi atoi `(i  1 e 2 0 ]
@@ -1817,7 +1821,9 @@ SEARCH_FSM_NOT_FOUND 4
 "54
 [v _secondCounter secondCounter `ui  1 s 2 secondCounter ]
 "45 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app_utils.c
-[v _readBuffer readBuffer `[13]uc  1 e 13 0 ]
+[v _readBuffer readBuffer `[13]uc  1 s 13 readBuffer ]
+"46
+[v _blinkInSeconds blinkInSeconds `ui  1 s 2 blinkInSeconds ]
 "204 /opt/microchip/xc8/v1.45/include/pic18f46j50.h
 [v _RPINR1 RPINR1 `VEuc  1 e 1 @3815 ]
 "329
@@ -2655,22 +2661,24 @@ SEARCH_FSM_NOT_FOUND 4
 [v _ScheduleTasks ScheduleTasks `(v  1 e 1 0 ]
 {
 "102
-[v ScheduleTasks@ActiveTaskIndex ActiveTaskIndex `uc  1 a 1 0 ]
+[v ScheduleTasks@ActiveTaskIndex ActiveTaskIndex `uc  1 a 1 200 ]
 "122
 } 0
 "79
 [v _InitializeTasks InitializeTasks `(v  1 e 1 0 ]
 {
 "82
-[v InitializeTasks@ActiveTaskIndex ActiveTaskIndex `uc  1 a 1 2 ]
+[v InitializeTasks@ActiveTaskIndex ActiveTaskIndex `uc  1 a 1 200 ]
 "89
 } 0
 "148 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app.c
 [v _MyApp_Task MyApp_Task `(v  1 e 1 0 ]
 {
 "150
-[v MyApp_Task@currentState currentState `E9012  1 s 1 currentState ]
-"212
+[v MyApp_Task@currentState currentState `E9014  1 s 1 currentState ]
+"151
+[v MyApp_Task@isCmdSuccessfull isCmdSuccessfull `uc  1 s 1 isCmdSuccessfull ]
+"218
 } 0
 "845 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/02_Ssl/term.c
 [v _Term_MainTask Term_MainTask `(v  1 e 1 0 ]
@@ -3409,6 +3417,11 @@ SEARCH_FSM_NOT_FOUND 4
 [v Rtcc_AlarmConfig@AlarmConfig AlarmConfig `*.39S1323  1 p 2 29 ]
 "139
 } 0
+"93 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app_utils.c
+[v _triggerVisualEffect triggerVisualEffect `(v  1 e 1 0 ]
+{
+"96
+} 0
 "89 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app_triggerCmd.c
 [v _triggerCmdFsm triggerCmdFsm `(uc  1 e 1 0 ]
 {
@@ -3482,22 +3495,6 @@ SEARCH_FSM_NOT_FOUND 4
 [v initGprsModem@currentState currentState `E9004  1 s 1 currentState ]
 "124
 } 0
-"68 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app_utils.c
-[v _secondsAppTimer secondsAppTimer `(uc  1 e 1 0 ]
-{
-[v secondsAppTimer@seconds seconds `uc  1 a 1 wreg ]
-"71
-[v secondsAppTimer@destinationTicks destinationTicks `ui  1 a 2 49 ]
-"70
-[v secondsAppTimer@isExpired isExpired `uc  1 a 1 48 ]
-"68
-[v secondsAppTimer@seconds seconds `uc  1 a 1 wreg ]
-[v secondsAppTimer@counter counter `*.39ui  1 p 2 42 ]
-[v secondsAppTimer@isCyclic isCyclic `uc  1 p 1 44 ]
-"70
-[v secondsAppTimer@seconds seconds `uc  1 a 1 47 ]
-"90
-} 0
 "837 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.c
 [v _Mdm_SetSmsFormat Mdm_SetSmsFormat `(v  1 e 1 0 ]
 {
@@ -3526,14 +3523,14 @@ SEARCH_FSM_NOT_FOUND 4
 "173
 } 0
 "114 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app.c
-[v _detectCmd detectCmd `(E9012  1 e 1 0 ]
+[v _detectCmd detectCmd `(E9014  1 e 1 0 ]
 {
 "116
-[v detectCmd@currentState currentState `E9012  1 a 1 53 ]
+[v detectCmd@currentState currentState `E9014  1 a 1 53 ]
 "134
 } 0
 "74
-[v _parseCommand parseCommand `(E9012  1 e 1 0 ]
+[v _parseCommand parseCommand `(E9014  1 e 1 0 ]
 {
 "78
 [v parseCommand@resetCmd resetCmd `C[4]uc  1 a 4 48 ]
@@ -3542,13 +3539,13 @@ SEARCH_FSM_NOT_FOUND 4
 "76
 [v parseCommand@addNumberCmd addNumberCmd `C[4]uc  1 a 4 40 ]
 "79
-[v parseCommand@state state `E9012  1 a 1 52 ]
+[v parseCommand@state state `E9014  1 a 1 52 ]
 "75
-[v parseCommand@F9026 F9026 `C[4]uc  1 s 4 F9026 ]
-"76
 [v parseCommand@F9028 F9028 `C[4]uc  1 s 4 F9028 ]
-"77
+"76
 [v parseCommand@F9030 F9030 `C[4]uc  1 s 4 F9030 ]
+"77
+[v parseCommand@F9032 F9032 `C[4]uc  1 s 4 F9032 ]
 "112
 } 0
 "877 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.c
@@ -3598,51 +3595,81 @@ SEARCH_FSM_NOT_FOUND 4
 [v _delCmdFsm delCmdFsm `(uc  1 e 1 0 ]
 {
 "73
-[v delCmdFsm@emptyNumber emptyNumber `C[13]uc  1 a 13 9 ]
+[v delCmdFsm@emptyNumber emptyNumber `C[13]uc  1 a 13 11 ]
 "78
-[v delCmdFsm@searchNumber searchNumber `uc  1 a 1 25 ]
+[v delCmdFsm@searchNumber searchNumber `uc  1 a 1 27 ]
 "76
-[v delCmdFsm@numberInMemory numberInMemory `uc  1 a 1 24 ]
+[v delCmdFsm@numberInMemory numberInMemory `uc  1 a 1 26 ]
 "77
-[v delCmdFsm@masterOpResult masterOpResult `uc  1 a 1 23 ]
+[v delCmdFsm@masterOpResult masterOpResult `uc  1 a 1 25 ]
 "75
-[v delCmdFsm@isComplete isComplete `uc  1 a 1 22 ]
+[v delCmdFsm@isComplete isComplete `uc  1 a 1 24 ]
 "71
 [v delCmdFsm@receivedNumber receivedNumber `*.39uc  1 p 2 5 ]
 [v delCmdFsm@smsText smsText `*.39uc  1 p 2 7 ]
+[v delCmdFsm@isCmdSuccessfull isCmdSuccessfull `*.39uc  1 p 2 9 ]
 "72
-[v delCmdFsm@F9013 F9013 `C[13]uc  1 s 13 F9013 ]
+[v delCmdFsm@F9015 F9015 `C[13]uc  1 s 13 F9015 ]
 "74
-[v delCmdFsm@currentState currentState `E9004  1 s 1 currentState ]
-"116
+[v delCmdFsm@currentState currentState `E9005  1 s 1 currentState ]
+"118
+} 0
+"98 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app_utils.c
+[v _cmdVisualEffet cmdVisualEffet `(v  1 e 1 0 ]
+{
+[v cmdVisualEffet@isCmdSuccessfull isCmdSuccessfull `uc  1 a 1 wreg ]
+"100
+[v cmdVisualEffet@seconds seconds `uc  1 a 1 52 ]
+"98
+[v cmdVisualEffet@isCmdSuccessfull isCmdSuccessfull `uc  1 a 1 wreg ]
+"100
+[v cmdVisualEffet@isCmdSuccessfull isCmdSuccessfull `uc  1 a 1 51 ]
+"113
+} 0
+"69
+[v _secondsAppTimer secondsAppTimer `(uc  1 e 1 0 ]
+{
+[v secondsAppTimer@seconds seconds `uc  1 a 1 wreg ]
+"72
+[v secondsAppTimer@destinationTicks destinationTicks `ui  1 a 2 49 ]
+"71
+[v secondsAppTimer@isExpired isExpired `uc  1 a 1 48 ]
+"69
+[v secondsAppTimer@seconds seconds `uc  1 a 1 wreg ]
+[v secondsAppTimer@counter counter `*.39ui  1 p 2 42 ]
+[v secondsAppTimer@isCyclic isCyclic `uc  1 p 1 44 ]
+"71
+[v secondsAppTimer@seconds seconds `uc  1 a 1 47 ]
+"91
 } 0
 "72 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app_addCmd.c
 [v _addCmdFsm addCmdFsm `(uc  1 e 1 0 ]
 {
 "78
-[v addCmdFsm@searchNumber searchNumber `uc  1 a 1 12 ]
+[v addCmdFsm@searchNumber searchNumber `uc  1 a 1 14 ]
 "76
-[v addCmdFsm@numberInMemory numberInMemory `uc  1 a 1 11 ]
+[v addCmdFsm@numberInMemory numberInMemory `uc  1 a 1 13 ]
 "77
-[v addCmdFsm@masterOpResult masterOpResult `uc  1 a 1 10 ]
+[v addCmdFsm@masterOpResult masterOpResult `uc  1 a 1 12 ]
 "75
-[v addCmdFsm@isComplete isComplete `uc  1 a 1 9 ]
+[v addCmdFsm@isComplete isComplete `uc  1 a 1 11 ]
 "72
 [v addCmdFsm@receivedNumber receivedNumber `*.39uc  1 p 2 5 ]
 [v addCmdFsm@smsText smsText `*.39uc  1 p 2 7 ]
+[v addCmdFsm@isCmdSuccessfull isCmdSuccessfull `*.39uc  1 p 2 9 ]
 "74
-[v addCmdFsm@currentState currentState `E9004  1 s 1 currentState ]
-"128
+[v addCmdFsm@currentState currentState `E9005  1 s 1 currentState ]
+"130
 } 0
-"117 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app_utils.c
+"121 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app_utils.c
 [v _saveNumberInMemory saveNumberInMemory `(v  1 e 1 0 ]
 {
 [v saveNumberInMemory@address address `uc  1 a 1 wreg ]
 [v saveNumberInMemory@address address `uc  1 a 1 wreg ]
 [v saveNumberInMemory@phoneNumber phoneNumber `*.39uc  1 p 2 54 ]
-"119
+"123
 [v saveNumberInMemory@address address `uc  1 a 1 56 ]
-"120
+"124
 } 0
 "78 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/01_Pml/05_Eeprom/eeprom_if.c
 [v _Eeprom_Write Eeprom_Write `(uc  1 e 1 0 ]
@@ -3662,52 +3689,52 @@ SEARCH_FSM_NOT_FOUND 4
 [v Eeprom_Write@MemoryAddress MemoryAddress `uc  1 a 1 51 ]
 "92
 } 0
-"144 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app_utils.c
+"148 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app_utils.c
 [v _isNumberInMemory isNumberInMemory `(E8973  1 e 1 0 ]
 {
-"148
+"152
 [v isNumberInMemory@memoryOpResult memoryOpResult `E8246  1 a 1 4 ]
-"144
+"148
 [v isNumberInMemory@phoneNumber phoneNumber `*.39uc  1 p 2 0 ]
 [v isNumberInMemory@positionInMemory positionInMemory `*.39uc  1 p 2 2 ]
-"146
+"150
 [v isNumberInMemory@currentState currentState `E8973  1 s 1 currentState ]
-"147
+"151
 [v isNumberInMemory@currentPosition currentPosition `uc  1 s 1 currentPosition ]
-"195
+"199
 } 0
-"232
+"236
 [v _isMasterNumber isMasterNumber `(uc  1 e 1 0 ]
 {
-"234
+"238
 [v isMasterNumber@memoryOpResult memoryOpResult `E8246  1 a 1 2 ]
-"232
+"236
 [v isMasterNumber@phoneNumber phoneNumber `*.39uc  1 p 2 0 ]
-"249
+"253
 } 0
-"282
+"286
 [v _findEmptySpot findEmptySpot `(E8973  1 e 1 0 ]
 {
-"286
+"290
 [v findEmptySpot@memoryOpResult memoryOpResult `E8246  1 a 1 2 ]
-"282
+"286
 [v findEmptySpot@positionInMemory positionInMemory `*.39uc  1 p 2 0 ]
-"284
+"288
 [v findEmptySpot@currentState currentState `E8973  1 s 1 currentState ]
-"285
+"289
 [v findEmptySpot@currentPosition currentPosition `uc  1 s 1 currentPosition ]
-"329
+"333
 } 0
-"122
+"126
 [v _isNumberValid isNumberValid `(uc  1 e 1 0 ]
 {
-"125
+"129
 [v isNumberValid@i i `uc  1 a 1 33 ]
-"124
+"128
 [v isNumberValid@isNumberOk isNumberOk `uc  1 a 1 32 ]
-"122
+"126
 [v isNumberValid@phoneNumber phoneNumber `*.39uc  1 p 2 29 ]
-"142
+"146
 } 0
 "104 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/03_Sml/01_Pml/05_Eeprom/eeprom_if.c
 [v _Eeprom_Read Eeprom_Read `(E8958  1 e 1 0 ]

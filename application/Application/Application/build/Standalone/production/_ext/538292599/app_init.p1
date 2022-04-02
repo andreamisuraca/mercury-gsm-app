@@ -9,7 +9,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n E8188 _MdmStatus ModemOff ModemOn ModemReady ModemConfigured ModemSleep  ]
 "91 ../../MercuryFwk/Source/h/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.h
 [v _MdmStatus `E8188 ~T0 @X0 0 e ]
-"62 ../Source/h/04_App/app_utils.h
+"63 ../Source/h/04_App/app_utils.h
 [v _secondsAppTimer `(uc ~T0 @X0 0 ef3`uc`*ui`uc ]
 "124 ../../MercuryFwk/Source/h/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.h
 [v _Mdm_SetSmsFormat `(v ~T0 @X0 0 ef1`uc ]
@@ -23,14 +23,14 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n E8246 _EepromSts OP_SUCCESS OP_FAILED OP_PENDING  ]
 "60 ../../MercuryFwk/Source/h/03_Sml/01_Pml/05_Eeprom/eeprom_if.h
 [v _Eeprom_Read `(E8246 ~T0 @X0 0 ef3`uc`*uc`uc ]
-"182 ../Source/c/04_App/app_init.c
+"183 ../Source/c/04_App/app_init.c
 [c E8199 0 1 .. ]
 [n E8199 _RingStsType PhoneNotRinging PhoneRinging  ]
 "120 ../../MercuryFwk/Source/h/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.h
 [v _Mdm_IsRinging `(E8199 ~T0 @X0 0 ef ]
 "116
 [v _Mdm_HangPhoneCall `(v ~T0 @X0 0 ef ]
-"199 ../Source/c/04_App/app_init.c
+"200 ../Source/c/04_App/app_init.c
 [c E8878 0 1 2 3 4 .. ]
 [n E8878 _LedStsType LED_STS_OFF LED_STS_ON LED_STS_TOGGLE LED_STS_BLINK LED_STS_PULSE  ]
 "102 ../../MercuryFwk/Source/h/03_Sml/02_Ssl/led.h
@@ -39,10 +39,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _Eeprom_Write `(uc ~T0 @X0 0 ef3`uc`*uc`uc ]
 "53 ../Source/h/04_App/app_init.h
 [v _initPreamble `(*uc ~T0 @X0 0 ef ]
-"226 ../Source/c/04_App/app_init.c
+"227 ../Source/c/04_App/app_init.c
 [c E9015 0 1 2 3 4 .. ]
 [n E9015 _initFsmStates INIT_FSM_MODEM INIT_FSM_EEPROM INIT_FSM_WAIT_CMD INIT_FSM_PREAMBLE INIT_FSM_COMPLETE  ]
-"67 ../Source/h/04_App/app_utils.h
+"69 ../Source/h/04_App/app_utils.h
 [v _saveNumberInMemory `(v ~T0 @X0 0 ef2`uc`*uc ]
 "134 ../../MercuryFwk/Source/h/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.h
 [v _GetCallerNumber `(*uc ~T0 @X0 0 ef ]
@@ -8272,20 +8272,21 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;app.h: 53: void MyApp_Task (UINT8 Options);
 [; ;app_init.h: 51: bool initFsm(void);
 [; ;app_init.h: 53: uint8_t* initPreamble();
-[; ;app_utils.h: 46: typedef enum _searchFsmStates
-[; ;app_utils.h: 47: {
-[; ;app_utils.h: 48: SEARCH_FSM_START = 0,
-[; ;app_utils.h: 49: SEARCH_FSM_CHECK_NUMBER,
-[; ;app_utils.h: 50: SEARCH_FSM_ERROR,
-[; ;app_utils.h: 51: SEARCH_FSM_FOUND,
-[; ;app_utils.h: 52: SEARCH_FSM_NOT_FOUND
-[; ;app_utils.h: 53: } searchFsmStates;
-[; ;app_utils.h: 62: bool secondsAppTimer(uint8_t seconds, uint16_t* counter, bool isCyclic);
-[; ;app_utils.h: 64: void blinkForSeconds(uint8_t seconds, uint16_t* blinkTicks);
-[; ;app_utils.h: 66: bool waitSetupCall(void);
-[; ;app_utils.h: 67: void saveNumberInMemory(UINT8 address, UINT8* phoneNumber);
-[; ;app_utils.h: 68: bool isNumberValid(uint8_t* phoneNumber);
-[; ;app_utils.h: 70: searchFsmStates isNumberInMemory(uint8_t* phoneNumber, uint8_t* positionInMemory);
+[; ;app_utils.h: 47: typedef enum _searchFsmStates
+[; ;app_utils.h: 48: {
+[; ;app_utils.h: 49: SEARCH_FSM_START = 0,
+[; ;app_utils.h: 50: SEARCH_FSM_CHECK_NUMBER,
+[; ;app_utils.h: 51: SEARCH_FSM_ERROR,
+[; ;app_utils.h: 52: SEARCH_FSM_FOUND,
+[; ;app_utils.h: 53: SEARCH_FSM_NOT_FOUND
+[; ;app_utils.h: 54: } searchFsmStates;
+[; ;app_utils.h: 63: bool secondsAppTimer(uint8_t seconds, uint16_t* counter, bool isCyclic);
+[; ;app_utils.h: 66: void cmdVisualEffet(bool isCmdSuccessfull);
+[; ;app_utils.h: 67: void triggerVisualEffect();
+[; ;app_utils.h: 68: bool waitSetupCall(void);
+[; ;app_utils.h: 69: void saveNumberInMemory(UINT8 address, UINT8* phoneNumber);
+[; ;app_utils.h: 70: bool isNumberValid(uint8_t* phoneNumber);
+[; ;app_utils.h: 71: searchFsmStates isNumberInMemory(uint8_t* phoneNumber, uint8_t* positionInMemory);
 [; ;app_utils.h: 72: searchFsmStates findEmptySpot(uint8_t* positionInMemory);
 [; ;app_utils.h: 73: uint8_t isMasterNumber(uint8_t* phoneNumber);
 [; ;app_init.c: 42: typedef enum _modemStates
@@ -8532,39 +8533,42 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;app_init.c: 157: case EEPROM_EMPTY:
 "157
 [e :U 904 ]
-[; ;app_init.c: 158: isInitialized = 1;
+[; ;app_init.c: 158: currentState = EEPROM_INIT;
 "158
-[e = _isInitialized -> -> 1 `i `uc ]
-[; ;app_init.c: 159: currentState = EEPROM_INIT;
+[e = F9033 . `E9010 0 ]
+[; ;app_init.c: 159: isInitialized = 1;
 "159
-[e = F9033 . `E9010 0 ]
-[; ;app_init.c: 160: break;
-"160
-[e $U 898  ]
-[; ;app_init.c: 162: case EEPROM_NOT_EMPTY:
-"162
-[e :U 905 ]
-[; ;app_init.c: 163: currentState = EEPROM_INIT;
-"163
-[e = F9033 . `E9010 0 ]
-[; ;app_init.c: 164: isInitialized = 1;
-"164
 [e = _isInitialized -> -> 1 `i `uc ]
-[; ;app_init.c: 165: isMemoryEmpty = 0;
+[; ;app_init.c: 160: isMemoryEmpty = 1;
+"160
+[e = _isMemoryEmpty -> -> 1 `i `uc ]
+[; ;app_init.c: 161: break;
+"161
+[e $U 898  ]
+[; ;app_init.c: 163: case EEPROM_NOT_EMPTY:
+"163
+[e :U 905 ]
+[; ;app_init.c: 164: currentState = EEPROM_INIT;
+"164
+[e = F9033 . `E9010 0 ]
+[; ;app_init.c: 165: isInitialized = 1;
 "165
-[e = _isMemoryEmpty -> -> 0 `i `uc ]
-[; ;app_init.c: 166: break;
+[e = _isInitialized -> -> 1 `i `uc ]
+[; ;app_init.c: 166: isMemoryEmpty = 0;
 "166
+[e = _isMemoryEmpty -> -> 0 `i `uc ]
+[; ;app_init.c: 167: break;
+"167
 [e $U 898  ]
-[; ;app_init.c: 168: default:
-"168
-[e :U 906 ]
-[; ;app_init.c: 169: break;
+[; ;app_init.c: 169: default:
 "169
-[e $U 898  ]
+[e :U 906 ]
+[; ;app_init.c: 170: break;
 "170
+[e $U 898  ]
+"171
 }
-[; ;app_init.c: 170: }
+[; ;app_init.c: 171: }
 [e $U 898  ]
 "137
 [e :U 899 ]
@@ -8572,274 +8576,274 @@ Version 3.2 HI-TECH Software Intermediate Code
  , $ . `E9010 1 904
  , $ . `E9010 2 905
  906 ]
-"170
-[e :U 898 ]
-[; ;app_init.c: 171: return isInitialized;
 "171
+[e :U 898 ]
+[; ;app_init.c: 172: return isInitialized;
+"172
 [e ) _isInitialized ]
 [e $UE 897  ]
-[; ;app_init.c: 172: }
-"172
+[; ;app_init.c: 173: }
+"173
 [e :UE 897 ]
 }
-"178
-[v _getSetupCall `(uc ~T0 @X0 1 ef ]
 "179
+[v _getSetupCall `(uc ~T0 @X0 1 ef ]
+"180
 {
-[; ;app_init.c: 178: bool getSetupCall(void)
-[; ;app_init.c: 179: {
+[; ;app_init.c: 179: bool getSetupCall(void)
+[; ;app_init.c: 180: {
 [e :U _getSetupCall ]
 [f ]
-"180
+"181
 [v _isCalledReceived `uc ~T0 @X0 1 a ]
-[; ;app_init.c: 180: bool isCalledReceived = 0;
+[; ;app_init.c: 181: bool isCalledReceived = 0;
 [e = _isCalledReceived -> -> 0 `i `uc ]
-[; ;app_init.c: 182: if (Mdm_IsRinging())
-"182
-[e $ ! != -> ( _Mdm_IsRinging ..  `i -> -> -> 0 `i `E8199 `i 908  ]
-[; ;app_init.c: 183: {
+[; ;app_init.c: 183: if (Mdm_IsRinging())
 "183
-{
-[; ;app_init.c: 184: Mdm_HangPhoneCall();
+[e $ ! != -> ( _Mdm_IsRinging ..  `i -> -> -> 0 `i `E8199 `i 908  ]
+[; ;app_init.c: 184: {
 "184
-[e ( _Mdm_HangPhoneCall ..  ]
-[; ;app_init.c: 185: isCalledReceived = 1;
+{
+[; ;app_init.c: 185: Mdm_HangPhoneCall();
 "185
-[e = _isCalledReceived -> -> 1 `i `uc ]
+[e ( _Mdm_HangPhoneCall ..  ]
+[; ;app_init.c: 186: isCalledReceived = 1;
 "186
+[e = _isCalledReceived -> -> 1 `i `uc ]
+"187
 }
 [e :U 908 ]
-[; ;app_init.c: 186: }
-[; ;app_init.c: 187: return isCalledReceived;
-"187
+[; ;app_init.c: 187: }
+[; ;app_init.c: 188: return isCalledReceived;
+"188
 [e ) _isCalledReceived ]
 [e $UE 907  ]
-[; ;app_init.c: 188: }
-"188
+[; ;app_init.c: 189: }
+"189
 [e :UE 907 ]
 }
-"194
-[v _waitSetupCall `(uc ~T0 @X0 1 ef ]
 "195
+[v _waitSetupCall `(uc ~T0 @X0 1 ef ]
+"196
 {
-[; ;app_init.c: 194: bool waitSetupCall(void)
-[; ;app_init.c: 195: {
+[; ;app_init.c: 195: bool waitSetupCall(void)
+[; ;app_init.c: 196: {
 [e :U _waitSetupCall ]
 [f ]
-"196
-[v _isCallArrived `uc ~T0 @X0 1 a ]
-[; ;app_init.c: 196: bool isCallArrived = 0;
-[e = _isCallArrived -> -> 0 `i `uc ]
-[; ;app_init.c: 197: if (!secondsAppTimer(30, &setupCallTicks, 0))
 "197
-[e $ ! ! != -> ( _secondsAppTimer (3 , , -> -> 30 `i `uc &U _setupCallTicks -> -> 0 `i `uc `i -> -> -> 0 `i `uc `i 910  ]
-[; ;app_init.c: 198: {
+[v _isCallArrived `uc ~T0 @X0 1 a ]
+[; ;app_init.c: 197: bool isCallArrived = 0;
+[e = _isCallArrived -> -> 0 `i `uc ]
+[; ;app_init.c: 198: if (!secondsAppTimer(30, &setupCallTicks, 0))
 "198
-{
-[; ;app_init.c: 199: Led_SetLedStatus(1u, LED_STS_BLINK);
+[e $ ! ! != -> ( _secondsAppTimer (3 , , -> -> 30 `i `uc &U _setupCallTicks -> -> 0 `i `uc `i -> -> -> 0 `i `uc `i 910  ]
+[; ;app_init.c: 199: {
 "199
-[e ( _Led_SetLedStatus (2 , -> -> 1 `ui `uc . `E8878 3 ]
-[; ;app_init.c: 200: if (getSetupCall())
-"200
-[e $ ! != -> ( _getSetupCall ..  `i -> -> -> 0 `i `uc `i 911  ]
-[; ;app_init.c: 201: {
-"201
 {
-[; ;app_init.c: 202: isCallArrived = 1;
+[; ;app_init.c: 200: Led_SetLedStatus(1u, LED_STS_BLINK);
+"200
+[e ( _Led_SetLedStatus (2 , -> -> 1 `ui `uc . `E8878 3 ]
+[; ;app_init.c: 201: if (getSetupCall())
+"201
+[e $ ! != -> ( _getSetupCall ..  `i -> -> -> 0 `i `uc `i 911  ]
+[; ;app_init.c: 202: {
 "202
-[e = _isCallArrived -> -> 1 `i `uc ]
+{
+[; ;app_init.c: 203: isCallArrived = 1;
 "203
-}
-[e :U 911 ]
+[e = _isCallArrived -> -> 1 `i `uc ]
 "204
 }
-[; ;app_init.c: 203: }
-[; ;app_init.c: 204: }
-[e $U 912  ]
+[e :U 911 ]
 "205
-[e :U 910 ]
-[; ;app_init.c: 205: else
-[; ;app_init.c: 206: {
+}
+[; ;app_init.c: 204: }
+[; ;app_init.c: 205: }
+[e $U 912  ]
 "206
-{
-[; ;app_init.c: 207: Led_SetLedStatus(1u, LED_STS_ON);
+[e :U 910 ]
+[; ;app_init.c: 206: else
+[; ;app_init.c: 207: {
 "207
-[e ( _Led_SetLedStatus (2 , -> -> 1 `ui `uc . `E8878 1 ]
+{
+[; ;app_init.c: 208: Led_SetLedStatus(1u, LED_STS_ON);
 "208
+[e ( _Led_SetLedStatus (2 , -> -> 1 `ui `uc . `E8878 1 ]
+"209
 }
 [e :U 912 ]
-[; ;app_init.c: 208: }
-[; ;app_init.c: 209: return isCallArrived;
-"209
+[; ;app_init.c: 209: }
+[; ;app_init.c: 210: return isCallArrived;
+"210
 [e ) _isCallArrived ]
 [e $UE 909  ]
-[; ;app_init.c: 210: }
-"210
+[; ;app_init.c: 211: }
+"211
 [e :UE 909 ]
 }
-"212
-[v _savePreamble `(v ~T0 @X0 1 ef ]
 "213
+[v _savePreamble `(v ~T0 @X0 1 ef ]
+"214
 {
-[; ;app_init.c: 212: void savePreamble()
-[; ;app_init.c: 213: {
+[; ;app_init.c: 213: void savePreamble()
+[; ;app_init.c: 214: {
 [e :U _savePreamble ]
 [f ]
-[; ;app_init.c: 214: Eeprom_Write(0, initPreamble(), 4);
-"214
-[e ( _Eeprom_Write (3 , , -> -> 0 `i `uc ( _initPreamble ..  -> -> 4 `i `uc ]
-[; ;app_init.c: 215: }
+[; ;app_init.c: 215: Eeprom_Write(0, initPreamble(), 4);
 "215
+[e ( _Eeprom_Write (3 , , -> -> 0 `i `uc ( _initPreamble ..  -> -> 4 `i `uc ]
+[; ;app_init.c: 216: }
+"216
 [e :UE 913 ]
 }
-"224
-[v _initFsm `(uc ~T0 @X0 1 ef ]
 "225
+[v _initFsm `(uc ~T0 @X0 1 ef ]
+"226
 {
-[; ;app_init.c: 224: bool initFsm(void)
-[; ;app_init.c: 225: {
+[; ;app_init.c: 225: bool initFsm(void)
+[; ;app_init.c: 226: {
 [e :U _initFsm ]
 [f ]
-"226
+"227
 [v F9043 `E9015 ~T0 @X0 1 s currentState ]
 [i F9043
 . `E9015 0
 ]
-"227
+"228
 [v _isInitialized `uc ~T0 @X0 1 a ]
-[; ;app_init.c: 226: static initFsmStates currentState = INIT_FSM_MODEM;
-[; ;app_init.c: 227: bool isInitialized = 0;
+[; ;app_init.c: 227: static initFsmStates currentState = INIT_FSM_MODEM;
+[; ;app_init.c: 228: bool isInitialized = 0;
 [e = _isInitialized -> -> 0 `i `uc ]
-[; ;app_init.c: 229: switch (currentState)
-"229
-[e $U 916  ]
-[; ;app_init.c: 230: {
+[; ;app_init.c: 230: switch (currentState)
 "230
-{
-[; ;app_init.c: 231: case INIT_FSM_MODEM:
+[e $U 916  ]
+[; ;app_init.c: 231: {
 "231
-[e :U 917 ]
-[; ;app_init.c: 232: if (initGprsModem())
-"232
-[e $ ! != -> ( _initGprsModem ..  `i -> -> -> 0 `i `uc `i 918  ]
-[; ;app_init.c: 233: {
-"233
 {
-[; ;app_init.c: 234: currentState = INIT_FSM_EEPROM;
+[; ;app_init.c: 232: case INIT_FSM_MODEM:
+"232
+[e :U 917 ]
+[; ;app_init.c: 233: if (initGprsModem())
+"233
+[e $ ! != -> ( _initGprsModem ..  `i -> -> -> 0 `i `uc `i 918  ]
+[; ;app_init.c: 234: {
 "234
-[e = F9043 . `E9015 1 ]
+{
+[; ;app_init.c: 235: currentState = INIT_FSM_EEPROM;
 "235
+[e = F9043 . `E9015 1 ]
+"236
 }
 [e :U 918 ]
-[; ;app_init.c: 235: }
-[; ;app_init.c: 236: break;
-"236
+[; ;app_init.c: 236: }
+[; ;app_init.c: 237: break;
+"237
 [e $U 915  ]
-[; ;app_init.c: 238: case INIT_FSM_EEPROM:
-"238
-[e :U 919 ]
-[; ;app_init.c: 239: if (initEeprom())
+[; ;app_init.c: 239: case INIT_FSM_EEPROM:
 "239
-[e $ ! != -> ( _initEeprom ..  `i -> -> -> 0 `i `uc `i 920  ]
-[; ;app_init.c: 240: {
+[e :U 919 ]
+[; ;app_init.c: 240: if (initEeprom())
 "240
-{
-[; ;app_init.c: 241: currentState = INIT_FSM_WAIT_CMD;
+[e $ ! != -> ( _initEeprom ..  `i -> -> -> 0 `i `uc `i 920  ]
+[; ;app_init.c: 241: {
 "241
-[e = F9043 . `E9015 2 ]
-[; ;app_init.c: 242: setupCallTicks = 0;
+{
+[; ;app_init.c: 242: currentState = INIT_FSM_WAIT_CMD;
 "242
-[e = _setupCallTicks -> -> 0 `i `ui ]
+[e = F9043 . `E9015 2 ]
+[; ;app_init.c: 243: setupCallTicks = 0;
 "243
+[e = _setupCallTicks -> -> 0 `i `ui ]
+"244
 }
 [e :U 920 ]
-[; ;app_init.c: 243: }
-[; ;app_init.c: 244: break;
-"244
+[; ;app_init.c: 244: }
+[; ;app_init.c: 245: break;
+"245
 [e $U 915  ]
-[; ;app_init.c: 246: case INIT_FSM_WAIT_CMD:
-"246
-[e :U 921 ]
-[; ;app_init.c: 247: if (isMemoryEmpty)
+[; ;app_init.c: 247: case INIT_FSM_WAIT_CMD:
 "247
-[e $ ! != -> _isMemoryEmpty `i -> -> -> 0 `i `uc `i 922  ]
-[; ;app_init.c: 248: {
+[e :U 921 ]
+[; ;app_init.c: 248: if (isMemoryEmpty)
 "248
-{
-[; ;app_init.c: 249: if (waitSetupCall())
+[e $ ! != -> _isMemoryEmpty `i -> -> -> 0 `i `uc `i 922  ]
+[; ;app_init.c: 249: {
 "249
-[e $ ! != -> ( _waitSetupCall ..  `i -> -> -> 0 `i `uc `i 923  ]
-[; ;app_init.c: 250: {
-"250
 {
-[; ;app_init.c: 251: saveNumberInMemory(16, GetCallerNumber());
+[; ;app_init.c: 250: if (waitSetupCall())
+"250
+[e $ ! != -> ( _waitSetupCall ..  `i -> -> -> 0 `i `uc `i 923  ]
+[; ;app_init.c: 251: {
 "251
-[e ( _saveNumberInMemory (2 , -> -> 16 `i `uc ( _GetCallerNumber ..  ]
-[; ;app_init.c: 252: currentState = INIT_FSM_PREAMBLE;
+{
+[; ;app_init.c: 252: saveNumberInMemory(16, GetCallerNumber());
 "252
-[e = F9043 . `E9015 3 ]
+[e ( _saveNumberInMemory (2 , -> -> 16 `i `uc ( _GetCallerNumber ..  ]
+[; ;app_init.c: 253: currentState = INIT_FSM_PREAMBLE;
 "253
+[e = F9043 . `E9015 3 ]
+"254
 }
 [e :U 923 ]
-"255
-}
-[; ;app_init.c: 253: }
-[; ;app_init.c: 255: }
-[e $U 924  ]
 "256
-[e :U 922 ]
-[; ;app_init.c: 256: else
-[; ;app_init.c: 257: {
+}
+[; ;app_init.c: 254: }
+[; ;app_init.c: 256: }
+[e $U 924  ]
 "257
-{
-[; ;app_init.c: 258: currentState = INIT_FSM_COMPLETE;
+[e :U 922 ]
+[; ;app_init.c: 257: else
+[; ;app_init.c: 258: {
 "258
-[e = F9043 . `E9015 4 ]
+{
+[; ;app_init.c: 259: currentState = INIT_FSM_COMPLETE;
 "259
+[e = F9043 . `E9015 4 ]
+"260
 }
 [e :U 924 ]
-[; ;app_init.c: 259: }
-[; ;app_init.c: 260: break;
-"260
+[; ;app_init.c: 260: }
+[; ;app_init.c: 261: break;
+"261
 [e $U 915  ]
-[; ;app_init.c: 262: case INIT_FSM_PREAMBLE:
-"262
-[e :U 925 ]
-[; ;app_init.c: 263: savePreamble();
+[; ;app_init.c: 263: case INIT_FSM_PREAMBLE:
 "263
-[e ( _savePreamble ..  ]
-[; ;app_init.c: 264: currentState = INIT_FSM_COMPLETE;
+[e :U 925 ]
+[; ;app_init.c: 264: savePreamble();
 "264
-[e = F9043 . `E9015 4 ]
-[; ;app_init.c: 265: break;
+[e ( _savePreamble ..  ]
+[; ;app_init.c: 265: currentState = INIT_FSM_COMPLETE;
 "265
+[e = F9043 . `E9015 4 ]
+[; ;app_init.c: 266: break;
+"266
 [e $U 915  ]
-[; ;app_init.c: 267: case INIT_FSM_COMPLETE:
-"267
-[e :U 926 ]
-[; ;app_init.c: 268: Led_SetLedStatus(1u, LED_STS_ON);
+[; ;app_init.c: 268: case INIT_FSM_COMPLETE:
 "268
-[e ( _Led_SetLedStatus (2 , -> -> 1 `ui `uc . `E8878 1 ]
-[; ;app_init.c: 269: currentState = INIT_FSM_MODEM;
+[e :U 926 ]
+[; ;app_init.c: 269: Led_SetLedStatus(1u, LED_STS_ON);
 "269
-[e = F9043 . `E9015 0 ]
-[; ;app_init.c: 270: isInitialized = 1;
+[e ( _Led_SetLedStatus (2 , -> -> 1 `ui `uc . `E8878 1 ]
+[; ;app_init.c: 270: currentState = INIT_FSM_MODEM;
 "270
-[e = _isInitialized -> -> 1 `i `uc ]
-[; ;app_init.c: 271: break;
+[e = F9043 . `E9015 0 ]
+[; ;app_init.c: 271: isInitialized = 1;
 "271
+[e = _isInitialized -> -> 1 `i `uc ]
+[; ;app_init.c: 272: break;
+"272
 [e $U 915  ]
-[; ;app_init.c: 273: default:
-"273
-[e :U 927 ]
-[; ;app_init.c: 274: break;
+[; ;app_init.c: 274: default:
 "274
-[e $U 915  ]
+[e :U 927 ]
+[; ;app_init.c: 275: break;
 "275
-}
-[; ;app_init.c: 275: }
 [e $U 915  ]
-"229
+"276
+}
+[; ;app_init.c: 276: }
+[e $U 915  ]
+"230
 [e :U 916 ]
 [e [\ F9043 , $ . `E9015 0 917
  , $ . `E9015 1 919
@@ -8847,42 +8851,42 @@ Version 3.2 HI-TECH Software Intermediate Code
  , $ . `E9015 3 925
  , $ . `E9015 4 926
  927 ]
-"275
-[e :U 915 ]
-[; ;app_init.c: 276: return isInitialized;
 "276
+[e :U 915 ]
+[; ;app_init.c: 277: return isInitialized;
+"277
 [e ) _isInitialized ]
 [e $UE 914  ]
-[; ;app_init.c: 277: }
-"277
+[; ;app_init.c: 278: }
+"278
 [e :UE 914 ]
 }
-"284
-[v _initPreamble `(*uc ~T0 @X0 1 ef ]
 "285
+[v _initPreamble `(*uc ~T0 @X0 1 ef ]
+"286
 {
-[; ;app_init.c: 284: uint8_t* initPreamble()
-[; ;app_init.c: 285: {
+[; ;app_init.c: 285: uint8_t* initPreamble()
+[; ;app_init.c: 286: {
 [e :U _initPreamble ]
 [f ]
-[; ;app_init.c: 286: memoryPreamble[0] = 'U';
-"286
-[e = *U + &U _memoryPreamble * -> -> -> 0 `i `ui `ux -> -> # *U &U _memoryPreamble `ui `ux -> -> 85 `ui `uc ]
-[; ;app_init.c: 287: memoryPreamble[1] = 'S';
+[; ;app_init.c: 287: memoryPreamble[0] = 'U';
 "287
-[e = *U + &U _memoryPreamble * -> -> -> 1 `i `ui `ux -> -> # *U &U _memoryPreamble `ui `ux -> -> 83 `ui `uc ]
-[; ;app_init.c: 288: memoryPreamble[2] = 'I';
+[e = *U + &U _memoryPreamble * -> -> -> 0 `i `ui `ux -> -> # *U &U _memoryPreamble `ui `ux -> -> 85 `ui `uc ]
+[; ;app_init.c: 288: memoryPreamble[1] = 'S';
 "288
-[e = *U + &U _memoryPreamble * -> -> -> 2 `i `ui `ux -> -> # *U &U _memoryPreamble `ui `ux -> -> 73 `ui `uc ]
-[; ;app_init.c: 289: memoryPreamble[3] = 'M';
+[e = *U + &U _memoryPreamble * -> -> -> 1 `i `ui `ux -> -> # *U &U _memoryPreamble `ui `ux -> -> 83 `ui `uc ]
+[; ;app_init.c: 289: memoryPreamble[2] = 'I';
 "289
-[e = *U + &U _memoryPreamble * -> -> -> 3 `i `ui `ux -> -> # *U &U _memoryPreamble `ui `ux -> -> 77 `ui `uc ]
-[; ;app_init.c: 290: return memoryPreamble;
+[e = *U + &U _memoryPreamble * -> -> -> 2 `i `ui `ux -> -> # *U &U _memoryPreamble `ui `ux -> -> 73 `ui `uc ]
+[; ;app_init.c: 290: memoryPreamble[3] = 'M';
 "290
+[e = *U + &U _memoryPreamble * -> -> -> 3 `i `ui `ux -> -> # *U &U _memoryPreamble `ui `ux -> -> 77 `ui `uc ]
+[; ;app_init.c: 291: return memoryPreamble;
+"291
 [e ) &U _memoryPreamble ]
 [e $UE 928  ]
-[; ;app_init.c: 291: }
-"291
+[; ;app_init.c: 292: }
+"292
 [e :UE 928 ]
 }
 [a 1C 65 84 43 67 77 71 68 65 61 68 69 76 32 65 76 76 13 10 0 ]

@@ -11234,14 +11234,13 @@ SEARCH_FSM_NOT_FOUND
 # 63
 bool secondsAppTimer(uint8_t seconds, uint16_t* counter, bool isCyclic);
 
-void blinkForSeconds(uint8_t seconds, uint16_t* blinkTicks);
 
+void cmdVisualEffet(bool isCmdSuccessfull);
+void triggerVisualEffect();
 bool waitSetupCall(void);
 void saveNumberInMemory(UINT8 address, UINT8* phoneNumber);
 bool isNumberValid(uint8_t* phoneNumber);
-
 searchFsmStates isNumberInMemory(uint8_t* phoneNumber, uint8_t* positionInMemory);
-
 searchFsmStates findEmptySpot(uint8_t* positionInMemory);
 uint8_t isMasterNumber(uint8_t* phoneNumber);
 
@@ -11251,10 +11250,10 @@ bool initFsm(void);
 uint8_t* initPreamble();
 
 # 49 "../Source/h/04_App/app_addCmd.h"
-bool addCmdFsm(uint8_t* receivedNumber, uint8_t* smsText);
+bool addCmdFsm(uint8_t* receivedNumber, uint8_t* smsText, bool* isCmdSuccessfull);
 
 # 49 "../Source/h/04_App/app_delCmd.h"
-bool delCmdFsm(uint8_t* receivedNumber, uint8_t* smsText);
+bool delCmdFsm(uint8_t* receivedNumber, uint8_t* smsText, bool* isCmdSuccessfull);
 
 # 49 "../Source/h/04_App/app_triggerCmd.h"
 bool triggerCmdFsm(uint8_t* receivedNumber);
@@ -11341,6 +11340,9 @@ return currentState;
 void MyApp_Task (UINT8 Options)
 {
 static gateFsmStates currentState = GATE_INIT;
+static bool isCmdSuccessfull = 1;
+
+cmdVisualEffet(isCmdSuccessfull);
 
 switch (SystemState)
 {
@@ -11348,6 +11350,7 @@ switch (SystemState)
 case InitializationState:
 
 Led_SetLedBlinkTime(1u,100,900);
+Led_SetLedBlinkTime(2u,100,900);
 break;
 
 
@@ -11366,16 +11369,18 @@ currentState = detectCmd();
 break;
 
 case GATE_ADD_CMD:
-if (addCmdFsm(receivedNumber, smsText))
+if (addCmdFsm(receivedNumber, smsText, &isCmdSuccessfull))
 {
 currentState = GATE_WAIT_EVENT;
+triggerVisualEffect();
 }
 break;
 
 case GATE_DEL_CMD:
-if (delCmdFsm(receivedNumber, smsText))
+if (delCmdFsm(receivedNumber, smsText, &isCmdSuccessfull))
 {
 currentState = GATE_WAIT_EVENT;
+triggerVisualEffect();
 }
 break;
 

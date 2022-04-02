@@ -3,9 +3,21 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v F8056 `(v ~T0 @X0 0 tf ]
 "88 ../../MercuryFwk/Source/h/03_Sml/01_Pml/02_SlvI2c/i2c_slv.h
 [v _I2cSlv_SendI2cMsg `(uc ~T0 @X0 0 ef3`*uc`uc`uc ]
-"85 ../Source/c/04_App/app_triggerCmd.c
-[c E9003 0 1 2 3 .. ]
-[n E9003 _triggerFsmStates TRIGGER_FSM_CHECK_NUMBER TRIGGER_FSM_ACTIVATE_RELAY TRIGGER_FSM_DEACTIVATE_RELAY TRIGGER_FSM_COMPLETE  ]
+"91 ../Source/c/04_App/app_triggerCmd.c
+[c E9003 0 1 2 3 4 .. ]
+[n E9003 _triggerFsmStates TRIGGER_FSM_CHECK_MASTER TRIGGER_FSM_CHECK_NUMBER TRIGGER_FSM_ACTIVATE_RELAY TRIGGER_FSM_DEACTIVATE_RELAY TRIGGER_FSM_COMPLETE  ]
+"94
+[c E8246 0 1 2 .. ]
+[n E8246 _EepromSts OP_SUCCESS OP_FAILED OP_PENDING  ]
+"73 ../Source/h/04_App/app_utils.h
+[v _isMasterNumber `(uc ~T0 @X0 0 ef1`*uc ]
+"112 ../Source/c/04_App/app_triggerCmd.c
+[c E8973 0 1 2 3 4 .. ]
+[n E8973 _searchFsmStates SEARCH_FSM_START SEARCH_FSM_CHECK_NUMBER SEARCH_FSM_ERROR SEARCH_FSM_FOUND SEARCH_FSM_NOT_FOUND  ]
+"71 ../Source/h/04_App/app_utils.h
+[v _isNumberInMemory `(E8973 ~T0 @X0 0 ef2`*uc`*uc ]
+"63
+[v _secondsAppTimer `(uc ~T0 @X0 0 ef3`uc`*ui`uc ]
 "30 ../../MercuryFwk/Source/h/01_Hal/01_Sys/hal.h
 [p n 1510 ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
@@ -8230,205 +8242,286 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;os_sched.h: 86: void Sch_MainScheduler (void);
 [; ;os_sched.h: 88: void Sch_SchmIntService (void);
 [; ;app.h: 53: void MyApp_Task (UINT8 Options);
-[; ;app_utils.h: 46: typedef enum _searchFsmStates
-[; ;app_utils.h: 47: {
-[; ;app_utils.h: 48: SEARCH_FSM_START = 0,
-[; ;app_utils.h: 49: SEARCH_FSM_CHECK_NUMBER,
-[; ;app_utils.h: 50: SEARCH_FSM_ERROR,
-[; ;app_utils.h: 51: SEARCH_FSM_FOUND,
-[; ;app_utils.h: 52: SEARCH_FSM_NOT_FOUND
-[; ;app_utils.h: 53: } searchFsmStates;
-[; ;app_utils.h: 62: bool secondsAppTimer(uint8_t seconds, uint16_t* counter, bool isCyclic);
-[; ;app_utils.h: 64: void blinkForSeconds(uint8_t seconds, uint16_t* blinkTicks);
-[; ;app_utils.h: 66: bool waitSetupCall(void);
-[; ;app_utils.h: 67: void saveNumberInMemory(UINT8 address, UINT8* phoneNumber);
-[; ;app_utils.h: 68: bool isNumberValid(uint8_t* phoneNumber);
-[; ;app_utils.h: 70: searchFsmStates isNumberInMemory(uint8_t* phoneNumber, uint8_t* positionInMemory);
+[; ;app_utils.h: 47: typedef enum _searchFsmStates
+[; ;app_utils.h: 48: {
+[; ;app_utils.h: 49: SEARCH_FSM_START = 0,
+[; ;app_utils.h: 50: SEARCH_FSM_CHECK_NUMBER,
+[; ;app_utils.h: 51: SEARCH_FSM_ERROR,
+[; ;app_utils.h: 52: SEARCH_FSM_FOUND,
+[; ;app_utils.h: 53: SEARCH_FSM_NOT_FOUND
+[; ;app_utils.h: 54: } searchFsmStates;
+[; ;app_utils.h: 63: bool secondsAppTimer(uint8_t seconds, uint16_t* counter, bool isCyclic);
+[; ;app_utils.h: 66: void cmdVisualEffet(bool isCmdSuccessfull);
+[; ;app_utils.h: 67: void triggerVisualEffect();
+[; ;app_utils.h: 68: bool waitSetupCall(void);
+[; ;app_utils.h: 69: void saveNumberInMemory(UINT8 address, UINT8* phoneNumber);
+[; ;app_utils.h: 70: bool isNumberValid(uint8_t* phoneNumber);
+[; ;app_utils.h: 71: searchFsmStates isNumberInMemory(uint8_t* phoneNumber, uint8_t* positionInMemory);
 [; ;app_utils.h: 72: searchFsmStates findEmptySpot(uint8_t* positionInMemory);
 [; ;app_utils.h: 73: uint8_t isMasterNumber(uint8_t* phoneNumber);
 [; ;app_triggerCmd.h: 49: bool triggerCmdFsm(uint8_t* receivedNumber);
 [; ;app_triggerCmd.c: 41: typedef enum _triggerFsmStates
 [; ;app_triggerCmd.c: 42: {
-[; ;app_triggerCmd.c: 43: TRIGGER_FSM_CHECK_NUMBER = 0,
-[; ;app_triggerCmd.c: 44: TRIGGER_FSM_ACTIVATE_RELAY,
-[; ;app_triggerCmd.c: 45: TRIGGER_FSM_DEACTIVATE_RELAY,
-[; ;app_triggerCmd.c: 46: TRIGGER_FSM_COMPLETE
-[; ;app_triggerCmd.c: 47: } triggerFsmStates;
-"64 ../Source/c/04_App/app_triggerCmd.c
-[v _triggerRelay `(uc ~T0 @X0 1 ef1`uc ]
-"65
-{
-[; ;app_triggerCmd.c: 64: uint8_t triggerRelay(bool isRelayOn)
-[; ;app_triggerCmd.c: 65: {
-[e :U _triggerRelay ]
-"64
-[v _isRelayOn `uc ~T0 @X0 1 r1 ]
-"65
-[f ]
-[v F9012 `uc ~T0 @X0 -> 2 `i s ]
-[i F9012
+[; ;app_triggerCmd.c: 43: TRIGGER_FSM_CHECK_MASTER = 0,
+[; ;app_triggerCmd.c: 44: TRIGGER_FSM_CHECK_NUMBER,
+[; ;app_triggerCmd.c: 45: TRIGGER_FSM_ACTIVATE_RELAY,
+[; ;app_triggerCmd.c: 46: TRIGGER_FSM_DEACTIVATE_RELAY,
+[; ;app_triggerCmd.c: 47: TRIGGER_FSM_COMPLETE
+[; ;app_triggerCmd.c: 48: } triggerFsmStates;
+"53 ../Source/c/04_App/app_triggerCmd.c
+[v _relayBuffer `uc ~T0 @X0 -> 2 `i s ]
+[i _relayBuffer
 :U ..
-"66
 -> -> 80 `i `uc
 -> -> 0 `i `uc
 ..
 ]
-[v _txBuffer `uc ~T0 @X0 -> 2 `i a ]
-[; ;app_triggerCmd.c: 66: uint8_t txBuffer[2] = {0x50, 0x00};
-[e = _txBuffer F9012 ]
+[; ;app_triggerCmd.c: 53: static uint8_t relayBuffer[2] = {0x50, 0x00};
+"54
+[v _secondCounter `ui ~T0 @X0 1 s ]
+[i _secondCounter
+-> -> 0 `i `ui
+]
+[; ;app_triggerCmd.c: 54: static uint16_t secondCounter = 0;
 "67
-[v _res `uc ~T0 @X0 1 a ]
-[; ;app_triggerCmd.c: 67: uint8_t res = 0u;
-[e = _res -> -> 0 `ui `uc ]
-[; ;app_triggerCmd.c: 68: if (isRelayOn)
+[v _triggerRelay `(uc ~T0 @X0 1 ef1`uc ]
 "68
-[e $ ! != -> _isRelayOn `i -> -> -> 0 `i `uc `i 888  ]
-[; ;app_triggerCmd.c: 69: {
-"69
 {
-[; ;app_triggerCmd.c: 70: txBuffer[1] = 0x01;
+[; ;app_triggerCmd.c: 67: uint8_t triggerRelay(bool isRelayOn)
+[; ;app_triggerCmd.c: 68: {
+[e :U _triggerRelay ]
+"67
+[v _isRelayOn `uc ~T0 @X0 1 r1 ]
+"68
+[f ]
+"69
+[v _res `uc ~T0 @X0 1 a ]
+[; ;app_triggerCmd.c: 69: uint8_t res = 0u;
+[e = _res -> -> 0 `ui `uc ]
+[; ;app_triggerCmd.c: 70: if (isRelayOn)
 "70
-[e = *U + &U _txBuffer * -> -> -> 1 `i `ui `ux -> -> # *U &U _txBuffer `ui `ux -> -> 1 `i `uc ]
+[e $ ! != -> _isRelayOn `i -> -> -> 0 `i `uc `i 888  ]
+[; ;app_triggerCmd.c: 71: {
 "71
-}
-[e :U 888 ]
-[; ;app_triggerCmd.c: 71: }
-[; ;app_triggerCmd.c: 72: res = I2cSlv_SendI2cMsg(txBuffer, 1, 2);
+{
+[; ;app_triggerCmd.c: 72: relayBuffer[1] = 0x01;
 "72
-[e = _res ( _I2cSlv_SendI2cMsg (3 , , &U _txBuffer -> -> 1 `i `uc -> -> 2 `i `uc ]
-[; ;app_triggerCmd.c: 73: return res;
+[e = *U + &U _relayBuffer * -> -> -> 1 `i `ui `ux -> -> # *U &U _relayBuffer `ui `ux -> -> 1 `i `uc ]
 "73
+}
+[; ;app_triggerCmd.c: 73: }
+[e $U 889  ]
+"74
+[e :U 888 ]
+[; ;app_triggerCmd.c: 74: else
+[; ;app_triggerCmd.c: 75: {
+"75
+{
+[; ;app_triggerCmd.c: 76: relayBuffer[1] = 0x00;
+"76
+[e = *U + &U _relayBuffer * -> -> -> 1 `i `ui `ux -> -> # *U &U _relayBuffer `ui `ux -> -> 0 `i `uc ]
+"77
+}
+[e :U 889 ]
+[; ;app_triggerCmd.c: 77: }
+[; ;app_triggerCmd.c: 78: res = I2cSlv_SendI2cMsg(relayBuffer, 1, 2);
+"78
+[e = _res ( _I2cSlv_SendI2cMsg (3 , , &U _relayBuffer -> -> 1 `i `uc -> -> 2 `i `uc ]
+[; ;app_triggerCmd.c: 79: return res;
+"79
 [e ) _res ]
 [e $UE 887  ]
-[; ;app_triggerCmd.c: 74: }
-"74
+[; ;app_triggerCmd.c: 80: }
+"80
 [e :UE 887 ]
 }
-"83
-[v _triggerCmdFsm `(uc ~T0 @X0 1 ef1`*uc ]
-"84
-{
-[; ;app_triggerCmd.c: 83: bool triggerCmdFsm(uint8_t* receivedNumber)
-[; ;app_triggerCmd.c: 84: {
-[e :U _triggerCmdFsm ]
-"83
-[v _receivedNumber `*uc ~T0 @X0 1 r1 ]
-"84
-[f ]
-"85
-[v F9015 `E9003 ~T0 @X0 1 s currentState ]
-[i F9015
-. `E9003 0
-]
-"86
-[v _isComplete `uc ~T0 @X0 1 a ]
-[; ;app_triggerCmd.c: 85: static triggerFsmStates currentState = TRIGGER_FSM_CHECK_NUMBER;
-[; ;app_triggerCmd.c: 86: bool isComplete = 0;
-[e = _isComplete -> -> 0 `i `uc ]
-"87
-[v _numberInMemory `uc ~T0 @X0 1 a ]
-[; ;app_triggerCmd.c: 87: uint8_t numberInMemory = 1;
-[e = _numberInMemory -> -> 1 `i `uc ]
-[; ;app_triggerCmd.c: 89: switch (currentState)
 "89
-[e $U 891  ]
-[; ;app_triggerCmd.c: 90: {
+[v _triggerCmdFsm `(uc ~T0 @X0 1 ef1`*uc ]
 "90
 {
-[; ;app_triggerCmd.c: 92: case TRIGGER_FSM_CHECK_NUMBER:
-"92
-[e :U 892 ]
-[; ;app_triggerCmd.c: 94: if (numberInMemory == 1)
-"94
-[e $ ! == -> _numberInMemory `i -> 1 `i 893  ]
-[; ;app_triggerCmd.c: 95: {
-"95
-{
-[; ;app_triggerCmd.c: 96: currentState = TRIGGER_FSM_COMPLETE;
-"96
-[e = F9015 . `E9003 3 ]
-"97
-}
-[; ;app_triggerCmd.c: 97: }
-[e $U 894  ]
-"98
-[e :U 893 ]
-[; ;app_triggerCmd.c: 98: else if (numberInMemory != 0 && numberInMemory != 1)
-[e $ ! && != -> _numberInMemory `i -> 0 `i != -> _numberInMemory `i -> 1 `i 895  ]
-[; ;app_triggerCmd.c: 99: {
-"99
-{
-[; ;app_triggerCmd.c: 100: currentState = TRIGGER_FSM_ACTIVATE_RELAY;
-"100
-[e = F9015 . `E9003 1 ]
-"101
-}
-[e :U 895 ]
-"102
-[e :U 894 ]
-[; ;app_triggerCmd.c: 101: }
-[; ;app_triggerCmd.c: 102: break;
-[e $U 890  ]
-[; ;app_triggerCmd.c: 104: case TRIGGER_FSM_ACTIVATE_RELAY:
-"104
-[e :U 896 ]
-[; ;app_triggerCmd.c: 105: triggerRelay(1);
-"105
-[e ( _triggerRelay (1 -> -> 1 `i `uc ]
-[; ;app_triggerCmd.c: 106: currentState = TRIGGER_FSM_DEACTIVATE_RELAY;
-"106
-[e = F9015 . `E9003 2 ]
-[; ;app_triggerCmd.c: 107: break;
-"107
-[e $U 890  ]
-[; ;app_triggerCmd.c: 109: case TRIGGER_FSM_DEACTIVATE_RELAY:
-"109
-[e :U 897 ]
-[; ;app_triggerCmd.c: 111: triggerRelay(0);
-"111
-[e ( _triggerRelay (1 -> -> 0 `i `uc ]
-[; ;app_triggerCmd.c: 112: currentState = TRIGGER_FSM_COMPLETE;
-"112
-[e = F9015 . `E9003 3 ]
-[; ;app_triggerCmd.c: 113: break;
-"113
-[e $U 890  ]
-[; ;app_triggerCmd.c: 115: case TRIGGER_FSM_COMPLETE:
-"115
-[e :U 898 ]
-[; ;app_triggerCmd.c: 116: isComplete = 1;
-"116
-[e = _isComplete -> -> 1 `i `uc ]
-[; ;app_triggerCmd.c: 117: currentState = TRIGGER_FSM_CHECK_NUMBER;
-"117
-[e = F9015 . `E9003 0 ]
-[; ;app_triggerCmd.c: 118: break;
-"118
-[e $U 890  ]
-[; ;app_triggerCmd.c: 120: default:
-"120
-[e :U 899 ]
-[; ;app_triggerCmd.c: 121: break;
-"121
-[e $U 890  ]
-"122
-}
-[; ;app_triggerCmd.c: 122: }
-[e $U 890  ]
+[; ;app_triggerCmd.c: 89: bool triggerCmdFsm(uint8_t* receivedNumber)
+[; ;app_triggerCmd.c: 90: {
+[e :U _triggerCmdFsm ]
 "89
-[e :U 891 ]
-[e [\ F9015 , $ . `E9003 0 892
- , $ . `E9003 1 896
- , $ . `E9003 2 897
- , $ . `E9003 3 898
- 899 ]
-"122
-[e :U 890 ]
-[; ;app_triggerCmd.c: 123: return isComplete;
+[v _receivedNumber `*uc ~T0 @X0 1 r1 ]
+"90
+[f ]
+"91
+[v F9016 `E9003 ~T0 @X0 1 s currentState ]
+[i F9016
+. `E9003 0
+]
+"92
+[v _isComplete `uc ~T0 @X0 1 a ]
+[; ;app_triggerCmd.c: 91: static triggerFsmStates currentState = TRIGGER_FSM_CHECK_MASTER;
+[; ;app_triggerCmd.c: 92: bool isComplete = 0;
+[e = _isComplete -> -> 0 `i `uc ]
+"93
+[v _numberInMemory `uc ~T0 @X0 1 a ]
+[; ;app_triggerCmd.c: 93: uint8_t numberInMemory = 0;
+[e = _numberInMemory -> -> 0 `i `uc ]
+"94
+[v _masterOpResult `uc ~T0 @X0 1 a ]
+[; ;app_triggerCmd.c: 94: uint8_t masterOpResult = OP_FAILED;
+[e = _masterOpResult -> . `E8246 1 `uc ]
+"95
+[v _searchNumber `uc ~T0 @X0 1 a ]
+[; ;app_triggerCmd.c: 95: uint8_t searchNumber = OP_FAILED;
+[e = _searchNumber -> . `E8246 1 `uc ]
+[; ;app_triggerCmd.c: 97: switch (currentState)
+"97
+[e $U 892  ]
+[; ;app_triggerCmd.c: 98: {
+"98
+{
+[; ;app_triggerCmd.c: 99: case TRIGGER_FSM_CHECK_MASTER:
+"99
+[e :U 893 ]
+[; ;app_triggerCmd.c: 100: masterOpResult = isMasterNumber(receivedNumber);
+"100
+[e = _masterOpResult ( _isMasterNumber (1 _receivedNumber ]
+[; ;app_triggerCmd.c: 101: if (masterOpResult == OP_SUCCESS)
+"101
+[e $ ! == -> _masterOpResult `i -> . `E8246 0 `i 894  ]
+[; ;app_triggerCmd.c: 102: {
+"102
+{
+[; ;app_triggerCmd.c: 103: currentState = TRIGGER_FSM_ACTIVATE_RELAY;
+"103
+[e = F9016 . `E9003 2 ]
+"104
+}
+[; ;app_triggerCmd.c: 104: }
+[e $U 895  ]
+"105
+[e :U 894 ]
+[; ;app_triggerCmd.c: 105: else if (masterOpResult == OP_FAILED)
+[e $ ! == -> _masterOpResult `i -> . `E8246 1 `i 896  ]
+[; ;app_triggerCmd.c: 106: {
+"106
+{
+[; ;app_triggerCmd.c: 107: currentState = TRIGGER_FSM_CHECK_NUMBER;
+"107
+[e = F9016 . `E9003 1 ]
+"108
+}
+[e :U 896 ]
+"109
+[e :U 895 ]
+[; ;app_triggerCmd.c: 108: }
+[; ;app_triggerCmd.c: 109: break;
+[e $U 891  ]
+[; ;app_triggerCmd.c: 111: case TRIGGER_FSM_CHECK_NUMBER:
+"111
+[e :U 897 ]
+[; ;app_triggerCmd.c: 112: searchNumber = isNumberInMemory(receivedNumber, &numberInMemory);
+"112
+[e = _searchNumber -> ( _isNumberInMemory (2 , _receivedNumber &U _numberInMemory `uc ]
+[; ;app_triggerCmd.c: 113: if (searchNumber == SEARCH_FSM_FOUND)
+"113
+[e $ ! == -> _searchNumber `i -> . `E8973 3 `i 898  ]
+[; ;app_triggerCmd.c: 114: {
+"114
+{
+[; ;app_triggerCmd.c: 115: currentState = TRIGGER_FSM_ACTIVATE_RELAY;
+"115
+[e = F9016 . `E9003 2 ]
+"116
+}
+[; ;app_triggerCmd.c: 116: }
+[e $U 899  ]
+"117
+[e :U 898 ]
+[; ;app_triggerCmd.c: 117: else if (searchNumber == SEARCH_FSM_NOT_FOUND || searchNumber == SEARCH_FSM_ERROR)
+[e $ ! || == -> _searchNumber `i -> . `E8973 4 `i == -> _searchNumber `i -> . `E8973 2 `i 900  ]
+[; ;app_triggerCmd.c: 118: {
+"118
+{
+[; ;app_triggerCmd.c: 119: currentState = TRIGGER_FSM_COMPLETE;
+"119
+[e = F9016 . `E9003 4 ]
+"120
+}
+[e :U 900 ]
+"121
+[e :U 899 ]
+[; ;app_triggerCmd.c: 120: }
+[; ;app_triggerCmd.c: 121: break;
+[e $U 891  ]
+[; ;app_triggerCmd.c: 123: case TRIGGER_FSM_ACTIVATE_RELAY:
 "123
-[e ) _isComplete ]
-[e $UE 889  ]
-[; ;app_triggerCmd.c: 124: }
+[e :U 901 ]
+[; ;app_triggerCmd.c: 124: triggerRelay(1);
 "124
-[e :UE 889 ]
+[e ( _triggerRelay (1 -> -> 1 `i `uc ]
+[; ;app_triggerCmd.c: 125: secondCounter = 0;
+"125
+[e = _secondCounter -> -> 0 `i `ui ]
+[; ;app_triggerCmd.c: 126: currentState = TRIGGER_FSM_DEACTIVATE_RELAY;
+"126
+[e = F9016 . `E9003 3 ]
+[; ;app_triggerCmd.c: 127: break;
+"127
+[e $U 891  ]
+[; ;app_triggerCmd.c: 129: case TRIGGER_FSM_DEACTIVATE_RELAY:
+"129
+[e :U 902 ]
+[; ;app_triggerCmd.c: 130: if (secondsAppTimer(1, secondCounter, 0))
+"130
+[e $ ! != -> ( _secondsAppTimer (3 , , -> -> 1 `i `uc -> _secondCounter `*ui -> -> 0 `i `uc `i -> -> -> 0 `i `uc `i 903  ]
+[; ;app_triggerCmd.c: 131: {
+"131
+{
+[; ;app_triggerCmd.c: 132: triggerRelay(0);
+"132
+[e ( _triggerRelay (1 -> -> 0 `i `uc ]
+[; ;app_triggerCmd.c: 133: currentState = TRIGGER_FSM_COMPLETE;
+"133
+[e = F9016 . `E9003 4 ]
+"134
+}
+[e :U 903 ]
+[; ;app_triggerCmd.c: 134: }
+[; ;app_triggerCmd.c: 135: break;
+"135
+[e $U 891  ]
+[; ;app_triggerCmd.c: 137: case TRIGGER_FSM_COMPLETE:
+"137
+[e :U 904 ]
+[; ;app_triggerCmd.c: 138: isComplete = 1;
+"138
+[e = _isComplete -> -> 1 `i `uc ]
+[; ;app_triggerCmd.c: 139: currentState = TRIGGER_FSM_CHECK_MASTER;
+"139
+[e = F9016 . `E9003 0 ]
+[; ;app_triggerCmd.c: 140: break;
+"140
+[e $U 891  ]
+[; ;app_triggerCmd.c: 142: default:
+"142
+[e :U 905 ]
+[; ;app_triggerCmd.c: 143: break;
+"143
+[e $U 891  ]
+"144
+}
+[; ;app_triggerCmd.c: 144: }
+[e $U 891  ]
+"97
+[e :U 892 ]
+[e [\ F9016 , $ . `E9003 0 893
+ , $ . `E9003 1 897
+ , $ . `E9003 2 901
+ , $ . `E9003 3 902
+ , $ . `E9003 4 904
+ 905 ]
+"144
+[e :U 891 ]
+[; ;app_triggerCmd.c: 145: return isComplete;
+"145
+[e ) _isComplete ]
+[e $UE 890  ]
+[; ;app_triggerCmd.c: 146: }
+"146
+[e :UE 890 ]
 }

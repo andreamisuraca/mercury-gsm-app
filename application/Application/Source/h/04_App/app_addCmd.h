@@ -46,6 +46,6 @@
 * EXPORTED Functions
 ************************************************************************/
 
-bool addCmdFsm(uint8_t* receivedNumber, uint8_t* smsText);
+bool addCmdFsm(uint8_t* receivedNumber, uint8_t* smsText, bool* isCmdSuccessfull);
 
 #endif    /* APP_ADD_CMD_H */

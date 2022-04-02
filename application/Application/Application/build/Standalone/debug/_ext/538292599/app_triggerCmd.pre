@@ -11251,61 +11251,85 @@ bool triggerCmdFsm(uint8_t* receivedNumber);
 # 41 "../Source/c/04_App/app_triggerCmd.c"
 typedef enum _triggerFsmStates
 {
-TRIGGER_FSM_CHECK_NUMBER = 0,
+TRIGGER_FSM_CHECK_MASTER = 0,
+TRIGGER_FSM_CHECK_NUMBER,
 TRIGGER_FSM_ACTIVATE_RELAY,
 TRIGGER_FSM_DEACTIVATE_RELAY,
 TRIGGER_FSM_COMPLETE
 } triggerFsmStates;
 
-# 64
+# 53
+static uint8_t relayBuffer[2] = {0x50, 0x00};
+static uint16_t secondCounter = 0;
+
+# 67
 uint8_t triggerRelay(bool isRelayOn)
 {
-uint8_t txBuffer[2] = {0x50, 0x00};
 uint8_t res = 0u;
 if (isRelayOn)
 {
-txBuffer[1] = 0x01;
+relayBuffer[1] = 0x01;
 }
-res = I2cSlv_SendI2cMsg(txBuffer, 1, 2);
+else
+{
+relayBuffer[1] = 0x00;
+}
+res = I2cSlv_SendI2cMsg(relayBuffer, 1, 2);
 return res;
 }
 
-# 83
+# 89
 bool triggerCmdFsm(uint8_t* receivedNumber)
 {
-static triggerFsmStates currentState = TRIGGER_FSM_CHECK_NUMBER;
+static triggerFsmStates currentState = TRIGGER_FSM_CHECK_MASTER;
 bool isComplete = 0;
-uint8_t numberInMemory = 1;
+uint8_t numberInMemory = 0;
+uint8_t masterOpResult = OP_FAILED;
+uint8_t searchNumber = OP_FAILED;
 
 switch (currentState)
 {
-
-case TRIGGER_FSM_CHECK_NUMBER:
-
-if (numberInMemory == 1)
-{
-currentState = TRIGGER_FSM_COMPLETE;
-}
-else if (numberInMemory != 0 && numberInMemory != 1)
+case TRIGGER_FSM_CHECK_MASTER:
+masterOpResult = isMasterNumber(receivedNumber);
+if (masterOpResult == OP_SUCCESS)
 {
 currentState = TRIGGER_FSM_ACTIVATE_RELAY;
+}
+else if (masterOpResult == OP_FAILED)
+{
+currentState = TRIGGER_FSM_CHECK_NUMBER;
+}
+break;
+
+case TRIGGER_FSM_CHECK_NUMBER:
+searchNumber = isNumberInMemory(receivedNumber, &numberInMemory);
+if (searchNumber == SEARCH_FSM_FOUND)
+{
+currentState = TRIGGER_FSM_ACTIVATE_RELAY;
+}
+else if (searchNumber == SEARCH_FSM_NOT_FOUND || searchNumber == SEARCH_FSM_ERROR)
+{
+currentState = TRIGGER_FSM_COMPLETE;
 }
 break;
 
 case TRIGGER_FSM_ACTIVATE_RELAY:
 triggerRelay(1);
+secondCounter = 0;
 currentState = TRIGGER_FSM_DEACTIVATE_RELAY;
 break;
 
 case TRIGGER_FSM_DEACTIVATE_RELAY:
-
+if (secondsAppTimer(1, secondCounter, 0))
+{
 triggerRelay(0);
 currentState = TRIGGER_FSM_COMPLETE;
+}
 break;
 
 case TRIGGER_FSM_COMPLETE:
 isComplete = 1;
-currentState = TRIGGER_FSM_CHECK_NUMBER;
+currentState = TRIGGER_FSM_CHECK_MASTER;
 break;
 
 default:

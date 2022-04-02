@@ -959,12 +959,27 @@ SEARCH_FSM_ERROR 2
 SEARCH_FSM_FOUND 3
 SEARCH_FSM_NOT_FOUND 4
 ]
-"85 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app_triggerCmd.c
+"91 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app_triggerCmd.c
 [e E9003 _triggerFsmStates `uc
-TRIGGER_FSM_CHECK_NUMBER 0
-TRIGGER_FSM_ACTIVATE_RELAY 1
-TRIGGER_FSM_DEACTIVATE_RELAY 2
-TRIGGER_FSM_COMPLETE 3
+TRIGGER_FSM_CHECK_MASTER 0
+TRIGGER_FSM_CHECK_NUMBER 1
+TRIGGER_FSM_ACTIVATE_RELAY 2
+TRIGGER_FSM_DEACTIVATE_RELAY 3
+TRIGGER_FSM_COMPLETE 4
+]
+"94
+[e E8246 _EepromSts `uc
+OP_SUCCESS 0
+OP_FAILED 1
+OP_PENDING 2
+]
+"112
+[e E8973 _searchFsmStates `uc
+SEARCH_FSM_START 0
+SEARCH_FSM_CHECK_NUMBER 1
+SEARCH_FSM_ERROR 2
+SEARCH_FSM_FOUND 3
+SEARCH_FSM_NOT_FOUND 4
 ]
 "58 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/MercuryFwk/Source/c/00_Main/main.c
 [v _main main `(s  1 e 2 0 ]
@@ -1303,9 +1318,9 @@ TRIGGER_FSM_COMPLETE 3
 [v _initFsm initFsm `(uc  1 e 1 0 ]
 "285
 [v _initPreamble initPreamble `(*.39uc  1 e 2 0 ]
-"64 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app_triggerCmd.c
+"67 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app_triggerCmd.c
 [v _triggerRelay triggerRelay `(uc  1 e 1 0 ]
-"83
+"89
 [v _triggerCmdFsm triggerCmdFsm `(uc  1 e 1 0 ]
 "68 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app_utils.c
 [v _secondsAppTimer secondsAppTimer `(uc  1 e 1 0 ]
@@ -1797,6 +1812,10 @@ TRIGGER_FSM_COMPLETE 3
 [v _setupCallTicks setupCallTicks `ui  1 s 2 setupCallTicks ]
 "71
 [v _isMemoryEmpty isMemoryEmpty `uc  1 s 1 isMemoryEmpty ]
+"53 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app_triggerCmd.c
+[v _relayBuffer relayBuffer `[2]uc  1 s 2 relayBuffer ]
+"54
+[v _secondCounter secondCounter `ui  1 s 2 secondCounter ]
 "45 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app_utils.c
 [v _readBuffer readBuffer `[13]uc  1 e 13 0 ]
 "204 /opt/microchip/xc8/v1.45/include/pic18f46j50.h
@@ -2636,7 +2655,7 @@ TRIGGER_FSM_COMPLETE 3
 [v _ScheduleTasks ScheduleTasks `(v  1 e 1 0 ]
 {
 "102
-[v ScheduleTasks@ActiveTaskIndex ActiveTaskIndex `uc  1 a 1 4 ]
+[v ScheduleTasks@ActiveTaskIndex ActiveTaskIndex `uc  1 a 1 0 ]
 "122
 } 0
 "79
@@ -3390,33 +3409,34 @@ TRIGGER_FSM_COMPLETE 3
 [v Rtcc_AlarmConfig@AlarmConfig AlarmConfig `*.39S1323  1 p 2 29 ]
 "139
 } 0
-"83 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app_triggerCmd.c
+"89 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app_triggerCmd.c
 [v _triggerCmdFsm triggerCmdFsm `(uc  1 e 1 0 ]
 {
-"87
-[v triggerCmdFsm@numberInMemory numberInMemory `uc  1 a 1 44 ]
-"86
-[v triggerCmdFsm@isComplete isComplete `uc  1 a 1 43 ]
-"83
-[v triggerCmdFsm@receivedNumber receivedNumber `*.39uc  1 p 2 41 ]
-"85
+"95
+[v triggerCmdFsm@searchNumber searchNumber `uc  1 a 1 10 ]
+"94
+[v triggerCmdFsm@masterOpResult masterOpResult `uc  1 a 1 9 ]
+"93
+[v triggerCmdFsm@numberInMemory numberInMemory `uc  1 a 1 8 ]
+"92
+[v triggerCmdFsm@isComplete isComplete `uc  1 a 1 7 ]
+"89
+[v triggerCmdFsm@receivedNumber receivedNumber `*.39uc  1 p 2 5 ]
+"91
 [v triggerCmdFsm@currentState currentState `E9003  1 s 1 currentState ]
-"124
+"146
 } 0
-"64
+"67
 [v _triggerRelay triggerRelay `(uc  1 e 1 0 ]
 {
 [v triggerRelay@isRelayOn isRelayOn `uc  1 a 1 wreg ]
-"66
-[v triggerRelay@txBuffer txBuffer `[2]uc  1 a 2 39 ]
-"67
+"69
 [v triggerRelay@res res `uc  1 a 1 37 ]
-"64
+"67
 [v triggerRelay@isRelayOn isRelayOn `uc  1 a 1 wreg ]
-"65
-[v triggerRelay@F9012 F9012 `[2]uc  1 s 2 F9012 ]
+"69
 [v triggerRelay@isRelayOn isRelayOn `uc  1 a 1 38 ]
-"74
+"80
 } 0
 "225 /home/misu/Documents/projects/ElettronicaIn/mercury-gsm-app/application/Application/Source/c/04_App/app_init.c
 [v _initFsm initFsm `(uc  1 e 1 0 ]

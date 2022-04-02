@@ -40,7 +40,8 @@
 
 typedef enum _triggerFsmStates
 {
-    TRIGGER_FSM_CHECK_NUMBER = 0,
+    TRIGGER_FSM_CHECK_MASTER = 0,
+    TRIGGER_FSM_CHECK_NUMBER,
     TRIGGER_FSM_ACTIVATE_RELAY,
     TRIGGER_FSM_DEACTIVATE_RELAY,
     TRIGGER_FSM_COMPLETE
@@ -49,6 +50,8 @@ typedef enum _triggerFsmStates
 * LOCAL Variables
 ************************************************************************/
 
+static uint8_t relayBuffer[2] = {0x50, 0x00};
+static uint16_t secondCounter = 0;
 /************************************************************************
 * GLOBAL Variables
 ************************************************************************/
@@ -63,13 +66,16 @@ typedef enum _triggerFsmStates
 
 uint8_t triggerRelay(bool isRelayOn)
 {
-    uint8_t txBuffer[2] = {0x50, 0x00};
     uint8_t res = STD_NOT_OK;
     if (isRelayOn)
     {
-       txBuffer[1] = 0x01;
+       relayBuffer[1] = 0x01;
     }
-    res = I2cSlv_SendI2cMsg(txBuffer, 1, 2);
+    else
+    {
+       relayBuffer[1] = 0x00;
+    }
+    res = I2cSlv_SendI2cMsg(relayBuffer, 1, 2);
     return res;
 }
 /************************************************************************
@@ -82,39 +88,55 @@ uint8_t triggerRelay(bool isRelayOn)
  */
 bool triggerCmdFsm(uint8_t* receivedNumber)
 {
-    static triggerFsmStates currentState = TRIGGER_FSM_CHECK_NUMBER;
+    static triggerFsmStates currentState = TRIGGER_FSM_CHECK_MASTER;
     bool isComplete = false;
-    uint8_t numberInMemory = SEARCH_FAILED;
+    uint8_t numberInMemory = 0;
+    uint8_t masterOpResult = OP_FAILED;
+    uint8_t searchNumber = OP_FAILED;
 
     switch (currentState)
     {
-        //todo: check also master number, check call and hang up
-    case TRIGGER_FSM_CHECK_NUMBER:
-        //numberInMemory = isNumberInMemory(receivedNumber);
-        if (numberInMemory == SEARCH_FAILED)
-        {
-            currentState = TRIGGER_FSM_COMPLETE;
-        }
-        else if (numberInMemory != SEARCH_IN_PROGRESS && numberInMemory != SEARCH_FAILED)
+    case TRIGGER_FSM_CHECK_MASTER:
+        masterOpResult = isMasterNumber(receivedNumber);
+        if (masterOpResult == OP_SUCCESS)
         {
             currentState = TRIGGER_FSM_ACTIVATE_RELAY;
+        }
+        else if (masterOpResult == OP_FAILED)
+        {
+            currentState = TRIGGER_FSM_CHECK_NUMBER;
+        }
+        break;
+
+    case TRIGGER_FSM_CHECK_NUMBER:
+        searchNumber = isNumberInMemory(receivedNumber, &numberInMemory);
+        if (searchNumber == SEARCH_FSM_FOUND)
+        {
+            currentState = TRIGGER_FSM_ACTIVATE_RELAY;
+        }
+        else if (searchNumber == SEARCH_FSM_NOT_FOUND || searchNumber == SEARCH_FSM_ERROR)
+        {
+            currentState = TRIGGER_FSM_COMPLETE;
         }
         break;
 
     case TRIGGER_FSM_ACTIVATE_RELAY:
         triggerRelay(true);
+        secondCounter = 0;
         currentState = TRIGGER_FSM_DEACTIVATE_RELAY;
         break;
 
     case TRIGGER_FSM_DEACTIVATE_RELAY:
-        // todo: implement timer
-        triggerRelay(false);
-        currentState = TRIGGER_FSM_COMPLETE;
+        if (secondsAppTimer(1, secondCounter, false))
+        {
+            triggerRelay(false);
+            currentState = TRIGGER_FSM_COMPLETE;
+        }
         break;
 
     case TRIGGER_FSM_COMPLETE:
         isComplete = true;
-        currentState = TRIGGER_FSM_CHECK_NUMBER;
+        currentState = TRIGGER_FSM_CHECK_MASTER;
         break;
 
     default:

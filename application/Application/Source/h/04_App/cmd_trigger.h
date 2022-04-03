@@ -1,7 +1,7 @@
 /************************************************************************
-*                          EEPROM Interface                             *
+*                           COMMAND TRIGGER                             *
 *************************************************************************
-* FileName:         app_gate.h                                          *
+* FileName:         cmd_trigger.h                                       *
 * HW:               Mercury System                                      *
 * Author:           A.Misuraca                                          *
 *                                                                       *
@@ -23,8 +23,8 @@
 * A.Misuraca   20/03/21    1.0          First release                   *
 ************************************************************************/
 
-#ifndef APP_ADD_CMD_H
-#define	APP_ADD_CMD_H
+#ifndef CMD_TRIGGER_H
+#define	CMD_TRIGGER_H
 
 /************************************************************************
 * Includes
@@ -45,7 +45,13 @@
 /************************************************************************
 * EXPORTED Functions
 ************************************************************************/
+/**
+ * @brief Main state machine triggered when a phone call is received.
+ * 
+ * @param receivedNumber Who called.
+ * @return true If there is no operation in progress.
+ * @return false If the operation is still in progress.
+ */
+bool triggerCmdFsm(uint8_t* receivedNumber);
 
-bool addCmdFsm(uint8_t* receivedNumber, uint8_t* smsText, bool* isCmdSuccessfull);
-
-#endif    /* APP_ADD_CMD_H */
+#endif    /* CMD_TRIGGER_H */

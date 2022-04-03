@@ -80,7 +80,7 @@
 
 /* APP */
 /* Import here you app modules */
-#include "app.h"
+#include "app_main.h"
 
 #endif	/* MOD_IMP_H */
 

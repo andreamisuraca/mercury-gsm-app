@@ -1,7 +1,7 @@
 /************************************************************************
-*                          EEPROM Interface                             *
+*                             COMMAND ADD                               *
 *************************************************************************
-* FileName:         app_utils.h                                         *
+* FileName:         cmd_add.h                                           *
 * HW:               Mercury System                                      *
 * Author:           A.Misuraca                                          *
 *                                                                       *
@@ -23,8 +23,8 @@
 * A.Misuraca   20/03/21    1.0          First release                   *
 ************************************************************************/
 
-#ifndef APP_UTILS_H
-#define	APP_UTILS_H
+#ifndef CMD_ADD_H
+#define	CMD_ADD_H
 
 /************************************************************************
 * Includes
@@ -34,24 +34,10 @@
 * EXPORTED Defines
 ************************************************************************/
 
-#define MASTER_NUMBER_ADDRESS   16
-#define INIT_NUMBER_ADDRESS     32
-#define OFFSET_NUMBER_ADDRESS   16
-#define SEARCH_IN_PROGRESS      0
-#define SEARCH_FAILED           1
-#define TEXT_OFFSET             4
 /************************************************************************
 * EXPORTED Typedef
 ************************************************************************/
 
-typedef enum _searchFsmStates
-{
-    SEARCH_FSM_START = 0,
-    SEARCH_FSM_CHECK_NUMBER,
-    SEARCH_FSM_ERROR,
-    SEARCH_FSM_FOUND,
-    SEARCH_FSM_NOT_FOUND
-} searchFsmStates;
 /************************************************************************
 * EXPORTED Variables
 ************************************************************************/
@@ -59,16 +45,15 @@ typedef enum _searchFsmStates
 /************************************************************************
 * EXPORTED Functions
 ************************************************************************/
+/**
+ * @brief Main state machine triggered when a ADD command is received.
+ * 
+ * @param receivedNumber Who send the SMS text.
+ * @param smsText Content of the SMS text.
+ * @param isCmdSuccessfull If the command was complete w/ or w/o errors.
+ * @return true If there is no operation in progress.
+ * @return false If the operation is still in progress.
+ */
+bool addCmdFsm(uint8_t* receivedNumber, uint8_t* smsText, bool* isCmdSuccessfull);
 
-bool secondsAppTimer(uint8_t seconds, uint16_t* counter, bool isCyclic);
-
-
-void cmdVisualEffet(bool isCmdSuccessfull);
-void triggerVisualEffect();
-bool waitSetupCall(void);
-void saveNumberInMemory(UINT8 address, UINT8* phoneNumber);
-bool isNumberValid(uint8_t* phoneNumber);
-searchFsmStates isNumberInMemory(uint8_t* phoneNumber, uint8_t* positionInMemory);
-searchFsmStates findEmptySpot(uint8_t* positionInMemory);
-uint8_t isMasterNumber(uint8_t* phoneNumber);
-#endif    /* APP_UTILS_H */
+#endif    /* CMD_ADD_H */

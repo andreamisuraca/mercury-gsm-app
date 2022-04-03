@@ -1,7 +1,7 @@
 /************************************************************************
-*                          EEPROM Interface                             *
+*                          COMMON UTILITIES                             *
 *************************************************************************
-* FileName:         app_utils.c                                         *
+* FileName:         utils.c                                             *
 * HW:               Mercury System                                      *
 * Author:           A.Misuraca                                          *
 *                                                                       *
@@ -26,14 +26,16 @@
 /************************************************************************
 * Includes
 ************************************************************************/
-#include "app.h"
-#include "app_utils.h"
+#include "app_main.h"
+#include "utils.h"
 
 /************************************************************************
 * Defines
 ************************************************************************/
-
 #define MAX_NUMBERS_IN_MEM      10
+#define INIT_NUMBER_ADDRESS     32
+#define OFFSET_NUMBER_ADDRESS   16
+
 /************************************************************************
 * Typedefs
 ************************************************************************/
@@ -41,9 +43,16 @@
 /************************************************************************
 * LOCAL Variables
 ************************************************************************/
-
+/**
+ * @brief Buffer received when read from NvM.
+ */
 static uint8_t readBuffer[PHONE_NUMBER_LEN] = {0};
+
+/**
+ * @brief Counter used to blink LED when a command is received.
+ */
 static uint16_t blinkInSeconds = 0xFFFF;
+
 /************************************************************************
 * GLOBAL Variables
 ************************************************************************/
@@ -59,13 +68,15 @@ static uint16_t blinkInSeconds = 0xFFFF;
 /************************************************************************
 * GLOBAL Function Implementations
 ************************************************************************/
-
 /**
- * @brief 
+ * @brief Just a low cost (from RAM point of view) timer implementation.
  * 
+ * @param seconds Target expiry seconds (MAX 255 seconds).
+ * @param counter Reference counter to be incremented (16 bits). To be static.
+ * @param isCyclic If the timer should expiry multiple times or single shot.
+ * @return true Timer expired.
+ * @return false Timer not yet expired.
  */
-// max 255 seconds
-// counter variable should be static/globally defined
 bool secondsAppTimer(uint8_t seconds, uint16_t* counter, bool isCyclic)
 {
     bool isExpired = true;
@@ -90,11 +101,19 @@ bool secondsAppTimer(uint8_t seconds, uint16_t* counter, bool isCyclic)
     return isExpired;
 }
 
+/**
+ * @brief Trigger LED 2 when a command is received.
+ */
 void triggerVisualEffect()
 {
     blinkInSeconds = 0;
 }
 
+/**
+ * @brief Blink differently depending if the command was successfully performed or not.
+ * 
+ * @param isCmdSuccessfull If the command was complete w/ or w/o errors.
+ */
 void cmdVisualEffet(bool isCmdSuccessfull)
 {
     uint8_t seconds = 7;
@@ -113,16 +132,23 @@ void cmdVisualEffet(bool isCmdSuccessfull)
 }
 
 /**
- * @brief 
+ * @brief Helper function to save a phone number in NvM.
  * 
- * @param address 
- * @param phoneNumber 
+ * @param address Exact memory location where start writing.
+ * @param phoneNumber The phone number to be saved in memory.
  */
 void saveNumberInMemory(UINT8 address, UINT8* phoneNumber)
 {
     Eeprom_Write(address, phoneNumber, PHONE_NUMBER_LEN);
 }
 
+/**
+ * @brief Phone number validator.
+ * 
+ * @param phoneNumber The phone number to be checked.
+ * @return true The input is a valid number.
+ * @return false The input is not a valid number.
+ */
 bool isNumberValid(uint8_t* phoneNumber)
 {
     bool isNumberOk = false;
@@ -145,6 +171,13 @@ bool isNumberValid(uint8_t* phoneNumber)
     return isNumberOk;
 }
 
+/**
+ * @brief State machine that verifies if a number is present in NvM.
+ * 
+ * @param phoneNumber Phone number to be checked.
+ * @param positionInMemory If the number is found the position in memory is returned.
+ * @return searchFsmStates Actual state of the current search operation.
+ */
 searchFsmStates isNumberInMemory(uint8_t* phoneNumber, uint8_t* positionInMemory)
 {
     static searchFsmStates currentState = SEARCH_FSM_START;
@@ -198,41 +231,12 @@ searchFsmStates isNumberInMemory(uint8_t* phoneNumber, uint8_t* positionInMemory
     return currentState;
 }
 
-// uint8_t isNumberInMemory(uint8_t* phoneNumber)
-// {
-//     static uint8_t currentPosition = INIT_NUMBER_ADDRESS;
-//     uint8_t positionInMemory = SEARCH_IN_PROGRESS;
-//     uint8_t readBuffer[PHONE_NUMBER_LEN];
-//     EepromStsType memoryOpResult = OP_PENDING;
-
-//     if (currentPosition >= INIT_NUMBER_ADDRESS * MAX_NUMBERS_IN_MEM)
-//     {
-//         currentPosition = INIT_NUMBER_ADDRESS;
-//     }
-//     memoryOpResult = Eeprom_Read(currentPosition, readBuffer, PHONE_NUMBER_LEN);
-//     if (memoryOpResult != OP_PENDING)
-//     {
-//         if (isNumberValid(readBuffer))
-//         {
-//             if (StringCompare(phoneNumber, readBuffer, PHONE_NUMBER_LEN))
-//             {
-//                 positionInMemory = currentPosition;
-//                 currentPosition = INIT_NUMBER_ADDRESS * MAX_NUMBERS_IN_MEM;
-//             }
-//             else
-//             {
-//                 // add method to skip other reads if I have already read all the memorized numbers.
-//             }
-//         }
-//         currentPosition += INIT_NUMBER_ADDRESS;
-//     }
-//     if (positionInMemory == SEARCH_IN_PROGRESS && currentPosition >= INIT_NUMBER_ADDRESS * MAX_NUMBERS_IN_MEM)
-//     {
-//         positionInMemory = SEARCH_FAILED;
-//     }
-//     return positionInMemory;
-// }
-
+/**
+ * @brief Verify if a given phone number is the master phone number.
+ * 
+ * @param phoneNumber Input phone number to be checked.
+ * @return uint8_t Current status of the operation.
+ */
 uint8_t isMasterNumber(uint8_t* phoneNumber)
 {
     EepromStsType memoryOpResult = OP_PENDING;
@@ -252,37 +256,12 @@ uint8_t isMasterNumber(uint8_t* phoneNumber)
     return memoryOpResult;
 }
 
-// uint8_t findEmptySpot()
-// {
-//     static uint8_t currentPosition = INIT_NUMBER_ADDRESS;
-//     uint8_t positionInMemory = SEARCH_IN_PROGRESS;
-//     uint8_t readBuffer[PHONE_NUMBER_LEN];
-//     EepromStsType memoryOpResult = OP_PENDING;
-
-//     if (currentPosition >= INIT_NUMBER_ADDRESS * MAX_NUMBERS_IN_MEM)
-//     {
-//         currentPosition = INIT_NUMBER_ADDRESS;
-//     }
-//     memoryOpResult = Eeprom_Read(currentPosition, readBuffer, PHONE_NUMBER_LEN);
-//     if (memoryOpResult != OP_PENDING)
-//     {
-//         if (isNumberValid(readBuffer))
-//         {
-//             currentPosition += INIT_NUMBER_ADDRESS;
-//         }
-//         else
-//         {
-//             positionInMemory = currentPosition;
-//             currentPosition = INIT_NUMBER_ADDRESS * MAX_NUMBERS_IN_MEM;
-//         }
-//     }
-//     if (positionInMemory == 0 && currentPosition >= INIT_NUMBER_ADDRESS * MAX_NUMBERS_IN_MEM)
-//     {
-//         positionInMemory = SEARCH_FAILED;
-//     }
-//     return positionInMemory;
-// }
-
+/**
+ * @brief State machine to search an empty slot in NvM
+ * 
+ * @param positionInMemory If an empty slot is found, the position is returned.
+ * @return searchFsmStates Current state of the search operation.
+ */
 searchFsmStates findEmptySpot(uint8_t* positionInMemory)
 {
     static searchFsmStates currentState = SEARCH_FSM_START;

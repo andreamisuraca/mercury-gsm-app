@@ -1,7 +1,7 @@
 /************************************************************************
-*                          EEPROM Interface                             *
+*                            COMMAND INIT                               *
 *************************************************************************
-* FileName:         app_init.h                                          *
+* FileName:         cmd_init.h                                          *
 * HW:               Mercury System                                      *
 * Author:           A.Misuraca                                          *
 *                                                                       *
@@ -23,8 +23,8 @@
 * A.Misuraca   19/03/21    1.0          First release                   *
 ************************************************************************/
 
-#ifndef APP_INIT_H
-#define	APP_INIT_H
+#ifndef CMD_INIT_H
+#define	CMD_INIT_H
 
 /************************************************************************
 * Includes
@@ -34,8 +34,6 @@
 * EXPORTED Defines
 ************************************************************************/
 
-#define PREAMBLE_LENGTH         4
-#define COUNTER_POSITION_IN_MEM 4
 /************************************************************************
 * EXPORTED Typedef
 ************************************************************************/
@@ -47,11 +45,22 @@
 /************************************************************************
 * EXPORTED Functions
 ************************************************************************/
-
+/**
+ * @brief Main state machine triggered when an INIT command is received.
+ * 
+ * @param isCmdSuccessfull If the command was complete w/ or w/o errors.
+ * @return true If there is no operation in progress.
+ * @return false If the operation is still in progress.
+ */
 bool initFsm(bool* isCmdSuccessfull);
 
-uint8_t* initPreamble();
-
+/**
+ * @brief Replace master phone number when a new one is received via USB.
+ * 
+ * @param isCmdSuccessfull If the command was complete w/ or w/o errors.
+ * @return true If there is no operation in progress.
+ * @return false If the operation is still in progress.
+ */
 bool detectUsbNumber(bool* isCmdSuccessfull);
 
-#endif    /* APP_INIT_H */
+#endif    /* CMD_INIT_H */

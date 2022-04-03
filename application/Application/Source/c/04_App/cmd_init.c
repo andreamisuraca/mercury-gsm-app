@@ -1,7 +1,7 @@
 /************************************************************************
-*                          EEPROM Interface                             *
+*                            COMMAND INIT                               *
 *************************************************************************
-* FileName:         app_init.c                                          *
+* FileName:         cmd_init.c                                          *
 * HW:               Mercury System                                      *
 * Author:           A.Misuraca                                          *
 *                                                                       *
@@ -26,19 +26,22 @@
 /************************************************************************
 * Includes
 ************************************************************************/
-#include "app.h"
-#include "app_init.h"
-#include "app_utils.h"
+#include "app_main.h"
+#include "cmd_init.h"
+#include "utils.h"
 
 /************************************************************************
 * Defines
 ************************************************************************/
-
 #define TIMEOUT_SETUP_CALL_SEC      30
+#define PREAMBLE_LENGTH             4
+
 /************************************************************************
 * Typedefs
 ************************************************************************/
-
+/**
+ * States of the GSM modem init state machine.
+ */
 typedef enum _modemStates
 {
     MODEM_INIT = 0,
@@ -47,6 +50,9 @@ typedef enum _modemStates
     MODEM_INIT_COMPLETE
 } modemStates;
 
+/**
+ * States of the EEPROM init state machine.
+ */
 typedef enum _eepromStates
 {
     EEPROM_INIT = 0,
@@ -54,6 +60,9 @@ typedef enum _eepromStates
     EEPROM_NOT_EMPTY
 } eepromStates;
 
+/**
+ * States of the INIT command state machine.
+ */
 typedef enum _initFsmStates
 {
     INIT_FSM_MODEM = 0,
@@ -66,10 +75,21 @@ typedef enum _initFsmStates
 /************************************************************************
 * LOCAL Variables
 ************************************************************************/
-
+/**
+ * @brief The preamble that will be saved in memory at init phase.
+ */
 static uint8_t memoryPreamble[PREAMBLE_LENGTH];
+
+/**
+ * @brief Counter to allow setup call only for a short period of time.
+ */
 static uint16_t setupCallTicks = 0;
+
+/**
+ * @brief Variable to determine is the memory is empty or not.
+ */
 static bool isMemoryEmpty = true;
+
 /************************************************************************
 * GLOBAL Variables
 ************************************************************************/
@@ -82,7 +102,24 @@ static bool isMemoryEmpty = true;
 * LOCAL Function Implementations
 ************************************************************************/
 /**
+ * @brief Preamble used identify is something is present or not in memory.
  * 
+ * @return uint8_t* Return hardcoded the preable.
+ */
+uint8_t* initPreamble()
+{
+    memoryPreamble[0] = 'U';
+    memoryPreamble[1] = 'S';
+    memoryPreamble[2] = 'I';
+    memoryPreamble[3] = 'M';
+    return memoryPreamble;
+}
+
+/**
+ * @brief Main state machine the initialized the GSM modem.
+ * 
+ * @return true Initialization completed.
+ * @return false Operation pending.
  */
 bool initGprsModem(void)
 {
@@ -125,8 +162,10 @@ bool initGprsModem(void)
 }
 
 /**
- * @brief 
+ * @brief Main state machine the initialized the EEPROM.
  * 
+ * @return true Initialization completed.
+ * @return false Operation pending.
  */
 bool initEeprom(void)
 {
@@ -174,8 +213,10 @@ bool initEeprom(void)
 }
 
 /**
- * @brief 
+ * @brief Check if there is an incoming call.
  * 
+ * @return true A phone call has been received.
+ * @return false No call received.
  */
 bool getSetupCall(void)
 {
@@ -190,8 +231,10 @@ bool getSetupCall(void)
 }
 
 /**
- * @brief 
+ * @brief Wait for master phone number to be set via phone call in 3 minutes.
  * 
+ * @return true Master phone number set via phone call.
+ * @return false Master phone number not set via phone call.
  */
 bool waitSetupCall(void)
 {
@@ -211,6 +254,9 @@ bool waitSetupCall(void)
     return isCallArrived;
 }
 
+/**
+ * @brief Save the preambe in NvM.
+ */
 void savePreamble()
 {
     Eeprom_Write(0, initPreamble(), PREAMBLE_LENGTH);
@@ -218,10 +264,12 @@ void savePreamble()
 /************************************************************************
 * GLOBAL Function Implementations
 ************************************************************************/
-
 /**
- * @brief 
+ * @brief Main state machine triggered when an INIT command is received.
  * 
+ * @param isCmdSuccessfull If the command was complete w/ or w/o errors.
+ * @return true If there is no operation in progress.
+ * @return false If the operation is still in progress.
  */
 bool initFsm(bool* isCmdSuccessfull)
 {
@@ -282,19 +330,12 @@ bool initFsm(bool* isCmdSuccessfull)
 }
 
 /**
- * @brief 
+ * @brief Replace master phone number when a new one is received via USB.
  * 
- * @return uint8_t* 
+ * @param isCmdSuccessfull If the command was complete w/ or w/o errors.
+ * @return true If there is no operation in progress.
+ * @return false If the operation is still in progress.
  */
-uint8_t* initPreamble()
-{
-    memoryPreamble[0] = 'U';
-    memoryPreamble[1] = 'S';
-    memoryPreamble[2] = 'I';
-    memoryPreamble[3] = 'M';
-    return memoryPreamble;
-}
-
 bool detectUsbNumber(bool* isCmdSuccessfull)
 {
     bool isActionPerformed = false;

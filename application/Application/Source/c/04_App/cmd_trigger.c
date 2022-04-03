@@ -1,7 +1,7 @@
 /************************************************************************
-*                          EEPROM Interface                             *
+*                           COMMAND TRIGGER                             *
 *************************************************************************
-* FileName:         app_init.c                                          *
+* FileName:         cmd_trigger.c                                       *
 * HW:               Mercury System                                      *
 * Author:           A.Misuraca                                          *
 *                                                                       *
@@ -26,9 +26,9 @@
 /************************************************************************
 * Includes
 ************************************************************************/
-#include "app.h"
-#include "app_utils.h"
-#include "app_delCmd.h"
+#include "app_main.h"
+#include "utils.h"
+#include "cmd_trigger.h"
 
 /************************************************************************
 * Defines
@@ -37,16 +37,31 @@
 /************************************************************************
 * Typedefs
 ************************************************************************/
-
-typedef enum _delFsmStates
+/**
+ * States of the TRIGGER command state machine.
+ */
+typedef enum _triggerFsmStates
 {
-    DEL_FSM_CHECK_MASTER = 0,
-    DEL_FSM_REMOVE_NUMBER,
-    DEL_FSM_COMPLETE
-} delFsmStates;
+    TRIGGER_FSM_CHECK_MASTER = 0,
+    TRIGGER_FSM_CHECK_NUMBER,
+    TRIGGER_FSM_ACTIVATE_RELAY,
+    TRIGGER_FSM_DEACTIVATE_RELAY,
+    TRIGGER_FSM_COMPLETE
+} triggerFsmStates;
+
 /************************************************************************
 * LOCAL Variables
 ************************************************************************/
+
+/**
+ * @brief Buffer used to set the status of the relay.
+ */
+static uint8_t relayBuffer[2] = {0x50, 0x00};
+
+/**
+ * @brief Counter used to determine for how long the relay should be active.
+ */
+static uint16_t secondCounter = 0;
 
 /************************************************************************
 * GLOBAL Variables
@@ -59,19 +74,40 @@ typedef enum _delFsmStates
 /************************************************************************
 * LOCAL Function Implementations
 ************************************************************************/
+/**
+ * @brief Send command to the relay board.
+ * 
+ * @param isRelayOn Target status of the relay (ON/OFF).
+ * @return uint8_t Return status of I2C command.
+ */
+uint8_t triggerRelay(bool isRelayOn)
+{
+    uint8_t res = STD_NOT_OK;
+    if (isRelayOn)
+    {
+       relayBuffer[1] = 0x01;
+    }
+    else
+    {
+       relayBuffer[1] = 0x00;
+    }
+    res = I2cSlv_SendI2cMsg(relayBuffer, 1, 2);
+    return res;
+}
 
 /************************************************************************
 * GLOBAL Function Implementations
 ************************************************************************/
-
 /**
- * @brief 
+ * @brief Main state machine triggered when a phone call is received.
  * 
+ * @param receivedNumber Who called.
+ * @return true If there is no operation in progress.
+ * @return false If the operation is still in progress.
  */
-bool delCmdFsm(uint8_t* receivedNumber, uint8_t* smsText, bool* isCmdSuccessfull)
+bool triggerCmdFsm(uint8_t* receivedNumber)
 {
-    const uint8_t emptyNumber[PHONE_NUMBER_LEN] = {0};
-    static delFsmStates currentState = DEL_FSM_CHECK_MASTER;
+    static triggerFsmStates currentState = TRIGGER_FSM_CHECK_MASTER;
     bool isComplete = false;
     uint8_t numberInMemory = 0;
     uint8_t masterOpResult = OP_FAILED;
@@ -79,36 +115,47 @@ bool delCmdFsm(uint8_t* receivedNumber, uint8_t* smsText, bool* isCmdSuccessfull
 
     switch (currentState)
     {
-    case DEL_FSM_CHECK_MASTER:
-        *isCmdSuccessfull = false;
+    case TRIGGER_FSM_CHECK_MASTER:
         masterOpResult = isMasterNumber(receivedNumber);
         if (masterOpResult == OP_SUCCESS)
         {
-            currentState = DEL_FSM_REMOVE_NUMBER;
+            currentState = TRIGGER_FSM_ACTIVATE_RELAY;
         }
         else if (masterOpResult == OP_FAILED)
         {
-            currentState = DEL_FSM_COMPLETE;
+            currentState = TRIGGER_FSM_CHECK_NUMBER;
         }
         break;
 
-    case DEL_FSM_REMOVE_NUMBER:
-        searchNumber = isNumberInMemory(smsText + TEXT_OFFSET, &numberInMemory);
+    case TRIGGER_FSM_CHECK_NUMBER:
+        searchNumber = isNumberInMemory(receivedNumber, &numberInMemory);
         if (searchNumber == SEARCH_FSM_FOUND)
         {
-            saveNumberInMemory(numberInMemory, emptyNumber);
-            currentState = DEL_FSM_COMPLETE;
-            *isCmdSuccessfull = true;
+            currentState = TRIGGER_FSM_ACTIVATE_RELAY;
         }
         else if (searchNumber == SEARCH_FSM_NOT_FOUND || searchNumber == SEARCH_FSM_ERROR)
         {
-            currentState = DEL_FSM_COMPLETE;
+            currentState = TRIGGER_FSM_COMPLETE;
         }
         break;
 
-    case DEL_FSM_COMPLETE:
+    case TRIGGER_FSM_ACTIVATE_RELAY:
+        triggerRelay(true);
+        secondCounter = 0;
+        currentState = TRIGGER_FSM_DEACTIVATE_RELAY;
+        break;
+
+    case TRIGGER_FSM_DEACTIVATE_RELAY:
+        if (secondsAppTimer(1, secondCounter, false))
+        {
+            triggerRelay(false);
+            currentState = TRIGGER_FSM_COMPLETE;
+        }
+        break;
+
+    case TRIGGER_FSM_COMPLETE:
         isComplete = true;
-        currentState = DEL_FSM_CHECK_MASTER;
+        currentState = TRIGGER_FSM_CHECK_MASTER;
         break;
 
     default:

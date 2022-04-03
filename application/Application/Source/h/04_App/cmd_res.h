@@ -1,9 +1,9 @@
 /************************************************************************
-*                              	APP                              		*
+*                            COMMAND RESET                              *
 *************************************************************************
-* FileName:         app.h                                      			*
+* FileName:         cmd_res.h                                           *
 * HW:               Mercury System                                      *
-* Author:           F.Ficili                                            *
+* Author:           A.Misuraca                                          *
 *                                                                       *
 * Software License Agreement:                                           *
 *                                                                       *
@@ -13,44 +13,46 @@
 * PARTICULAR PURPOSE APPLY TO THIS SOFTWARE. THE AUTHOR SHALL NOT,      *
 * IN ANY CIRCUMSTANCES, BE LIABLE FOR SPECIAL, INCIDENTAL OR            *
 * CONSEQUENTIAL DAMAGES, FOR ANY REASON WHATSOEVER.                     *
-*                                                                       *  
-* --------------------------------------------------------------------- * 
-* Responsible For This File: Francesco Ficili                           *
+*                                                                       *
+* --------------------------------------------------------------------- *
+* Responsible For This File: Andrea Misuraca                            *
 *                                                                       *
 * --------------------------------------------------------------------- *
 * Author       Date        Version      Comment                         *
 * ---------------------------------------------------------------------	*
-* F.Ficili     09/07/17    1.0          First release                   *
+* A.Misuraca   20/03/21    1.0          First release                   *
 ************************************************************************/
-#ifndef APP_H
-#define	APP_H
+
+#ifndef CMD_RES_H
+#define	CMD_RES_H
 
 /************************************************************************
 * Includes
 ************************************************************************/
-#include "os_sched.h"
 
 /************************************************************************
 * EXPORTED Defines
 ************************************************************************/
-/* Task period in ms */
-#define MY_APP_TASK_PERIOD_MS                         ((UINT16)(100))
 
 /************************************************************************
 * EXPORTED Typedef
 ************************************************************************/
 
-
 /************************************************************************
 * EXPORTED Variables
 ************************************************************************/
 
-
 /************************************************************************
 * EXPORTED Functions
 ************************************************************************/
-/* Application main task */
-void MyApp_Task (UINT8 Options);
+/**
+ * @brief Main state machine triggered when a RES command is received.
+ * 
+ * @param receivedNumber Who send the SMS text.
+ * @param isCmdSuccessfull If the command was complete w/ or w/o errors.
+ * @return true If there is no operation in progress.
+ * @return false If the operation is still in progress.
+ */
+bool resCmdFsm(uint8_t* receivedNumber, bool* isCmdSuccessfull);
 
-#endif	/* APP_H */
-
+#endif    /* CMD_RES_H */

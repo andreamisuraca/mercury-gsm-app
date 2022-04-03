@@ -1,7 +1,7 @@
 /************************************************************************
-*                          EEPROM Interface                             *
+*                             COMMAND ADD                               *
 *************************************************************************
-* FileName:         app_init.c                                          *
+* FileName:         cmd_add.c                                           *
 * HW:               Mercury System                                      *
 * Author:           A.Misuraca                                          *
 *                                                                       *
@@ -26,9 +26,9 @@
 /************************************************************************
 * Includes
 ************************************************************************/
-#include "app.h"
-#include "app_utils.h"
-#include "app_addCmd.h"
+#include "app_main.h"
+#include "utils.h"
+#include "cmd_add.h"
 
 /************************************************************************
 * Defines
@@ -37,7 +37,9 @@
 /************************************************************************
 * Typedefs
 ************************************************************************/
-
+/**
+ * States of the ADD command state machine.
+ */
 typedef enum _addFsmStates
 {
     ADD_FSM_CHECK_MASTER = 0,
@@ -45,6 +47,7 @@ typedef enum _addFsmStates
     ADD_FSM_SAVE_NEW,
     ADD_FSM_COMPLETE
 } addFsmStates;
+
 /************************************************************************
 * LOCAL Variables
 ************************************************************************/
@@ -64,10 +67,14 @@ typedef enum _addFsmStates
 /************************************************************************
 * GLOBAL Function Implementations
 ************************************************************************/
-
 /**
- * @brief 
+ * @brief Main state machine triggered when a ADD command is received.
  * 
+ * @param receivedNumber Who send the SMS text.
+ * @param smsText Content of the SMS text.
+ * @param isCmdSuccessfull If the command was complete w/ or w/o errors.
+ * @return true If there is no operation in progress.
+ * @return false If the operation is still in progress.
  */
 bool addCmdFsm(uint8_t* receivedNumber, uint8_t* smsText, bool* isCmdSuccessfull)
 {

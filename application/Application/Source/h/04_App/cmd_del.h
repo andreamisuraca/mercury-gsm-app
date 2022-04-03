@@ -1,7 +1,7 @@
 /************************************************************************
-*                          EEPROM Interface                             *
+*                           COMMAND DELETE                              *
 *************************************************************************
-* FileName:         app_gate.h                                          *
+* FileName:         cmd_del.h                                           *
 * HW:               Mercury System                                      *
 * Author:           A.Misuraca                                          *
 *                                                                       *
@@ -23,8 +23,8 @@
 * A.Misuraca   20/03/21    1.0          First release                   *
 ************************************************************************/
 
-#ifndef APP_TRIGGER_CMD_H
-#define	APP_TRIGGER_CMD_H
+#ifndef CMD_DEL_H
+#define	CMD_DEL_H
 
 /************************************************************************
 * Includes
@@ -45,7 +45,15 @@
 /************************************************************************
 * EXPORTED Functions
 ************************************************************************/
+/**
+ * @brief Main state machine triggered when a DEL command is received.
+ * 
+ * @param receivedNumber Who send the SMS text.
+ * @param smsText Content of the SMS text.
+ * @param isCmdSuccessfull If the command was complete w/ or w/o errors.
+ * @return true If there is no operation in progress.
+ * @return false If the operation is still in progress.
+ */
+bool delCmdFsm(uint8_t* receivedNumber, uint8_t* smsText, bool* isCmdSuccessfull);
 
-bool triggerCmdFsm(uint8_t* receivedNumber);
-
-#endif    /* APP_TRIGGER_CMD_H */
+#endif    /* CMD_DEL_H */

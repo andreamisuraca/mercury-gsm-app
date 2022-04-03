@@ -1,9 +1,9 @@
 /************************************************************************
-*                              	APP                              		*
+*                            APP MAIN TASK                              *
 *************************************************************************
-* FileName:         app.c                                      			*
+* FileName:         app_main.c                                          *
 * HW:               Mercury System                                      *
-* Author:           F.Ficili                                            *
+* Author:           A.Misuraca                                          *
 *                                                                       *
 * Software License Agreement:                                           *
 *                                                                       *
@@ -13,26 +13,26 @@
 * PARTICULAR PURPOSE APPLY TO THIS SOFTWARE. THE AUTHOR SHALL NOT,      *
 * IN ANY CIRCUMSTANCES, BE LIABLE FOR SPECIAL, INCIDENTAL OR            *
 * CONSEQUENTIAL DAMAGES, FOR ANY REASON WHATSOEVER.                     *
-*                                                                       *  
-* --------------------------------------------------------------------- * 
-* Responsible For This File: Francesco Ficili                           *
+*                                                                       *
+* --------------------------------------------------------------------- *
+* Responsible For This File: Andrea Misuraca                            *
 *                                                                       *
 * --------------------------------------------------------------------- *
 * Author       Date        Version      Comment                         *
 * ---------------------------------------------------------------------	*
-* F.Ficili     09/07/17    1.0          First release                   *
+* A.Misuraca   19/03/22    1.0          First release                   *
 ************************************************************************/
 
 /************************************************************************
 * Includes
 ************************************************************************/
-#include "app.h"
-#include "app_utils.h"
-#include "app_init.h"
-#include "app_addCmd.h"
-#include "app_delCmd.h"
-#include "app_triggerCmd.h"
-#include "app_resCmd.h"
+#include "app_main.h"
+#include "utils.h"
+#include "cmd_init.h"
+#include "cmd_add.h"
+#include "cmd_del.h"
+#include "cmd_trigger.h"
+#include "cmd_res.h"
 
 /************************************************************************
 * Defines
@@ -41,69 +41,80 @@
 /************************************************************************
 * Typedefs
 ************************************************************************/
-
-typedef enum _gateFsmStates
+/**
+ * States of the App main state machine.
+ */
+typedef enum _appMainFsmStates
 {
-    GATE_INIT = 0,
-    GATE_WAIT_EVENT,
-    GATE_ADD_CMD,
-    GATE_DEL_CMD,
-    GATE_TRIGGER_CMD,
-    GATE_RESET
-} gateFsmStates;
+    APP_MAIN_INIT = 0,
+    APP_MAIN_WAIT_EVENT,
+    APP_MAIN_ADD_CMD,
+    APP_MAIN_DEL_CMD,
+    APP_MAIN_TRIGGER_CMD,
+    APP_MAIN_RESET
+} appMainFsmStates;
 
 /************************************************************************
 * LOCAL Variables
 ************************************************************************/
+/**
+ * @brief Buffer used when a new SMS text is received.
+ */
 static uint8_t smsText[MESSAGE_BUFF_LEN] = {0};
+
+/**
+ * @brief Buffer used when a new SMS text or phone call is received.
+ */
 static uint8_t receivedNumber[PHONE_NUMBER_LEN] = {0};
+
 /************************************************************************
 * GLOBAL Variables
 ************************************************************************/
-
 
 /************************************************************************
 * LOCAL Function Prototypes
 ************************************************************************/
 
-
 /************************************************************************
 * LOCAL Function Implementations
 ************************************************************************/
-
-
-gateFsmStates parseCommand()
+/**
+ * @brief Function used to parse the SMS text and identify the command.
+ * 
+ * @return appMainFsmStates Future state of the main app state machine.
+ */
+appMainFsmStates parseCommand()
 {
     const uint8_t addNumberCmd[] = {'A', 'D', 'D', ';'};
     const uint8_t deleteNumberCmd[] = {'D', 'E', 'L', ';'};
     const uint8_t resetCmd[] = {'R', 'E', 'S', ';'};
-    gateFsmStates state = GATE_WAIT_EVENT;
+    appMainFsmStates state = APP_MAIN_WAIT_EVENT;
 
     if (StringCompare(smsText, addNumberCmd, sizeof(addNumberCmd)))
     {
         if (!isNumberValid(smsText + TEXT_OFFSET))
         {
-            state = GATE_WAIT_EVENT;
+            state = APP_MAIN_WAIT_EVENT;
         }
         else
         {
-            state = GATE_ADD_CMD;
+            state = APP_MAIN_ADD_CMD;
         }
     }
     else if (StringCompare(smsText, deleteNumberCmd, sizeof(deleteNumberCmd)))
     {
         if (!isNumberValid(smsText + TEXT_OFFSET))
         {
-            state = GATE_WAIT_EVENT;
+            state = APP_MAIN_WAIT_EVENT;
         }
         else
         {
-            state = GATE_DEL_CMD;
+            state = APP_MAIN_DEL_CMD;
         }
     }
     else if (StringCompare(smsText, resetCmd, sizeof(resetCmd)))
     {
-        state = GATE_RESET;
+        state = APP_MAIN_RESET;
     }
     else
     {
@@ -112,9 +123,14 @@ gateFsmStates parseCommand()
     return state;
 }
 
-gateFsmStates detectCmd()
+/**
+ * @brief Function used to detect if a new command is received (SMS of phone call).
+ * 
+ * @return appMainFsmStates Future state of the main app state machine.
+ */
+appMainFsmStates detectCmd()
 {
-    gateFsmStates currentState = GATE_WAIT_EVENT;
+    appMainFsmStates currentState = APP_MAIN_WAIT_EVENT;
     if (Mdm_IsSmsReceived())
     {
         Mdm_RequestSmsData();
@@ -128,7 +144,7 @@ gateFsmStates detectCmd()
     if (Mdm_IsRinging())
     {
         Mdm_HangPhoneCall();
-        currentState = GATE_TRIGGER_CMD;
+        currentState = APP_MAIN_TRIGGER_CMD;
         StringCopy(GetCallerNumber(), receivedNumber, PHONE_NUMBER_LEN);
     }
     return currentState;
@@ -137,18 +153,14 @@ gateFsmStates detectCmd()
 /************************************************************************
 * GLOBAL Function Implementations
 ************************************************************************/
-
-/************************************************************************
-* Function:     MyApp_Task
-* Input:        None
-* Output:       None
-* Author:       F.Ficili
-* Description:  My app main task.
-* Date:         09/10/16
-************************************************************************/
+/**
+ * @brief Main task of the application
+ * 
+ * @param Options Unused parameter.
+ */
 void MyApp_Task (UINT8 Options)
 {
-    static gateFsmStates currentState = GATE_INIT;
+    static appMainFsmStates currentState = APP_MAIN_INIT;
     static bool isCmdSuccessfull = true;
 
     cmdVisualEffet(isCmdSuccessfull);
@@ -166,14 +178,14 @@ void MyApp_Task (UINT8 Options)
         case RunningState:
             switch (currentState)
             {
-            case GATE_INIT:
+            case APP_MAIN_INIT:
                 if (initFsm(&isCmdSuccessfull))
                 {
-                    currentState = GATE_WAIT_EVENT;
+                    currentState = APP_MAIN_WAIT_EVENT;
                 }
                 break;
 
-            case GATE_WAIT_EVENT:
+            case APP_MAIN_WAIT_EVENT:
                 if (detectUsbNumber(&isCmdSuccessfull))
                 {
                     triggerVisualEffect();
@@ -181,33 +193,33 @@ void MyApp_Task (UINT8 Options)
                 currentState = detectCmd();
                break;
 
-            case GATE_ADD_CMD:
+            case APP_MAIN_ADD_CMD:
                 if (addCmdFsm(receivedNumber, smsText, &isCmdSuccessfull))
                 {
-                    currentState = GATE_WAIT_EVENT;
+                    currentState = APP_MAIN_WAIT_EVENT;
                     triggerVisualEffect();
                 }
                 break;
 
-            case GATE_DEL_CMD:
+            case APP_MAIN_DEL_CMD:
                 if (delCmdFsm(receivedNumber, smsText, &isCmdSuccessfull))
                 {
-                    currentState = GATE_WAIT_EVENT;
+                    currentState = APP_MAIN_WAIT_EVENT;
                     triggerVisualEffect();
                 }
                 break;
 
-            case GATE_TRIGGER_CMD:
+            case APP_MAIN_TRIGGER_CMD:
                 if (triggerCmdFsm(receivedNumber))
                 {
-                    currentState = GATE_WAIT_EVENT;
+                    currentState = APP_MAIN_WAIT_EVENT;
                 }
                 break;
 
-            case GATE_RESET:
+            case APP_MAIN_RESET:
                 if (resCmdFsm(receivedNumber, &isCmdSuccessfull))
                 {
-                    currentState = GATE_INIT;
+                    currentState = APP_MAIN_INIT;
                     triggerVisualEffect();
                 }
                 break;

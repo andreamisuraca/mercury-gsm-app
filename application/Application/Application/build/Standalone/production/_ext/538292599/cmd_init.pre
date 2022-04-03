@@ -1,5 +1,5 @@
 
-# 1 "../Source/c/04_App/app_resCmd.c"
+# 1 "../Source/c/04_App/cmd_init.c"
 
 
 # 30 "../../MercuryFwk/Source/h/01_Hal/01_Sys/hal.h"
@@ -11220,10 +11220,16 @@ void Sch_MainScheduler (void);
 
 void Sch_SchmIntService (void);
 
-# 53 "../Source/h/04_App/app.h"
+# 54 "../Source/h/04_App/app_main.h"
 void MyApp_Task (UINT8 Options);
 
-# 47 "../Source/h/04_App/app_utils.h"
+# 55 "../Source/h/04_App/cmd_init.h"
+bool initFsm(bool* isCmdSuccessfull);
+
+# 64
+bool detectUsbNumber(bool* isCmdSuccessfull);
+
+# 45 "../Source/h/04_App/utils.h"
 typedef enum _searchFsmStates
 {
 SEARCH_FSM_START = 0,
@@ -11233,67 +11239,271 @@ SEARCH_FSM_FOUND,
 SEARCH_FSM_NOT_FOUND
 } searchFsmStates;
 
-# 63
+# 70
 bool secondsAppTimer(uint8_t seconds, uint16_t* counter, bool isCyclic);
 
-
-void cmdVisualEffet(bool isCmdSuccessfull);
+# 75
 void triggerVisualEffect();
-bool waitSetupCall(void);
+
+# 82
+void cmdVisualEffet(bool isCmdSuccessfull);
+
+# 90
 void saveNumberInMemory(UINT8 address, UINT8* phoneNumber);
+
+# 99
 bool isNumberValid(uint8_t* phoneNumber);
+
+# 108
 searchFsmStates isNumberInMemory(uint8_t* phoneNumber, uint8_t* positionInMemory);
-searchFsmStates findEmptySpot(uint8_t* positionInMemory);
+
+# 116
 uint8_t isMasterNumber(uint8_t* phoneNumber);
 
-# 49 "../Source/h/04_App/app_resCmd.h"
-bool resCmdFsm(uint8_t* receivedNumber, bool* isCmdSuccessfull);
+# 124
+searchFsmStates findEmptySpot(uint8_t* positionInMemory);
 
-# 41 "../Source/c/04_App/app_resCmd.c"
-typedef enum _resFsmStates
+# 45 "../Source/c/04_App/cmd_init.c"
+typedef enum _modemStates
 {
-RES_FSM_CHECK_MASTER = 0,
-RES_FSM_RESET,
-RES_FSM_COMPLETE
-} resFsmStates;
+MODEM_INIT = 0,
+MODEM_DELETE_SMS,
+MODEM_SET_CALLER_ID,
+MODEM_INIT_COMPLETE
+} modemStates;
 
-# 71
-bool resCmdFsm(uint8_t* receivedNumber, bool* isCmdSuccessfull)
+# 56
+typedef enum _eepromStates
 {
-static resFsmStates currentState = RES_FSM_CHECK_MASTER;
-bool isComplete = 0;
-uint8_t masterOpResult = OP_FAILED;
+EEPROM_INIT = 0,
+EEPROM_EMPTY,
+EEPROM_NOT_EMPTY
+} eepromStates;
 
-switch (currentState)
+# 66
+typedef enum _initFsmStates
 {
-case RES_FSM_CHECK_MASTER:
-*isCmdSuccessfull = 0;
-masterOpResult = isMasterNumber(receivedNumber);
-if (masterOpResult == OP_SUCCESS)
+INIT_FSM_MODEM = 0,
+INIT_FSM_EEPROM,
+INIT_FSM_WAIT_CMD,
+INIT_FSM_PREAMBLE,
+INIT_FSM_COMPLETE
+} initFsmStates;
+
+# 81
+static uint8_t memoryPreamble[4];
+
+# 86
+static uint16_t setupCallTicks = 0;
+
+# 91
+static bool isMemoryEmpty = 1;
+
+# 109
+uint8_t* initPreamble()
 {
-currentState = RES_FSM_RESET;
+memoryPreamble[0] = 'U';
+memoryPreamble[1] = 'S';
+memoryPreamble[2] = 'I';
+memoryPreamble[3] = 'M';
+return memoryPreamble;
 }
-else if (masterOpResult == OP_FAILED)
+
+# 124
+bool initGprsModem(void)
 {
-currentState = RES_FSM_COMPLETE;
+static uint16_t modemCounter = 0;
+static modemStates currentState = MODEM_INIT;
+bool isInitialized = 0;
+
+switch(currentState)
+{
+case MODEM_INIT:
+if (MdmStatus == ModemConfigured || MdmStatus == ModemOn)
+{
+if (secondsAppTimer(5, &modemCounter, 0))
+{
+Mdm_SetSmsFormat(1);
+currentState = MODEM_DELETE_SMS;
+}
 }
 break;
 
-case RES_FSM_RESET:
-if (Eeprom_Reset() == 0)
-{
-currentState = RES_FSM_COMPLETE;
-*isCmdSuccessfull = 1;
-}
+case MODEM_DELETE_SMS:
+Uart_WriteConstString(1,"AT+CMGDA=DEL ALL\r\n");
+currentState = MODEM_SET_CALLER_ID;
 break;
 
-case RES_FSM_COMPLETE:
-isComplete = 1;
-currentState = RES_FSM_CHECK_MASTER;
+case MODEM_SET_CALLER_ID:
+Uart_WriteConstString(1,"AT+CLIP=1\r\n");
+currentState = MODEM_INIT_COMPLETE;
+break;
+
+case MODEM_INIT_COMPLETE:
+currentState = MODEM_INIT;
+isInitialized = 1;
 break;
 
 default:
 break;
 }
-return isComplete;
+return isInitialized;
+}
+
+# 170
+bool initEeprom(void)
+{
+const uint8_t addressToRead = 0;
+static eepromStates currentState = EEPROM_INIT;
+EepromStsType memoryOpResult = OP_PENDING;
+bool isInitialized = 0;
+
+switch (currentState)
+{
+case EEPROM_INIT:
+memoryOpResult = Eeprom_Read(0, memoryPreamble, 4);
+if (memoryOpResult != OP_PENDING)
+{
+if (memoryPreamble[0] == 'U' &&
+memoryPreamble[1] == 'S' &&
+memoryPreamble[2] == 'I' &&
+memoryPreamble[3] == 'M')
+{
+currentState = EEPROM_NOT_EMPTY;
+}
+else
+{
+currentState = EEPROM_EMPTY;
+}
+}
+break;
+
+case EEPROM_EMPTY:
+currentState = EEPROM_INIT;
+isInitialized = 1;
+isMemoryEmpty = 1;
+break;
+
+case EEPROM_NOT_EMPTY:
+currentState = EEPROM_INIT;
+isInitialized = 1;
+isMemoryEmpty = 0;
+break;
+
+default:
+break;
+}
+return isInitialized;
+}
+
+# 221
+bool getSetupCall(void)
+{
+bool isCalledReceived = 0;
+
+if (Mdm_IsRinging())
+{
+Mdm_HangPhoneCall();
+isCalledReceived = 1;
+}
+return isCalledReceived;
+}
+
+# 239
+bool waitSetupCall(void)
+{
+bool isCallArrived = 0;
+if (!secondsAppTimer(30, &setupCallTicks, 0))
+{
+Led_SetLedStatus(1u, LED_STS_BLINK);
+if (getSetupCall())
+{
+isCallArrived = 1;
+}
+}
+else
+{
+Led_SetLedStatus(1u, LED_STS_ON);
+}
+return isCallArrived;
+}
+
+# 260
+void savePreamble()
+{
+Eeprom_Write(0, initPreamble(), 4);
+}
+
+# 274
+bool initFsm(bool* isCmdSuccessfull)
+{
+static initFsmStates currentState = INIT_FSM_MODEM;
+bool isInitialized = 0;
+
+switch (currentState)
+{
+case INIT_FSM_MODEM:
+if (initGprsModem())
+{
+currentState = INIT_FSM_EEPROM;
+}
+break;
+
+case INIT_FSM_EEPROM:
+if (initEeprom())
+{
+currentState = INIT_FSM_WAIT_CMD;
+setupCallTicks = 0;
+}
+break;
+
+case INIT_FSM_WAIT_CMD:
+if (isMemoryEmpty)
+{
+if (waitSetupCall())
+{
+saveNumberInMemory(16, GetCallerNumber());
+currentState = INIT_FSM_PREAMBLE;
+}
+if (detectUsbNumber(isCmdSuccessfull))
+{
+currentState = INIT_FSM_PREAMBLE;
+}
+}
+else
+{
+currentState = INIT_FSM_COMPLETE;
+}
+break;
+
+case INIT_FSM_PREAMBLE:
+savePreamble();
+currentState = INIT_FSM_COMPLETE;
+break;
+
+case INIT_FSM_COMPLETE:
+Led_SetLedStatus(1u, LED_STS_ON);
+currentState = INIT_FSM_MODEM;
+isInitialized = 1;
+break;
+
+default:
+break;
+}
+return isInitialized;
+}
+
+# 339
+bool detectUsbNumber(bool* isCmdSuccessfull)
+{
+bool isActionPerformed = 0;
+
+if (IsUsbNumberReceived == 1)
+{
+saveNumberInMemory(16, UsbMasterPhoneNumber);
+*isCmdSuccessfull = 1;
+isActionPerformed = 1;
+IsUsbNumberReceived = 0;
+}
+return isActionPerformed;
 }

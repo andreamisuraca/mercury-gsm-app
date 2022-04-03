@@ -87,12 +87,13 @@
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="04_App" displayName="04_App" projectFiles="true">
-        <itemPath>../Source/h/04_App/app_init.h</itemPath>
-        <itemPath>../Source/h/04_App/app_utils.h</itemPath>
-        <itemPath>../Source/h/04_App/app_addCmd.h</itemPath>
-        <itemPath>../Source/h/04_App/app_delCmd.h</itemPath>
-        <itemPath>../Source/h/04_App/app_triggerCmd.h</itemPath>
-        <itemPath>../Source/h/04_App/app_resCmd.h</itemPath>
+        <itemPath>../Source/h/04_App/app_main.h</itemPath>
+        <itemPath>../Source/h/04_App/cmd_add.h</itemPath>
+        <itemPath>../Source/h/04_App/cmd_del.h</itemPath>
+        <itemPath>../Source/h/04_App/cmd_init.h</itemPath>
+        <itemPath>../Source/h/04_App/cmd_res.h</itemPath>
+        <itemPath>../Source/h/04_App/cmd_trigger.h</itemPath>
+        <itemPath>../Source/h/04_App/utils.h</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
@@ -169,13 +170,13 @@
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="04_App" displayName="04_App" projectFiles="true">
-        <itemPath>../Source/c/04_App/app.c</itemPath>
-        <itemPath>../Source/c/04_App/app_init.c</itemPath>
-        <itemPath>../Source/c/04_App/app_utils.c</itemPath>
-        <itemPath>../Source/c/04_App/app_addCmd.c</itemPath>
-        <itemPath>../Source/c/04_App/app_delCmd.c</itemPath>
-        <itemPath>../Source/c/04_App/app_triggerCmd.c</itemPath>
-        <itemPath>../Source/c/04_App/app_resCmd.c</itemPath>
+        <itemPath>../Source/c/04_App/app_main.c</itemPath>
+        <itemPath>../Source/c/04_App/cmd_add.c</itemPath>
+        <itemPath>../Source/c/04_App/cmd_del.c</itemPath>
+        <itemPath>../Source/c/04_App/cmd_init.c</itemPath>
+        <itemPath>../Source/c/04_App/cmd_res.c</itemPath>
+        <itemPath>../Source/c/04_App/cmd_trigger.c</itemPath>
+        <itemPath>../Source/c/04_App/utils.c</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"

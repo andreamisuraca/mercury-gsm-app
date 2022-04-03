@@ -1,16 +1,21 @@
 Version 3.2 HI-TECH Software Intermediate Code
 [v F7983 `(v ~T0 @X0 0 tf ]
 [v F8056 `(v ~T0 @X0 0 tf ]
-"73 ../Source/c/04_App/app_resCmd.c
-[c E9005 0 1 2 .. ]
-[n E9005 _resFsmStates RES_FSM_CHECK_MASTER RES_FSM_RESET RES_FSM_COMPLETE  ]
-"75
+"81 ../Source/c/04_App/cmd_del.c
+[c E9004 0 1 2 .. ]
+[n E9004 _delFsmStates DEL_FSM_CHECK_MASTER DEL_FSM_REMOVE_NUMBER DEL_FSM_COMPLETE  ]
+"84
 [c E8246 0 1 2 .. ]
 [n E8246 _EepromSts OP_SUCCESS OP_FAILED OP_PENDING  ]
-"73 ../Source/h/04_App/app_utils.h
+"116 ../Source/h/04_App/utils.h
 [v _isMasterNumber `(uc ~T0 @X0 0 ef1`*uc ]
-"63 ../../MercuryFwk/Source/h/03_Sml/01_Pml/05_Eeprom/eeprom_if.h
-[v _Eeprom_Reset `(uc ~T0 @X0 0 ef ]
+"103 ../Source/c/04_App/cmd_del.c
+[c E8974 0 1 2 3 4 .. ]
+[n E8974 _searchFsmStates SEARCH_FSM_START SEARCH_FSM_CHECK_NUMBER SEARCH_FSM_ERROR SEARCH_FSM_FOUND SEARCH_FSM_NOT_FOUND  ]
+"108 ../Source/h/04_App/utils.h
+[v _isNumberInMemory `(E8974 ~T0 @X0 0 ef2`*uc`*uc ]
+"90
+[v _saveNumberInMemory `(v ~T0 @X0 0 ef2`uc`*uc ]
 "30 ../../MercuryFwk/Source/h/01_Hal/01_Sys/hal.h
 [p n 1510 ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
@@ -8235,160 +8240,199 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;os_sched.h: 79: extern SystemStateType SystemState;
 [; ;os_sched.h: 86: void Sch_MainScheduler (void);
 [; ;os_sched.h: 88: void Sch_SchmIntService (void);
-[; ;app.h: 53: void MyApp_Task (UINT8 Options);
-[; ;app_utils.h: 47: typedef enum _searchFsmStates
-[; ;app_utils.h: 48: {
-[; ;app_utils.h: 49: SEARCH_FSM_START = 0,
-[; ;app_utils.h: 50: SEARCH_FSM_CHECK_NUMBER,
-[; ;app_utils.h: 51: SEARCH_FSM_ERROR,
-[; ;app_utils.h: 52: SEARCH_FSM_FOUND,
-[; ;app_utils.h: 53: SEARCH_FSM_NOT_FOUND
-[; ;app_utils.h: 54: } searchFsmStates;
-[; ;app_utils.h: 63: bool secondsAppTimer(uint8_t seconds, uint16_t* counter, bool isCyclic);
-[; ;app_utils.h: 66: void cmdVisualEffet(bool isCmdSuccessfull);
-[; ;app_utils.h: 67: void triggerVisualEffect();
-[; ;app_utils.h: 68: bool waitSetupCall(void);
-[; ;app_utils.h: 69: void saveNumberInMemory(UINT8 address, UINT8* phoneNumber);
-[; ;app_utils.h: 70: bool isNumberValid(uint8_t* phoneNumber);
-[; ;app_utils.h: 71: searchFsmStates isNumberInMemory(uint8_t* phoneNumber, uint8_t* positionInMemory);
-[; ;app_utils.h: 72: searchFsmStates findEmptySpot(uint8_t* positionInMemory);
-[; ;app_utils.h: 73: uint8_t isMasterNumber(uint8_t* phoneNumber);
-[; ;app_resCmd.h: 49: bool resCmdFsm(uint8_t* receivedNumber, bool* isCmdSuccessfull);
-[; ;app_resCmd.c: 41: typedef enum _resFsmStates
-[; ;app_resCmd.c: 42: {
-[; ;app_resCmd.c: 43: RES_FSM_CHECK_MASTER = 0,
-[; ;app_resCmd.c: 44: RES_FSM_RESET,
-[; ;app_resCmd.c: 45: RES_FSM_COMPLETE
-[; ;app_resCmd.c: 46: } resFsmStates;
-"71 ../Source/c/04_App/app_resCmd.c
-[v _resCmdFsm `(uc ~T0 @X0 1 ef2`*uc`*uc ]
-"72
-{
-[; ;app_resCmd.c: 71: bool resCmdFsm(uint8_t* receivedNumber, bool* isCmdSuccessfull)
-[; ;app_resCmd.c: 72: {
-[e :U _resCmdFsm ]
-"71
-[v _receivedNumber `*uc ~T0 @X0 1 r1 ]
-[v _isCmdSuccessfull `*uc ~T0 @X0 1 r2 ]
-"72
-[f ]
-"73
-[v F9012 `E9005 ~T0 @X0 1 s currentState ]
-[i F9012
-. `E9005 0
-]
-"74
-[v _isComplete `uc ~T0 @X0 1 a ]
-[; ;app_resCmd.c: 73: static resFsmStates currentState = RES_FSM_CHECK_MASTER;
-[; ;app_resCmd.c: 74: bool isComplete = 0;
-[e = _isComplete -> -> 0 `i `uc ]
-"75
-[v _masterOpResult `uc ~T0 @X0 1 a ]
-[; ;app_resCmd.c: 75: uint8_t masterOpResult = OP_FAILED;
-[e = _masterOpResult -> . `E8246 1 `uc ]
-[; ;app_resCmd.c: 77: switch (currentState)
-"77
-[e $U 889  ]
-[; ;app_resCmd.c: 78: {
-"78
-{
-[; ;app_resCmd.c: 79: case RES_FSM_CHECK_MASTER:
+[; ;app_main.h: 54: void MyApp_Task (UINT8 Options);
+[; ;utils.h: 45: typedef enum _searchFsmStates
+[; ;utils.h: 46: {
+[; ;utils.h: 47: SEARCH_FSM_START = 0,
+[; ;utils.h: 48: SEARCH_FSM_CHECK_NUMBER,
+[; ;utils.h: 49: SEARCH_FSM_ERROR,
+[; ;utils.h: 50: SEARCH_FSM_FOUND,
+[; ;utils.h: 51: SEARCH_FSM_NOT_FOUND
+[; ;utils.h: 52: } searchFsmStates;
+[; ;utils.h: 70: bool secondsAppTimer(uint8_t seconds, uint16_t* counter, bool isCyclic);
+[; ;utils.h: 75: void triggerVisualEffect();
+[; ;utils.h: 82: void cmdVisualEffet(bool isCmdSuccessfull);
+[; ;utils.h: 90: void saveNumberInMemory(UINT8 address, UINT8* phoneNumber);
+[; ;utils.h: 99: bool isNumberValid(uint8_t* phoneNumber);
+[; ;utils.h: 108: searchFsmStates isNumberInMemory(uint8_t* phoneNumber, uint8_t* positionInMemory);
+[; ;utils.h: 116: uint8_t isMasterNumber(uint8_t* phoneNumber);
+[; ;utils.h: 124: searchFsmStates findEmptySpot(uint8_t* positionInMemory);
+[; ;cmd_del.h: 57: bool delCmdFsm(uint8_t* receivedNumber, uint8_t* smsText, bool* isCmdSuccessfull);
+[; ;cmd_del.c: 43: typedef enum _delFsmStates
+[; ;cmd_del.c: 44: {
+[; ;cmd_del.c: 45: DEL_FSM_CHECK_MASTER = 0,
+[; ;cmd_del.c: 46: DEL_FSM_REMOVE_NUMBER,
+[; ;cmd_del.c: 47: DEL_FSM_COMPLETE
+[; ;cmd_del.c: 48: } delFsmStates;
+"78 ../Source/c/04_App/cmd_del.c
+[v _delCmdFsm `(uc ~T0 @X0 1 ef3`*uc`*uc`*uc ]
 "79
-[e :U 890 ]
-[; ;app_resCmd.c: 80: *isCmdSuccessfull = 0;
+{
+[; ;cmd_del.c: 78: bool delCmdFsm(uint8_t* receivedNumber, uint8_t* smsText, bool* isCmdSuccessfull)
+[; ;cmd_del.c: 79: {
+[e :U _delCmdFsm ]
+"78
+[v _receivedNumber `*uc ~T0 @X0 1 r1 ]
+[v _smsText `*uc ~T0 @X0 1 r2 ]
+[v _isCmdSuccessfull `*uc ~T0 @X0 1 r3 ]
+"79
+[f ]
+[v F9014 `Cuc ~T0 @X0 -> -> -> 13 `i `uc `ux s ]
+[i F9014
+:U ..
 "80
-[e = *U _isCmdSuccessfull -> -> 0 `i `uc ]
-[; ;app_resCmd.c: 81: masterOpResult = isMasterNumber(receivedNumber);
+-> -> 0 `i `uc
+..
+]
+[v _emptyNumber `Cuc ~T0 @X0 -> -> -> 13 `i `uc `ux a ]
+[; ;cmd_del.c: 80: const uint8_t emptyNumber[((UINT8)(13))] = {0};
+[e = _emptyNumber F9014 ]
 "81
-[e = _masterOpResult ( _isMasterNumber (1 _receivedNumber ]
-[; ;app_resCmd.c: 82: if (masterOpResult == OP_SUCCESS)
+[v F9015 `E9004 ~T0 @X0 1 s currentState ]
+[i F9015
+. `E9004 0
+]
 "82
-[e $ ! == -> _masterOpResult `i -> . `E8246 0 `i 891  ]
-[; ;app_resCmd.c: 83: {
+[v _isComplete `uc ~T0 @X0 1 a ]
+[; ;cmd_del.c: 81: static delFsmStates currentState = DEL_FSM_CHECK_MASTER;
+[; ;cmd_del.c: 82: bool isComplete = 0;
+[e = _isComplete -> -> 0 `i `uc ]
 "83
-{
-[; ;app_resCmd.c: 84: currentState = RES_FSM_RESET;
+[v _numberInMemory `uc ~T0 @X0 1 a ]
+[; ;cmd_del.c: 83: uint8_t numberInMemory = 0;
+[e = _numberInMemory -> -> 0 `i `uc ]
 "84
-[e = F9012 . `E9005 1 ]
+[v _masterOpResult `uc ~T0 @X0 1 a ]
+[; ;cmd_del.c: 84: uint8_t masterOpResult = OP_FAILED;
+[e = _masterOpResult -> . `E8246 1 `uc ]
 "85
-}
-[; ;app_resCmd.c: 85: }
-[e $U 892  ]
-"86
-[e :U 891 ]
-[; ;app_resCmd.c: 86: else if (masterOpResult == OP_FAILED)
-[e $ ! == -> _masterOpResult `i -> . `E8246 1 `i 893  ]
-[; ;app_resCmd.c: 87: {
+[v _searchNumber `uc ~T0 @X0 1 a ]
+[; ;cmd_del.c: 85: uint8_t searchNumber = OP_FAILED;
+[e = _searchNumber -> . `E8246 1 `uc ]
+[; ;cmd_del.c: 87: switch (currentState)
 "87
-{
-[; ;app_resCmd.c: 88: currentState = RES_FSM_COMPLETE;
+[e $U 889  ]
+[; ;cmd_del.c: 88: {
 "88
-[e = F9012 . `E9005 2 ]
+{
+[; ;cmd_del.c: 89: case DEL_FSM_CHECK_MASTER:
 "89
+[e :U 890 ]
+[; ;cmd_del.c: 90: *isCmdSuccessfull = 0;
+"90
+[e = *U _isCmdSuccessfull -> -> 0 `i `uc ]
+[; ;cmd_del.c: 91: masterOpResult = isMasterNumber(receivedNumber);
+"91
+[e = _masterOpResult ( _isMasterNumber (1 _receivedNumber ]
+[; ;cmd_del.c: 92: if (masterOpResult == OP_SUCCESS)
+"92
+[e $ ! == -> _masterOpResult `i -> . `E8246 0 `i 891  ]
+[; ;cmd_del.c: 93: {
+"93
+{
+[; ;cmd_del.c: 94: currentState = DEL_FSM_REMOVE_NUMBER;
+"94
+[e = F9015 . `E9004 1 ]
+"95
+}
+[; ;cmd_del.c: 95: }
+[e $U 892  ]
+"96
+[e :U 891 ]
+[; ;cmd_del.c: 96: else if (masterOpResult == OP_FAILED)
+[e $ ! == -> _masterOpResult `i -> . `E8246 1 `i 893  ]
+[; ;cmd_del.c: 97: {
+"97
+{
+[; ;cmd_del.c: 98: currentState = DEL_FSM_COMPLETE;
+"98
+[e = F9015 . `E9004 2 ]
+"99
 }
 [e :U 893 ]
-"90
-[e :U 892 ]
-[; ;app_resCmd.c: 89: }
-[; ;app_resCmd.c: 90: break;
-[e $U 888  ]
-[; ;app_resCmd.c: 92: case RES_FSM_RESET:
-"92
-[e :U 894 ]
-[; ;app_resCmd.c: 93: if (Eeprom_Reset() == 0)
-"93
-[e $ ! == -> ( _Eeprom_Reset ..  `i -> 0 `i 895  ]
-[; ;app_resCmd.c: 94: {
-"94
-{
-[; ;app_resCmd.c: 95: currentState = RES_FSM_COMPLETE;
-"95
-[e = F9012 . `E9005 2 ]
-[; ;app_resCmd.c: 96: *isCmdSuccessfull = 1;
-"96
-[e = *U _isCmdSuccessfull -> -> 1 `i `uc ]
-"97
-}
-[e :U 895 ]
-[; ;app_resCmd.c: 97: }
-[; ;app_resCmd.c: 98: break;
-"98
-[e $U 888  ]
-[; ;app_resCmd.c: 100: case RES_FSM_COMPLETE:
 "100
-[e :U 896 ]
-[; ;app_resCmd.c: 101: isComplete = 1;
-"101
-[e = _isComplete -> -> 1 `i `uc ]
-[; ;app_resCmd.c: 102: currentState = RES_FSM_CHECK_MASTER;
+[e :U 892 ]
+[; ;cmd_del.c: 99: }
+[; ;cmd_del.c: 100: break;
+[e $U 888  ]
+[; ;cmd_del.c: 102: case DEL_FSM_REMOVE_NUMBER:
 "102
-[e = F9012 . `E9005 0 ]
-[; ;app_resCmd.c: 103: break;
+[e :U 894 ]
+[; ;cmd_del.c: 103: searchNumber = isNumberInMemory(smsText + 4, &numberInMemory);
 "103
-[e $U 888  ]
-[; ;app_resCmd.c: 105: default:
+[e = _searchNumber -> ( _isNumberInMemory (2 , + _smsText * -> -> 4 `i `x -> -> # *U _smsText `i `x &U _numberInMemory `uc ]
+[; ;cmd_del.c: 104: if (searchNumber == SEARCH_FSM_FOUND)
+"104
+[e $ ! == -> _searchNumber `i -> . `E8974 3 `i 895  ]
+[; ;cmd_del.c: 105: {
 "105
-[e :U 897 ]
-[; ;app_resCmd.c: 106: break;
+{
+[; ;cmd_del.c: 106: saveNumberInMemory(numberInMemory, emptyNumber);
 "106
-[e $U 888  ]
+[e ( _saveNumberInMemory (2 , _numberInMemory -> &U _emptyNumber `*uc ]
+[; ;cmd_del.c: 107: currentState = DEL_FSM_COMPLETE;
 "107
-}
-[; ;app_resCmd.c: 107: }
-[e $U 888  ]
-"77
-[e :U 889 ]
-[e [\ F9012 , $ . `E9005 0 890
- , $ . `E9005 1 894
- , $ . `E9005 2 896
- 897 ]
-"107
-[e :U 888 ]
-[; ;app_resCmd.c: 108: return isComplete;
+[e = F9015 . `E9004 2 ]
+[; ;cmd_del.c: 108: *isCmdSuccessfull = 1;
 "108
+[e = *U _isCmdSuccessfull -> -> 1 `i `uc ]
+"109
+}
+[; ;cmd_del.c: 109: }
+[e $U 896  ]
+"110
+[e :U 895 ]
+[; ;cmd_del.c: 110: else if (searchNumber == SEARCH_FSM_NOT_FOUND || searchNumber == SEARCH_FSM_ERROR)
+[e $ ! || == -> _searchNumber `i -> . `E8974 4 `i == -> _searchNumber `i -> . `E8974 2 `i 897  ]
+[; ;cmd_del.c: 111: {
+"111
+{
+[; ;cmd_del.c: 112: currentState = DEL_FSM_COMPLETE;
+"112
+[e = F9015 . `E9004 2 ]
+"113
+}
+[e :U 897 ]
+"114
+[e :U 896 ]
+[; ;cmd_del.c: 113: }
+[; ;cmd_del.c: 114: break;
+[e $U 888  ]
+[; ;cmd_del.c: 116: case DEL_FSM_COMPLETE:
+"116
+[e :U 898 ]
+[; ;cmd_del.c: 117: isComplete = 1;
+"117
+[e = _isComplete -> -> 1 `i `uc ]
+[; ;cmd_del.c: 118: currentState = DEL_FSM_CHECK_MASTER;
+"118
+[e = F9015 . `E9004 0 ]
+[; ;cmd_del.c: 119: break;
+"119
+[e $U 888  ]
+[; ;cmd_del.c: 121: default:
+"121
+[e :U 899 ]
+[; ;cmd_del.c: 122: break;
+"122
+[e $U 888  ]
+"123
+}
+[; ;cmd_del.c: 123: }
+[e $U 888  ]
+"87
+[e :U 889 ]
+[e [\ F9015 , $ . `E9004 0 890
+ , $ . `E9004 1 894
+ , $ . `E9004 2 898
+ 899 ]
+"123
+[e :U 888 ]
+[; ;cmd_del.c: 124: return isComplete;
+"124
 [e ) _isComplete ]
 [e $UE 887  ]
-[; ;app_resCmd.c: 109: }
-"109
+[; ;cmd_del.c: 125: }
+"125
 [e :UE 887 ]
 }

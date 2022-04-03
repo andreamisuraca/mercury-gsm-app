@@ -1,5 +1,5 @@
 
-# 1 "../Source/c/04_App/app_init.c"
+# 1 "../Source/c/04_App/cmd_trigger.c"
 
 
 # 30 "../../MercuryFwk/Source/h/01_Hal/01_Sys/hal.h"
@@ -11220,17 +11220,10 @@ void Sch_MainScheduler (void);
 
 void Sch_SchmIntService (void);
 
-# 53 "../Source/h/04_App/app.h"
+# 54 "../Source/h/04_App/app_main.h"
 void MyApp_Task (UINT8 Options);
 
-# 51 "../Source/h/04_App/app_init.h"
-bool initFsm(bool* isCmdSuccessfull);
-
-uint8_t* initPreamble();
-
-bool detectUsbNumber(bool* isCmdSuccessfull);
-
-# 47 "../Source/h/04_App/app_utils.h"
+# 45 "../Source/h/04_App/utils.h"
 typedef enum _searchFsmStates
 {
 SEARCH_FSM_START = 0,
@@ -11240,252 +11233,121 @@ SEARCH_FSM_FOUND,
 SEARCH_FSM_NOT_FOUND
 } searchFsmStates;
 
-# 63
+# 70
 bool secondsAppTimer(uint8_t seconds, uint16_t* counter, bool isCyclic);
 
-
-void cmdVisualEffet(bool isCmdSuccessfull);
+# 75
 void triggerVisualEffect();
-bool waitSetupCall(void);
+
+# 82
+void cmdVisualEffet(bool isCmdSuccessfull);
+
+# 90
 void saveNumberInMemory(UINT8 address, UINT8* phoneNumber);
+
+# 99
 bool isNumberValid(uint8_t* phoneNumber);
+
+# 108
 searchFsmStates isNumberInMemory(uint8_t* phoneNumber, uint8_t* positionInMemory);
-searchFsmStates findEmptySpot(uint8_t* positionInMemory);
+
+# 116
 uint8_t isMasterNumber(uint8_t* phoneNumber);
 
-# 42 "../Source/c/04_App/app_init.c"
-typedef enum _modemStates
-{
-MODEM_INIT = 0,
-MODEM_DELETE_SMS,
-MODEM_SET_CALLER_ID,
-MODEM_INIT_COMPLETE
-} modemStates;
+# 124
+searchFsmStates findEmptySpot(uint8_t* positionInMemory);
 
-typedef enum _eepromStates
-{
-EEPROM_INIT = 0,
-EEPROM_EMPTY,
-EEPROM_NOT_EMPTY
-} eepromStates;
+# 55 "../Source/h/04_App/cmd_trigger.h"
+bool triggerCmdFsm(uint8_t* receivedNumber);
 
-typedef enum _initFsmStates
+# 43 "../Source/c/04_App/cmd_trigger.c"
+typedef enum _triggerFsmStates
 {
-INIT_FSM_MODEM = 0,
-INIT_FSM_EEPROM,
-INIT_FSM_WAIT_CMD,
-INIT_FSM_PREAMBLE,
-INIT_FSM_COMPLETE
-} initFsmStates;
+TRIGGER_FSM_CHECK_MASTER = 0,
+TRIGGER_FSM_CHECK_NUMBER,
+TRIGGER_FSM_ACTIVATE_RELAY,
+TRIGGER_FSM_DEACTIVATE_RELAY,
+TRIGGER_FSM_COMPLETE
+} triggerFsmStates;
 
-# 70
-static uint8_t memoryPreamble[4];
-static uint16_t setupCallTicks = 0;
-static bool isMemoryEmpty = 1;
+# 59
+static uint8_t relayBuffer[2] = {0x50, 0x00};
 
-# 87
-bool initGprsModem(void)
-{
-static uint16_t modemCounter = 0;
-static modemStates currentState = MODEM_INIT;
-bool isInitialized = 0;
+# 64
+static uint16_t secondCounter = 0;
 
-switch(currentState)
+# 83
+uint8_t triggerRelay(bool isRelayOn)
 {
-case MODEM_INIT:
-if (MdmStatus == ModemConfigured || MdmStatus == ModemOn)
+uint8_t res = 0u;
+if (isRelayOn)
 {
-if (secondsAppTimer(5, &modemCounter, 0))
-{
-Mdm_SetSmsFormat(1);
-currentState = MODEM_DELETE_SMS;
+relayBuffer[1] = 0x01;
 }
+else
+{
+relayBuffer[1] = 0x00;
 }
-break;
-
-case MODEM_DELETE_SMS:
-Uart_WriteConstString(1,"AT+CMGDA=DEL ALL\r\n");
-currentState = MODEM_SET_CALLER_ID;
-break;
-
-case MODEM_SET_CALLER_ID:
-Uart_WriteConstString(1,"AT+CLIP=1\r\n");
-currentState = MODEM_INIT_COMPLETE;
-break;
-
-case MODEM_INIT_COMPLETE:
-currentState = MODEM_INIT;
-isInitialized = 1;
-break;
-
-default:
-break;
-}
-return isInitialized;
+res = I2cSlv_SendI2cMsg(relayBuffer, 1, 2);
+return res;
 }
 
-# 131
-bool initEeprom(void)
+# 108
+bool triggerCmdFsm(uint8_t* receivedNumber)
 {
-const uint8_t addressToRead = 0;
-static eepromStates currentState = EEPROM_INIT;
-EepromStsType memoryOpResult = OP_PENDING;
-bool isInitialized = 0;
+static triggerFsmStates currentState = TRIGGER_FSM_CHECK_MASTER;
+bool isComplete = 0;
+uint8_t numberInMemory = 0;
+uint8_t masterOpResult = OP_FAILED;
+uint8_t searchNumber = OP_FAILED;
 
 switch (currentState)
 {
-case EEPROM_INIT:
-memoryOpResult = Eeprom_Read(0, memoryPreamble, 4);
-if (memoryOpResult != OP_PENDING)
+case TRIGGER_FSM_CHECK_MASTER:
+masterOpResult = isMasterNumber(receivedNumber);
+if (masterOpResult == OP_SUCCESS)
 {
-if (memoryPreamble[0] == 'U' &&
-memoryPreamble[1] == 'S' &&
-memoryPreamble[2] == 'I' &&
-memoryPreamble[3] == 'M')
-{
-currentState = EEPROM_NOT_EMPTY;
+currentState = TRIGGER_FSM_ACTIVATE_RELAY;
 }
-else
+else if (masterOpResult == OP_FAILED)
 {
-currentState = EEPROM_EMPTY;
-}
+currentState = TRIGGER_FSM_CHECK_NUMBER;
 }
 break;
 
-case EEPROM_EMPTY:
-currentState = EEPROM_INIT;
-isInitialized = 1;
-isMemoryEmpty = 1;
-break;
-
-case EEPROM_NOT_EMPTY:
-currentState = EEPROM_INIT;
-isInitialized = 1;
-isMemoryEmpty = 0;
-break;
-
-default:
-break;
+case TRIGGER_FSM_CHECK_NUMBER:
+searchNumber = isNumberInMemory(receivedNumber, &numberInMemory);
+if (searchNumber == SEARCH_FSM_FOUND)
+{
+currentState = TRIGGER_FSM_ACTIVATE_RELAY;
 }
-return isInitialized;
-}
-
-# 180
-bool getSetupCall(void)
+else if (searchNumber == SEARCH_FSM_NOT_FOUND || searchNumber == SEARCH_FSM_ERROR)
 {
-bool isCalledReceived = 0;
-
-if (Mdm_IsRinging())
-{
-Mdm_HangPhoneCall();
-isCalledReceived = 1;
-}
-return isCalledReceived;
-}
-
-# 196
-bool waitSetupCall(void)
-{
-bool isCallArrived = 0;
-if (!secondsAppTimer(30, &setupCallTicks, 0))
-{
-Led_SetLedStatus(1u, LED_STS_BLINK);
-if (getSetupCall())
-{
-isCallArrived = 1;
-}
-}
-else
-{
-Led_SetLedStatus(1u, LED_STS_ON);
-}
-return isCallArrived;
-}
-
-void savePreamble()
-{
-Eeprom_Write(0, initPreamble(), 4);
-}
-
-# 226
-bool initFsm(bool* isCmdSuccessfull)
-{
-static initFsmStates currentState = INIT_FSM_MODEM;
-bool isInitialized = 0;
-
-switch (currentState)
-{
-case INIT_FSM_MODEM:
-if (initGprsModem())
-{
-currentState = INIT_FSM_EEPROM;
+currentState = TRIGGER_FSM_COMPLETE;
 }
 break;
 
-case INIT_FSM_EEPROM:
-if (initEeprom())
+case TRIGGER_FSM_ACTIVATE_RELAY:
+triggerRelay(1);
+secondCounter = 0;
+currentState = TRIGGER_FSM_DEACTIVATE_RELAY;
+break;
+
+case TRIGGER_FSM_DEACTIVATE_RELAY:
+if (secondsAppTimer(1, secondCounter, 0))
 {
-currentState = INIT_FSM_WAIT_CMD;
-setupCallTicks = 0;
+triggerRelay(0);
+currentState = TRIGGER_FSM_COMPLETE;
 }
 break;
 
-case INIT_FSM_WAIT_CMD:
-if (isMemoryEmpty)
-{
-if (waitSetupCall())
-{
-saveNumberInMemory(16, GetCallerNumber());
-currentState = INIT_FSM_PREAMBLE;
-}
-if (detectUsbNumber(isCmdSuccessfull))
-{
-currentState = INIT_FSM_PREAMBLE;
-}
-}
-else
-{
-currentState = INIT_FSM_COMPLETE;
-}
-break;
-
-case INIT_FSM_PREAMBLE:
-savePreamble();
-currentState = INIT_FSM_COMPLETE;
-break;
-
-case INIT_FSM_COMPLETE:
-Led_SetLedStatus(1u, LED_STS_ON);
-currentState = INIT_FSM_MODEM;
-isInitialized = 1;
+case TRIGGER_FSM_COMPLETE:
+isComplete = 1;
+currentState = TRIGGER_FSM_CHECK_MASTER;
 break;
 
 default:
 break;
 }
-return isInitialized;
-}
-
-# 289
-uint8_t* initPreamble()
-{
-memoryPreamble[0] = 'U';
-memoryPreamble[1] = 'S';
-memoryPreamble[2] = 'I';
-memoryPreamble[3] = 'M';
-return memoryPreamble;
-}
-
-bool detectUsbNumber(bool* isCmdSuccessfull)
-{
-bool isActionPerformed = 0;
-
-if (IsUsbNumberReceived == 1)
-{
-saveNumberInMemory(16, UsbMasterPhoneNumber);
-*isCmdSuccessfull = 1;
-isActionPerformed = 1;
-IsUsbNumberReceived = 0;
-}
-return isActionPerformed;
+return isComplete;
 }

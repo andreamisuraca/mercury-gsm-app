@@ -1,5 +1,5 @@
 
-# 1 "../Source/c/04_App/app_triggerCmd.c"
+# 1 "../Source/c/04_App/cmd_add.c"
 
 
 # 30 "../../MercuryFwk/Source/h/01_Hal/01_Sys/hal.h"
@@ -11220,10 +11220,10 @@ void Sch_MainScheduler (void);
 
 void Sch_SchmIntService (void);
 
-# 53 "../Source/h/04_App/app.h"
+# 54 "../Source/h/04_App/app_main.h"
 void MyApp_Task (UINT8 Options);
 
-# 47 "../Source/h/04_App/app_utils.h"
+# 45 "../Source/h/04_App/utils.h"
 typedef enum _searchFsmStates
 {
 SEARCH_FSM_START = 0,
@@ -11233,56 +11233,46 @@ SEARCH_FSM_FOUND,
 SEARCH_FSM_NOT_FOUND
 } searchFsmStates;
 
-# 63
+# 70
 bool secondsAppTimer(uint8_t seconds, uint16_t* counter, bool isCyclic);
 
-
-void cmdVisualEffet(bool isCmdSuccessfull);
+# 75
 void triggerVisualEffect();
-bool waitSetupCall(void);
+
+# 82
+void cmdVisualEffet(bool isCmdSuccessfull);
+
+# 90
 void saveNumberInMemory(UINT8 address, UINT8* phoneNumber);
+
+# 99
 bool isNumberValid(uint8_t* phoneNumber);
+
+# 108
 searchFsmStates isNumberInMemory(uint8_t* phoneNumber, uint8_t* positionInMemory);
-searchFsmStates findEmptySpot(uint8_t* positionInMemory);
+
+# 116
 uint8_t isMasterNumber(uint8_t* phoneNumber);
 
-# 49 "../Source/h/04_App/app_triggerCmd.h"
-bool triggerCmdFsm(uint8_t* receivedNumber);
+# 124
+searchFsmStates findEmptySpot(uint8_t* positionInMemory);
 
-# 41 "../Source/c/04_App/app_triggerCmd.c"
-typedef enum _triggerFsmStates
-{
-TRIGGER_FSM_CHECK_MASTER = 0,
-TRIGGER_FSM_CHECK_NUMBER,
-TRIGGER_FSM_ACTIVATE_RELAY,
-TRIGGER_FSM_DEACTIVATE_RELAY,
-TRIGGER_FSM_COMPLETE
-} triggerFsmStates;
+# 57 "../Source/h/04_App/cmd_add.h"
+bool addCmdFsm(uint8_t* receivedNumber, uint8_t* smsText, bool* isCmdSuccessfull);
 
-# 53
-static uint8_t relayBuffer[2] = {0x50, 0x00};
-static uint16_t secondCounter = 0;
+# 43 "../Source/c/04_App/cmd_add.c"
+typedef enum _addFsmStates
+{
+ADD_FSM_CHECK_MASTER = 0,
+ADD_FSM_CHECK_DUPLICATED,
+ADD_FSM_SAVE_NEW,
+ADD_FSM_COMPLETE
+} addFsmStates;
 
-# 67
-uint8_t triggerRelay(bool isRelayOn)
+# 79
+bool addCmdFsm(uint8_t* receivedNumber, uint8_t* smsText, bool* isCmdSuccessfull)
 {
-uint8_t res = 0u;
-if (isRelayOn)
-{
-relayBuffer[1] = 0x01;
-}
-else
-{
-relayBuffer[1] = 0x00;
-}
-res = I2cSlv_SendI2cMsg(relayBuffer, 1, 2);
-return res;
-}
-
-# 89
-bool triggerCmdFsm(uint8_t* receivedNumber)
-{
-static triggerFsmStates currentState = TRIGGER_FSM_CHECK_MASTER;
+static addFsmStates currentState = ADD_FSM_CHECK_MASTER;
 bool isComplete = 0;
 uint8_t numberInMemory = 0;
 uint8_t masterOpResult = OP_FAILED;
@@ -11290,47 +11280,48 @@ uint8_t searchNumber = OP_FAILED;
 
 switch (currentState)
 {
-case TRIGGER_FSM_CHECK_MASTER:
+case ADD_FSM_CHECK_MASTER:
+*isCmdSuccessfull = 0;
 masterOpResult = isMasterNumber(receivedNumber);
 if (masterOpResult == OP_SUCCESS)
 {
-currentState = TRIGGER_FSM_ACTIVATE_RELAY;
+currentState = ADD_FSM_CHECK_DUPLICATED;
 }
 else if (masterOpResult == OP_FAILED)
 {
-currentState = TRIGGER_FSM_CHECK_NUMBER;
+currentState = ADD_FSM_COMPLETE;
 }
 break;
 
-case TRIGGER_FSM_CHECK_NUMBER:
-searchNumber = isNumberInMemory(receivedNumber, &numberInMemory);
-if (searchNumber == SEARCH_FSM_FOUND)
+case ADD_FSM_CHECK_DUPLICATED:
+searchNumber = isNumberInMemory(smsText + 4, &numberInMemory);
+if (searchNumber == SEARCH_FSM_NOT_FOUND)
 {
-currentState = TRIGGER_FSM_ACTIVATE_RELAY;
+currentState = ADD_FSM_SAVE_NEW;
 }
-else if (searchNumber == SEARCH_FSM_NOT_FOUND || searchNumber == SEARCH_FSM_ERROR)
+else if (searchNumber == SEARCH_FSM_FOUND || searchNumber == SEARCH_FSM_ERROR)
 {
-currentState = TRIGGER_FSM_COMPLETE;
+currentState = ADD_FSM_COMPLETE;
 }
 break;
 
-case TRIGGER_FSM_ACTIVATE_RELAY:
-triggerRelay(1);
-secondCounter = 0;
-currentState = TRIGGER_FSM_DEACTIVATE_RELAY;
-break;
-
-case TRIGGER_FSM_DEACTIVATE_RELAY:
-if (secondsAppTimer(1, secondCounter, 0))
+case ADD_FSM_SAVE_NEW:
+searchNumber = findEmptySpot(&numberInMemory);
+if (searchNumber == SEARCH_FSM_NOT_FOUND)
 {
-triggerRelay(0);
-currentState = TRIGGER_FSM_COMPLETE;
+saveNumberInMemory(numberInMemory, smsText + 4);
+currentState = ADD_FSM_COMPLETE;
+*isCmdSuccessfull = 1;
+}
+else if (searchNumber == SEARCH_FSM_FOUND || searchNumber == SEARCH_FSM_ERROR)
+{
+currentState = ADD_FSM_COMPLETE;
 }
 break;
 
-case TRIGGER_FSM_COMPLETE:
+case ADD_FSM_COMPLETE:
+currentState = ADD_FSM_CHECK_MASTER;
 isComplete = 1;
-currentState = TRIGGER_FSM_CHECK_MASTER;
 break;
 
 default:

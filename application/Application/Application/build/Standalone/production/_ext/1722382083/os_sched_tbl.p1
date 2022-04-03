@@ -26,7 +26,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _Rtcm_MainTask `(v ~T0 @X0 0 ef1`uc ]
 "59 ../../MercuryFwk/Source/h/03_Sml/02_Ssl/term.h
 [v _Term_MainTask `(v ~T0 @X0 0 ef1`uc ]
-"53 ../Source/h/04_App/app.h
+"54 ../Source/h/04_App/app_main.h
 [v _MyApp_Task `(v ~T0 @X0 0 ef1`uc ]
 "30 ../../MercuryFwk/Source/h/01_Hal/01_Sys/hal.h
 [p n 1510 ]
@@ -8252,7 +8252,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;ext_int.h: 52: void ExtInt_SetInt0Action (ExtInt_CallbackType Callback);
 [; ;ext_int.h: 53: void ExtInt_SetInt1Action (ExtInt_CallbackType Callback);
 [; ;wdg.h: 53: void Wdg_MainTask (UINT8 Options);
-[; ;app.h: 53: void MyApp_Task (UINT8 Options);
+[; ;app_main.h: 54: void MyApp_Task (UINT8 Options);
 "45 ../../MercuryFwk/Source/c/02_Osl/os_sched_tbl.c
 [v _TaskTable `S803 ~T0 @X0 -> 0 `x e ]
 [i _TaskTable

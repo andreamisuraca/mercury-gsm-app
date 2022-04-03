@@ -1,5 +1,5 @@
 
-# 1 "../Source/c/04_App/app_addCmd.c"
+# 1 "../Source/c/04_App/cmd_del.c"
 
 
 # 30 "../../MercuryFwk/Source/h/01_Hal/01_Sys/hal.h"
@@ -11220,10 +11220,10 @@ void Sch_MainScheduler (void);
 
 void Sch_SchmIntService (void);
 
-# 53 "../Source/h/04_App/app.h"
+# 54 "../Source/h/04_App/app_main.h"
 void MyApp_Task (UINT8 Options);
 
-# 47 "../Source/h/04_App/app_utils.h"
+# 45 "../Source/h/04_App/utils.h"
 typedef enum _searchFsmStates
 {
 SEARCH_FSM_START = 0,
@@ -11233,35 +11233,46 @@ SEARCH_FSM_FOUND,
 SEARCH_FSM_NOT_FOUND
 } searchFsmStates;
 
-# 63
+# 70
 bool secondsAppTimer(uint8_t seconds, uint16_t* counter, bool isCyclic);
 
-
-void cmdVisualEffet(bool isCmdSuccessfull);
+# 75
 void triggerVisualEffect();
-bool waitSetupCall(void);
+
+# 82
+void cmdVisualEffet(bool isCmdSuccessfull);
+
+# 90
 void saveNumberInMemory(UINT8 address, UINT8* phoneNumber);
+
+# 99
 bool isNumberValid(uint8_t* phoneNumber);
+
+# 108
 searchFsmStates isNumberInMemory(uint8_t* phoneNumber, uint8_t* positionInMemory);
-searchFsmStates findEmptySpot(uint8_t* positionInMemory);
+
+# 116
 uint8_t isMasterNumber(uint8_t* phoneNumber);
 
-# 49 "../Source/h/04_App/app_addCmd.h"
-bool addCmdFsm(uint8_t* receivedNumber, uint8_t* smsText, bool* isCmdSuccessfull);
+# 124
+searchFsmStates findEmptySpot(uint8_t* positionInMemory);
 
-# 41 "../Source/c/04_App/app_addCmd.c"
-typedef enum _addFsmStates
-{
-ADD_FSM_CHECK_MASTER = 0,
-ADD_FSM_CHECK_DUPLICATED,
-ADD_FSM_SAVE_NEW,
-ADD_FSM_COMPLETE
-} addFsmStates;
+# 57 "../Source/h/04_App/cmd_del.h"
+bool delCmdFsm(uint8_t* receivedNumber, uint8_t* smsText, bool* isCmdSuccessfull);
 
-# 72
-bool addCmdFsm(uint8_t* receivedNumber, uint8_t* smsText, bool* isCmdSuccessfull)
+# 43 "../Source/c/04_App/cmd_del.c"
+typedef enum _delFsmStates
 {
-static addFsmStates currentState = ADD_FSM_CHECK_MASTER;
+DEL_FSM_CHECK_MASTER = 0,
+DEL_FSM_REMOVE_NUMBER,
+DEL_FSM_COMPLETE
+} delFsmStates;
+
+# 78
+bool delCmdFsm(uint8_t* receivedNumber, uint8_t* smsText, bool* isCmdSuccessfull)
+{
+const uint8_t emptyNumber[((UINT8)(13))] = {0};
+static delFsmStates currentState = DEL_FSM_CHECK_MASTER;
 bool isComplete = 0;
 uint8_t numberInMemory = 0;
 uint8_t masterOpResult = OP_FAILED;
@@ -11269,48 +11280,36 @@ uint8_t searchNumber = OP_FAILED;
 
 switch (currentState)
 {
-case ADD_FSM_CHECK_MASTER:
+case DEL_FSM_CHECK_MASTER:
 *isCmdSuccessfull = 0;
 masterOpResult = isMasterNumber(receivedNumber);
 if (masterOpResult == OP_SUCCESS)
 {
-currentState = ADD_FSM_CHECK_DUPLICATED;
+currentState = DEL_FSM_REMOVE_NUMBER;
 }
 else if (masterOpResult == OP_FAILED)
 {
-currentState = ADD_FSM_COMPLETE;
+currentState = DEL_FSM_COMPLETE;
 }
 break;
 
-case ADD_FSM_CHECK_DUPLICATED:
+case DEL_FSM_REMOVE_NUMBER:
 searchNumber = isNumberInMemory(smsText + 4, &numberInMemory);
-if (searchNumber == SEARCH_FSM_NOT_FOUND)
+if (searchNumber == SEARCH_FSM_FOUND)
 {
-currentState = ADD_FSM_SAVE_NEW;
-}
-else if (searchNumber == SEARCH_FSM_FOUND || searchNumber == SEARCH_FSM_ERROR)
-{
-currentState = ADD_FSM_COMPLETE;
-}
-break;
-
-case ADD_FSM_SAVE_NEW:
-searchNumber = findEmptySpot(&numberInMemory);
-if (searchNumber == SEARCH_FSM_NOT_FOUND)
-{
-saveNumberInMemory(numberInMemory, smsText + 4);
-currentState = ADD_FSM_COMPLETE;
+saveNumberInMemory(numberInMemory, emptyNumber);
+currentState = DEL_FSM_COMPLETE;
 *isCmdSuccessfull = 1;
 }
-else if (searchNumber == SEARCH_FSM_FOUND || searchNumber == SEARCH_FSM_ERROR)
+else if (searchNumber == SEARCH_FSM_NOT_FOUND || searchNumber == SEARCH_FSM_ERROR)
 {
-currentState = ADD_FSM_COMPLETE;
+currentState = DEL_FSM_COMPLETE;
 }
 break;
 
-case ADD_FSM_COMPLETE:
-currentState = ADD_FSM_CHECK_MASTER;
+case DEL_FSM_COMPLETE:
 isComplete = 1;
+currentState = DEL_FSM_CHECK_MASTER;
 break;
 
 default:

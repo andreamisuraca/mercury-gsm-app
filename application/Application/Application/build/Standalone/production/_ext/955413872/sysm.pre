@@ -11189,7 +11189,7 @@ void ExtInt_SetInt1Action (ExtInt_CallbackType Callback);
 # 53 "../../MercuryFwk/Source/h/03_Sml/02_Ssl/wdg.h"
 void Wdg_MainTask (UINT8 Options);
 
-# 53 "../Source/h/04_App/app.h"
+# 54 "../Source/h/04_App/app_main.h"
 void MyApp_Task (UINT8 Options);
 
 # 60 "../../MercuryFwk/Source/h/02_Osl/os_sched.h"

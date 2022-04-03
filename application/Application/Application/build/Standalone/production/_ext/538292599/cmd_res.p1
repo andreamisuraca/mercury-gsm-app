@@ -1,23 +1,16 @@
 Version 3.2 HI-TECH Software Intermediate Code
 [v F7983 `(v ~T0 @X0 0 tf ]
 [v F8056 `(v ~T0 @X0 0 tf ]
-"107 ../Source/c/04_App/app_utils.c
-[c E8878 0 1 2 3 4 .. ]
-[n E8878 _LedStsType LED_STS_OFF LED_STS_ON LED_STS_TOGGLE LED_STS_BLINK LED_STS_PULSE  ]
-"102 ../../MercuryFwk/Source/h/03_Sml/02_Ssl/led.h
-[v _Led_SetLedStatus `(v ~T0 @X0 0 ef2`uc`E8878 ]
-"57 ../../MercuryFwk/Source/h/03_Sml/01_Pml/05_Eeprom/eeprom_if.h
-[v _Eeprom_Write `(uc ~T0 @X0 0 ef3`uc`*uc`uc ]
-"149 ../Source/c/04_App/app_utils.c
-[c E8974 0 1 2 3 4 .. ]
-[n E8974 _searchFsmStates SEARCH_FSM_START SEARCH_FSM_CHECK_NUMBER SEARCH_FSM_ERROR SEARCH_FSM_FOUND SEARCH_FSM_NOT_FOUND  ]
-"152
+"79 ../Source/c/04_App/cmd_res.c
+[c E9003 0 1 2 .. ]
+[n E9003 _resFsmStates RES_FSM_CHECK_MASTER RES_FSM_RESET RES_FSM_COMPLETE  ]
+"81
 [c E8246 0 1 2 .. ]
 [n E8246 _EepromSts OP_SUCCESS OP_FAILED OP_PENDING  ]
-"60 ../../MercuryFwk/Source/h/03_Sml/01_Pml/05_Eeprom/eeprom_if.h
-[v _Eeprom_Read `(E8246 ~T0 @X0 0 ef3`uc`*uc`uc ]
-"53 ../../MercuryFwk/Source/h/03_Sml/02_Ssl/sf.h
-[v _StringCompare `(uc ~T0 @X0 0 ef3`*uc`*uc`us ]
+"116 ../Source/h/04_App/utils.h
+[v _isMasterNumber `(uc ~T0 @X0 0 ef1`*uc ]
+"63 ../../MercuryFwk/Source/h/03_Sml/01_Pml/05_Eeprom/eeprom_if.h
+[v _Eeprom_Reset `(uc ~T0 @X0 0 ef ]
 "30 ../../MercuryFwk/Source/h/01_Hal/01_Sys/hal.h
 [p n 1510 ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
@@ -8242,690 +8235,159 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;os_sched.h: 79: extern SystemStateType SystemState;
 [; ;os_sched.h: 86: void Sch_MainScheduler (void);
 [; ;os_sched.h: 88: void Sch_SchmIntService (void);
-[; ;app.h: 53: void MyApp_Task (UINT8 Options);
-[; ;app_utils.h: 47: typedef enum _searchFsmStates
-[; ;app_utils.h: 48: {
-[; ;app_utils.h: 49: SEARCH_FSM_START = 0,
-[; ;app_utils.h: 50: SEARCH_FSM_CHECK_NUMBER,
-[; ;app_utils.h: 51: SEARCH_FSM_ERROR,
-[; ;app_utils.h: 52: SEARCH_FSM_FOUND,
-[; ;app_utils.h: 53: SEARCH_FSM_NOT_FOUND
-[; ;app_utils.h: 54: } searchFsmStates;
-[; ;app_utils.h: 63: bool secondsAppTimer(uint8_t seconds, uint16_t* counter, bool isCyclic);
-[; ;app_utils.h: 66: void cmdVisualEffet(bool isCmdSuccessfull);
-[; ;app_utils.h: 67: void triggerVisualEffect();
-[; ;app_utils.h: 68: bool waitSetupCall(void);
-[; ;app_utils.h: 69: void saveNumberInMemory(UINT8 address, UINT8* phoneNumber);
-[; ;app_utils.h: 70: bool isNumberValid(uint8_t* phoneNumber);
-[; ;app_utils.h: 71: searchFsmStates isNumberInMemory(uint8_t* phoneNumber, uint8_t* positionInMemory);
-[; ;app_utils.h: 72: searchFsmStates findEmptySpot(uint8_t* positionInMemory);
-[; ;app_utils.h: 73: uint8_t isMasterNumber(uint8_t* phoneNumber);
-"45 ../Source/c/04_App/app_utils.c
-[v _readBuffer `uc ~T0 @X0 -> -> -> 13 `i `uc `ux s ]
-[i _readBuffer
-:U ..
--> -> 0 `i `uc
-..
-]
-[; ;app_utils.c: 45: static uint8_t readBuffer[((UINT8)(13))] = {0};
-"46
-[v _blinkInSeconds `ui ~T0 @X0 1 s ]
-[i _blinkInSeconds
--> 65535 `ui
-]
-[; ;app_utils.c: 46: static uint16_t blinkInSeconds = 0xFFFF;
-"69
-[v _secondsAppTimer `(uc ~T0 @X0 1 ef3`uc`*ui`uc ]
-"70
-{
-[; ;app_utils.c: 69: bool secondsAppTimer(uint8_t seconds, uint16_t* counter, bool isCyclic)
-[; ;app_utils.c: 70: {
-[e :U _secondsAppTimer ]
-"69
-[v _seconds `uc ~T0 @X0 1 r1 ]
-[v _counter `*ui ~T0 @X0 1 r2 ]
-[v _isCyclic `uc ~T0 @X0 1 r3 ]
-"70
-[f ]
-"71
-[v _isExpired `uc ~T0 @X0 1 a ]
-[; ;app_utils.c: 71: bool isExpired = 1;
-[e = _isExpired -> -> 1 `i `uc ]
-"72
-[v _destinationTicks `ui ~T0 @X0 1 a ]
-[; ;app_utils.c: 72: uint16_t destinationTicks = (uint16_t) (seconds * 1000) / ((UINT16)(100));
-[e = _destinationTicks / -> * -> _seconds `i -> 1000 `i `ui -> -> -> 100 `i `us `ui ]
-[; ;app_utils.c: 74: if (*counter < destinationTicks)
-"74
-[e $ ! < *U _counter _destinationTicks 888  ]
-[; ;app_utils.c: 75: {
-"75
-{
-[; ;app_utils.c: 76: *counter += 1;
-"76
-[e =+ *U _counter -> -> 1 `i `ui ]
-[; ;app_utils.c: 77: isExpired = 0;
-"77
-[e = _isExpired -> -> 0 `i `uc ]
+[; ;app_main.h: 54: void MyApp_Task (UINT8 Options);
+[; ;utils.h: 45: typedef enum _searchFsmStates
+[; ;utils.h: 46: {
+[; ;utils.h: 47: SEARCH_FSM_START = 0,
+[; ;utils.h: 48: SEARCH_FSM_CHECK_NUMBER,
+[; ;utils.h: 49: SEARCH_FSM_ERROR,
+[; ;utils.h: 50: SEARCH_FSM_FOUND,
+[; ;utils.h: 51: SEARCH_FSM_NOT_FOUND
+[; ;utils.h: 52: } searchFsmStates;
+[; ;utils.h: 70: bool secondsAppTimer(uint8_t seconds, uint16_t* counter, bool isCyclic);
+[; ;utils.h: 75: void triggerVisualEffect();
+[; ;utils.h: 82: void cmdVisualEffet(bool isCmdSuccessfull);
+[; ;utils.h: 90: void saveNumberInMemory(UINT8 address, UINT8* phoneNumber);
+[; ;utils.h: 99: bool isNumberValid(uint8_t* phoneNumber);
+[; ;utils.h: 108: searchFsmStates isNumberInMemory(uint8_t* phoneNumber, uint8_t* positionInMemory);
+[; ;utils.h: 116: uint8_t isMasterNumber(uint8_t* phoneNumber);
+[; ;utils.h: 124: searchFsmStates findEmptySpot(uint8_t* positionInMemory);
+[; ;cmd_res.h: 56: bool resCmdFsm(uint8_t* receivedNumber, bool* isCmdSuccessfull);
+[; ;cmd_res.c: 43: typedef enum _resFsmStates
+[; ;cmd_res.c: 44: {
+[; ;cmd_res.c: 45: RES_FSM_CHECK_MASTER = 0,
+[; ;cmd_res.c: 46: RES_FSM_RESET,
+[; ;cmd_res.c: 47: RES_FSM_COMPLETE
+[; ;cmd_res.c: 48: } resFsmStates;
+"77 ../Source/c/04_App/cmd_res.c
+[v _resCmdFsm `(uc ~T0 @X0 1 ef2`*uc`*uc ]
 "78
-}
-[e :U 888 ]
-[; ;app_utils.c: 78: }
-[; ;app_utils.c: 79: if (*counter == destinationTicks)
+{
+[; ;cmd_res.c: 77: bool resCmdFsm(uint8_t* receivedNumber, bool* isCmdSuccessfull)
+[; ;cmd_res.c: 78: {
+[e :U _resCmdFsm ]
+"77
+[v _receivedNumber `*uc ~T0 @X0 1 r1 ]
+[v _isCmdSuccessfull `*uc ~T0 @X0 1 r2 ]
+"78
+[f ]
 "79
-[e $ ! == *U _counter _destinationTicks 889  ]
-[; ;app_utils.c: 80: {
+[v F9010 `E9003 ~T0 @X0 1 s currentState ]
+[i F9010
+. `E9003 0
+]
 "80
-{
-[; ;app_utils.c: 81: if (isCyclic)
+[v _isComplete `uc ~T0 @X0 1 a ]
+[; ;cmd_res.c: 79: static resFsmStates currentState = RES_FSM_CHECK_MASTER;
+[; ;cmd_res.c: 80: bool isComplete = 0;
+[e = _isComplete -> -> 0 `i `uc ]
 "81
-[e $ ! != -> _isCyclic `i -> -> -> 0 `i `uc `i 890  ]
-[; ;app_utils.c: 82: {
-"82
-{
-[; ;app_utils.c: 83: *counter = 0;
+[v _masterOpResult `uc ~T0 @X0 1 a ]
+[; ;cmd_res.c: 81: uint8_t masterOpResult = OP_FAILED;
+[e = _masterOpResult -> . `E8246 1 `uc ]
+[; ;cmd_res.c: 83: switch (currentState)
 "83
-[e = *U _counter -> -> 0 `i `ui ]
+[e $U 889  ]
+[; ;cmd_res.c: 84: {
 "84
-}
-[; ;app_utils.c: 84: }
-[e $U 891  ]
+{
+[; ;cmd_res.c: 85: case RES_FSM_CHECK_MASTER:
 "85
 [e :U 890 ]
-[; ;app_utils.c: 85: else
-[; ;app_utils.c: 86: {
+[; ;cmd_res.c: 86: *isCmdSuccessfull = 0;
 "86
-{
-[; ;app_utils.c: 87: *counter = 0xFFFF;
+[e = *U _isCmdSuccessfull -> -> 0 `i `uc ]
+[; ;cmd_res.c: 87: masterOpResult = isMasterNumber(receivedNumber);
 "87
-[e = *U _counter -> 65535 `ui ]
+[e = _masterOpResult ( _isMasterNumber (1 _receivedNumber ]
+[; ;cmd_res.c: 88: if (masterOpResult == OP_SUCCESS)
 "88
-}
-[e :U 891 ]
+[e $ ! == -> _masterOpResult `i -> . `E8246 0 `i 891  ]
+[; ;cmd_res.c: 89: {
 "89
-}
-[e :U 889 ]
-[; ;app_utils.c: 88: }
-[; ;app_utils.c: 89: }
-[; ;app_utils.c: 90: return isExpired;
+{
+[; ;cmd_res.c: 90: currentState = RES_FSM_RESET;
 "90
-[e ) _isExpired ]
-[e $UE 887  ]
-[; ;app_utils.c: 91: }
+[e = F9010 . `E9003 1 ]
 "91
-[e :UE 887 ]
 }
+[; ;cmd_res.c: 91: }
+[e $U 892  ]
+"92
+[e :U 891 ]
+[; ;cmd_res.c: 92: else if (masterOpResult == OP_FAILED)
+[e $ ! == -> _masterOpResult `i -> . `E8246 1 `i 893  ]
+[; ;cmd_res.c: 93: {
 "93
-[v _triggerVisualEffect `(v ~T0 @X0 1 ef ]
+{
+[; ;cmd_res.c: 94: currentState = RES_FSM_COMPLETE;
 "94
-{
-[; ;app_utils.c: 93: void triggerVisualEffect()
-[; ;app_utils.c: 94: {
-[e :U _triggerVisualEffect ]
-[f ]
-[; ;app_utils.c: 95: blinkInSeconds = 0;
+[e = F9010 . `E9003 2 ]
 "95
-[e = _blinkInSeconds -> -> 0 `i `ui ]
-[; ;app_utils.c: 96: }
+}
+[e :U 893 ]
 "96
-[e :UE 892 ]
-}
+[e :U 892 ]
+[; ;cmd_res.c: 95: }
+[; ;cmd_res.c: 96: break;
+[e $U 888  ]
+[; ;cmd_res.c: 98: case RES_FSM_RESET:
 "98
-[v _cmdVisualEffet `(v ~T0 @X0 1 ef1`uc ]
-"99
-{
-[; ;app_utils.c: 98: void cmdVisualEffet(bool isCmdSuccessfull)
-[; ;app_utils.c: 99: {
-[e :U _cmdVisualEffet ]
-"98
-[v _isCmdSuccessfull `uc ~T0 @X0 1 r1 ]
-"99
-[f ]
-"100
-[v _seconds `uc ~T0 @X0 1 a ]
-[; ;app_utils.c: 100: uint8_t seconds = 7;
-[e = _seconds -> -> 7 `i `uc ]
-[; ;app_utils.c: 101: if (isCmdSuccessfull)
-"101
-[e $ ! != -> _isCmdSuccessfull `i -> -> -> 0 `i `uc `i 894  ]
-[; ;app_utils.c: 102: {
-"102
-{
-[; ;app_utils.c: 103: seconds = 3;
-"103
-[e = _seconds -> -> 3 `i `uc ]
-"104
-}
 [e :U 894 ]
-[; ;app_utils.c: 104: }
-[; ;app_utils.c: 105: if (secondsAppTimer(seconds, &blinkInSeconds, 0))
-"105
-[e $ ! != -> ( _secondsAppTimer (3 , , _seconds &U _blinkInSeconds -> -> 0 `i `uc `i -> -> -> 0 `i `uc `i 895  ]
-[; ;app_utils.c: 106: {
-"106
+[; ;cmd_res.c: 99: if (Eeprom_Reset() == 0)
+"99
+[e $ ! == -> ( _Eeprom_Reset ..  `i -> 0 `i 895  ]
+[; ;cmd_res.c: 100: {
+"100
 {
-[; ;app_utils.c: 107: Led_SetLedStatus(2u, LED_STS_OFF);
-"107
-[e ( _Led_SetLedStatus (2 , -> -> 2 `ui `uc . `E8878 0 ]
-"108
+[; ;cmd_res.c: 101: currentState = RES_FSM_COMPLETE;
+"101
+[e = F9010 . `E9003 2 ]
+[; ;cmd_res.c: 102: *isCmdSuccessfull = 1;
+"102
+[e = *U _isCmdSuccessfull -> -> 1 `i `uc ]
+"103
 }
-[; ;app_utils.c: 108: }
-[e $U 896  ]
-"109
 [e :U 895 ]
-[; ;app_utils.c: 109: else
-[; ;app_utils.c: 110: {
-"110
-{
-[; ;app_utils.c: 111: Led_SetLedStatus(2u, LED_STS_BLINK);
-"111
-[e ( _Led_SetLedStatus (2 , -> -> 2 `ui `uc . `E8878 3 ]
-"112
-}
+[; ;cmd_res.c: 103: }
+[; ;cmd_res.c: 104: break;
+"104
+[e $U 888  ]
+[; ;cmd_res.c: 106: case RES_FSM_COMPLETE:
+"106
 [e :U 896 ]
-[; ;app_utils.c: 112: }
-[; ;app_utils.c: 113: }
+[; ;cmd_res.c: 107: isComplete = 1;
+"107
+[e = _isComplete -> -> 1 `i `uc ]
+[; ;cmd_res.c: 108: currentState = RES_FSM_CHECK_MASTER;
+"108
+[e = F9010 . `E9003 0 ]
+[; ;cmd_res.c: 109: break;
+"109
+[e $U 888  ]
+[; ;cmd_res.c: 111: default:
+"111
+[e :U 897 ]
+[; ;cmd_res.c: 112: break;
+"112
+[e $U 888  ]
 "113
-[e :UE 893 ]
 }
-"121
-[v _saveNumberInMemory `(v ~T0 @X0 1 ef2`uc`*uc ]
-"122
-{
-[; ;app_utils.c: 121: void saveNumberInMemory(UINT8 address, UINT8* phoneNumber)
-[; ;app_utils.c: 122: {
-[e :U _saveNumberInMemory ]
-"121
-[v _address `uc ~T0 @X0 1 r1 ]
-[v _phoneNumber `*uc ~T0 @X0 1 r2 ]
-"122
-[f ]
-[; ;app_utils.c: 123: Eeprom_Write(address, phoneNumber, ((UINT8)(13)));
-"123
-[e ( _Eeprom_Write (3 , , _address _phoneNumber -> -> 13 `i `uc ]
-[; ;app_utils.c: 124: }
-"124
-[e :UE 897 ]
-}
-"126
-[v _isNumberValid `(uc ~T0 @X0 1 ef1`*uc ]
-"127
-{
-[; ;app_utils.c: 126: bool isNumberValid(uint8_t* phoneNumber)
-[; ;app_utils.c: 127: {
-[e :U _isNumberValid ]
-"126
-[v _phoneNumber `*uc ~T0 @X0 1 r1 ]
-"127
-[f ]
-"128
-[v _isNumberOk `uc ~T0 @X0 1 a ]
-[; ;app_utils.c: 128: bool isNumberOk = 0;
-[e = _isNumberOk -> -> 0 `i `uc ]
-"129
-[v _i `uc ~T0 @X0 1 a ]
-[; ;app_utils.c: 129: uint8_t i = 0;
-[e = _i -> -> 0 `i `uc ]
-[; ;app_utils.c: 130: if (phoneNumber[0] == '+')
-"130
-[e $ ! == -> *U + _phoneNumber * -> -> 0 `i `x -> -> # *U _phoneNumber `i `x `ui -> 43 `ui 899  ]
-[; ;app_utils.c: 131: {
-"131
-{
-[; ;app_utils.c: 132: for (i = 1; i < ((UINT8)(13)); i++)
-"132
-{
-[e = _i -> -> 1 `i `uc ]
-[e $ < -> _i `i -> -> -> 13 `i `uc `i 900  ]
-[e $U 901  ]
-"133
-[e :U 900 ]
-[; ;app_utils.c: 133: {
-{
-[; ;app_utils.c: 134: if (phoneNumber[i] >= '0' && phoneNumber[i] <= '9')
-"134
-[e $ ! && >= -> *U + _phoneNumber * -> _i `ux -> -> # *U _phoneNumber `ui `ux `ui -> 48 `ui <= -> *U + _phoneNumber * -> _i `ux -> -> # *U _phoneNumber `ui `ux `ui -> 57 `ui 903  ]
-[; ;app_utils.c: 135: {
-"135
-{
-[; ;app_utils.c: 136: isNumberOk = 1;
-"136
-[e = _isNumberOk -> -> 1 `i `uc ]
-"137
-}
-[; ;app_utils.c: 137: }
-[e $U 904  ]
-"138
-[e :U 903 ]
-[; ;app_utils.c: 138: else
-[; ;app_utils.c: 139: {
-"139
-{
-[; ;app_utils.c: 140: isNumberOk = 0;
-"140
-[e = _isNumberOk -> -> 0 `i `uc ]
-[; ;app_utils.c: 141: break;
-"141
-[e $U 901  ]
-"142
-}
-[e :U 904 ]
-"143
-}
-"132
-[e ++ _i -> -> 1 `i `uc ]
-[e $ < -> _i `i -> -> -> 13 `i `uc `i 900  ]
-[e :U 901 ]
-"143
-}
-"144
-}
-[e :U 899 ]
-[; ;app_utils.c: 142: }
-[; ;app_utils.c: 143: }
-[; ;app_utils.c: 144: }
-[; ;app_utils.c: 145: return isNumberOk;
-"145
-[e ) _isNumberOk ]
-[e $UE 898  ]
-[; ;app_utils.c: 146: }
-"146
-[e :UE 898 ]
-}
-"148
-[v _isNumberInMemory `(E8974 ~T0 @X0 1 ef2`*uc`*uc ]
-"149
-{
-[; ;app_utils.c: 148: searchFsmStates isNumberInMemory(uint8_t* phoneNumber, uint8_t* positionInMemory)
-[; ;app_utils.c: 149: {
-[e :U _isNumberInMemory ]
-"148
-[v _phoneNumber `*uc ~T0 @X0 1 r1 ]
-[v _positionInMemory `*uc ~T0 @X0 1 r2 ]
-"149
-[f ]
-"150
-[v F9023 `E8974 ~T0 @X0 1 s currentState ]
-[i F9023
-. `E8974 0
-]
-"151
-[v F9024 `uc ~T0 @X0 1 s currentPosition ]
-[i F9024
--> -> 32 `i `uc
-]
-"152
-[v _memoryOpResult `E8246 ~T0 @X0 1 a ]
-[; ;app_utils.c: 150: static searchFsmStates currentState = SEARCH_FSM_START;
-[; ;app_utils.c: 151: static uint8_t currentPosition = 32;
-[; ;app_utils.c: 152: EepromStsType memoryOpResult = OP_PENDING;
-[e = _memoryOpResult . `E8246 2 ]
-[; ;app_utils.c: 154: if (currentState > SEARCH_FSM_CHECK_NUMBER)
-"154
-[e $ ! > -> F9023 `i -> . `E8974 1 `i 906  ]
-[; ;app_utils.c: 155: {
-"155
-{
-[; ;app_utils.c: 156: currentState = SEARCH_FSM_START;
-"156
-[e = F9023 . `E8974 0 ]
-[; ;app_utils.c: 157: currentPosition = 32;
-"157
-[e = F9024 -> -> 32 `i `uc ]
-"158
-}
-[e :U 906 ]
-[; ;app_utils.c: 158: }
-[; ;app_utils.c: 159: if (currentPosition >= (32 + (16 * 10)))
-"159
-[e $ ! >= -> F9024 `i + -> 32 `i * -> 16 `i -> 10 `i 907  ]
-[; ;app_utils.c: 160: {
-"160
-{
-[; ;app_utils.c: 161: currentState = SEARCH_FSM_NOT_FOUND;
-"161
-[e = F9023 . `E8974 4 ]
-"162
-}
-[e :U 907 ]
-[; ;app_utils.c: 162: }
-[; ;app_utils.c: 164: switch (currentState)
-"164
-[e $U 909  ]
-[; ;app_utils.c: 165: {
-"165
-{
-[; ;app_utils.c: 166: case SEARCH_FSM_START:
-"166
-[e :U 910 ]
-[; ;app_utils.c: 167: memoryOpResult = Eeprom_Read(currentPosition, readBuffer, ((UINT8)(13)));
-"167
-[e = _memoryOpResult ( _Eeprom_Read (3 , , F9024 &U _readBuffer -> -> 13 `i `uc ]
-[; ;app_utils.c: 168: if (memoryOpResult == OP_FAILED)
-"168
-[e $ ! == -> _memoryOpResult `i -> . `E8246 1 `i 911  ]
-[; ;app_utils.c: 169: {
-"169
-{
-[; ;app_utils.c: 170: currentState = SEARCH_FSM_ERROR;
-"170
-[e = F9023 . `E8974 2 ]
-"171
-}
-[; ;app_utils.c: 171: }
-[e $U 912  ]
-"172
-[e :U 911 ]
-[; ;app_utils.c: 172: else if (memoryOpResult == OP_SUCCESS)
-[e $ ! == -> _memoryOpResult `i -> . `E8246 0 `i 913  ]
-[; ;app_utils.c: 173: {
-"173
-{
-[; ;app_utils.c: 174: currentState = SEARCH_FSM_CHECK_NUMBER;
-"174
-[e = F9023 . `E8974 1 ]
-"175
-}
-[e :U 913 ]
-"176
-[e :U 912 ]
-[; ;app_utils.c: 175: }
-[; ;app_utils.c: 176: break;
-[e $U 908  ]
-[; ;app_utils.c: 178: case SEARCH_FSM_CHECK_NUMBER:
-"178
-[e :U 914 ]
-[; ;app_utils.c: 179: currentState = SEARCH_FSM_START;
-"179
-[e = F9023 . `E8974 0 ]
-[; ;app_utils.c: 180: if (isNumberValid(readBuffer))
-"180
-[e $ ! != -> ( _isNumberValid (1 &U _readBuffer `i -> -> -> 0 `i `uc `i 915  ]
-[; ;app_utils.c: 181: {
-"181
-{
-[; ;app_utils.c: 182: if (StringCompare(phoneNumber, readBuffer, ((UINT8)(13))))
-"182
-[e $ ! != -> ( _StringCompare (3 , , _phoneNumber &U _readBuffer -> -> -> 13 `i `uc `us `i -> -> -> 0 `i `uc `i 916  ]
-[; ;app_utils.c: 183: {
-"183
-{
-[; ;app_utils.c: 184: *positionInMemory = currentPosition;
-"184
-[e = *U _positionInMemory F9024 ]
-[; ;app_utils.c: 185: currentState = SEARCH_FSM_FOUND;
-"185
-[e = F9023 . `E8974 3 ]
-"186
-}
-[; ;app_utils.c: 186: }
-[e $U 917  ]
-"187
-[e :U 916 ]
-[; ;app_utils.c: 187: else
-[; ;app_utils.c: 188: {
-"188
-{
-"190
-}
-[e :U 917 ]
-"191
-}
-[e :U 915 ]
-[; ;app_utils.c: 190: }
-[; ;app_utils.c: 191: }
-[; ;app_utils.c: 192: currentPosition += 16;
-"192
-[e =+ F9024 -> -> 16 `i `uc ]
-[; ;app_utils.c: 193: break;
-"193
-[e $U 908  ]
-[; ;app_utils.c: 195: default:
-"195
-[e :U 918 ]
-[; ;app_utils.c: 196: break;
-"196
-[e $U 908  ]
-"197
-}
-[; ;app_utils.c: 197: }
-[e $U 908  ]
-"164
-[e :U 909 ]
-[e [\ F9023 , $ . `E8974 0 910
- , $ . `E8974 1 914
- 918 ]
-"197
-[e :U 908 ]
-[; ;app_utils.c: 198: return currentState;
-"198
-[e ) F9023 ]
-[e $UE 905  ]
-[; ;app_utils.c: 199: }
-"199
-[e :UE 905 ]
-}
-"236
-[v _isMasterNumber `(uc ~T0 @X0 1 ef1`*uc ]
-"237
-{
-[; ;app_utils.c: 236: uint8_t isMasterNumber(uint8_t* phoneNumber)
-[; ;app_utils.c: 237: {
-[e :U _isMasterNumber ]
-"236
-[v _phoneNumber `*uc ~T0 @X0 1 r1 ]
-"237
-[f ]
-"238
-[v _memoryOpResult `E8246 ~T0 @X0 1 a ]
-[; ;app_utils.c: 238: EepromStsType memoryOpResult = OP_PENDING;
-[e = _memoryOpResult . `E8246 2 ]
-[; ;app_utils.c: 240: memoryOpResult = Eeprom_Read(16, readBuffer, ((UINT8)(13)));
-"240
-[e = _memoryOpResult ( _Eeprom_Read (3 , , -> -> 16 `i `uc &U _readBuffer -> -> 13 `i `uc ]
-[; ;app_utils.c: 241: if (memoryOpResult != OP_PENDING)
-"241
-[e $ ! != -> _memoryOpResult `i -> . `E8246 2 `i 920  ]
-[; ;app_utils.c: 242: {
-"242
-{
-[; ;app_utils.c: 243: memoryOpResult = OP_FAILED;
-"243
-[e = _memoryOpResult . `E8246 1 ]
-[; ;app_utils.c: 244: if (isNumberValid(readBuffer))
-"244
-[e $ ! != -> ( _isNumberValid (1 &U _readBuffer `i -> -> -> 0 `i `uc `i 921  ]
-[; ;app_utils.c: 245: {
-"245
-{
-[; ;app_utils.c: 246: if (StringCompare(phoneNumber, readBuffer, ((UINT8)(13))))
-"246
-[e $ ! != -> ( _StringCompare (3 , , _phoneNumber &U _readBuffer -> -> -> 13 `i `uc `us `i -> -> -> 0 `i `uc `i 922  ]
-[; ;app_utils.c: 247: {
-"247
-{
-[; ;app_utils.c: 248: memoryOpResult = OP_SUCCESS;
-"248
-[e = _memoryOpResult . `E8246 0 ]
-"249
-}
-[e :U 922 ]
-"250
-}
-[e :U 921 ]
-"251
-}
-[e :U 920 ]
-[; ;app_utils.c: 249: }
-[; ;app_utils.c: 250: }
-[; ;app_utils.c: 251: }
-[; ;app_utils.c: 252: return memoryOpResult;
-"252
-[e ) -> _memoryOpResult `uc ]
-[e $UE 919  ]
-[; ;app_utils.c: 253: }
-"253
-[e :UE 919 ]
-}
-"286
-[v _findEmptySpot `(E8974 ~T0 @X0 1 ef1`*uc ]
-"287
-{
-[; ;app_utils.c: 286: searchFsmStates findEmptySpot(uint8_t* positionInMemory)
-[; ;app_utils.c: 287: {
-[e :U _findEmptySpot ]
-"286
-[v _positionInMemory `*uc ~T0 @X0 1 r1 ]
-"287
-[f ]
-"288
-[v F9033 `E8974 ~T0 @X0 1 s currentState ]
-[i F9033
-. `E8974 0
-]
-"289
-[v F9034 `uc ~T0 @X0 1 s currentPosition ]
-[i F9034
--> -> 32 `i `uc
-]
-"290
-[v _memoryOpResult `E8246 ~T0 @X0 1 a ]
-[; ;app_utils.c: 288: static searchFsmStates currentState = SEARCH_FSM_START;
-[; ;app_utils.c: 289: static uint8_t currentPosition = 32;
-[; ;app_utils.c: 290: EepromStsType memoryOpResult = OP_PENDING;
-[e = _memoryOpResult . `E8246 2 ]
-[; ;app_utils.c: 292: if (currentState > SEARCH_FSM_CHECK_NUMBER)
-"292
-[e $ ! > -> F9033 `i -> . `E8974 1 `i 924  ]
-[; ;app_utils.c: 293: {
-"293
-{
-[; ;app_utils.c: 294: currentState = SEARCH_FSM_START;
-"294
-[e = F9033 . `E8974 0 ]
-[; ;app_utils.c: 295: currentPosition = 32;
-"295
-[e = F9034 -> -> 32 `i `uc ]
-"296
-}
-[e :U 924 ]
-[; ;app_utils.c: 296: }
-[; ;app_utils.c: 297: if (currentPosition >= (32 + (16 * 10)))
-"297
-[e $ ! >= -> F9034 `i + -> 32 `i * -> 16 `i -> 10 `i 925  ]
-[; ;app_utils.c: 298: {
-"298
-{
-[; ;app_utils.c: 299: currentState = SEARCH_FSM_NOT_FOUND;
-"299
-[e = F9033 . `E8974 4 ]
-"300
-}
-[e :U 925 ]
-[; ;app_utils.c: 300: }
-[; ;app_utils.c: 302: switch (currentState)
-"302
-[e $U 927  ]
-[; ;app_utils.c: 303: {
-"303
-{
-[; ;app_utils.c: 304: case SEARCH_FSM_START:
-"304
-[e :U 928 ]
-[; ;app_utils.c: 305: memoryOpResult = Eeprom_Read(currentPosition, readBuffer, ((UINT8)(13)));
-"305
-[e = _memoryOpResult ( _Eeprom_Read (3 , , F9034 &U _readBuffer -> -> 13 `i `uc ]
-[; ;app_utils.c: 306: if (memoryOpResult == OP_FAILED)
-"306
-[e $ ! == -> _memoryOpResult `i -> . `E8246 1 `i 929  ]
-[; ;app_utils.c: 307: {
-"307
-{
-[; ;app_utils.c: 308: currentState = SEARCH_FSM_ERROR;
-"308
-[e = F9033 . `E8974 2 ]
-"309
-}
-[; ;app_utils.c: 309: }
-[e $U 930  ]
-"310
-[e :U 929 ]
-[; ;app_utils.c: 310: else if (memoryOpResult == OP_SUCCESS)
-[e $ ! == -> _memoryOpResult `i -> . `E8246 0 `i 931  ]
-[; ;app_utils.c: 311: {
-"311
-{
-[; ;app_utils.c: 312: currentState = SEARCH_FSM_CHECK_NUMBER;
-"312
-[e = F9033 . `E8974 1 ]
-"313
-}
-[e :U 931 ]
-"314
-[e :U 930 ]
-[; ;app_utils.c: 313: }
-[; ;app_utils.c: 314: break;
-[e $U 926  ]
-[; ;app_utils.c: 316: case SEARCH_FSM_CHECK_NUMBER:
-"316
-[e :U 932 ]
-[; ;app_utils.c: 317: if (isNumberValid(readBuffer))
-"317
-[e $ ! != -> ( _isNumberValid (1 &U _readBuffer `i -> -> -> 0 `i `uc `i 933  ]
-[; ;app_utils.c: 318: {
-"318
-{
-[; ;app_utils.c: 319: currentPosition += 16;
-"319
-[e =+ F9034 -> -> 16 `i `uc ]
-[; ;app_utils.c: 320: currentState = SEARCH_FSM_START;
-"320
-[e = F9033 . `E8974 0 ]
-"321
-}
-[; ;app_utils.c: 321: }
-[e $U 934  ]
-"322
-[e :U 933 ]
-[; ;app_utils.c: 322: else
-[; ;app_utils.c: 323: {
-"323
-{
-[; ;app_utils.c: 324: currentState = SEARCH_FSM_NOT_FOUND;
-"324
-[e = F9033 . `E8974 4 ]
-[; ;app_utils.c: 325: *positionInMemory = currentPosition;
-"325
-[e = *U _positionInMemory F9034 ]
-"326
-}
-[e :U 934 ]
-[; ;app_utils.c: 326: }
-[; ;app_utils.c: 327: break;
-"327
-[e $U 926  ]
-[; ;app_utils.c: 329: default:
-"329
-[e :U 935 ]
-[; ;app_utils.c: 330: break;
-"330
-[e $U 926  ]
-"331
-}
-[; ;app_utils.c: 331: }
-[e $U 926  ]
-"302
-[e :U 927 ]
-[e [\ F9033 , $ . `E8974 0 928
- , $ . `E8974 1 932
- 935 ]
-"331
-[e :U 926 ]
-[; ;app_utils.c: 332: return currentState;
-"332
-[e ) F9033 ]
-[e $UE 923  ]
-[; ;app_utils.c: 333: }
-"333
-[e :UE 923 ]
+[; ;cmd_res.c: 113: }
+[e $U 888  ]
+"83
+[e :U 889 ]
+[e [\ F9010 , $ . `E9003 0 890
+ , $ . `E9003 1 894
+ , $ . `E9003 2 896
+ 897 ]
+"113
+[e :U 888 ]
+[; ;cmd_res.c: 114: return isComplete;
+"114
+[e ) _isComplete ]
+[e $UE 887  ]
+[; ;cmd_res.c: 115: }
+"115
+[e :UE 887 ]
 }

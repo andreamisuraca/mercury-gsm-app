@@ -8233,7 +8233,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;ext_int.h: 52: void ExtInt_SetInt0Action (ExtInt_CallbackType Callback);
 [; ;ext_int.h: 53: void ExtInt_SetInt1Action (ExtInt_CallbackType Callback);
 [; ;wdg.h: 53: void Wdg_MainTask (UINT8 Options);
-[; ;app.h: 53: void MyApp_Task (UINT8 Options);
+[; ;app_main.h: 54: void MyApp_Task (UINT8 Options);
 [; ;os_sched.h: 60: typedef enum MainSystemTimebaseEnum
 [; ;os_sched.h: 61: {
 [; ;os_sched.h: 62: CallTaskPhase,

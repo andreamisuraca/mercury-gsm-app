@@ -8304,7 +8304,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;ext_int.h: 52: void ExtInt_SetInt0Action (ExtInt_CallbackType Callback);
 [; ;ext_int.h: 53: void ExtInt_SetInt1Action (ExtInt_CallbackType Callback);
 [; ;wdg.h: 53: void Wdg_MainTask (UINT8 Options);
-[; ;app.h: 53: void MyApp_Task (UINT8 Options);
+[; ;app_main.h: 54: void MyApp_Task (UINT8 Options);
 [; ;os_sched.h: 60: typedef enum MainSystemTimebaseEnum
 [; ;os_sched.h: 61: {
 [; ;os_sched.h: 62: CallTaskPhase,
@@ -9836,7 +9836,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;term.c: 803: memset(Data,0,50);
 "803
 [e ( _memset (3 , , -> &U F9037 `*v -> 0 `i -> -> 50 `i `ui ]
-[; ;term.c: 805: sprintf(Data,"Build Date: %s\r\n","Apr  2 2022");
+[; ;term.c: 805: sprintf(Data,"Build Date: %s\r\n","Apr  3 2022");
 "805
 [e ( _sprintf (1 , (. , &U F9037 :s 7C :s 8C ]
 [; ;term.c: 807: putUSBUSART((void*)Data,strlen(Data));
@@ -9965,7 +9965,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :UE 980 ]
 }
 [p f _sprintf 8650752 ]
-[a 8C 65 112 114 32 32 50 32 50 48 50 50 0 ]
+[a 8C 65 112 114 32 32 51 32 50 48 50 50 0 ]
 [a 4C 46 0 ]
 [a 5C 46 0 ]
 [a 3C 70 114 97 109 101 119 111 114 107 32 86 101 114 115 105 111 110 58 32 0 ]

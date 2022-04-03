@@ -54,7 +54,8 @@ The project can be open with Microchip's [MPLAB® X IDE](https://www.microchip.c
 ### First Startup
 When we plugged into an USB port a red and a green LED will turn on. An LED on the modem board will start flashing: it means your SIM card is working.<br>
 The very first startup the board memory is empty. A yellow LED will flash for 3 minutes. In this three minutes you can call your SIM card number, and the caller number will be saved as master phone number. When the master phone number is saved, or the 3 minutes elapsed, the LED will not blink anymore.<br>
-At any time the master phone number can be changed via USB with a dedicated software.
+At any time the master phone number can be changed via USB with a dedicated software.<br>
+Consider removing the PIN from your SIM card before inserting it.
 ### Add a phone number
 The master phone number can allow other users to trigger the relay. To add a user into the board memory the following command needs to be send via SMS to your SIM card number:
 `ADD;<phone_number>`

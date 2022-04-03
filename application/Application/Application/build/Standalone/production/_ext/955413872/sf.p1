@@ -8223,19 +8223,20 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;os_sched.h: 79: extern SystemStateType SystemState;
 [; ;os_sched.h: 86: void Sch_MainScheduler (void);
 [; ;os_sched.h: 88: void Sch_SchmIntService (void);
-[; ;sf.h: 53: UINT8 StringCompare (UINT8 *String1, UINT8 *String2, UINT16 Len);
-[; ;sf.h: 54: void StringCopy (UINT8 *SourceStr, UINT8 *DestStr, UINT16 Len);
-[; ;sf.h: 55: void ClearBuffer (UINT8 *Buffer, UINT16 Len);
+[; ;sf.h: 53: UINT8 StringCompare2Const (UINT8 *String1, const UINT8 *String2, UINT16 Len);
+[; ;sf.h: 54: UINT8 StringCompare (UINT8 *String1, UINT8 *String2, UINT16 Len);
+[; ;sf.h: 55: void StringCopy (UINT8 *SourceStr, UINT8 *DestStr, UINT16 Len);
+[; ;sf.h: 56: void ClearBuffer (UINT8 *Buffer, UINT16 Len);
 "75 ../../MercuryFwk/Source/c/03_Sml/02_Ssl/sf.c
-[v _StringCompare `(uc ~T0 @X0 1 ef3`*uc`*uc`us ]
+[v _StringCompare2Const `(uc ~T0 @X0 1 ef3`*uc`*Cuc`us ]
 "76
 {
-[; ;sf.c: 75: UINT8 StringCompare (UINT8 *String1, UINT8 *String2, UINT16 Len)
+[; ;sf.c: 75: UINT8 StringCompare2Const (UINT8 *String1, const UINT8 *String2, UINT16 Len)
 [; ;sf.c: 76: {
-[e :U _StringCompare ]
+[e :U _StringCompare2Const ]
 "75
 [v _String1 `*uc ~T0 @X0 1 r1 ]
-[v _String2 `*uc ~T0 @X0 1 r2 ]
+[v _String2 `*Cuc ~T0 @X0 1 r2 ]
 [v _Len `us ~T0 @X0 1 r3 ]
 "76
 [f ]
@@ -8291,15 +8292,15 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :UE 887 ]
 }
 "104
-[v _StringCopy `(v ~T0 @X0 1 ef3`*uc`*uc`us ]
+[v _StringCompare `(uc ~T0 @X0 1 ef3`*uc`*uc`us ]
 "105
 {
-[; ;sf.c: 104: void StringCopy (UINT8 *SourceStr, UINT8 *DestStr, UINT16 Len)
+[; ;sf.c: 104: UINT8 StringCompare (UINT8 *String1, UINT8 *String2, UINT16 Len)
 [; ;sf.c: 105: {
-[e :U _StringCopy ]
+[e :U _StringCompare ]
 "104
-[v _SourceStr `*uc ~T0 @X0 1 r1 ]
-[v _DestStr `*uc ~T0 @X0 1 r2 ]
+[v _String1 `*uc ~T0 @X0 1 r1 ]
+[v _String2 `*uc ~T0 @X0 1 r2 ]
 [v _Len `us ~T0 @X0 1 r3 ]
 "105
 [f ]
@@ -8307,71 +8308,135 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _Index `us ~T0 @X0 1 a ]
 [; ;sf.c: 106: UINT16 Index = 0;
 [e = _Index -> -> 0 `i `us ]
-[; ;sf.c: 109: for (Index = 0; Index < Len; Index++)
-"109
+"107
+[v _Result `uc ~T0 @X0 1 a ]
+[; ;sf.c: 107: UINT8 Result = 1;
+[e = _Result -> -> 1 `i `uc ]
+[; ;sf.c: 110: for (Index = 0; Index < Len; Index++)
+"110
 {
 [e = _Index -> -> 0 `i `us ]
 [e $U 897  ]
-"110
-[e :U 894 ]
-[; ;sf.c: 110: {
-{
-[; ;sf.c: 111: DestStr[Index] = SourceStr[Index];
 "111
-[e = *U + _DestStr * -> _Index `ux -> -> # *U _DestStr `ui `ux *U + _SourceStr * -> _Index `ux -> -> # *U _SourceStr `ui `ux ]
+[e :U 894 ]
+[; ;sf.c: 111: {
+{
+[; ;sf.c: 112: if (String1[Index] != String2[Index])
 "112
+[e $ ! != -> *U + _String1 * -> _Index `ux -> -> # *U _String1 `ui `ux `i -> *U + _String2 * -> _Index `ux -> -> # *U _String2 `ui `ux `i 898  ]
+[; ;sf.c: 113: {
+"113
+{
+[; ;sf.c: 114: Result = 0;
+"114
+[e = _Result -> -> 0 `i `uc ]
+[; ;sf.c: 115: break;
+"115
+[e $U 895  ]
+"116
 }
-"109
+[e :U 898 ]
+"117
+}
+"110
 [e ++ _Index -> -> 1 `i `us ]
 [e :U 897 ]
 [e $ < -> _Index `ui -> _Len `ui 894  ]
 [e :U 895 ]
-"112
+"117
 }
-[; ;sf.c: 112: }
-[; ;sf.c: 113: }
-"113
+[; ;sf.c: 116: }
+[; ;sf.c: 117: }
+[; ;sf.c: 120: return Result;
+"120
+[e ) _Result ]
+[e $UE 893  ]
+[; ;sf.c: 121: }
+"121
 [e :UE 893 ]
 }
-"124
-[v _ClearBuffer `(v ~T0 @X0 1 ef2`*uc`us ]
-"125
+"133
+[v _StringCopy `(v ~T0 @X0 1 ef3`*uc`*uc`us ]
+"134
 {
-[; ;sf.c: 124: void ClearBuffer (UINT8 *Buffer, UINT16 Len)
-[; ;sf.c: 125: {
+[; ;sf.c: 133: void StringCopy (UINT8 *SourceStr, UINT8 *DestStr, UINT16 Len)
+[; ;sf.c: 134: {
+[e :U _StringCopy ]
+"133
+[v _SourceStr `*uc ~T0 @X0 1 r1 ]
+[v _DestStr `*uc ~T0 @X0 1 r2 ]
+[v _Len `us ~T0 @X0 1 r3 ]
+"134
+[f ]
+"135
+[v _Index `us ~T0 @X0 1 a ]
+[; ;sf.c: 135: UINT16 Index = 0;
+[e = _Index -> -> 0 `i `us ]
+[; ;sf.c: 138: for (Index = 0; Index < Len; Index++)
+"138
+{
+[e = _Index -> -> 0 `i `us ]
+[e $U 903  ]
+"139
+[e :U 900 ]
+[; ;sf.c: 139: {
+{
+[; ;sf.c: 140: DestStr[Index] = SourceStr[Index];
+"140
+[e = *U + _DestStr * -> _Index `ux -> -> # *U _DestStr `ui `ux *U + _SourceStr * -> _Index `ux -> -> # *U _SourceStr `ui `ux ]
+"141
+}
+"138
+[e ++ _Index -> -> 1 `i `us ]
+[e :U 903 ]
+[e $ < -> _Index `ui -> _Len `ui 900  ]
+[e :U 901 ]
+"141
+}
+[; ;sf.c: 141: }
+[; ;sf.c: 142: }
+"142
+[e :UE 899 ]
+}
+"153
+[v _ClearBuffer `(v ~T0 @X0 1 ef2`*uc`us ]
+"154
+{
+[; ;sf.c: 153: void ClearBuffer (UINT8 *Buffer, UINT16 Len)
+[; ;sf.c: 154: {
 [e :U _ClearBuffer ]
-"124
+"153
 [v _Buffer `*uc ~T0 @X0 1 r1 ]
 [v _Len `us ~T0 @X0 1 r2 ]
-"125
+"154
 [f ]
-"126
+"155
 [v _Index `us ~T0 @X0 1 a ]
-[; ;sf.c: 126: UINT16 Index = 0;
+[; ;sf.c: 155: UINT16 Index = 0;
 [e = _Index -> -> 0 `i `us ]
-[; ;sf.c: 129: for (Index = 0; Index <= Len; Index++)
-"129
+[; ;sf.c: 158: for (Index = 0; Index <= Len; Index++)
+"158
 {
 [e = _Index -> -> 0 `i `us ]
-[e $U 902  ]
-"130
-[e :U 899 ]
-[; ;sf.c: 130: {
+[e $U 908  ]
+"159
+[e :U 905 ]
+[; ;sf.c: 159: {
 {
-[; ;sf.c: 131: *(Buffer + Index) = 0;
-"131
+[; ;sf.c: 160: *(Buffer + Index) = 0;
+"160
 [e = *U + _Buffer * -> _Index `ux -> -> # *U _Buffer `ui `ux -> -> 0 `i `uc ]
-"132
+"161
 }
-"129
+"158
 [e ++ _Index -> -> 1 `i `us ]
-[e :U 902 ]
-[e $ <= -> _Index `ui -> _Len `ui 899  ]
-[e :U 900 ]
-"132
+[e :U 908 ]
+[e $ <= -> _Index `ui -> _Len `ui 905  ]
+[e :U 906 ]
+"161
 }
-[; ;sf.c: 132: }
-[; ;sf.c: 133: }
-"133
-[e :UE 898 ]
+[; ;sf.c: 161: }
+[; ;sf.c: 162: }
+"162
+[e :UE 904 ]
 }

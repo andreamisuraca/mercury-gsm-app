@@ -90,7 +90,7 @@ appMainFsmStates parseCommand()
     const uint8_t resetCmd[] = {'R', 'E', 'S', ';'};
     appMainFsmStates state = APP_MAIN_WAIT_EVENT;
 
-    if (StringCompare(smsText, addNumberCmd, sizeof(addNumberCmd)))
+    if (StringCompare2Const(smsText, addNumberCmd, sizeof(addNumberCmd)))
     {
         if (!isNumberValid(smsText + TEXT_OFFSET))
         {
@@ -101,7 +101,7 @@ appMainFsmStates parseCommand()
             state = APP_MAIN_ADD_CMD;
         }
     }
-    else if (StringCompare(smsText, deleteNumberCmd, sizeof(deleteNumberCmd)))
+    else if (StringCompare2Const(smsText, deleteNumberCmd, sizeof(deleteNumberCmd)))
     {
         if (!isNumberValid(smsText + TEXT_OFFSET))
         {
@@ -112,7 +112,7 @@ appMainFsmStates parseCommand()
             state = APP_MAIN_DEL_CMD;
         }
     }
-    else if (StringCompare(smsText, resetCmd, sizeof(resetCmd)))
+    else if (StringCompare2Const(smsText, resetCmd, sizeof(resetCmd)))
     {
         state = APP_MAIN_RESET;
     }

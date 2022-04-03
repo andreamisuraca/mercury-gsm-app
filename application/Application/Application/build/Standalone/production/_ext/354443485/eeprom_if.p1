@@ -1,19 +1,19 @@
 Version 3.2 HI-TECH Software Intermediate Code
 [v F7983 `(v ~T0 @X0 0 tf ]
 [v F8056 `(v ~T0 @X0 0 tf ]
-"54 ../../MercuryFwk/Source/h/03_Sml/02_Ssl/sf.h
+"55 ../../MercuryFwk/Source/h/03_Sml/02_Ssl/sf.h
 [v _StringCopy `(v ~T0 @X0 0 ef3`*uc`*uc`us ]
 "88 ../../MercuryFwk/Source/h/03_Sml/01_Pml/02_SlvI2c/i2c_slv.h
 [v _I2cSlv_SendI2cMsg `(uc ~T0 @X0 0 ef3`*uc`uc`uc ]
 "105 ../../MercuryFwk/Source/c/03_Sml/01_Pml/05_Eeprom/eeprom_if.c
-[c E8959 0 1 2 .. ]
-[n E8959 _EepromSts OP_SUCCESS OP_FAILED OP_PENDING  ]
+[c E8963 0 1 2 .. ]
+[n E8963 _EepromSts OP_SUCCESS OP_FAILED OP_PENDING  ]
 "107
-[c E8933 0 1 2 .. ]
-[n E8933 _I2cOpSts OP_IN_PROGRESS OP_COMPLETE OP_TIMEOUT  ]
+[c E8937 0 1 2 .. ]
+[n E8937 _I2cOpSts OP_IN_PROGRESS OP_COMPLETE OP_TIMEOUT  ]
 "96 ../../MercuryFwk/Source/h/03_Sml/01_Pml/02_SlvI2c/i2c_slv.h
-[v _I2cSlv_QueryI2cData `(E8933 ~T0 @X0 0 ef5`*uc`uc`*uc`uc`uc ]
-"55 ../../MercuryFwk/Source/h/03_Sml/02_Ssl/sf.h
+[v _I2cSlv_QueryI2cData `(E8937 ~T0 @X0 0 ef5`*uc`uc`*uc`uc`uc ]
+"56 ../../MercuryFwk/Source/h/03_Sml/02_Ssl/sf.h
 [v _ClearBuffer `(v ~T0 @X0 0 ef2`*uc`us ]
 "30 ../../MercuryFwk/Source/h/01_Hal/01_Sys/hal.h
 [p n 1510 ]
@@ -8178,9 +8178,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;sysm.h: 53: void Sysm_IdleMode (void);
 [; ;sysm.h: 55: void Sysm_SleepMode (void);
 [; ;sysm.h: 57: void Sysm_DeepSleepMode (void);
-[; ;sf.h: 53: UINT8 StringCompare (UINT8 *String1, UINT8 *String2, UINT16 Len);
-[; ;sf.h: 54: void StringCopy (UINT8 *SourceStr, UINT8 *DestStr, UINT16 Len);
-[; ;sf.h: 55: void ClearBuffer (UINT8 *Buffer, UINT16 Len);
+[; ;sf.h: 53: UINT8 StringCompare2Const (UINT8 *String1, const UINT8 *String2, UINT16 Len);
+[; ;sf.h: 54: UINT8 StringCompare (UINT8 *String1, UINT8 *String2, UINT16 Len);
+[; ;sf.h: 55: void StringCopy (UINT8 *SourceStr, UINT8 *DestStr, UINT16 Len);
+[; ;sf.h: 56: void ClearBuffer (UINT8 *Buffer, UINT16 Len);
 [; ;term.h: 51: extern UINT16 UsbMasterPhoneNumberLen;
 [; ;term.h: 53: extern char UsbMasterPhoneNumber[((UINT16)(15))];
 [; ;term.h: 55: extern UINT8 IsUsbNumberReceived;
@@ -8299,7 +8300,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :UE 887 ]
 }
 "104
-[v _Eeprom_Read `(E8959 ~T0 @X0 1 ef3`uc`*uc`uc ]
+[v _Eeprom_Read `(E8963 ~T0 @X0 1 ef3`uc`*uc`uc ]
 "105
 {
 [; ;eeprom_if.c: 104: EepromStsType Eeprom_Read (UINT8 MemoryAddress, UINT8* ReadBuffer, UINT8 DataLength)
@@ -8316,13 +8317,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;eeprom_if.c: 106: const UINT8 SlaveAddress = 0x50;
 [e = _SlaveAddress -> -> 80 `i `uc ]
 "107
-[v _QuerySts `E8933 ~T0 @X0 1 a ]
+[v _QuerySts `E8937 ~T0 @X0 1 a ]
 [; ;eeprom_if.c: 107: I2cOpStsType QuerySts = OP_IN_PROGRESS;
-[e = _QuerySts . `E8933 0 ]
+[e = _QuerySts . `E8937 0 ]
 "108
-[v _ReadSts `E8959 ~T0 @X0 1 a ]
+[v _ReadSts `E8963 ~T0 @X0 1 a ]
 [; ;eeprom_if.c: 108: EepromStsType ReadSts = OP_PENDING;
-[e = _ReadSts . `E8959 2 ]
+[e = _ReadSts . `E8963 2 ]
 [; ;eeprom_if.c: 109: ReadAddress[0] = MemoryAddress;
 "109
 [e = *U + &U _ReadAddress * -> -> -> 0 `i `ui `ux -> -> # *U &U _ReadAddress `ui `ux _MemoryAddress ]
@@ -8331,13 +8332,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _QuerySts ( _I2cSlv_QueryI2cData (4 , , , , &U _ReadAddress -> -> 1 `i `uc _ReadBuffer _DataLength _SlaveAddress ]
 [; ;eeprom_if.c: 113: if (QuerySts == OP_COMPLETE)
 "113
-[e $ ! == -> _QuerySts `i -> . `E8933 1 `i 890  ]
+[e $ ! == -> _QuerySts `i -> . `E8937 1 `i 890  ]
 [; ;eeprom_if.c: 114: {
 "114
 {
 [; ;eeprom_if.c: 115: ReadSts = OP_SUCCESS;
 "115
-[e = _ReadSts . `E8959 0 ]
+[e = _ReadSts . `E8963 0 ]
 "116
 }
 [; ;eeprom_if.c: 116: }
@@ -8345,13 +8346,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 "117
 [e :U 890 ]
 [; ;eeprom_if.c: 117: else if (QuerySts == OP_TIMEOUT)
-[e $ ! == -> _QuerySts `i -> . `E8933 2 `i 892  ]
+[e $ ! == -> _QuerySts `i -> . `E8937 2 `i 892  ]
 [; ;eeprom_if.c: 118: {
 "118
 {
 [; ;eeprom_if.c: 119: ReadSts = OP_FAILED;
 "119
-[e = _ReadSts . `E8959 1 ]
+[e = _ReadSts . `E8963 1 ]
 "120
 }
 [e :U 892 ]
@@ -8378,14 +8379,14 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;eeprom_if.c: 133: const UINT8 SlaveAddress = 0x50;
 [e = _SlaveAddress -> -> 80 `i `uc ]
 "134
-[v F8990 `uc ~T0 @X0 1 s memoryAddress ]
-[i F8990
+[v F8994 `uc ~T0 @X0 1 s memoryAddress ]
+[i F8994
 -> -> 0 `i `uc
 ]
 [; ;eeprom_if.c: 134: static UINT8 memoryAddress = 0;
 [; ;eeprom_if.c: 136: if (memoryAddress == 0)
 "136
-[e $ ! == -> F8990 `i -> 0 `i 894  ]
+[e $ ! == -> F8994 `i -> 0 `i 894  ]
 [; ;eeprom_if.c: 137: {
 "137
 {
@@ -8398,16 +8399,16 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;eeprom_if.c: 139: }
 [; ;eeprom_if.c: 141: EepromBuffer[0] = memoryAddress;
 "141
-[e = *U + &U _EepromBuffer * -> -> -> 0 `i `ui `ux -> -> # *U &U _EepromBuffer `ui `ux F8990 ]
+[e = *U + &U _EepromBuffer * -> -> -> 0 `i `ui `ux -> -> # *U &U _EepromBuffer `ui `ux F8994 ]
 [; ;eeprom_if.c: 142: I2cSlv_SendI2cMsg(EepromBuffer, SlaveAddress, 15);
 "142
 [e ( _I2cSlv_SendI2cMsg (3 , , &U _EepromBuffer _SlaveAddress -> -> 15 `i `uc ]
 [; ;eeprom_if.c: 144: memoryAddress += 16;
 "144
-[e =+ F8990 -> -> 16 `i `uc ]
+[e =+ F8994 -> -> 16 `i `uc ]
 [; ;eeprom_if.c: 145: if (memoryAddress >= 224)
 "145
-[e $ ! >= -> F8990 `i -> 224 `i 895  ]
+[e $ ! >= -> F8994 `i -> 224 `i 895  ]
 [; ;eeprom_if.c: 146: {
 "146
 {
@@ -8416,14 +8417,14 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = *U + &U _EepromBuffer * -> -> -> 0 `i `ui `ux -> -> # *U &U _EepromBuffer `ui `ux -> -> 0 `i `uc ]
 [; ;eeprom_if.c: 148: memoryAddress = 0;
 "148
-[e = F8990 -> -> 0 `i `uc ]
+[e = F8994 -> -> 0 `i `uc ]
 "149
 }
 [e :U 895 ]
 [; ;eeprom_if.c: 149: }
 [; ;eeprom_if.c: 150: return memoryAddress;
 "150
-[e ) F8990 ]
+[e ) F8994 ]
 [e $UE 893  ]
 [; ;eeprom_if.c: 151: }
 "151

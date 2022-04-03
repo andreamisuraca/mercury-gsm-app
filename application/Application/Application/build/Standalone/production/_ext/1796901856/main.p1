@@ -8206,9 +8206,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;sysm.h: 53: void Sysm_IdleMode (void);
 [; ;sysm.h: 55: void Sysm_SleepMode (void);
 [; ;sysm.h: 57: void Sysm_DeepSleepMode (void);
-[; ;sf.h: 53: UINT8 StringCompare (UINT8 *String1, UINT8 *String2, UINT16 Len);
-[; ;sf.h: 54: void StringCopy (UINT8 *SourceStr, UINT8 *DestStr, UINT16 Len);
-[; ;sf.h: 55: void ClearBuffer (UINT8 *Buffer, UINT16 Len);
+[; ;sf.h: 53: UINT8 StringCompare2Const (UINT8 *String1, const UINT8 *String2, UINT16 Len);
+[; ;sf.h: 54: UINT8 StringCompare (UINT8 *String1, UINT8 *String2, UINT16 Len);
+[; ;sf.h: 55: void StringCopy (UINT8 *SourceStr, UINT8 *DestStr, UINT16 Len);
+[; ;sf.h: 56: void ClearBuffer (UINT8 *Buffer, UINT16 Len);
 [; ;term.h: 51: extern UINT16 UsbMasterPhoneNumberLen;
 [; ;term.h: 53: extern char UsbMasterPhoneNumber[((UINT16)(15))];
 [; ;term.h: 55: extern UINT8 IsUsbNumberReceived;

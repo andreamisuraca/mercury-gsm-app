@@ -18,7 +18,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _getsUSBUSART `(uc ~T0 @X0 0 ef2`*uc`uc ]
 "218 ../../MercuryFwk/Source/h/01_Hal/02_Drv/uart_drv.h
 [v _Uart_WriteStringLen `(v ~T0 @X0 0 ef3`uc`*uc`uc ]
-"55 ../../MercuryFwk/Source/h/03_Sml/02_Ssl/sf.h
+"56 ../../MercuryFwk/Source/h/03_Sml/02_Ssl/sf.h
 [v _ClearBuffer `(v ~T0 @X0 0 ef2`*uc`us ]
 "369 ../../MercuryFwk/Source/c/03_Sml/02_Ssl/term.c
 [c E7699 0 1 2 3 .. ]
@@ -39,8 +39,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 "695
 [v _putUSBUSART `(v ~T0 @X0 0 ef2`*uc`uc ]
 "431 ../../MercuryFwk/Source/c/03_Sml/02_Ssl/term.c
-[c E8985 0 1 2 3 .. ]
-[n E8985 _TermStateType Term_GetData Term_PrepSlvI2cResp Term_ReadSlvI2cData Term_ReadSlvUartData  ]
+[c E8989 0 1 2 3 .. ]
+[n E8989 _TermStateType Term_GetData Term_PrepSlvI2cResp Term_ReadSlvI2cData Term_ReadSlvUartData  ]
 "94
 [s S887 `uc -> 4 `i ]
 [n S887 _PayloadType Byte ]
@@ -77,8 +77,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 "37 /opt/microchip/xc8/v1.45/include/string.h
 [v _strcpy `(*uc ~T0 @X0 0 ef2`*uc`*Cuc ]
 "711 ../../MercuryFwk/Source/c/03_Sml/02_Ssl/term.c
-[c E8974 0 1 2 3 4 5 6 7 8 .. ]
-[n E8974 _TermMainSmStateType Term_StartTmr Term_InitDelay Term_InitState Term_WelcomeState Term_InstDescState Term_FwkVerState Term_FwkBuildDateState Term_SysInitState Term_FinalState  ]
+[c E8978 0 1 2 3 4 5 6 7 8 .. ]
+[n E8978 _TermMainSmStateType Term_StartTmr Term_InitDelay Term_InitState Term_WelcomeState Term_InstDescState Term_FwkVerState Term_FwkBuildDateState Term_SysInitState Term_FinalState  ]
 "104 ../../MercuryFwk/Source/h/02_Osl/os_timers.h
 [v _OsTmr_StartTimer `(v ~T0 @X0 0 ef2`*S804`ul ]
 "110
@@ -94,10 +94,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 "194 /opt/microchip/xc8/v1.45/include/stdio.h
 [v _sprintf `(i ~T0 @X0 0 e1v`*uc`*Cuc ]
 "849 ../../MercuryFwk/Source/c/03_Sml/02_Ssl/term.c
-[c E8958 0 1 .. ]
-[n E8958 SystemStateEnum InitializationState RunningState  ]
+[c E8962 0 1 .. ]
+[n E8962 SystemStateEnum InitializationState RunningState  ]
 "79 ../../MercuryFwk/Source/h/02_Osl/os_sched.h
-[v _SystemState `E8958 ~T0 @X0 0 e ]
+[v _SystemState `E8962 ~T0 @X0 0 e ]
 "30 ../../MercuryFwk/Source/h/01_Hal/01_Sys/hal.h
 [p n 1510 ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
@@ -8298,9 +8298,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;sysm.h: 53: void Sysm_IdleMode (void);
 [; ;sysm.h: 55: void Sysm_SleepMode (void);
 [; ;sysm.h: 57: void Sysm_DeepSleepMode (void);
-[; ;sf.h: 53: UINT8 StringCompare (UINT8 *String1, UINT8 *String2, UINT16 Len);
-[; ;sf.h: 54: void StringCopy (UINT8 *SourceStr, UINT8 *DestStr, UINT16 Len);
-[; ;sf.h: 55: void ClearBuffer (UINT8 *Buffer, UINT16 Len);
+[; ;sf.h: 53: UINT8 StringCompare2Const (UINT8 *String1, const UINT8 *String2, UINT16 Len);
+[; ;sf.h: 54: UINT8 StringCompare (UINT8 *String1, UINT8 *String2, UINT16 Len);
+[; ;sf.h: 55: void StringCopy (UINT8 *SourceStr, UINT8 *DestStr, UINT16 Len);
+[; ;sf.h: 56: void ClearBuffer (UINT8 *Buffer, UINT16 Len);
 [; ;ext_int.h: 52: void ExtInt_SetInt0Action (ExtInt_CallbackType Callback);
 [; ;ext_int.h: 53: void ExtInt_SetInt1Action (ExtInt_CallbackType Callback);
 [; ;wdg.h: 53: void Wdg_MainTask (UINT8 Options);
@@ -8807,17 +8808,17 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U _GsmGprsTerminal ]
 [f ]
 "322
-[v F9000 `uc ~T0 @X0 -> 200 `ui s UsbBuffer ]
+[v F9004 `uc ~T0 @X0 -> 200 `ui s UsbBuffer ]
 "323
-[v F9001 `uc ~T0 @X0 -> 200 `ui s UartBuffer ]
+[v F9005 `uc ~T0 @X0 -> 200 `ui s UartBuffer ]
 "324
-[v F9002 `uc ~T0 @X0 1 s FirstRecFlag ]
-[i F9002
+[v F9006 `uc ~T0 @X0 1 s FirstRecFlag ]
+[i F9006
 -> -> 0 `i `uc
 ]
 "325
-[v F9003 `uc ~T0 @X0 1 s SMS ]
-[i F9003
+[v F9007 `uc ~T0 @X0 1 s SMS ]
+[i F9007
 -> -> 0 `i `uc
 ]
 "326
@@ -8850,7 +8851,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;term.c: 334: }
 [; ;term.c: 337: ReceivedBytes = getsUSBUSART(UsbBuffer,200u);
 "337
-[e = _ReceivedBytes ( _getsUSBUSART (2 , &U F9000 -> -> 200 `ui `uc ]
+[e = _ReceivedBytes ( _getsUSBUSART (2 , &U F9004 -> -> 200 `ui `uc ]
 [; ;term.c: 339: if (ReceivedBytes > 0)
 "339
 [e $ ! > -> _ReceivedBytes `i -> 0 `i 890  ]
@@ -8859,19 +8860,19 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;term.c: 342: if (UsbBuffer[0] == '#')
 "342
-[e $ ! == -> *U + &U F9000 * -> -> -> 0 `i `ui `ux -> -> # *U &U F9000 `ui `ux `ui -> 35 `ui 891  ]
+[e $ ! == -> *U + &U F9004 * -> -> -> 0 `i `ui `ux -> -> # *U &U F9004 `ui `ux `ui -> 35 `ui 891  ]
 [; ;term.c: 343: {
 "343
 {
 [; ;term.c: 344: if (UsbBuffer[1] == 'S')
 "344
-[e $ ! == -> *U + &U F9000 * -> -> -> 1 `i `ui `ux -> -> # *U &U F9000 `ui `ux `ui -> 83 `ui 892  ]
+[e $ ! == -> *U + &U F9004 * -> -> -> 1 `i `ui `ux -> -> # *U &U F9004 `ui `ux `ui -> 83 `ui 892  ]
 [; ;term.c: 345: {
 "345
 {
 [; ;term.c: 346: SMS = 1;
 "346
-[e = F9003 -> -> 1 `i `uc ]
+[e = F9007 -> -> 1 `i `uc ]
 "347
 }
 [e :U 892 ]
@@ -8897,7 +8898,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;term.c: 354: UartBuffer[UartIndex] = UsbBuffer[UartIndex];
 "354
-[e = *U + &U F9001 * -> _UartIndex `ux -> -> # *U &U F9001 `ui `ux *U + &U F9000 * -> _UartIndex `ux -> -> # *U &U F9000 `ui `ux ]
+[e = *U + &U F9005 * -> _UartIndex `ux -> -> # *U &U F9005 `ui `ux *U + &U F9004 * -> _UartIndex `ux -> -> # *U &U F9004 `ui `ux ]
 [; ;term.c: 355: UartIndex++;
 "355
 [e ++ _UartIndex -> -> 1 `i `uc ]
@@ -8913,26 +8914,26 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;term.c: 356: }
 [; ;term.c: 358: if (SMS == 1)
 "358
-[e $ ! == -> F9003 `i -> 1 `i 898  ]
+[e $ ! == -> F9007 `i -> 1 `i 898  ]
 [; ;term.c: 359: {
 "359
 {
 [; ;term.c: 360: SMS = 0;
 "360
-[e = F9003 -> -> 0 `i `uc ]
+[e = F9007 -> -> 0 `i `uc ]
 [; ;term.c: 361: UartBuffer[UartIndex - 1] = 0x1A;
 "361
-[e = *U + &U F9001 * -> -> - -> _UartIndex `i -> 1 `i `ui `ux -> -> # *U &U F9001 `ui `ux -> -> 26 `i `uc ]
+[e = *U + &U F9005 * -> -> - -> _UartIndex `i -> 1 `i `ui `ux -> -> # *U &U F9005 `ui `ux -> -> 26 `i `uc ]
 "362
 }
 [e :U 898 ]
 [; ;term.c: 362: }
 [; ;term.c: 363: Uart_WriteStringLen(((UINT8)(1)),UartBuffer,UartIndex);
 "363
-[e ( _Uart_WriteStringLen (3 , , -> -> 1 `i `uc &U F9001 _UartIndex ]
+[e ( _Uart_WriteStringLen (3 , , -> -> 1 `i `uc &U F9005 _UartIndex ]
 [; ;term.c: 364: ClearBuffer(UartBuffer, sizeof(UartBuffer));
 "364
-[e ( _ClearBuffer (2 , &U F9001 -> -> # F9001 `ui `us ]
+[e ( _ClearBuffer (2 , &U F9005 -> -> # F9005 `ui `us ]
 "365
 }
 [e :U 893 ]
@@ -8983,9 +8984,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U _Terminal ]
 [f ]
 "431
-[v F9010 `E8985 ~T0 @X0 1 s TermState ]
-[i F9010
-. `E8985 0
+[v F9014 `E8989 ~T0 @X0 1 s TermState ]
+[i F9014
+. `E8989 0
 ]
 "432
 [v _UsbRxBuffer `uc ~T0 @X0 -> 200 `ui a ]
@@ -8994,19 +8995,19 @@ Version 3.2 HI-TECH Software Intermediate Code
 "434
 [v _TermTxBuffer `uc ~T0 @X0 -> 50 `ui a ]
 "435
-[v F9014 `uc ~T0 @X0 -> 50 `ui s TermRxBuffer ]
+[v F9018 `uc ~T0 @X0 -> 50 `ui s TermRxBuffer ]
 "436
 [v _Index `uc ~T0 @X0 1 a ]
 "437
-[v F9016 `uc ~T0 @X0 -> 4 `i s Len ]
+[v F9020 `uc ~T0 @X0 -> 4 `i s Len ]
 "438
-[v F9017 `uc ~T0 @X0 1 s PackageLen ]
+[v F9021 `uc ~T0 @X0 1 s PackageLen ]
 "439
-[v F9018 `uc ~T0 @X0 -> 4 `i s Addr ]
+[v F9022 `uc ~T0 @X0 -> 4 `i s Addr ]
 "440
-[v F9019 `uc ~T0 @X0 1 s SlaveAddr ]
+[v F9023 `uc ~T0 @X0 1 s SlaveAddr ]
 "441
-[v F9020 `S887 ~T0 @X0 -> 20 `ui s Payload ]
+[v F9024 `S887 ~T0 @X0 -> 20 `ui s Payload ]
 "442
 [v _ReceivedBytes `uc ~T0 @X0 1 a ]
 [; ;term.c: 431: static TermStateType TermState = Term_GetData;
@@ -9023,17 +9024,17 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;term.c: 442: UINT8 ReceivedBytes = 0;
 [e = _ReceivedBytes -> -> 0 `i `uc ]
 "444
-[v F9022 `uc ~T0 @X0 1 s FormatOption ]
-[i F9022
+[v F9026 `uc ~T0 @X0 1 s FormatOption ]
+[i F9026
 -> -> 0 `ui `uc
 ]
 "445
-[v F9023 `uc ~T0 @X0 1 s EchoOption ]
-[i F9023
+[v F9027 `uc ~T0 @X0 1 s EchoOption ]
+[i F9027
 -> -> 1 `ui `uc
 ]
 "446
-[v F9024 `S804 ~T0 @X0 1 s SwTimer ]
+[v F9028 `S804 ~T0 @X0 1 s SwTimer ]
 [; ;term.c: 444: static UINT8 FormatOption = 0u;
 [; ;term.c: 445: static UINT8 EchoOption = 1u;
 [; ;term.c: 446: static SwTimerType SwTimer;
@@ -9062,7 +9063,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;term.c: 462: if (EchoOption == 1u)
 "462
-[e $ ! == -> F9023 `ui -> 1 `ui 907  ]
+[e $ ! == -> F9027 `ui -> 1 `ui 907  ]
 [; ;term.c: 463: {
 "463
 {
@@ -9117,7 +9118,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;term.c: 486: FormatOption = 1u;
 "486
-[e = F9022 -> -> 1 `ui `uc ]
+[e = F9026 -> -> 1 `ui `uc ]
 "487
 }
 [; ;term.c: 487: }
@@ -9131,7 +9132,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;term.c: 490: FormatOption = 0u;
 "490
-[e = F9022 -> -> 0 `ui `uc ]
+[e = F9026 -> -> 0 `ui `uc ]
 "491
 }
 [e :U 914 ]
@@ -9156,7 +9157,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;term.c: 498: EchoOption = 1u;
 "498
-[e = F9023 -> -> 1 `ui `uc ]
+[e = F9027 -> -> 1 `ui `uc ]
 "499
 }
 [; ;term.c: 499: }
@@ -9170,7 +9171,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;term.c: 502: EchoOption = 0u;
 "502
-[e = F9023 -> -> 0 `ui `uc ]
+[e = F9027 -> -> 0 `ui `uc ]
 "503
 }
 [e :U 919 ]
@@ -9217,22 +9218,22 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;term.c: 518: Len[0] = UsbRxBuffer[0u + 1u + 1u + 1u + 2u];
 "518
-[e = *U + &U F9016 * -> -> -> 0 `i `ui `ux -> -> # *U &U F9016 `ui `ux *U + &U _UsbRxBuffer * -> + + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> 2 `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux ]
+[e = *U + &U F9020 * -> -> -> 0 `i `ui `ux -> -> # *U &U F9020 `ui `ux *U + &U _UsbRxBuffer * -> + + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> 2 `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux ]
 [; ;term.c: 519: Len[1] = UsbRxBuffer[0u + 1u + 1u + 1u + 2u + 1];
 "519
-[e = *U + &U F9016 * -> -> -> 1 `i `ui `ux -> -> # *U &U F9016 `ui `ux *U + &U _UsbRxBuffer * -> + + + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> 2 `ui -> -> 1 `i `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux ]
+[e = *U + &U F9020 * -> -> -> 1 `i `ui `ux -> -> # *U &U F9020 `ui `ux *U + &U _UsbRxBuffer * -> + + + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> 2 `ui -> -> 1 `i `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux ]
 [; ;term.c: 521: Addr[0] = UsbRxBuffer[0u + 1u + 1u + 1u + 2u + 3u];
 "521
-[e = *U + &U F9018 * -> -> -> 0 `i `ui `ux -> -> # *U &U F9018 `ui `ux *U + &U _UsbRxBuffer * -> + + + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> 2 `ui -> 3 `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux ]
+[e = *U + &U F9022 * -> -> -> 0 `i `ui `ux -> -> # *U &U F9022 `ui `ux *U + &U _UsbRxBuffer * -> + + + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> 2 `ui -> 3 `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux ]
 [; ;term.c: 522: Addr[1] = UsbRxBuffer[0u + 1u + 1u + 1u + 2u + 3u + 1];
 "522
-[e = *U + &U F9018 * -> -> -> 1 `i `ui `ux -> -> # *U &U F9018 `ui `ux *U + &U _UsbRxBuffer * -> + + + + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> 2 `ui -> 3 `ui -> -> 1 `i `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux ]
+[e = *U + &U F9022 * -> -> -> 1 `i `ui `ux -> -> # *U &U F9022 `ui `ux *U + &U _UsbRxBuffer * -> + + + + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> 2 `ui -> 3 `ui -> -> 1 `i `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux ]
 [; ;term.c: 524: PackageLen = atoi((void*)Len);
 "524
-[e = F9017 -> ( _atoi (1 -> -> &U F9016 `*v `*Cuc `uc ]
+[e = F9021 -> ( _atoi (1 -> -> &U F9020 `*v `*Cuc `uc ]
 [; ;term.c: 525: SlaveAddr = xtoi((void*)Addr);
 "525
-[e = F9019 -> ( _xtoi (1 -> -> &U F9018 `*v `*Cuc `uc ]
+[e = F9023 -> ( _xtoi (1 -> -> &U F9022 `*v `*Cuc `uc ]
 [; ;term.c: 527: for (Index = 0; Index <= PackageLen; Index++)
 "527
 {
@@ -9244,16 +9245,16 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;term.c: 529: Payload[Index].Byte[0] = UsbRxBuffer[2*Index + 0u + 1u + 1u + 1u + 2u + 3u + 3u];
 "529
-[e = *U + &U . *U + &U F9020 * -> _Index `ux -> -> # *U &U F9020 `ui `ux 0 * -> -> -> 0 `i `ui `ux -> -> # *U &U . *U + &U F9020 * -> _Index `ux -> -> # *U &U F9020 `ui `ux 0 `ui `ux *U + &U _UsbRxBuffer * -> + + + + + + + -> * -> 2 `i -> _Index `i `ui -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> 2 `ui -> 3 `ui -> 3 `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux ]
+[e = *U + &U . *U + &U F9024 * -> _Index `ux -> -> # *U &U F9024 `ui `ux 0 * -> -> -> 0 `i `ui `ux -> -> # *U &U . *U + &U F9024 * -> _Index `ux -> -> # *U &U F9024 `ui `ux 0 `ui `ux *U + &U _UsbRxBuffer * -> + + + + + + + -> * -> 2 `i -> _Index `i `ui -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> 2 `ui -> 3 `ui -> 3 `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux ]
 [; ;term.c: 530: Payload[Index].Byte[1] = UsbRxBuffer[2*Index + 0u + 1u + 1u + 1u + 2u + 3u + 3u + 1];
 "530
-[e = *U + &U . *U + &U F9020 * -> _Index `ux -> -> # *U &U F9020 `ui `ux 0 * -> -> -> 1 `i `ui `ux -> -> # *U &U . *U + &U F9020 * -> _Index `ux -> -> # *U &U F9020 `ui `ux 0 `ui `ux *U + &U _UsbRxBuffer * -> + + + + + + + + -> * -> 2 `i -> _Index `i `ui -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> 2 `ui -> 3 `ui -> 3 `ui -> -> 1 `i `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux ]
+[e = *U + &U . *U + &U F9024 * -> _Index `ux -> -> # *U &U F9024 `ui `ux 0 * -> -> -> 1 `i `ui `ux -> -> # *U &U . *U + &U F9024 * -> _Index `ux -> -> # *U &U F9024 `ui `ux 0 `ui `ux *U + &U _UsbRxBuffer * -> + + + + + + + + -> * -> 2 `i -> _Index `i `ui -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> 2 `ui -> 3 `ui -> 3 `ui -> -> 1 `i `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux ]
 "531
 }
 "527
 [e ++ _Index -> -> 1 `i `uc ]
 [e :U 927 ]
-[e $ <= -> _Index `i -> F9017 `i 924  ]
+[e $ <= -> _Index `i -> F9021 `i 924  ]
 [e :U 925 ]
 "531
 }
@@ -9269,20 +9270,20 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;term.c: 538: TermTxBuffer[Index] = strtol((void*)&(Payload[Index]), (0), 16);
 "538
-[e = *U + &U _TermTxBuffer * -> _Index `ux -> -> # *U &U _TermTxBuffer `ui `ux -> ( _strtol (3 , , -> -> &U *U + &U F9020 * -> _Index `ux -> -> # *U &U F9020 `ui `ux `*v `*Cuc -> -> 0 `i `**uc -> 16 `i `uc ]
+[e = *U + &U _TermTxBuffer * -> _Index `ux -> -> # *U &U _TermTxBuffer `ui `ux -> ( _strtol (3 , , -> -> &U *U + &U F9024 * -> _Index `ux -> -> # *U &U F9024 `ui `ux `*v `*Cuc -> -> 0 `i `**uc -> 16 `i `uc ]
 "540
 }
 "533
 [e ++ _Index -> -> 1 `i `uc ]
 [e :U 931 ]
-[e $ <= -> _Index `i -> F9017 `i 928  ]
+[e $ <= -> _Index `i -> F9021 `i 928  ]
 [e :U 929 ]
 "540
 }
 [; ;term.c: 540: }
 [; ;term.c: 543: I2cSlv_SendI2cMsg(TermTxBuffer, SlaveAddr, PackageLen);
 "543
-[e ( _I2cSlv_SendI2cMsg (3 , , &U _TermTxBuffer F9019 F9017 ]
+[e ( _I2cSlv_SendI2cMsg (3 , , &U _TermTxBuffer F9023 F9021 ]
 "544
 }
 [; ;term.c: 544: }
@@ -9296,28 +9297,28 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;term.c: 548: Len[0] = UsbRxBuffer[0u + 1u + 1u + 1u + 2u];
 "548
-[e = *U + &U F9016 * -> -> -> 0 `i `ui `ux -> -> # *U &U F9016 `ui `ux *U + &U _UsbRxBuffer * -> + + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> 2 `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux ]
+[e = *U + &U F9020 * -> -> -> 0 `i `ui `ux -> -> # *U &U F9020 `ui `ux *U + &U _UsbRxBuffer * -> + + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> 2 `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux ]
 [; ;term.c: 549: Len[1] = UsbRxBuffer[0u + 1u + 1u + 1u + 2u + 1];
 "549
-[e = *U + &U F9016 * -> -> -> 1 `i `ui `ux -> -> # *U &U F9016 `ui `ux *U + &U _UsbRxBuffer * -> + + + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> 2 `ui -> -> 1 `i `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux ]
+[e = *U + &U F9020 * -> -> -> 1 `i `ui `ux -> -> # *U &U F9020 `ui `ux *U + &U _UsbRxBuffer * -> + + + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> 2 `ui -> -> 1 `i `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux ]
 [; ;term.c: 551: Addr[0] = UsbRxBuffer[0u + 1u + 1u + 1u + 2u + 3u];
 "551
-[e = *U + &U F9018 * -> -> -> 0 `i `ui `ux -> -> # *U &U F9018 `ui `ux *U + &U _UsbRxBuffer * -> + + + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> 2 `ui -> 3 `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux ]
+[e = *U + &U F9022 * -> -> -> 0 `i `ui `ux -> -> # *U &U F9022 `ui `ux *U + &U _UsbRxBuffer * -> + + + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> 2 `ui -> 3 `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux ]
 [; ;term.c: 552: Addr[1] = UsbRxBuffer[0u + 1u + 1u + 1u + 2u + 3u + 1];
 "552
-[e = *U + &U F9018 * -> -> -> 1 `i `ui `ux -> -> # *U &U F9018 `ui `ux *U + &U _UsbRxBuffer * -> + + + + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> 2 `ui -> 3 `ui -> -> 1 `i `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux ]
+[e = *U + &U F9022 * -> -> -> 1 `i `ui `ux -> -> # *U &U F9022 `ui `ux *U + &U _UsbRxBuffer * -> + + + + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> 2 `ui -> 3 `ui -> -> 1 `i `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux ]
 [; ;term.c: 554: PackageLen = atoi((void*)Len);
 "554
-[e = F9017 -> ( _atoi (1 -> -> &U F9016 `*v `*Cuc `uc ]
+[e = F9021 -> ( _atoi (1 -> -> &U F9020 `*v `*Cuc `uc ]
 [; ;term.c: 555: SlaveAddr = xtoi((void*)Addr);
 "555
-[e = F9019 -> ( _xtoi (1 -> -> &U F9018 `*v `*Cuc `uc ]
+[e = F9023 -> ( _xtoi (1 -> -> &U F9022 `*v `*Cuc `uc ]
 [; ;term.c: 558: I2cSlv_ReceiveI2cMsg(TermRxBuffer, SlaveAddr, PackageLen);
 "558
-[e ( _I2cSlv_ReceiveI2cMsg (3 , , &U F9014 F9019 F9017 ]
+[e ( _I2cSlv_ReceiveI2cMsg (3 , , &U F9018 F9023 F9021 ]
 [; ;term.c: 561: TermState = Term_PrepSlvI2cResp;
 "561
-[e = F9010 . `E8985 1 ]
+[e = F9014 . `E8989 1 ]
 "562
 }
 [e :U 933 ]
@@ -9339,13 +9340,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;term.c: 569: Len[0] = UsbRxBuffer[0u + 1u + 1u + 1u];
 "569
-[e = *U + &U F9016 * -> -> -> 0 `i `ui `ux -> -> # *U &U F9016 `ui `ux *U + &U _UsbRxBuffer * -> + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux ]
+[e = *U + &U F9020 * -> -> -> 0 `i `ui `ux -> -> # *U &U F9020 `ui `ux *U + &U _UsbRxBuffer * -> + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux ]
 [; ;term.c: 570: Len[1] = UsbRxBuffer[0u + 1u + 1u + 1u + 1];
 "570
-[e = *U + &U F9016 * -> -> -> 1 `i `ui `ux -> -> # *U &U F9016 `ui `ux *U + &U _UsbRxBuffer * -> + + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> -> 1 `i `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux ]
+[e = *U + &U F9020 * -> -> -> 1 `i `ui `ux -> -> # *U &U F9020 `ui `ux *U + &U _UsbRxBuffer * -> + + + + -> 0 `ui -> 1 `ui -> 1 `ui -> 1 `ui -> -> 1 `i `ui `ux -> -> # *U &U _UsbRxBuffer `ui `ux ]
 [; ;term.c: 571: UsbMasterPhoneNumberLen = atoi(Len);
 "571
-[e = _UsbMasterPhoneNumberLen -> ( _atoi (1 -> &U F9016 `*Cuc `us ]
+[e = _UsbMasterPhoneNumberLen -> ( _atoi (1 -> &U F9020 `*Cuc `us ]
 [; ;term.c: 573: for (UINT8 i = 0; i < UsbMasterPhoneNumberLen; i++)
 "573
 {
@@ -9420,10 +9421,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = *U + &U _UsbTxBuffer * -> -> -> 2 `i `ui `ux -> -> # *U &U _UsbTxBuffer `ui `ux -> -> 91 `ui `uc ]
 [; ;term.c: 626: UsbTxBuffer[3] = Addr[0];
 "626
-[e = *U + &U _UsbTxBuffer * -> -> -> 3 `i `ui `ux -> -> # *U &U _UsbTxBuffer `ui `ux *U + &U F9018 * -> -> -> 0 `i `ui `ux -> -> # *U &U F9018 `ui `ux ]
+[e = *U + &U _UsbTxBuffer * -> -> -> 3 `i `ui `ux -> -> # *U &U _UsbTxBuffer `ui `ux *U + &U F9022 * -> -> -> 0 `i `ui `ux -> -> # *U &U F9022 `ui `ux ]
 [; ;term.c: 627: UsbTxBuffer[4] = Addr[1];
 "627
-[e = *U + &U _UsbTxBuffer * -> -> -> 4 `i `ui `ux -> -> # *U &U _UsbTxBuffer `ui `ux *U + &U F9018 * -> -> -> 1 `i `ui `ux -> -> # *U &U F9018 `ui `ux ]
+[e = *U + &U _UsbTxBuffer * -> -> -> 4 `i `ui `ux -> -> # *U &U _UsbTxBuffer `ui `ux *U + &U F9022 * -> -> -> 1 `i `ui `ux -> -> # *U &U F9022 `ui `ux ]
 [; ;term.c: 628: UsbTxBuffer[5] = ']';
 "628
 [e = *U + &U _UsbTxBuffer * -> -> -> 5 `i `ui `ux -> -> # *U &U _UsbTxBuffer `ui `ux -> -> 93 `ui `uc ]
@@ -9435,7 +9436,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _putUSBUSART (2 , &U _UsbTxBuffer -> -> 7 `i `uc ]
 [; ;term.c: 633: TermState = Term_ReadSlvI2cData;
 "633
-[e = F9010 . `E8985 2 ]
+[e = F9014 . `E8989 2 ]
 "634
 }
 [e :U 943 ]
@@ -9454,7 +9455,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;term.c: 642: if (FormatOption == 1u)
 "642
-[e $ ! == -> F9022 `ui -> 1 `ui 946  ]
+[e $ ! == -> F9026 `ui -> 1 `ui 946  ]
 [; ;term.c: 643: {
 "643
 {
@@ -9469,13 +9470,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;term.c: 647: itoa(((void*)&(Payload[Index])),TermRxBuffer[Index],10);
 "647
-[e ( _itoa (3 , , -> -> &U *U + &U F9020 * -> _Index `ux -> -> # *U &U F9020 `ui `ux `*v `*uc -> *U + &U F9014 * -> _Index `ux -> -> # *U &U F9014 `ui `ux `i -> 10 `i ]
+[e ( _itoa (3 , , -> -> &U *U + &U F9024 * -> _Index `ux -> -> # *U &U F9024 `ui `ux `*v `*uc -> *U + &U F9018 * -> _Index `ux -> -> # *U &U F9018 `ui `ux `i -> 10 `i ]
 "648
 }
 "645
 [e ++ _Index -> -> 1 `i `uc ]
 [e :U 950 ]
-[e $ <= -> _Index `i -> F9017 `i 947  ]
+[e $ <= -> _Index `i -> F9021 `i 947  ]
 [e :U 948 ]
 "648
 }
@@ -9492,19 +9493,19 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;term.c: 655: if (FormatOption == 1u)
 "655
-[e $ ! == -> F9022 `ui -> 1 `ui 952  ]
+[e $ ! == -> F9026 `ui -> 1 `ui 952  ]
 [; ;term.c: 656: {
 "656
 {
 [; ;term.c: 657: Payload[(2*PackageLen)].Byte[3] = '\r';
 "657
-[e = *U + &U . *U + &U F9020 * -> -> * -> 2 `i -> F9017 `i `ui `ux -> -> # *U &U F9020 `ui `ux 0 * -> -> -> 3 `i `ui `ux -> -> # *U &U . *U + &U F9020 * -> -> * -> 2 `i -> F9017 `i `ui `ux -> -> # *U &U F9020 `ui `ux 0 `ui `ux -> -> 13 `ui `uc ]
+[e = *U + &U . *U + &U F9024 * -> -> * -> 2 `i -> F9021 `i `ui `ux -> -> # *U &U F9024 `ui `ux 0 * -> -> -> 3 `i `ui `ux -> -> # *U &U . *U + &U F9024 * -> -> * -> 2 `i -> F9021 `i `ui `ux -> -> # *U &U F9024 `ui `ux 0 `ui `ux -> -> 13 `ui `uc ]
 [; ;term.c: 658: Payload[(2*PackageLen)].Byte[2] = '\n';
 "658
-[e = *U + &U . *U + &U F9020 * -> -> * -> 2 `i -> F9017 `i `ui `ux -> -> # *U &U F9020 `ui `ux 0 * -> -> -> 2 `i `ui `ux -> -> # *U &U . *U + &U F9020 * -> -> * -> 2 `i -> F9017 `i `ui `ux -> -> # *U &U F9020 `ui `ux 0 `ui `ux -> -> 10 `ui `uc ]
+[e = *U + &U . *U + &U F9024 * -> -> * -> 2 `i -> F9021 `i `ui `ux -> -> # *U &U F9024 `ui `ux 0 * -> -> -> 2 `i `ui `ux -> -> # *U &U . *U + &U F9024 * -> -> * -> 2 `i -> F9021 `i `ui `ux -> -> # *U &U F9024 `ui `ux 0 `ui `ux -> -> 10 `ui `uc ]
 [; ;term.c: 660: putUSBUSART((void*)Payload,(2*PackageLen) + 4);
 "660
-[e ( _putUSBUSART (2 , -> -> &U F9020 `*v `*uc -> + * -> 2 `i -> F9017 `i -> 4 `i `uc ]
+[e ( _putUSBUSART (2 , -> -> &U F9024 `*v `*uc -> + * -> 2 `i -> F9021 `i -> 4 `i `uc ]
 "661
 }
 [; ;term.c: 661: }
@@ -9517,20 +9518,20 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;term.c: 664: TermRxBuffer[PackageLen] = '\r';
 "664
-[e = *U + &U F9014 * -> F9017 `ux -> -> # *U &U F9014 `ui `ux -> -> 13 `ui `uc ]
+[e = *U + &U F9018 * -> F9021 `ux -> -> # *U &U F9018 `ui `ux -> -> 13 `ui `uc ]
 [; ;term.c: 665: TermRxBuffer[PackageLen + 1] = '\n';
 "665
-[e = *U + &U F9014 * -> -> + -> F9017 `i -> 1 `i `ui `ux -> -> # *U &U F9014 `ui `ux -> -> 10 `ui `uc ]
+[e = *U + &U F9018 * -> -> + -> F9021 `i -> 1 `i `ui `ux -> -> # *U &U F9018 `ui `ux -> -> 10 `ui `uc ]
 [; ;term.c: 667: putUSBUSART(TermRxBuffer,PackageLen + 2);
 "667
-[e ( _putUSBUSART (2 , &U F9014 -> + -> F9017 `i -> 2 `i `uc ]
+[e ( _putUSBUSART (2 , &U F9018 -> + -> F9021 `i -> 2 `i `uc ]
 "668
 }
 [e :U 953 ]
 [; ;term.c: 668: }
 [; ;term.c: 670: TermState = Term_GetData;
 "670
-[e = F9010 . `E8985 0 ]
+[e = F9014 . `E8989 0 ]
 "671
 }
 [e :U 951 ]
@@ -9547,7 +9548,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;term.c: 676: if (OsTmr_Wait(&SwTimer,3000u) == DelayExpired)
 "676
-[e $ ! == -> ( _OsTmr_Wait (2 , &U F9024 -> -> 3000 `ui `ul `i -> . `E7766 1 `i 955  ]
+[e $ ! == -> ( _OsTmr_Wait (2 , &U F9028 -> -> 3000 `ui `ul `i -> . `E7766 1 `i 955  ]
 [; ;term.c: 677: {
 "677
 {
@@ -9565,7 +9566,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _putUSBUSART (2 , &U _UsbTxBuffer -> - -> 42 `ui -> -> 1 `i `ui `uc ]
 [; ;term.c: 684: TermState = Term_GetData;
 "684
-[e = F9010 . `E8985 0 ]
+[e = F9014 . `E8989 0 ]
 "685
 }
 [e :U 956 ]
@@ -9599,10 +9600,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $U 903  ]
 "452
 [e :U 904 ]
-[e [\ F9010 , $ . `E8985 0 905
- , $ . `E8985 1 942
- , $ . `E8985 2 944
- , $ . `E8985 3 957
+[e [\ F9014 , $ . `E8989 0 905
+ , $ . `E8989 1 942
+ , $ . `E8989 2 944
+ , $ . `E8989 3 957
  958 ]
 "695
 [e :U 903 ]
@@ -9619,13 +9620,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U _Term_MainSm ]
 [f ]
 "711
-[v F9035 `E8974 ~T0 @X0 1 s TermMainSmState ]
-[i F9035
-. `E8974 0
+[v F9039 `E8978 ~T0 @X0 1 s TermMainSmState ]
+[i F9039
+. `E8978 0
 ]
 "712
-[v F9036 `S804 ~T0 @X0 1 s TermDelay ]
-[i F9036
+[v F9040 `S804 ~T0 @X0 1 s TermDelay ]
+[i F9040
 :U ..
 :U ..
 -> -> 1 `ui `uc
@@ -9637,7 +9638,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 ..
 ]
 "713
-[v F9037 `uc ~T0 @X0 -> 50 `i s Data ]
+[v F9041 `uc ~T0 @X0 -> 50 `i s Data ]
 "714
 [v _FwkMajorStr `uc ~T0 @X0 -> 4 `i a ]
 "715
@@ -9670,10 +9671,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U 962 ]
 [; ;term.c: 725: OsTmr_StartTimer(&TermDelay,2000);
 "725
-[e ( _OsTmr_StartTimer (2 , &U F9036 -> -> -> 2000 `i `l `ul ]
+[e ( _OsTmr_StartTimer (2 , &U F9040 -> -> -> 2000 `i `l `ul ]
 [; ;term.c: 727: TermMainSmState = Term_InitDelay;
 "727
-[e = F9035 . `E8974 1 ]
+[e = F9039 . `E8978 1 ]
 [; ;term.c: 728: break;
 "728
 [e $U 960  ]
@@ -9682,13 +9683,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U 963 ]
 [; ;term.c: 732: if (OsTmr_GetTimerStatus(&TermDelay) == SwTimerExpired)
 "732
-[e $ ! == -> ( _OsTmr_GetTimerStatus (1 &U F9036 `i -> . `E7757 1 `i 964  ]
+[e $ ! == -> ( _OsTmr_GetTimerStatus (1 &U F9040 `i -> . `E7757 1 `i 964  ]
 [; ;term.c: 733: {
 "733
 {
 [; ;term.c: 735: TermMainSmState = Term_InitState;
 "735
-[e = F9035 . `E8974 2 ]
+[e = F9039 . `E8978 2 ]
 "736
 }
 [e :U 964 ]
@@ -9717,7 +9718,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;term.c: 748: TermMainSmState = Term_WelcomeState;
 "748
-[e = F9035 . `E8974 3 ]
+[e = F9039 . `E8978 3 ]
 "749
 }
 [e :U 967 ]
@@ -9739,7 +9740,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _putUSBUSART (2 , -> -> &U _Welcome `*v `*uc -> - -> # _Welcome `ui -> -> 1 `i `ui `uc ]
 [; ;term.c: 759: TermMainSmState = Term_InstDescState;
 "759
-[e = F9035 . `E8974 4 ]
+[e = F9039 . `E8978 4 ]
 "760
 }
 [e :U 969 ]
@@ -9761,7 +9762,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _putUSBUSART (2 , -> -> &U _MsgFormat `*v `*uc -> - -> # _MsgFormat `ui -> -> 1 `i `ui `uc ]
 [; ;term.c: 770: TermMainSmState = Term_FwkVerState;
 "770
-[e = F9035 . `E8974 5 ]
+[e = F9039 . `E8978 5 ]
 "771
 }
 [e :U 971 ]
@@ -9780,7 +9781,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;term.c: 779: memset(Data,0,50);
 "779
-[e ( _memset (3 , , -> &U F9037 `*v -> 0 `i -> -> 50 `i `ui ]
+[e ( _memset (3 , , -> &U F9041 `*v -> 0 `i -> -> 50 `i `ui ]
 [; ;term.c: 781: utoa(FwkMajorStr,1,10);
 "781
 [e ( _utoa (3 , , &U _FwkMajorStr -> -> 1 `i `ui -> 10 `i ]
@@ -9792,31 +9793,31 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _utoa (3 , , &U _FwkBuildStr -> -> 0 `i `ui -> 10 `i ]
 [; ;term.c: 784: strcpy(Data,"Framework Version: ");
 "784
-[e ( _strcpy (2 , &U F9037 :s 3C ]
+[e ( _strcpy (2 , &U F9041 :s 3C ]
 [; ;term.c: 785: strcat(Data,FwkMajorStr);
 "785
-[e ( _strcat (2 , &U F9037 -> &U _FwkMajorStr `*Cuc ]
+[e ( _strcat (2 , &U F9041 -> &U _FwkMajorStr `*Cuc ]
 [; ;term.c: 786: strcat(Data,".");
 "786
-[e ( _strcat (2 , &U F9037 :s 4C ]
+[e ( _strcat (2 , &U F9041 :s 4C ]
 [; ;term.c: 787: strcat(Data,FwkMinorStr);
 "787
-[e ( _strcat (2 , &U F9037 -> &U _FwkMinorStr `*Cuc ]
+[e ( _strcat (2 , &U F9041 -> &U _FwkMinorStr `*Cuc ]
 [; ;term.c: 788: strcat(Data,".");
 "788
-[e ( _strcat (2 , &U F9037 :s 5C ]
+[e ( _strcat (2 , &U F9041 :s 5C ]
 [; ;term.c: 789: strcat(Data,FwkBuildStr);
 "789
-[e ( _strcat (2 , &U F9037 -> &U _FwkBuildStr `*Cuc ]
+[e ( _strcat (2 , &U F9041 -> &U _FwkBuildStr `*Cuc ]
 [; ;term.c: 790: strcat(Data,"\r\n");
 "790
-[e ( _strcat (2 , &U F9037 :s 6C ]
+[e ( _strcat (2 , &U F9041 :s 6C ]
 [; ;term.c: 792: putUSBUSART((void*)Data,strlen(Data));
 "792
-[e ( _putUSBUSART (2 , -> -> &U F9037 `*v `*uc -> ( _strlen (1 -> &U F9037 `*Cuc `uc ]
+[e ( _putUSBUSART (2 , -> -> &U F9041 `*v `*uc -> ( _strlen (1 -> &U F9041 `*Cuc `uc ]
 [; ;term.c: 794: TermMainSmState = Term_FwkBuildDateState;
 "794
-[e = F9035 . `E8974 6 ]
+[e = F9039 . `E8978 6 ]
 "795
 }
 [e :U 973 ]
@@ -9835,16 +9836,16 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;term.c: 803: memset(Data,0,50);
 "803
-[e ( _memset (3 , , -> &U F9037 `*v -> 0 `i -> -> 50 `i `ui ]
+[e ( _memset (3 , , -> &U F9041 `*v -> 0 `i -> -> 50 `i `ui ]
 [; ;term.c: 805: sprintf(Data,"Build Date: %s\r\n","Apr  3 2022");
 "805
-[e ( _sprintf (1 , (. , &U F9037 :s 7C :s 8C ]
+[e ( _sprintf (1 , (. , &U F9041 :s 7C :s 8C ]
 [; ;term.c: 807: putUSBUSART((void*)Data,strlen(Data));
 "807
-[e ( _putUSBUSART (2 , -> -> &U F9037 `*v `*uc -> ( _strlen (1 -> &U F9037 `*Cuc `uc ]
+[e ( _putUSBUSART (2 , -> -> &U F9041 `*v `*uc -> ( _strlen (1 -> &U F9041 `*Cuc `uc ]
 [; ;term.c: 809: TermMainSmState = Term_SysInitState;
 "809
-[e = F9035 . `E8974 7 ]
+[e = F9039 . `E8978 7 ]
 "810
 }
 [e :U 975 ]
@@ -9866,7 +9867,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _putUSBUSART (2 , -> -> &U _MsgReady `*v `*uc -> - -> # _MsgReady `ui -> -> 1 `i `ui `uc ]
 [; ;term.c: 820: TermMainSmState = Term_FinalState;
 "820
-[e = F9035 . `E8974 8 ]
+[e = F9039 . `E8978 8 ]
 "821
 }
 [e :U 977 ]
@@ -9895,15 +9896,15 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $U 960  ]
 "721
 [e :U 961 ]
-[e [\ F9035 , $ . `E8974 0 962
- , $ . `E8974 1 963
- , $ . `E8974 2 965
- , $ . `E8974 3 968
- , $ . `E8974 4 970
- , $ . `E8974 5 972
- , $ . `E8974 6 974
- , $ . `E8974 7 976
- , $ . `E8974 8 978
+[e [\ F9039 , $ . `E8978 0 962
+ , $ . `E8978 1 963
+ , $ . `E8978 2 965
+ , $ . `E8978 3 968
+ , $ . `E8978 4 970
+ , $ . `E8978 5 972
+ , $ . `E8978 6 974
+ , $ . `E8978 7 976
+ , $ . `E8978 8 978
  979 ]
 "831
 [e :U 960 ]
@@ -9955,8 +9956,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $U 981  ]
 "849
 [e :U 982 ]
-[e [\ _SystemState , $ . `E8958 0 983
- , $ . `E8958 1 984
+[e [\ _SystemState , $ . `E8962 0 983
+ , $ . `E8962 1 984
  985 ]
 "867
 [e :U 981 ]

@@ -6,10 +6,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 "71
 [v _Mcu_ClearWdg `(v ~T0 @X0 0 ef ]
 "75 ../../MercuryFwk/Source/c/03_Sml/02_Ssl/wdg.c
-[c E8962 0 1 .. ]
-[n E8962 SystemStateEnum InitializationState RunningState  ]
+[c E8966 0 1 .. ]
+[n E8966 SystemStateEnum InitializationState RunningState  ]
 "79 ../../MercuryFwk/Source/h/02_Osl/os_sched.h
-[v _SystemState `E8962 ~T0 @X0 0 e ]
+[v _SystemState `E8966 ~T0 @X0 0 e ]
 "30 ../../MercuryFwk/Source/h/01_Hal/01_Sys/hal.h
 [p n 1510 ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
@@ -8210,9 +8210,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;sysm.h: 53: void Sysm_IdleMode (void);
 [; ;sysm.h: 55: void Sysm_SleepMode (void);
 [; ;sysm.h: 57: void Sysm_DeepSleepMode (void);
-[; ;sf.h: 53: UINT8 StringCompare (UINT8 *String1, UINT8 *String2, UINT16 Len);
-[; ;sf.h: 54: void StringCopy (UINT8 *SourceStr, UINT8 *DestStr, UINT16 Len);
-[; ;sf.h: 55: void ClearBuffer (UINT8 *Buffer, UINT16 Len);
+[; ;sf.h: 53: UINT8 StringCompare2Const (UINT8 *String1, const UINT8 *String2, UINT16 Len);
+[; ;sf.h: 54: UINT8 StringCompare (UINT8 *String1, UINT8 *String2, UINT16 Len);
+[; ;sf.h: 55: void StringCopy (UINT8 *SourceStr, UINT8 *DestStr, UINT16 Len);
+[; ;sf.h: 56: void ClearBuffer (UINT8 *Buffer, UINT16 Len);
 [; ;term.h: 51: extern UINT16 UsbMasterPhoneNumberLen;
 [; ;term.h: 53: extern char UsbMasterPhoneNumber[((UINT16)(15))];
 [; ;term.h: 55: extern UINT8 IsUsbNumberReceived;
@@ -8282,8 +8283,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $U 888  ]
 "75
 [e :U 889 ]
-[e [\ _SystemState , $ . `E8962 0 890
- , $ . `E8962 1 891
+[e [\ _SystemState , $ . `E8966 0 890
+ , $ . `E8966 1 891
  892 ]
 "92
 [e :U 888 ]

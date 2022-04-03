@@ -146,7 +146,7 @@ bool triggerCmdFsm(uint8_t* receivedNumber)
         break;
 
     case TRIGGER_FSM_DEACTIVATE_RELAY:
-        if (secondsAppTimer(1, secondCounter, false))
+        if (secondsAppTimer(1, &secondCounter, false))
         {
             triggerRelay(false);
             currentState = TRIGGER_FSM_COMPLETE;

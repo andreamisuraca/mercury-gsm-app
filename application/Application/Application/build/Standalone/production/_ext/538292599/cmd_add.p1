@@ -2,20 +2,20 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v F7983 `(v ~T0 @X0 0 tf ]
 [v F8056 `(v ~T0 @X0 0 tf ]
 "81 ../Source/c/04_App/cmd_add.c
-[c E9004 0 1 2 3 .. ]
-[n E9004 _addFsmStates ADD_FSM_CHECK_MASTER ADD_FSM_CHECK_DUPLICATED ADD_FSM_SAVE_NEW ADD_FSM_COMPLETE  ]
+[c E9008 0 1 2 3 .. ]
+[n E9008 _addFsmStates ADD_FSM_CHECK_MASTER ADD_FSM_CHECK_DUPLICATED ADD_FSM_SAVE_NEW ADD_FSM_COMPLETE  ]
 "84
 [c E8246 0 1 2 .. ]
 [n E8246 _EepromSts OP_SUCCESS OP_FAILED OP_PENDING  ]
 "116 ../Source/h/04_App/utils.h
 [v _isMasterNumber `(uc ~T0 @X0 0 ef1`*uc ]
 "103 ../Source/c/04_App/cmd_add.c
-[c E8974 0 1 2 3 4 .. ]
-[n E8974 _searchFsmStates SEARCH_FSM_START SEARCH_FSM_CHECK_NUMBER SEARCH_FSM_ERROR SEARCH_FSM_FOUND SEARCH_FSM_NOT_FOUND  ]
+[c E8978 0 1 2 3 4 .. ]
+[n E8978 _searchFsmStates SEARCH_FSM_START SEARCH_FSM_CHECK_NUMBER SEARCH_FSM_ERROR SEARCH_FSM_FOUND SEARCH_FSM_NOT_FOUND  ]
 "108 ../Source/h/04_App/utils.h
-[v _isNumberInMemory `(E8974 ~T0 @X0 0 ef2`*uc`*uc ]
+[v _isNumberInMemory `(E8978 ~T0 @X0 0 ef2`*uc`*uc ]
 "124
-[v _findEmptySpot `(E8974 ~T0 @X0 0 ef1`*uc ]
+[v _findEmptySpot `(E8978 ~T0 @X0 0 ef1`*uc ]
 "90
 [v _saveNumberInMemory `(v ~T0 @X0 0 ef2`uc`*uc ]
 "30 ../../MercuryFwk/Source/h/01_Hal/01_Sys/hal.h
@@ -8218,9 +8218,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;sysm.h: 53: void Sysm_IdleMode (void);
 [; ;sysm.h: 55: void Sysm_SleepMode (void);
 [; ;sysm.h: 57: void Sysm_DeepSleepMode (void);
-[; ;sf.h: 53: UINT8 StringCompare (UINT8 *String1, UINT8 *String2, UINT16 Len);
-[; ;sf.h: 54: void StringCopy (UINT8 *SourceStr, UINT8 *DestStr, UINT16 Len);
-[; ;sf.h: 55: void ClearBuffer (UINT8 *Buffer, UINT16 Len);
+[; ;sf.h: 53: UINT8 StringCompare2Const (UINT8 *String1, const UINT8 *String2, UINT16 Len);
+[; ;sf.h: 54: UINT8 StringCompare (UINT8 *String1, UINT8 *String2, UINT16 Len);
+[; ;sf.h: 55: void StringCopy (UINT8 *SourceStr, UINT8 *DestStr, UINT16 Len);
+[; ;sf.h: 56: void ClearBuffer (UINT8 *Buffer, UINT16 Len);
 [; ;term.h: 51: extern UINT16 UsbMasterPhoneNumberLen;
 [; ;term.h: 53: extern char UsbMasterPhoneNumber[((UINT16)(15))];
 [; ;term.h: 55: extern UINT8 IsUsbNumberReceived;
@@ -8281,9 +8282,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "80
 [f ]
 "81
-[v F9013 `E9004 ~T0 @X0 1 s currentState ]
-[i F9013
-. `E9004 0
+[v F9017 `E9008 ~T0 @X0 1 s currentState ]
+[i F9017
+. `E9008 0
 ]
 "82
 [v _isComplete `uc ~T0 @X0 1 a ]
@@ -8325,7 +8326,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;cmd_add.c: 94: currentState = ADD_FSM_CHECK_DUPLICATED;
 "94
-[e = F9013 . `E9004 1 ]
+[e = F9017 . `E9008 1 ]
 "95
 }
 [; ;cmd_add.c: 95: }
@@ -8339,7 +8340,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;cmd_add.c: 98: currentState = ADD_FSM_COMPLETE;
 "98
-[e = F9013 . `E9004 3 ]
+[e = F9017 . `E9008 3 ]
 "99
 }
 [e :U 893 ]
@@ -8356,13 +8357,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _searchNumber -> ( _isNumberInMemory (2 , + _smsText * -> -> 4 `i `x -> -> # *U _smsText `i `x &U _numberInMemory `uc ]
 [; ;cmd_add.c: 104: if (searchNumber == SEARCH_FSM_NOT_FOUND)
 "104
-[e $ ! == -> _searchNumber `i -> . `E8974 4 `i 895  ]
+[e $ ! == -> _searchNumber `i -> . `E8978 4 `i 895  ]
 [; ;cmd_add.c: 105: {
 "105
 {
 [; ;cmd_add.c: 106: currentState = ADD_FSM_SAVE_NEW;
 "106
-[e = F9013 . `E9004 2 ]
+[e = F9017 . `E9008 2 ]
 "107
 }
 [; ;cmd_add.c: 107: }
@@ -8370,13 +8371,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 "108
 [e :U 895 ]
 [; ;cmd_add.c: 108: else if (searchNumber == SEARCH_FSM_FOUND || searchNumber == SEARCH_FSM_ERROR)
-[e $ ! || == -> _searchNumber `i -> . `E8974 3 `i == -> _searchNumber `i -> . `E8974 2 `i 897  ]
+[e $ ! || == -> _searchNumber `i -> . `E8978 3 `i == -> _searchNumber `i -> . `E8978 2 `i 897  ]
 [; ;cmd_add.c: 109: {
 "109
 {
 [; ;cmd_add.c: 110: currentState = ADD_FSM_COMPLETE;
 "110
-[e = F9013 . `E9004 3 ]
+[e = F9017 . `E9008 3 ]
 "111
 }
 [e :U 897 ]
@@ -8393,7 +8394,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _searchNumber -> ( _findEmptySpot (1 &U _numberInMemory `uc ]
 [; ;cmd_add.c: 116: if (searchNumber == SEARCH_FSM_NOT_FOUND)
 "116
-[e $ ! == -> _searchNumber `i -> . `E8974 4 `i 899  ]
+[e $ ! == -> _searchNumber `i -> . `E8978 4 `i 899  ]
 [; ;cmd_add.c: 117: {
 "117
 {
@@ -8402,7 +8403,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _saveNumberInMemory (2 , _numberInMemory + _smsText * -> -> 4 `i `x -> -> # *U _smsText `i `x ]
 [; ;cmd_add.c: 119: currentState = ADD_FSM_COMPLETE;
 "119
-[e = F9013 . `E9004 3 ]
+[e = F9017 . `E9008 3 ]
 [; ;cmd_add.c: 120: *isCmdSuccessfull = 1;
 "120
 [e = *U _isCmdSuccessfull -> -> 1 `i `uc ]
@@ -8413,13 +8414,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 "122
 [e :U 899 ]
 [; ;cmd_add.c: 122: else if (searchNumber == SEARCH_FSM_FOUND || searchNumber == SEARCH_FSM_ERROR)
-[e $ ! || == -> _searchNumber `i -> . `E8974 3 `i == -> _searchNumber `i -> . `E8974 2 `i 901  ]
+[e $ ! || == -> _searchNumber `i -> . `E8978 3 `i == -> _searchNumber `i -> . `E8978 2 `i 901  ]
 [; ;cmd_add.c: 123: {
 "123
 {
 [; ;cmd_add.c: 124: currentState = ADD_FSM_COMPLETE;
 "124
-[e = F9013 . `E9004 3 ]
+[e = F9017 . `E9008 3 ]
 "125
 }
 [e :U 901 ]
@@ -8433,7 +8434,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U 902 ]
 [; ;cmd_add.c: 129: currentState = ADD_FSM_CHECK_MASTER;
 "129
-[e = F9013 . `E9004 0 ]
+[e = F9017 . `E9008 0 ]
 [; ;cmd_add.c: 130: isComplete = 1;
 "130
 [e = _isComplete -> -> 1 `i `uc ]
@@ -8452,10 +8453,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $U 888  ]
 "87
 [e :U 889 ]
-[e [\ F9013 , $ . `E9004 0 890
- , $ . `E9004 1 894
- , $ . `E9004 2 898
- , $ . `E9004 3 902
+[e [\ F9017 , $ . `E9008 0 890
+ , $ . `E9008 1 894
+ , $ . `E9008 2 898
+ , $ . `E9008 3 902
  903 ]
 "135
 [e :U 888 ]

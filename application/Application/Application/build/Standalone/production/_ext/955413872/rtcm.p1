@@ -80,10 +80,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 "84
 [v _Rtcm_GetRtccDate `(S885 ~T0 @X0 0 ef ]
 "101 ../../MercuryFwk/Source/c/03_Sml/02_Ssl/rtcm.c
-[c E8932 0 1 .. ]
-[n E8932 SystemStateEnum InitializationState RunningState  ]
+[c E8936 0 1 .. ]
+[n E8936 SystemStateEnum InitializationState RunningState  ]
 "79 ../../MercuryFwk/Source/h/02_Osl/os_sched.h
-[v _SystemState `E8932 ~T0 @X0 0 e ]
+[v _SystemState `E8936 ~T0 @X0 0 e ]
 "182 ../../MercuryFwk/Source/c/03_Sml/02_Ssl/rtcm.c
 [c E8026 0 1 2 3 4 5 6 .. ]
 [n E8026 _RtccValPointerType ValPtrYear ValPtrMonth ValPtrDay ValPtrWeekday ValPtrHours ValPtrMinutes ValPtrSeconds  ]
@@ -8272,9 +8272,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;sysm.h: 53: void Sysm_IdleMode (void);
 [; ;sysm.h: 55: void Sysm_SleepMode (void);
 [; ;sysm.h: 57: void Sysm_DeepSleepMode (void);
-[; ;sf.h: 53: UINT8 StringCompare (UINT8 *String1, UINT8 *String2, UINT16 Len);
-[; ;sf.h: 54: void StringCopy (UINT8 *SourceStr, UINT8 *DestStr, UINT16 Len);
-[; ;sf.h: 55: void ClearBuffer (UINT8 *Buffer, UINT16 Len);
+[; ;sf.h: 53: UINT8 StringCompare2Const (UINT8 *String1, const UINT8 *String2, UINT16 Len);
+[; ;sf.h: 54: UINT8 StringCompare (UINT8 *String1, UINT8 *String2, UINT16 Len);
+[; ;sf.h: 55: void StringCopy (UINT8 *SourceStr, UINT8 *DestStr, UINT16 Len);
+[; ;sf.h: 56: void ClearBuffer (UINT8 *Buffer, UINT16 Len);
 [; ;term.h: 51: extern UINT16 UsbMasterPhoneNumberLen;
 [; ;term.h: 53: extern char UsbMasterPhoneNumber[((UINT16)(15))];
 [; ;term.h: 55: extern UINT8 IsUsbNumberReceived;
@@ -8479,8 +8480,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $U 889  ]
 "101
 [e :U 890 ]
-[e [\ _SystemState , $ . `E8932 0 891
- , $ . `E8932 1 892
+[e [\ _SystemState , $ . `E8936 0 891
+ , $ . `E8936 1 892
  893 ]
 "165
 [e :U 889 ]

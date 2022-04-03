@@ -50,6 +50,10 @@ typedef enum _delFsmStates
 /************************************************************************
 * LOCAL Variables
 ************************************************************************/
+/**
+ * @brief It could be const but a compiler warning needs to be addressed.
+ */
+static uint8_t emptyNumber[PHONE_NUMBER_LEN] = {0};
 
 /************************************************************************
 * GLOBAL Variables
@@ -77,7 +81,6 @@ typedef enum _delFsmStates
  */
 bool delCmdFsm(uint8_t* receivedNumber, uint8_t* smsText, bool* isCmdSuccessfull)
 {
-    const uint8_t emptyNumber[PHONE_NUMBER_LEN] = {0};
     static delFsmStates currentState = DEL_FSM_CHECK_MASTER;
     bool isComplete = false;
     uint8_t numberInMemory = 0;

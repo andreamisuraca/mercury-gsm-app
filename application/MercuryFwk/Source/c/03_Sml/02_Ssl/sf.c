@@ -65,6 +65,35 @@
 /************************************************************************
 * Function:     StringCompare
 * Input:        UINT8 *String1
+*               const UINT8 *String2
+*               UINT16 Len   
+* Output:       UINT8 --> 0: no match; 1: match
+* Author:       A. Misuraca
+* Description:  Function to compare two strings.
+* Date:         03/04/22
+************************************************************************/
+UINT8 StringCompare2Const (UINT8 *String1, const UINT8 *String2, UINT16 Len)
+{
+   UINT16 Index = 0;
+   UINT8 Result = TRUE;
+   
+   /* Compare string */
+   for (Index = 0; Index < Len; Index++)
+   {
+      if (String1[Index] != String2[Index])
+      {
+         Result = FALSE;
+         break;
+      }         
+   }
+   
+   /* Return result */
+   return Result;
+}
+
+/************************************************************************
+* Function:     StringCompare
+* Input:        UINT8 *String1
 *               UINT8 *String2
 *               UINT16 Len   
 * Output:       UINT8 --> 0: no match; 1: match

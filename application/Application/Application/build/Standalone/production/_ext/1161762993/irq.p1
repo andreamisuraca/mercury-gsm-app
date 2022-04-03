@@ -8293,9 +8293,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;sysm.h: 53: void Sysm_IdleMode (void);
 [; ;sysm.h: 55: void Sysm_SleepMode (void);
 [; ;sysm.h: 57: void Sysm_DeepSleepMode (void);
-[; ;sf.h: 53: UINT8 StringCompare (UINT8 *String1, UINT8 *String2, UINT16 Len);
-[; ;sf.h: 54: void StringCopy (UINT8 *SourceStr, UINT8 *DestStr, UINT16 Len);
-[; ;sf.h: 55: void ClearBuffer (UINT8 *Buffer, UINT16 Len);
+[; ;sf.h: 53: UINT8 StringCompare2Const (UINT8 *String1, const UINT8 *String2, UINT16 Len);
+[; ;sf.h: 54: UINT8 StringCompare (UINT8 *String1, UINT8 *String2, UINT16 Len);
+[; ;sf.h: 55: void StringCopy (UINT8 *SourceStr, UINT8 *DestStr, UINT16 Len);
+[; ;sf.h: 56: void ClearBuffer (UINT8 *Buffer, UINT16 Len);
 [; ;term.h: 51: extern UINT16 UsbMasterPhoneNumberLen;
 [; ;term.h: 53: extern char UsbMasterPhoneNumber[((UINT16)(15))];
 [; ;term.h: 55: extern UINT8 IsUsbNumberReceived;
@@ -8405,9 +8406,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :UE 891 ]
 }
 [v $root$_HighPriorityIsr `(v ~T0 @X0 0 e ]
-[v F8983 `(v ~T0 @X0 1 tf ]
+[v F8987 `(v ~T0 @X0 1 tf ]
 "153
-[v _HighPriorityIsr `IHF8983 ~T0 @X0 1 e ]
+[v _HighPriorityIsr `IHF8987 ~T0 @X0 1 e ]
 "154
 {
 [; ;irq.c: 153: void high_priority interrupt HighPriorityIsr (void)
@@ -8471,9 +8472,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :UE 892 ]
 }
 [v $root$_LowPriorityIsr `(v ~T0 @X0 0 e ]
-[v F8990 `(v ~T0 @X0 1 tf ]
+[v F8994 `(v ~T0 @X0 1 tf ]
 "236
-[v _LowPriorityIsr `ILF8990 ~T0 @X0 1 e ]
+[v _LowPriorityIsr `ILF8994 ~T0 @X0 1 e ]
 "237
 {
 [; ;irq.c: 236: void low_priority interrupt LowPriorityIsr (void)

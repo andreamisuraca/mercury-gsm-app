@@ -50,6 +50,7 @@
 /************************************************************************
 * EXPORTED Functions
 ************************************************************************/
+UINT8 StringCompare2Const (UINT8 *String1, const UINT8 *String2, UINT16 Len);
 UINT8 StringCompare (UINT8 *String1, UINT8 *String2, UINT16 Len);
 void StringCopy (UINT8 *SourceStr, UINT8 *DestStr, UINT16 Len);
 void ClearBuffer (UINT8 *Buffer, UINT16 Len);

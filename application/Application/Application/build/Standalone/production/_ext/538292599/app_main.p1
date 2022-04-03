@@ -2,10 +2,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v F7983 `(v ~T0 @X0 0 tf ]
 [v F8056 `(v ~T0 @X0 0 tf ]
 "87 ../Source/c/04_App/app_main.c
-[c E9017 0 1 2 3 4 5 .. ]
-[n E9017 _appMainFsmStates APP_MAIN_INIT APP_MAIN_WAIT_EVENT APP_MAIN_ADD_CMD APP_MAIN_DEL_CMD APP_MAIN_TRIGGER_CMD APP_MAIN_RESET  ]
+[c E9021 0 1 2 3 4 5 .. ]
+[n E9021 _appMainFsmStates APP_MAIN_INIT APP_MAIN_WAIT_EVENT APP_MAIN_ADD_CMD APP_MAIN_DEL_CMD APP_MAIN_TRIGGER_CMD APP_MAIN_RESET  ]
 "53 ../../MercuryFwk/Source/h/03_Sml/02_Ssl/sf.h
-[v _StringCompare `(uc ~T0 @X0 0 ef3`*uc`*uc`us ]
+[v _StringCompare2Const `(uc ~T0 @X0 0 ef3`*uc`*Cuc`us ]
 "99 ../Source/h/04_App/utils.h
 [v _isNumberValid `(uc ~T0 @X0 0 ef1`*uc ]
 "134 ../Source/c/04_App/app_main.c
@@ -22,7 +22,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _Mdm_GetSmsData `(E8195 ~T0 @X0 0 ef1`*uc ]
 "216 ../../MercuryFwk/Source/h/01_Hal/02_Drv/uart_drv.h
 [v _Uart_WriteConstString `(v ~T0 @X0 0 ef2`uc`*Cuc ]
-"54 ../../MercuryFwk/Source/h/03_Sml/02_Ssl/sf.h
+"55 ../../MercuryFwk/Source/h/03_Sml/02_Ssl/sf.h
 [v _StringCopy `(v ~T0 @X0 0 ef3`*uc`*uc`us ]
 "135 ../../MercuryFwk/Source/h/03_Sml/01_Pml/01_Mdm/mdm_gsm_gprs.h
 [v _GetLastInteractionNumber `(*uc ~T0 @X0 0 ef ]
@@ -54,10 +54,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 "56 ../Source/h/04_App/cmd_res.h
 [v _resCmdFsm `(uc ~T0 @X0 0 ef2`*uc`*uc ]
 "168 ../Source/c/04_App/app_main.c
-[c E8962 0 1 .. ]
-[n E8962 SystemStateEnum InitializationState RunningState  ]
+[c E8966 0 1 .. ]
+[n E8966 SystemStateEnum InitializationState RunningState  ]
 "79 ../../MercuryFwk/Source/h/02_Osl/os_sched.h
-[v _SystemState `E8962 ~T0 @X0 0 e ]
+[v _SystemState `E8966 ~T0 @X0 0 e ]
 "30 ../../MercuryFwk/Source/h/01_Hal/01_Sys/hal.h
 [p n 1510 ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
@@ -8258,9 +8258,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;sysm.h: 53: void Sysm_IdleMode (void);
 [; ;sysm.h: 55: void Sysm_SleepMode (void);
 [; ;sysm.h: 57: void Sysm_DeepSleepMode (void);
-[; ;sf.h: 53: UINT8 StringCompare (UINT8 *String1, UINT8 *String2, UINT16 Len);
-[; ;sf.h: 54: void StringCopy (UINT8 *SourceStr, UINT8 *DestStr, UINT16 Len);
-[; ;sf.h: 55: void ClearBuffer (UINT8 *Buffer, UINT16 Len);
+[; ;sf.h: 53: UINT8 StringCompare2Const (UINT8 *String1, const UINT8 *String2, UINT16 Len);
+[; ;sf.h: 54: UINT8 StringCompare (UINT8 *String1, UINT8 *String2, UINT16 Len);
+[; ;sf.h: 55: void StringCopy (UINT8 *SourceStr, UINT8 *DestStr, UINT16 Len);
+[; ;sf.h: 56: void ClearBuffer (UINT8 *Buffer, UINT16 Len);
 [; ;term.h: 51: extern UINT16 UsbMasterPhoneNumberLen;
 [; ;term.h: 53: extern char UsbMasterPhoneNumber[((UINT16)(15))];
 [; ;term.h: 55: extern UINT8 IsUsbNumberReceived;
@@ -8331,15 +8332,15 @@ Version 3.2 HI-TECH Software Intermediate Code
 ]
 [; ;app_main.c: 68: static uint8_t receivedNumber[((UINT8)(13))] = {0};
 "86
-[v _parseCommand `(E9017 ~T0 @X0 1 ef ]
+[v _parseCommand `(E9021 ~T0 @X0 1 ef ]
 "87
 {
 [; ;app_main.c: 86: appMainFsmStates parseCommand()
 [; ;app_main.c: 87: {
 [e :U _parseCommand ]
 [f ]
-[v F9031 `Cuc ~T0 @X0 -> 0 `x s ]
-[i F9031
+[v F9035 `Cuc ~T0 @X0 -> 0 `x s ]
+[i F9035
 :U ..
 "88
 -> -> 65 `ui `uc
@@ -8350,9 +8351,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 ]
 [v _addNumberCmd `Cuc ~T0 @X0 4  a ]
 [; ;app_main.c: 88: const uint8_t addNumberCmd[] = {'A', 'D', 'D', ';'};
-[e = _addNumberCmd F9031 ]
-[v F9033 `Cuc ~T0 @X0 -> 0 `x s ]
-[i F9033
+[e = _addNumberCmd F9035 ]
+[v F9037 `Cuc ~T0 @X0 -> 0 `x s ]
+[i F9037
 :U ..
 "89
 -> -> 68 `ui `uc
@@ -8363,9 +8364,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 ]
 [v _deleteNumberCmd `Cuc ~T0 @X0 4  a ]
 [; ;app_main.c: 89: const uint8_t deleteNumberCmd[] = {'D', 'E', 'L', ';'};
-[e = _deleteNumberCmd F9033 ]
-[v F9035 `Cuc ~T0 @X0 -> 0 `x s ]
-[i F9035
+[e = _deleteNumberCmd F9037 ]
+[v F9039 `Cuc ~T0 @X0 -> 0 `x s ]
+[i F9039
 :U ..
 "90
 -> -> 82 `ui `uc
@@ -8376,14 +8377,14 @@ Version 3.2 HI-TECH Software Intermediate Code
 ]
 [v _resetCmd `Cuc ~T0 @X0 4  a ]
 [; ;app_main.c: 90: const uint8_t resetCmd[] = {'R', 'E', 'S', ';'};
-[e = _resetCmd F9035 ]
+[e = _resetCmd F9039 ]
 "91
-[v _state `E9017 ~T0 @X0 1 a ]
+[v _state `E9021 ~T0 @X0 1 a ]
 [; ;app_main.c: 91: appMainFsmStates state = APP_MAIN_WAIT_EVENT;
-[e = _state . `E9017 1 ]
-[; ;app_main.c: 93: if (StringCompare(smsText, addNumberCmd, sizeof(addNumberCmd)))
+[e = _state . `E9021 1 ]
+[; ;app_main.c: 93: if (StringCompare2Const(smsText, addNumberCmd, sizeof(addNumberCmd)))
 "93
-[e $ ! != -> ( _StringCompare (3 , , &U _smsText -> &U _addNumberCmd `*uc -> -> # _addNumberCmd `ui `us `i -> -> -> 0 `i `uc `i 888  ]
+[e $ ! != -> ( _StringCompare2Const (3 , , &U _smsText &U _addNumberCmd -> -> # _addNumberCmd `ui `us `i -> -> -> 0 `i `uc `i 888  ]
 [; ;app_main.c: 94: {
 "94
 {
@@ -8395,7 +8396,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;app_main.c: 97: state = APP_MAIN_WAIT_EVENT;
 "97
-[e = _state . `E9017 1 ]
+[e = _state . `E9021 1 ]
 "98
 }
 [; ;app_main.c: 98: }
@@ -8408,7 +8409,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;app_main.c: 101: state = APP_MAIN_ADD_CMD;
 "101
-[e = _state . `E9017 2 ]
+[e = _state . `E9021 2 ]
 "102
 }
 [e :U 890 ]
@@ -8419,8 +8420,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $U 891  ]
 "104
 [e :U 888 ]
-[; ;app_main.c: 104: else if (StringCompare(smsText, deleteNumberCmd, sizeof(deleteNumberCmd)))
-[e $ ! != -> ( _StringCompare (3 , , &U _smsText -> &U _deleteNumberCmd `*uc -> -> # _deleteNumberCmd `ui `us `i -> -> -> 0 `i `uc `i 892  ]
+[; ;app_main.c: 104: else if (StringCompare2Const(smsText, deleteNumberCmd, sizeof(deleteNumberCmd)))
+[e $ ! != -> ( _StringCompare2Const (3 , , &U _smsText &U _deleteNumberCmd -> -> # _deleteNumberCmd `ui `us `i -> -> -> 0 `i `uc `i 892  ]
 [; ;app_main.c: 105: {
 "105
 {
@@ -8432,7 +8433,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;app_main.c: 108: state = APP_MAIN_WAIT_EVENT;
 "108
-[e = _state . `E9017 1 ]
+[e = _state . `E9021 1 ]
 "109
 }
 [; ;app_main.c: 109: }
@@ -8445,7 +8446,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;app_main.c: 112: state = APP_MAIN_DEL_CMD;
 "112
-[e = _state . `E9017 3 ]
+[e = _state . `E9021 3 ]
 "113
 }
 [e :U 894 ]
@@ -8456,14 +8457,14 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $U 895  ]
 "115
 [e :U 892 ]
-[; ;app_main.c: 115: else if (StringCompare(smsText, resetCmd, sizeof(resetCmd)))
-[e $ ! != -> ( _StringCompare (3 , , &U _smsText -> &U _resetCmd `*uc -> -> # _resetCmd `ui `us `i -> -> -> 0 `i `uc `i 896  ]
+[; ;app_main.c: 115: else if (StringCompare2Const(smsText, resetCmd, sizeof(resetCmd)))
+[e $ ! != -> ( _StringCompare2Const (3 , , &U _smsText &U _resetCmd -> -> # _resetCmd `ui `us `i -> -> -> 0 `i `uc `i 896  ]
 [; ;app_main.c: 116: {
 "116
 {
 [; ;app_main.c: 117: state = APP_MAIN_RESET;
 "117
-[e = _state . `E9017 5 ]
+[e = _state . `E9021 5 ]
 "118
 }
 [; ;app_main.c: 118: }
@@ -8489,7 +8490,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :UE 887 ]
 }
 "131
-[v _detectCmd `(E9017 ~T0 @X0 1 ef ]
+[v _detectCmd `(E9021 ~T0 @X0 1 ef ]
 "132
 {
 [; ;app_main.c: 131: appMainFsmStates detectCmd()
@@ -8497,9 +8498,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U _detectCmd ]
 [f ]
 "133
-[v _currentState `E9017 ~T0 @X0 1 a ]
+[v _currentState `E9021 ~T0 @X0 1 a ]
 [; ;app_main.c: 133: appMainFsmStates currentState = APP_MAIN_WAIT_EVENT;
-[e = _currentState . `E9017 1 ]
+[e = _currentState . `E9021 1 ]
 [; ;app_main.c: 134: if (Mdm_IsSmsReceived())
 "134
 [e $ ! != -> ( _Mdm_IsSmsReceived ..  `i -> -> -> 0 `i `E8203 `i 899  ]
@@ -8543,7 +8544,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _Mdm_HangPhoneCall ..  ]
 [; ;app_main.c: 147: currentState = APP_MAIN_TRIGGER_CMD;
 "147
-[e = _currentState . `E9017 4 ]
+[e = _currentState . `E9021 4 ]
 [; ;app_main.c: 148: StringCopy(GetCallerNumber(), receivedNumber, ((UINT8)(13)));
 "148
 [e ( _StringCopy (3 , , ( _GetCallerNumber ..  &U _receivedNumber -> -> -> 13 `i `uc `us ]
@@ -8571,20 +8572,20 @@ Version 3.2 HI-TECH Software Intermediate Code
 "162
 [f ]
 "163
-[v F9042 `E9017 ~T0 @X0 1 s currentState ]
-[i F9042
-. `E9017 0
+[v F9046 `E9021 ~T0 @X0 1 s currentState ]
+[i F9046
+. `E9021 0
 ]
 "164
-[v F9043 `uc ~T0 @X0 1 s isCmdSuccessfull ]
-[i F9043
+[v F9047 `uc ~T0 @X0 1 s isCmdSuccessfull ]
+[i F9047
 -> -> 1 `i `uc
 ]
 [; ;app_main.c: 163: static appMainFsmStates currentState = APP_MAIN_INIT;
 [; ;app_main.c: 164: static bool isCmdSuccessfull = 1;
 [; ;app_main.c: 166: cmdVisualEffet(isCmdSuccessfull);
 "166
-[e ( _cmdVisualEffet (1 F9043 ]
+[e ( _cmdVisualEffet (1 F9047 ]
 [; ;app_main.c: 168: switch (SystemState)
 "168
 [e $U 904  ]
@@ -8617,13 +8618,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U 909 ]
 [; ;app_main.c: 182: if (initFsm(&isCmdSuccessfull))
 "182
-[e $ ! != -> ( _initFsm (1 &U F9043 `i -> -> -> 0 `i `uc `i 910  ]
+[e $ ! != -> ( _initFsm (1 &U F9047 `i -> -> -> 0 `i `uc `i 910  ]
 [; ;app_main.c: 183: {
 "183
 {
 [; ;app_main.c: 184: currentState = APP_MAIN_WAIT_EVENT;
 "184
-[e = F9042 . `E9017 1 ]
+[e = F9046 . `E9021 1 ]
 "185
 }
 [e :U 910 ]
@@ -8636,7 +8637,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U 911 ]
 [; ;app_main.c: 189: if (detectUsbNumber(&isCmdSuccessfull))
 "189
-[e $ ! != -> ( _detectUsbNumber (1 &U F9043 `i -> -> -> 0 `i `uc `i 912  ]
+[e $ ! != -> ( _detectUsbNumber (1 &U F9047 `i -> -> -> 0 `i `uc `i 912  ]
 [; ;app_main.c: 190: {
 "190
 {
@@ -8649,7 +8650,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;app_main.c: 192: }
 [; ;app_main.c: 193: currentState = detectCmd();
 "193
-[e = F9042 ( _detectCmd ..  ]
+[e = F9046 ( _detectCmd ..  ]
 [; ;app_main.c: 194: break;
 "194
 [e $U 907  ]
@@ -8658,13 +8659,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U 913 ]
 [; ;app_main.c: 197: if (addCmdFsm(receivedNumber, smsText, &isCmdSuccessfull))
 "197
-[e $ ! != -> ( _addCmdFsm (3 , , &U _receivedNumber &U _smsText &U F9043 `i -> -> -> 0 `i `uc `i 914  ]
+[e $ ! != -> ( _addCmdFsm (3 , , &U _receivedNumber &U _smsText &U F9047 `i -> -> -> 0 `i `uc `i 914  ]
 [; ;app_main.c: 198: {
 "198
 {
 [; ;app_main.c: 199: currentState = APP_MAIN_WAIT_EVENT;
 "199
-[e = F9042 . `E9017 1 ]
+[e = F9046 . `E9021 1 ]
 [; ;app_main.c: 200: triggerVisualEffect();
 "200
 [e ( _triggerVisualEffect ..  ]
@@ -8680,13 +8681,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U 915 ]
 [; ;app_main.c: 205: if (delCmdFsm(receivedNumber, smsText, &isCmdSuccessfull))
 "205
-[e $ ! != -> ( _delCmdFsm (3 , , &U _receivedNumber &U _smsText &U F9043 `i -> -> -> 0 `i `uc `i 916  ]
+[e $ ! != -> ( _delCmdFsm (3 , , &U _receivedNumber &U _smsText &U F9047 `i -> -> -> 0 `i `uc `i 916  ]
 [; ;app_main.c: 206: {
 "206
 {
 [; ;app_main.c: 207: currentState = APP_MAIN_WAIT_EVENT;
 "207
-[e = F9042 . `E9017 1 ]
+[e = F9046 . `E9021 1 ]
 [; ;app_main.c: 208: triggerVisualEffect();
 "208
 [e ( _triggerVisualEffect ..  ]
@@ -8708,7 +8709,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;app_main.c: 215: currentState = APP_MAIN_WAIT_EVENT;
 "215
-[e = F9042 . `E9017 1 ]
+[e = F9046 . `E9021 1 ]
 "216
 }
 [e :U 918 ]
@@ -8721,13 +8722,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U 919 ]
 [; ;app_main.c: 220: if (resCmdFsm(receivedNumber, &isCmdSuccessfull))
 "220
-[e $ ! != -> ( _resCmdFsm (2 , &U _receivedNumber &U F9043 `i -> -> -> 0 `i `uc `i 920  ]
+[e $ ! != -> ( _resCmdFsm (2 , &U _receivedNumber &U F9047 `i -> -> -> 0 `i `uc `i 920  ]
 [; ;app_main.c: 221: {
 "221
 {
 [; ;app_main.c: 222: currentState = APP_MAIN_INIT;
 "222
-[e = F9042 . `E9017 0 ]
+[e = F9046 . `E9021 0 ]
 [; ;app_main.c: 223: triggerVisualEffect();
 "223
 [e ( _triggerVisualEffect ..  ]
@@ -8750,12 +8751,12 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $U 907  ]
 "179
 [e :U 908 ]
-[e [\ F9042 , $ . `E9017 0 909
- , $ . `E9017 1 911
- , $ . `E9017 2 913
- , $ . `E9017 3 915
- , $ . `E9017 4 917
- , $ . `E9017 5 919
+[e [\ F9046 , $ . `E9021 0 909
+ , $ . `E9021 1 911
+ , $ . `E9021 2 913
+ , $ . `E9021 3 915
+ , $ . `E9021 4 917
+ , $ . `E9021 5 919
  921 ]
 "229
 [e :U 907 ]
@@ -8774,8 +8775,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $U 903  ]
 "168
 [e :U 904 ]
-[e [\ _SystemState , $ . `E8962 0 905
- , $ . `E8962 1 906
+[e [\ _SystemState , $ . `E8966 0 905
+ , $ . `E8966 1 906
  922 ]
 "235
 [e :U 903 ]

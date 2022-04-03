@@ -26,7 +26,6 @@ The application allows to trigger a relay with a phone call. A master phone numb
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-
 ## Technologies Used
 - Base Board per Sistema Mercury
 - Big Relay board per sistema Mercury
@@ -37,7 +36,6 @@ The application allows to trigger a relay with a phone call. A master phone numb
 - Microchip MPLAB® X IDE
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
 
 ## Features
 List the ready features here:
@@ -50,12 +48,10 @@ List the ready features here:
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-
 ## Setup
 The project can be open with Microchip's [MPLAB® X IDE](https://www.microchip.com/en-us/tools-resources/develop/mplab-x-ide) that is free to download and multiplatform. At the first start the IDE will detect the compiler version used in the project and will ask the user to download it. The project can then be built and flashed.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
 
 ## Usage
 ### First Startup
@@ -88,7 +84,6 @@ If the command was successfully performed a yellow LED will blink for 3 seconds,
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-
 ## Room for Improvement
 Room for improvement:
 - Add command to set the relay activation time (currently 1 second).
@@ -98,13 +93,11 @@ TODOs:
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-
 ## Software Credits
 The development of this software was made possible using the following components:
 - [MercurySystem](https://github.com/ffich/MercurySystem) by Francesco Ficili.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
 
 <!--
 ## Acknowledgements
@@ -113,14 +106,11 @@ Give credit here.
 - This project was based on [this tutorial](https://www.example.com).
 - Many thanks to...
 -->
-
-
 ## License
 
 Distributed under the GNU General Public License v3.0 License. See `LICENSE` file for more information.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
 
 ## Contact
 Created by [Andrea Misuraca](mailto:misuracandrea@gmail.com) - feel free to contact me!
